@@ -1,0 +1,63 @@
+#background {
+	min-height: 650px;
+}
+#page {
+	width: 1000px;
+	margin: 0 auto;
+}
+#header {
+	margin-bottom: auto;
+	padding-top: 20px;
+}
+#navigation {
+	clear: both;
+	height: 25px;
+	width: 900px;
+	margin: 0 auto;
+	padding: 1px;
+    background:cornflowerblue;
+    font-size: 15px;
+}
+#navigation1 {
+	clear: both;
+	height: 25px;
+	width: 900px;
+	margin: 0 auto;
+	padding: 1px;
+    background:#b7b7b7;
+    font-size: 15px;
+}
+#up {
+	float: left;
+	height: auto;
+	width: 400px;
+    text-align: center;
+    color: white;
+}
+
+#down {
+	float: left;
+	height: auto;
+	width: 150px;
+    text-align: center;
+}
+
+#contents{
+	display: inline-block;
+	width: 900px;
+	padding: 0 47px;
+}
+
+#main {
+    clear: both;
+	height: 50px;
+	width: 900px;
+	margin: 0 auto;
+	padding: 1px;
+    font-size: 15px;
+}
+#textmain {
+    float: left;
+    height: auto;
+    width: auto;
+}

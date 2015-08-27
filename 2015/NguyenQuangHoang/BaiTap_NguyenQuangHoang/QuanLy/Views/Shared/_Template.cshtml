@@ -1,0 +1,68 @@
+﻿@using Kendo.Mvc.UI
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Quản Lý</title>
+        <meta name="description" content="Things For Cuties - A Premium Responsive Kids / Baby Related Shop Template, available at Themeforest.">
+        <meta name="viewport" content="width=device-width" />
+        @Styles.Render("~/Content/kendo/css")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/kendo")
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+    </head>
+    <body>
+        <div id="background">
+		    <div id="page">
+			     <div id="header">
+                     <div id="navigation">
+                         <div id="up">
+                             ASOFT-ERP 9.0
+                         </div>
+                         <div style="color: white">
+                             HỆ THỐNG QUẢN TRỊ NGUỒN LỰC DOANH NGHIỆP
+                         </div>
+                     </div>
+                     <div id="navigation1">
+                         @(Html.Kendo().Menu()
+                          .Name("Menu")
+                          .Items(items =>
+                          {
+                                items.Add().Text("Thông Tin Điều Hành");
+                                items.Add().Text("POST")
+                                .Items(children =>
+                                {
+                                   children.Add().Text("Thiết Lập");
+
+                                   children.Add().Text("Danh Mục")
+                                   .Items(innerChildren =>
+                                   {
+                                       innerChildren.Add().Text("Danh Mục Cửa Hàng");
+                                       innerChildren.Add().Text("Danh Mục Hàng Hóa");
+                                       innerChildren.Add().Text("Danh Mục Hội Viên");
+                                       innerChildren.Add().Text("Danh Mục Hình Thức Thanh Toán");
+                                   });
+
+                                   children.Add().Text("Nghiệp Vụ");
+
+                                   children.Add().Text("Báo Cáo");
+                                });
+                                items.Add().Text("CRM");
+                                items.Add().Text("QLHV");
+                          })
+                        )                    
+                     </div>
+                     <div style="height: 25px">
+                     </div>                  
+                      <hr style="width: 900px ; color:cornflowerblue"/>
+                 </div>
+                <div id="contents">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
