@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+        <!- Render for kendo ->
+        @Styles.Render("~/Content/kendo/css")
+        <!- Move jquery from end of page->
+        @Scripts.Render("~/bundles/jquery")
+        <!- Render script bundles kendo after jquery->
+        @Scripts.Render("~/bundles/kendo")
+    </head>
+    <body>
+
+        <ul id="menucap1">
+             <li>Thong tin
+                 <ul>
+                     
+                 </ul>
+             </li>
+             <li>Pos
+                 <ul>
+                     <li>Thiet Lap</li>
+                     <li id="menucap2">Danh mục
+                        <ul>
+                            <li>Cua hang</li>
+                            <li>Hang hoa</li>
+                            <li>@Html.ActionLink("Hội viên","hello")</li>
+                            <li>Hinh thuc thanh toan</li>
+                        </ul>
+                     </li>
+                     <li>Nghiep vu</li>
+                     <li>Bao Cao</li>
+                 </ul>
+             </li>
+             <li>CRM
+                 <ul>
+
+                 </ul>
+             </li>
+             <li>QLHV
+                 <ul>
+
+                 </ul>
+             </li>
+         </ul>
+        <script>
+            $(document).ready(function() {
+                $("#menucap1").kendoMenu();
+            });
+        </script>
+
+        <div id="body">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+        <footer>
+
+
+
+        </footer>
+        
+        @RenderSection("scripts", required: false)
+    </body>
+</html>
+

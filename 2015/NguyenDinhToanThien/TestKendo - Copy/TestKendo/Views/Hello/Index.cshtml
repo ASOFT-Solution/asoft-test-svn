@@ -1,0 +1,122 @@
+﻿@model IEnumerable<MyConnection.HoiVien>
+
+@{
+    ViewBag.Title = "Danh sách hội viên";
+}
+
+<h2>Danh sách hội viên</h2>
+
+@using (Html.BeginForm())
+{ 
+<table>
+    <tr>
+        <td>
+            @Html.Raw("Đơn vị")
+            @Html.Editor("donvi")
+        </td>
+        <td>
+            @Html.Raw("Địa chỉ")
+            @Html.Editor("diachi")
+        </td>
+        <td>
+            @Html.Raw("Số điện thoại")
+            @Html.Editor("sodienthoai")
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.Raw("Mã hội viên")
+            @Html.Editor("mahoivien")
+        </td>
+        <td>
+            @Html.Raw("Mã số thuế/CMND")
+            @Html.Editor("cmnd")
+        </td>
+        <td>
+            @Html.Raw("Fax")
+            @Html.Editor("fax")
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.Raw("Tên hội viên")
+            @Html.Editor("tenhoivien")
+        </td>
+        <td>
+            @Html.Raw("Điện thoại di động")
+            @Html.Editor("dtdd")
+        </td>
+        <td>
+            @Html.Raw("Email")
+            @Html.Editor("email")
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Thêm xóa sửa 
+        </td>
+        <td>
+            &nbsp
+        </td>
+        <td>
+            <input id="submit" type="button" value="Lọc dữ liệu" />
+            <button>Làm lại</button>
+        </td>
+    </tr>
+</table>
+}
+
+@(Html.Kendo().Grid(Model)
+   .Name("rowSelection")
+        .Columns(c => {c.Bound(i=>i.DivisionID);
+                        c.Bound(i=>i.MemberID);
+                        c.Bound(i=>i.MemberName);
+                        c.Bound(i=>i.Address);
+                        c.Bound(i=>i.Identify);
+                        c.Bound(i=>i.Phone);
+                        c.Bound(i=>i.Tel);
+                        c.Bound(i=>i.Fax);
+                        c.Bound(i=>i.Email);
+                        c.Bound(i=>i.Disable);})
+        .Pageable(pageable => pageable
+        .Refresh(true)
+        .PageSizes(true)
+        .ButtonCount(5))
+        .Selectable(s => s.Mode(GridSelectionMode.Single))
+        .Scrollable(s => s.Height(300))
+        .ToolBar(toolbar => toolbar.Create())
+        .Editable(editable => editable.Mode(GridEditMode.PopUp))
+        .HtmlAttributes(new { style = "height:430px;" })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .PageSize(5)
+            .Events(events => events.Error("error_handler"))
+            .Read(read => read.Action("Customers_Read", "hello"))
+            .Model(model => model.Id(p => p.MemberID))
+            .Create(update => update.Action("EditingPopup_Create", "hello"))
+            .Update(update => update.Action("EditingPopup_Update", "Grid"))
+            .Destroy(update => update.Action("EditingPopup_Destroy", "Grid"))
+         )
+)
+
+<script type="text/javascript">
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+    }
+
+    $(document).ready(function () {
+        $('submit').click(function () {
+            $('donvi').attr('value','da click');
+        });
+    });
+</script>
