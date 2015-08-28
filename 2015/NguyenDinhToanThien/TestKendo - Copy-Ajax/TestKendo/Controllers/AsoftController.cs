@@ -18,12 +18,8 @@ namespace TestKendo.Controllers
         {
             return View();
         }
-        public ActionResult Create()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult Create(HoiVien hv)
+        
+        public string Create(HoiVien hv)
         {
             var db = new PetaPoco.Database("MyConnection");
             hv.APK = Guid.NewGuid();
@@ -32,15 +28,15 @@ namespace TestKendo.Controllers
             {
                 if (e.Message.Contains("Violation of PRIMARY KEY"))
                 {
-                    ViewBag.loi = "Lỗi trùng khóa chính";
+                    return "pk";
                 }
-                return View();
+                return e.ToString();
             }
-            return RedirectToAction("Index");
+            return "ok";
         }
 
         [HttpPost]
-        public ActionResult xoa(string[] dulieu)
+        public ActionResult xoa(string[] dulieu, int trang)
         {
             var db = new PetaPoco.Database("MyConnection");
             for (int i = 0; i < dulieu.Length; i++)
@@ -48,11 +44,11 @@ namespace TestKendo.Controllers
                 string qr = string.Format("delete from hoivien where APK = '{0}'",dulieu[i]);
                 db.Execute(qr);
             }
-            return LoadDefault();
+            return LoadDefault(trang);
         }
 
         [HttpPost]
-        public ActionResult enable(string[] dulieu)
+        public ActionResult enable(string[] dulieu,int trang)
         {
             var db = new PetaPoco.Database("MyConnection");
             for (int i = 0; i < dulieu.Length; i++)
@@ -60,11 +56,11 @@ namespace TestKendo.Controllers
                 string qr = string.Format("update hoivien set Disable = '0' where APK = '{0}'", dulieu[i]);
                 db.Execute(qr);
             }
-            return LoadDefault();
+            return LoadDefault(trang);
         }
 
         [HttpPost]
-        public ActionResult disable(string[] dulieu)
+        public ActionResult disable(string[] dulieu,int trang)
         {
             var db = new PetaPoco.Database("MyConnection");
             for (int i = 0; i < dulieu.Length; i++)
@@ -72,24 +68,24 @@ namespace TestKendo.Controllers
                 string qr = string.Format("update hoivien set Disable = '1' where APK = '{0}'", dulieu[i]);
                 db.Execute(qr);
             }
-            return LoadDefault();
+            return LoadDefault(trang);
         }
 
         [HttpPost]
-        public ActionResult GanTempData(string[] dulieu)
+        public ActionResult GanTempData(string[] dulieu,int trang)
         {
             TempData["dieukienloc"] = dulieu;
-            return LoadDefault();
+            return LoadDefault(trang);
         }
        
-        public ActionResult LoadDefault()
+        public ActionResult LoadDefault(int trang)
         {
             var db = new PetaPoco.Database("MyConnection");
-            IEnumerable kq;
+            PetaPoco.Page<HoiVien> kq;
             if (TempData["dieukienloc"] == null)
             {
                 //PetaPoco.Page<HoiVien> rs = MyConnectionDB.GetInstance().Page<HoiVien>(1, 2, "select * from HoiVien");
-                kq = db.Query<HoiVien>("select * from HoiVien");
+                kq = db.Page<HoiVien>(trang,10,"select * from HoiVien");
             }
             else
             {
@@ -133,10 +129,15 @@ namespace TestKendo.Controllers
                 {
                     qr = qr + string.Format(" and Email like N'%{0}%'", frmc[8]);
                 }
-                kq = db.Query<HoiVien>(qr);
+                kq = db.Page<HoiVien>(trang,10,qr);
             }
-            return Json(kq, JsonRequestBehavior.AllowGet);
+            TempData["total"] = kq.TotalPages;
+            return Json(kq.Items, JsonRequestBehavior.AllowGet);
         }
-
+        public int TotalPage()
+        {
+            int t = int.Parse(TempData["total"].ToString());
+            return t;
+        }
     }
 }

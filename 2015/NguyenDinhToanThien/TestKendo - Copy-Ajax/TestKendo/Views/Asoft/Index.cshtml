@@ -89,12 +89,14 @@
 
 <script>
     var soluong;
+    var trang = 1;
     function loaddefault() {
         $.ajax({
             type: 'POST',
             url: '/asoft/LoadDefault',
             traditional: true,
             dataType: "json",
+            data: {trang: trang},
             success: function (data) {
                 loadgrip(data);
             },
@@ -140,7 +142,6 @@
                 j++;
             }
         };
-
         
         $.ajax({
             type: 'POST',
@@ -188,14 +189,13 @@
                 j++;
             }
         };
-
         
         $.ajax({
             type: 'POST',
             url: '/asoft/disable',
             traditional: true,
             dataType: "json",
-            data: { dulieu: list },
+            data: { dulieu: list,trang: trang },
             success: function (data) {
                 alert("success");
                 loadgrip(data);
@@ -222,14 +222,13 @@
                 j++;
             }
         };
-
         
         $.ajax({
             type: 'POST',
             url: '/asoft/enable',
             traditional: true,
             dataType: "json",
-            data: { dulieu: list },
+            data: { dulieu: list, trang: trang },
             success: function (data) {
                 alert("success");
                 loadgrip(data);
@@ -240,12 +239,29 @@
             }
         });
     };
-
+    function phantrang(t)
+    {
+        trang = t.value;
+        loaddefault();
+    }
     function loadgrip(data)
     {
+        var total;
+        $.ajax({
+            type: 'POST',
+            url: '/asoft/TotalPage',
+            success: function (sl) {
+                total = sl;
+            },
+            error: function (args) {
+                alert("Error on ajax post");
+            }
+        });
+        
+
             $("#grip").empty();
             var html = "<table  style='text-align:center'>"+
-        "<tr><th><input id='ck' name='ck' type='checkbox' onclick='checkall()'/></th><th>STT</th><th>"+
+            "<tr><th><input id='ck' name='ck' type='checkbox' onclick='checkall()'/></th><th>STT</th><th>"+
                 "@Html.DisplayNameFor(model => model.DivisionID)" +
             "</th><th>"+
                 "@Html.DisplayNameFor(model => model.MemberID)"+
@@ -305,6 +321,12 @@
             "</td></tr>";
                 i++;
             });
+            html += "</table>";
+            for (k = 0; k < total; k++)
+            {
+                t = k + 1;
+                html += "<input type='button' value='"+ t +"' onclick='phantrang(this)'/>"
+            }
             soluong = i;
             $("#grip").append(html);
     };
@@ -327,12 +349,11 @@
             url: '/asoft/gantempdata',
             traditional: true,
             dataType: "json",
-            data: { dulieu: list },
+            data: { dulieu: list ,trang: trang},
             success: function (data) {
                 loadgrip(data);
             },
             error: function (args) {
-
                 alert("Error on ajax post");
             }
         });

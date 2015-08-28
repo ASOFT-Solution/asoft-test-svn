@@ -3,7 +3,7 @@
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <div style="font-size:12px">
-@using (Html.BeginForm("create", "bt", FormMethod.Post, new {id="FormId"}))
+@using (Html.BeginForm("Create", "asoft", FormMethod.Post, new {id="FormId"}))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
