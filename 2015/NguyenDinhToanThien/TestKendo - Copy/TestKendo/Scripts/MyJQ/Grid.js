@@ -21,7 +21,7 @@
         alert("ok");
     });
 
-    function disable() {
+    $("#disable").click(function disable() {
         var list = laycheckbox();
         if (list.length == 0) {
             alert("Bạn chưa chọn dòng nào");
@@ -37,9 +37,9 @@
         catch (e) {
             alert("Error on ajax post");
         };
-    };
+    });
 
-    function enable() {
+    $("#enable").click(function enable() {
         var list = laycheckbox();
         if (list.length == 0) {
             alert("Bạn chưa chọn dòng nào");
@@ -55,9 +55,9 @@
         catch (e) {
             alert("Error on ajax post");
         };
-    };
+    });
 
-    function xoa() {
+    $("#xoa").click(function xoa() {
         var list = laycheckbox();
         if (list.length == 0) {
             alert("Bạn chưa chọn dòng nào");
@@ -73,32 +73,9 @@
         catch (e) {
             alert("Error on ajax post");
         };
-    };
+    });
 
-
-
-    function guidulieuveserver(duongdan, list) {
-        $.ajax({
-            type: 'POST',
-            url: duongdan,
-            traditional: true,
-            async: true,
-            data: { dulieu: list },
-            success: function (datareturn) {
-                if (datareturn == "True") {
-                    var grid = $("#grid").data("kendoGrid");
-                    grid.dataSource.read();
-                    document.getElementById("clickall").checked = false;
-                    alert("success");
-                } else {
-                    alert("Lỗi tại server, vui lòng liên hệ nhóm phát triển");
-                }
-            },
-            error: function (args) {
-                alert("Error on ajax post1");
-            }
-        });
-    };
+    
     
 
 });
@@ -111,5 +88,28 @@ function xoacheckall(t) {
 function CreateSTT() {
     var stt = $("[name='stt']").html(function (index) {
         this.innerHTML = index + 1;
+    });
+};
+
+function guidulieuveserver(duongdan, list) {
+    $.ajax({
+        type: 'POST',
+        url: duongdan,
+        traditional: true,
+        async: true,
+        data: { dulieu: list },
+        success: function (datareturn) {
+            if (datareturn == "True") {
+                var grid = $("#grid").data("kendoGrid");
+                grid.dataSource.read();
+                $("#clickall").get(0).checked = false;
+                alert("success");
+            } else {
+                alert("Lỗi tại server, vui lòng liên hệ nhóm phát triển");
+            }
+        },
+        error: function (args) {
+            alert("Error on ajax post");
+        }
     });
 };
