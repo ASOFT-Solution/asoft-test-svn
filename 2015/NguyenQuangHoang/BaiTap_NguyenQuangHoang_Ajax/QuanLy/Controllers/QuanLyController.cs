@@ -22,85 +22,88 @@ namespace QuanLy.Controllers
             return View();
         }
 
-        public ActionResult Read([DataSourceRequest] DataSourceRequest request)
+        public Page<HoiVien> Search1(int page)
         {
-            var ds = MyConnectionDB.GetInstance().Query<HoiVien>("select * from HoiVien");
-            return Json(ds.ToDataSourceResult(request));
-        }
-
-        public ActionResult srch(HoiVien srch)
-        {
-            TempData["search"] = srch;
-            var s = Search();
-            return Json(s);
-        }
-
-        public Object Search()
-        {
+            MyConnectionDB db = new MyConnectionDB();
             string sql = "Select * from HoiVien";
-            string temp = "";
-            IEnumerable ds;
+            Page<HoiVien> ds;
             HoiVien srch = (HoiVien)TempData["search"];
-            if (srch == null)
+            string temp = "";
+            if (srch.DivisionID != null)
             {
-                ds = MyConnectionDB.GetInstance().Query<HoiVien>(sql);
+                temp = temp + string.Format(" and DivisionID like N'%{0}%'", srch.DivisionID);
             }
-            else
+            if (srch.MemberID != null)
             {
-                if (srch.DivisionID != null)
-                {
-                    temp = temp + string.Format(" and DivisionID like N'%{0}%'", srch.DivisionID);
-                }
-                if (srch.MemberID != null)
-                {
-                    temp = temp + string.Format(" and MemberID like N'%{0}%'", srch.MemberID);
-                }
-                if (srch.MemberName != null)
-                {
-                    temp = temp + string.Format(" and MemberName like N'%{0}%'", srch.MemberName);
-                }
-                if (srch.Address != null)
-                {
-                    temp = temp + string.Format(" and Address like N'%{0}%'", srch.Address);
-                }
-                if (srch.Identify != null)
-                {
-                    temp = temp + string.Format(" and Identify like N'%{0}%'", srch.Identify);
-                }
-                if (srch.Phone != null)
-                {
-                    temp = temp + string.Format(" and Phone like N'%{0}%'", srch.Phone);
-                }
-                if (srch.Tel != null)
-                {
-                    temp = temp + string.Format(" and Tel like N'%{0}%'", srch.Tel);
-                }
-                if (srch.Fax != null)
-                {
-                    temp = temp + string.Format(" and Fax like N'%{0}%'", srch.Fax);
-                }
-                if (srch.Email != null)
-                {
-                    temp = temp + string.Format(" and Email like N'%{0}%'", srch.Email);
-                }
-                if (temp != null)
-                {
-                    sql = sql + " where 0=0" + temp;
-                }
-                ds = MyConnectionDB.GetInstance().Query<HoiVien>(sql);
-      
+                temp = temp + string.Format(" and MemberID like N'%{0}%'", srch.MemberID);
             }
+            if (srch.MemberName != null)
+            {
+                temp = temp + string.Format(" and MemberName like N'%{0}%'", srch.MemberName);
+            }
+            if (srch.Address != null)
+            {
+                temp = temp + string.Format(" and Address like N'%{0}%'", srch.Address);
+            }
+            if (srch.Identify != null)
+            {
+                temp = temp + string.Format(" and Identify like N'%{0}%'", srch.Identify);
+            }
+            if (srch.Phone != null)
+            {
+                temp = temp + string.Format(" and Phone like N'%{0}%'", srch.Phone);
+            }
+            if (srch.Tel != null)
+            {
+                temp = temp + string.Format(" and Tel like N'%{0}%'", srch.Tel);
+            }
+            if (srch.Fax != null)
+            {
+                temp = temp + string.Format(" and Fax like N'%{0}%'", srch.Fax);
+            }
+            if (srch.Email != null)
+            {
+                temp = temp + string.Format(" and Email like N'%{0}%'", srch.Email);
+            }
+            if (temp != null)
+            {
+                sql = sql + " where 0=0" + temp;
+            }
+            ds = db.Page<HoiVien>(page, 10, sql);
             return ds;
         }
 
-        public ActionResult LoadGrid()
+        public ActionResult srch(HoiVien srch, int page)
         {
-            var ds = Search();
-            return Json(ds);
+            TempData["search"] = srch;
+            var s = Search1(page);
+            return Json(s.Items);
         }
 
+        public Page<HoiVien> Search(int page)
+        {
+            MyConnectionDB db = new MyConnectionDB();
+            string sql = "Select * from HoiVien";
+            Page<HoiVien> ds;    
+            ds = db.Page<HoiVien>(page,10,sql);   
+            return ds;
+        }
 
-        public ActionResult Destroy(string[] destroy)
+        public ActionResult LoadGrid(int page)
+        {
+            Page<HoiVien> ds = Search(page); 
+            return Json(ds.Items);
+        }
+
+        public ActionResult LoadPage()
+        {
+            MyConnectionDB db = new MyConnectionDB();
+            string sql = "Select * from HoiVien";
+            Page<HoiVien> ds = db.Page<HoiVien>(1, 10, sql); ; 
+            return Json(ds.TotalPages);
+        }
+
+        public ActionResult Destroy(string[] destroy, int page)
         {
             MyConnectionDB db = new MyConnectionDB();
             foreach (string dt in destroy)
@@ -108,11 +111,11 @@ namespace QuanLy.Controllers
                 string sql = string.Format("delete from hoivien where APK = '{0}'", dt);
                 db.Execute(sql);
             }
-            var dele = Search();
-            return Json(dele);
+            var dele = Search(page);
+            return Json(dele.Items);
         }
 
-        public ActionResult Undisable(string[] undisable)
+        public ActionResult Undisable(string[] undisable, int page)
         {
             MyConnectionDB db = new MyConnectionDB();
             foreach (string dt in undisable)
@@ -120,11 +123,11 @@ namespace QuanLy.Controllers
                 string sql = string.Format("update HoiVien set Disable = 0 where APK = '{0}'", dt);
                 db.Execute(sql);
             }
-            var undis = Search();
-            return Json(undis);
+            var undis = Search(page);
+            return Json(undis.Items);
         }
 
-        public ActionResult Disable(string[] disable)
+        public ActionResult Disable(string[] disable, int page)
         {
             MyConnectionDB db = new MyConnectionDB();
             foreach (string dt in disable)
@@ -132,17 +135,17 @@ namespace QuanLy.Controllers
                 string sql = string.Format("update HoiVien set Disable = 1 where APK = '{0}'", dt);
                 db.Execute(sql);
             }
-            var dis = Search();
-            return Json(dis);
+            var dis = Search(page);
+            return Json(dis.Items);
         }
 
         public ActionResult Testkey(string ma, string ten)
         {
             IEnumerable<HoiVien> test;
-            string sql = string.Format("Select * from HoiVien where DivisionID = '{0}' and MemberID = '{1}'", ma,ten);
+            string sql = string.Format("Select * from HoiVien where DivisionID = '{0}' and MemberID = '{1}'", ma, ten);
             test = MyConnectionDB.GetInstance().Query<HoiVien>(sql);
             int sl = test.Count();
-            return Json(sl,JsonRequestBehavior.AllowGet);
+            return Json(sl, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Createmember(DemoModels create)
@@ -150,12 +153,12 @@ namespace QuanLy.Controllers
             int disable = 0;
             if (create.Disable == true)
                 disable = 1;
-            string sql = "Insert into HoiVien (DivisionID,MemberID,MemberName,ShortName,Address,Identify,Phone,Tel,Fax,Email,Birthday,Website,Mailbox,AreaName,CityName,CountryName,WardName,CountyName,Disable) values ('" + create.DivisionID + "','" + create.MemberID + "','" + create.MemberName + "','" + create.ShortName + "','" + create.Address + "','" + create.Identify + "','" + create.Phone + "','" + create.Tel + "','" + create.Fax + "','" + create.Email + "','" + create.Birthday + "','" + create.Website + "','" + create.Mailbox + "','" + create.AreaName + "','" + create.CityName + "','" + create.CountryName + "','" + create.WardName + "','" + create.CountyName+ "','" + disable + "')";
+            string sql = "Insert into HoiVien (DivisionID,MemberID,MemberName,ShortName,Address,Identify,Phone,Tel,Fax,Email,Birthday,Website,Mailbox,AreaName,CityName,CountryName,WardName,CountyName,Disable) values ('" + create.DivisionID + "','" + create.MemberID + "','" + create.MemberName + "','" + create.ShortName + "','" + create.Address + "','" + create.Identify + "','" + create.Phone + "','" + create.Tel + "','" + create.Fax + "','" + create.Email + "','" + create.Birthday + "','" + create.Website + "','" + create.Mailbox + "','" + create.AreaName + "','" + create.CityName + "','" + create.CountryName + "','" + create.WardName + "','" + create.CountyName + "','" + disable + "')";
             MyConnectionDB db = new MyConnectionDB();
             db.Execute(sql);
 
-            var cr = Search();
-            return Json(cr);
+            var cr = Search(1);
+            return Json(cr.Items);
         }
     }
 }

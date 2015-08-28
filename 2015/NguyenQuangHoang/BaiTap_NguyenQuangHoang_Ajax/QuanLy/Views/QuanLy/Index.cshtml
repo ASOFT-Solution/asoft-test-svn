@@ -7,13 +7,88 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        
+       
+        var pt = 1;
 
-        function loadgrid(data) {
-            
+        function loadgrid1(data) {
+
             $("#grid").empty();
+            var grid = "";
+
+            for (j = 0; j < '@Session["count"]'; j ++) {
+                grid = grid + "<input  type = 'button' name = 'page1' value = '" + (j+1) + "'/>";
+            }
+
             var i = 1;
-            var grid = "<table>" +
+            grid = grid + "<table>" +
+                "<tr><td><input type='checkbox' id='checkid' /></td>" +
+                    "<td>STT</td>" +
+                    "<td>Đơn vị</td>" +
+                    "<td>Mã hội viên</td>" +
+                    "<td>Tên hội viên</td>" +
+                    "<td>Địa chỉ</td>" +
+                    "<td>Mã thuê/Số CMND</td>" +
+                    "<td>Điện thoại di động</td>" +
+                    "<td>Số điện thoại</td>" +
+                    "<td>Fax</td>" +
+                    "<td>Email</td>" +
+                    "<td>Không kích hoạt</td>" +
+                "</tr>";
+            $.each(data, function (key, val) {
+                if (val["DivisionID"] == null) { val["DivisionID"] = "" };
+                if (val["MemberID"] == null) { val["MemberID"] = "" };
+                if (val["MemberName"] == null) { val["MemberName"] = "" };
+                if (val["Address"] == null) { val["Address"] = "" };
+                if (val["Identify"] == null) { val["Identify"] = "" };
+                if (val["Phone"] == null) { val["Phone"] = "" };
+                if (val["Tel"] == null) { val["Tel"] = "" };
+                if (val["Fax"] == null) { val["Fax"] = "" };
+                if (val["Email"] == null) { val["Email"] = "" };
+                grid = grid +
+                    "<tr><td><input type='checkbox' name='check' value='" + val['APK'] + "'/></td>" +
+                    "<td>" + i + "</td>" +
+                    "<td>" + val["DivisionID"] + "</td>" +
+                    "<td>" + val["MemberID"] + "</td>" +
+                    "<td>" + val["MemberName"] + "</td>" +
+                    "<td>" + val["Address"] + "</td>" +
+                    "<td>" + val["Identify"] + "</td>" +
+                    "<td>" + val["Phone"] + "</td>" +
+                    "<td>" + val["Tel"] + "</td>" +
+                    "<td>" + val["Fax"] + "</td>" +
+                    "<td>" + val["Email"] + "</td>" +
+                    "<td>" + val["Disable"] + "</td>" +
+                    "<tr>";
+                i++;
+            });
+            grid = grid + "</table>";
+
+            $("#grid").append(grid);
+
+            $("#grid").find("td").css("background", "#FFC");
+
+            $("#checkid").click(function () {
+                var c = this.checked;
+                $("[name = 'check']").prop('checked', c);
+            });
+
+
+            $("[name= 'page1']").click(function () {
+                pt = this.value;
+                search(this.value);
+            });
+        };
+
+        function loadgrid(data,dt) {
+           
+            $("#grid").empty();
+            var grid = "";
+
+            for (j = 0; j < dt; j++) {
+                grid = grid + "<input  type = 'button' name = 'page' value = '" + (j+1) + "'/>";
+            }
+
+            var i = 1;
+                grid = grid + "<table>" +
                 "<tr><td><input type='checkbox' id='checkid' /></td>" +
                     "<td>STT</td>" +
                     "<td>Đơn vị</td>" +
@@ -54,48 +129,76 @@
                 i++;
             });
             grid = grid + "</table>";
+ 
+            
+
             $("#grid").append(grid);
 
+            $("#grid").find("td").css("background", "#FFC");
 
             $("#checkid").click(function () {
                 var c = this.checked;
                 $("[name = 'check']").prop('checked', c);
             });
+
+          
+            $("[name= 'page']").click(function () {
+                pt = this.value;
+                LoadPage(1,this.value);
+            });       
         };
 
-       
-        
+        function LoadPage(tg,pg) {
+            $.ajax({
+                type: "POST",
+                url: "QuanLy/LoadPage",
+                success: function (data) {
+                    if(tg==1)
+                        phantrang(data,pg);
+                },
+                error: function (args) {
+                    return 0;
+                }
+            });
+        }
 
-        $(function () {
+        function phantrang(dt,pg) {
             $.ajax({
                 type: "POST",
                 url: "QuanLy/LoadGrid",
-                success: function (data) {
-                    loadgrid(data);
+                data: { page: pg },
+                success: function (data1) {
+                    loadgrid(data1,dt);
                 },
                 error: function (args) {
                     alert("Error on ajax post");
                 }
             });
+        }
+
+        $(function () {
+            LoadPage(1,1);
         });
 
-        $("#frLoc").submit(function () {
 
-            var url = "QuanLy/srch"; // the script where you handle the form input.
+        $("#frLoc").submit(function () {
+            search(1);
+        });
+
+        function search(ptr) {
 
             $.ajax({
                 type: "POST",
-                url: $("#frLoc").attr("action"),
-                data: $("#frLoc").serialize(), // serializes the form's elements.
+                url: "QuanLy/srch",
+                data: $("#frLoc").serialize() + "&page=" + ptr,
                 success: function (data) {
-                    loadgrid(data);
+                    loadgrid1(data);
                 },
                 error: function (args) {
-                    alert("Error on ajax post");
+                    alert(ptr);
                 }
-            });
-
-        });
+            })
+        }
 
         $("#btlamlai").click(function () {
             $("#tb").find(":text").val(null);
@@ -121,7 +224,7 @@
                 url: '/QuanLy/Destroy',
                 traditional: true,
                 dataType: "json",
-                data: { destroy: dtr },
+                data: { destroy: dtr, page: pt },
                 success: function (data) {
                     loadgrid(data);
                 },
@@ -148,7 +251,7 @@
                 url: '/QuanLy/Disable',
                 traditional: true,
                 dataType: "json",
-                data: { disable: d },
+                data: { disable: d, page: pt },
                 success: function (data) {
                     loadgrid(data);
                 },
@@ -175,7 +278,7 @@
                 url: '/QuanLy/Undisable',
                 traditional: true,
                 dataType: "json",
-                data: { undisable: und },
+                data: { undisable: und, page: pt },
                 success: function (data) {
                     loadgrid(data);
                 },
@@ -247,123 +350,6 @@
 
  
 </script>
-
-<div style="font-size: 25px ; font-weight: bold">
-DANH MỤC HỘI VIÊN
-</div>
-<hr />
-<form id="frLoc" action="QuanLy/srch" onsubmit="return false">
-<div>
-    <table id="tb">
-        <tr>
-            <td>
-                Đơn Vị
-            </td>
-            <td>
-                @(Html.Kendo().TextBoxFor(m=>m.DivisionID))
-            </td>
-            <td>
-                Địa Chỉ
-            </td>
-            <td>
-                @(Html.Kendo().TextBoxFor(m=>m.Address))
-            </td>
-            <td>
-                Số Điện Thoại   
-            </td>
-            <td>
-               @(Html.Kendo().TextBoxFor(m=>m.Tel))
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Mã Hội Viên
-            </td>
-            <td>
-                @(Html.Kendo().TextBoxFor(m=>m.MemberID))
-            </td>
-            <td>
-                Mã Số Thuế/Số CMND
-            </td>
-            <td>
-                @(Html.Kendo().TextBoxFor(m=>m.Identify))
-            </td>
-            <td>
-                Fax  
-            </td>
-            <td>
-               @(Html.Kendo().TextBoxFor(m=>m.Fax))
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Tên Hội Viên
-            </td>
-            <td>
-                @(Html.Kendo().TextBoxFor(m=>m.MemberName))
-            </td>
-            <td>
-                Điện Thoại Di Động
-            </td>
-            <td>
-                @(Html.Kendo().TextBoxFor(m=>m.Phone))
-            </td>
-            <td>
-                Email   
-            </td>
-            <td>
-                @(Html.Kendo().TextBoxFor(m=>m.Email))
-            </td>
-        </tr>
-    </table>
-</div>
-<div>
-    <br />
-    <br />
-    <br />
-</div>
-<div>
-    <div style="float: right">
-        @(Html.Kendo().Button()
-        .HtmlAttributes(new  { type = "submit" })
-        .Name("btlocdulieu")
-        .ImageUrl(Url.Content("/Images/search.png"))    
-        .Content("Lọc Dữ Liệu")
-
-        )
-        @(Html.Kendo().Button()
-        .Name("btlamlai")
-        .HtmlAttributes(new { style = "height: 40px" })
-        .Content("Làm Lại")
-        )
-    </div>
-</div>
-</form>
-<div style="float: left">
-    @(Html.Kendo().Button()
-    .Name("btthem")
-    .ImageUrl(Url.Content("/Images/sum.png"))
-    )
-    @(Html.Kendo().Button()
-    .Name("btxoa")
-    .ImageUrl(Url.Content("/Images/recycle.png"))
-
-    )
-    @(Html.Kendo().Button()
-    .Name("btupdate")
-    .ImageUrl(Url.Content("/Images/discheck.png"))
-
-    )  
-    @(Html.Kendo().Button()
-    .Name("btdisable")
-    .ImageUrl(Url.Content("/Images/checked.png"))
-
-    )  
-</div>
-    
-
-<div id="grid" style="float: left">
-</div>
 
 @(Html.Kendo().Window()
     .Name("pp")
@@ -560,6 +546,127 @@ DANH MỤC HỘI VIÊN
     .Resizable()
     .Width(800)
 )
+
+<div style="font-size: 25px ; font-weight: bold">
+DANH MỤC HỘI VIÊN
+</div>
+<hr />
+<form id="frLoc" action="QuanLy/srch" onsubmit="return false">
+<div>
+    <table id="tb">
+        <tr>
+            <td>
+                Đơn Vị
+            </td>
+            <td>
+                @(Html.Kendo().TextBoxFor(m=>m.DivisionID))
+            </td>
+            <td>
+                Địa Chỉ
+            </td>
+            <td>
+                @(Html.Kendo().TextBoxFor(m=>m.Address))
+            </td>
+            <td>
+                Số Điện Thoại   
+            </td>
+            <td>
+               @(Html.Kendo().TextBoxFor(m=>m.Tel))
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Mã Hội Viên
+            </td>
+            <td>
+                @(Html.Kendo().TextBoxFor(m=>m.MemberID))
+            </td>
+            <td>
+                Mã Số Thuế/Số CMND
+            </td>
+            <td>
+                @(Html.Kendo().TextBoxFor(m=>m.Identify))
+            </td>
+            <td>
+                Fax  
+            </td>
+            <td>
+               @(Html.Kendo().TextBoxFor(m=>m.Fax))
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Tên Hội Viên
+            </td>
+            <td>
+                @(Html.Kendo().TextBoxFor(m=>m.MemberName))
+            </td>
+            <td>
+                Điện Thoại Di Động
+            </td>
+            <td>
+                @(Html.Kendo().TextBoxFor(m=>m.Phone))
+            </td>
+            <td>
+                Email   
+            </td>
+            <td>
+                @(Html.Kendo().TextBoxFor(m=>m.Email))
+            </td>
+        </tr>
+    </table>
+</div>
+<div>
+    <br />
+    <br />
+    <br />
+</div>
+<div>
+    <div style="float: right">
+        @(Html.Kendo().Button()
+        .HtmlAttributes(new  { type = "submit" })
+        .Name("btlocdulieu")
+        .ImageUrl(Url.Content("/Images/search.png"))    
+        .Content("Lọc Dữ Liệu")
+
+        )
+        @(Html.Kendo().Button()
+        .Name("btlamlai")
+        .HtmlAttributes(new { style = "height: 40px" })
+        .Content("Làm Lại")
+        )
+    </div>
+</div>
+</form>
+<div style="float: left">
+    @(Html.Kendo().Button()
+    .Name("btthem")
+    .ImageUrl(Url.Content("/Images/sum.png"))
+    )
+    @(Html.Kendo().Button()
+    .Name("btxoa")
+    .ImageUrl(Url.Content("/Images/recycle.png"))
+
+    )
+    @(Html.Kendo().Button()
+    .Name("btupdate")
+    .ImageUrl(Url.Content("/Images/discheck.png"))
+
+    )  
+    @(Html.Kendo().Button()
+    .Name("btdisable")
+    .ImageUrl(Url.Content("/Images/checked.png"))
+
+    )  
+</div>
+
+<div><br />&nbsp;</div>
+<div><br />&nbsp;</div>
+
+<div id="grid" style="float: left">
+</div>
+
+
 
 <style>
     #demo-section {
