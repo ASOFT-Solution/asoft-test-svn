@@ -246,19 +246,6 @@
     }
     function loadgrip(data)
     {
-        var total;
-        $.ajax({
-            type: 'POST',
-            url: '/asoft/TotalPage',
-            success: function (sl) {
-                total = sl;
-            },
-            error: function (args) {
-                alert("Error on ajax post");
-            }
-        });
-        
-
             $("#grip").empty();
             var html = "<table  style='text-align:center'>"+
             "<tr><th><input id='ck' name='ck' type='checkbox' onclick='checkall()'/></th><th>STT</th><th>"+
@@ -281,7 +268,7 @@
                 "@Html.DisplayNameFor(model => model.Email)" +
             "</th><th>"+
                 "@Html.DisplayNameFor(model => model.Disable)" +
-            "</th><th></th></tr>";
+            "</th></tr>";
             
             var i = 1;
             $.each(data, function (entryIndex, entry) {
@@ -322,13 +309,22 @@
                 i++;
             });
             html += "</table>";
-            for (k = 0; k < total; k++)
-            {
-                t = k + 1;
-                html += "<input type='button' value='"+ t +"' onclick='phantrang(this)'/>"
-            }
             soluong = i;
-            $("#grip").append(html);
+
+            $.ajax({
+                type: 'POST',
+                url: '/asoft/TotalPage',
+                success: function (sl) {
+                    for (k = 0; k < sl; k++) {
+                        t = k + 1;
+                        html += "<input type='button' value='" + t + "' onclick='phantrang(this)'/>"
+                    }
+                    $("#grip").append(html);
+                },
+                error: function (args) {
+                    alert("Error on ajax post");
+                }
+            });
     };
 
     function locdulieu()
@@ -349,7 +345,7 @@
             url: '/asoft/gantempdata',
             traditional: true,
             dataType: "json",
-            data: { dulieu: list ,trang: trang},
+            data: { dulieu: list ,trang: 1},
             success: function (data) {
                 loadgrip(data);
             },
