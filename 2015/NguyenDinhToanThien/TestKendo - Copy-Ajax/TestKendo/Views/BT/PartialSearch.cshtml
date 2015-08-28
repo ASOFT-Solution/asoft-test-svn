@@ -1,0 +1,98 @@
+﻿@model MyConnection.HoiVien
+
+@using (Html.BeginForm("", "", FormMethod.Post, new {onsubmit = "return false"}))
+{
+
+<table style="font-size:14px">
+        <tr>
+            <td>
+                Đơn vị
+                </td>
+                    <td>
+                @Html.Kendo().TextBox().Name("donvi")
+            </td>
+            <td>
+                Địa chỉ
+                </td>
+                    <td>
+                @Html.Kendo().TextBox().Name("diachi")
+            </td>
+            <td>
+                Số điện thoại
+                </td>
+                    <td>
+                @Html.Kendo().TextBox().Name("sodienthoai")
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Mã hội viên
+                </td>
+                    <td>
+                @Html.Kendo().TextBox().Name("mahoivien")
+            </td>
+            <td>
+                Mã số thuế/CMND
+                </td>
+                    <td>
+                @Html.Kendo().TextBox().Name("cmnd")
+            </td>
+            <td>
+                Fax
+                </td>
+                    <td>
+                @Html.Kendo().TextBox().Name("fax")
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Tên hội viên
+                </td>
+                    <td>
+                @Html.Kendo().TextBox().Name("tenhoivien")
+            </td>
+            <td>
+                Điện thoại di động
+                </td>
+                    <td>
+                @Html.Kendo().TextBox().Name("dtdd")
+            </td>
+            <td>
+               Email
+                </td>
+                    <td>
+                @Html.Kendo().TextBox().Name("email")
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp</td><td>&nbsp</td>
+            <td style="text-align:right">Không kích hoạt</td>
+            <td style="padding-bottom:20px">
+                @Html.Kendo().CheckBox().Name("checkdisable").HtmlAttributes(new { title="Show objects are disabled"})
+            </td>
+            <td>
+                &nbsp
+            </td>
+            <td>
+                @(Html.Kendo().Button()
+                    .Name("locdulieu")
+                    .HtmlAttributes( new {type = "submit"} )
+                    .ImageUrl(Url.Content("~/images/icon/search.ico"))
+                    .Content("Lọc dữ liệu"))
+
+
+                @(Html.Kendo().Button()
+                    .Name("lamlai")
+                    .HtmlAttributes( new {type = "button"} )
+                    .Content("Làm lại"))
+            </td>
+        </tr>
+    </table>
+}
+
+
+@(Html.Kendo().Tooltip()
+        .For("#showdisable")
+        .Animation(false)
+        .Position(TooltipPosition.Bottom)
+        .Width(100))

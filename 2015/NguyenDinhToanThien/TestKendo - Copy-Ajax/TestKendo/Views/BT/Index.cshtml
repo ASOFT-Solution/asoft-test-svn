@@ -1,0 +1,42 @@
+﻿@model MyConnection.HoiVien
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@(Html.Kendo().Window()
+    .Name("window")
+    .Title("Danh mục hội viên")
+    .Content(@<text>
+        @Html.Partial("CreateHoiVien")
+    </text>)
+    .Draggable()
+    .Resizable()
+    .Visible(false)
+    .Width(700)
+    .Actions(a=>a.Clear())
+)
+
+<h2>Danh mục hội viên</h2>
+
+    @Html.Partial("PartialSearch")
+
+    @Html.Partial("PartialGrid")
+
+
+
+<style>
+
+    /*tooltip*/
+
+    /*Popup*/
+    .k-window-titlebar{
+        background-color:blue;
+        color:white;
+    }
+                
+</style>
+
+
+
+

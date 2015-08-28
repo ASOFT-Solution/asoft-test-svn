@@ -1,0 +1,153 @@
+﻿@model MyConnection.HoiVien
+@using Kendo
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<div style="font-size:12px">
+@using (Html.BeginForm("create", "bt", FormMethod.Post, new {id="FormId"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    
+    <div id="thongbaoloi" style="color:red;font-weight:bold"></div>
+    
+ <table>    
+   <tr>
+       <td>
+            @Html.DisplayNameFor(model => model.DivisionID)
+           </td><td>
+            @Html.Kendo().TextBoxFor(model => model.DivisionID)
+            @Html.ValidationMessageFor(model => model.DivisionID)
+        </td>
+       <td>
+            @Html.DisplayNameFor(model => model.MemberID)
+           </td><td>
+            @Html.Kendo().TextBoxFor(model => model.MemberID)
+            @Html.ValidationMessageFor(model => model.MemberID)
+    </td></tr><tr>
+        <td>
+            @Html.DisplayNameFor(model => model.MemberName)
+      </td><td>
+            @Html.Kendo().TextBoxFor(model => model.MemberName)
+            @Html.ValidationMessageFor(model => model.MemberName)
+            </td>
+       <td>
+            @Html.DisplayNameFor(model => model.ShortName)
+           </td><td>
+            @Html.Kendo().TextBoxFor(model => model.ShortName)
+            @Html.ValidationMessageFor(model => model.ShortName)
+    </td></tr><tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Address)
+            </td><td>
+            @Html.Kendo().TextBoxFor(model => model.Address)
+            @Html.ValidationMessageFor(model => model.Address)
+            </td>
+       <td>
+            @Html.DisplayNameFor(model => model.Identify)
+           </td><td>
+            @Html.Kendo().TextBoxFor(model => model.Identify)
+            @Html.ValidationMessageFor(model => model.Identify)
+    </td></tr><tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Phone)
+            </td><td>
+            @Html.Kendo().TextBoxFor(model => model.Phone)
+            @Html.ValidationMessageFor(model => model.Phone)
+  </td>
+       <td>
+            @Html.DisplayNameFor(model => model.Tel)
+           </td><td>
+            @Html.Kendo().TextBoxFor(model => model.Tel)
+            @Html.ValidationMessageFor(model => model.Tel)
+   </td></tr> <tr>
+       <td>
+            @Html.DisplayNameFor(model => model.Fax)
+   </td><td>
+            @Html.Kendo().TextBoxFor(model => model.Fax)
+            @Html.ValidationMessageFor(model => model.Fax)
+           </td>
+       <td>
+            @Html.DisplayNameFor(model => model.Email)
+           </td><td>
+            @Html.Kendo().TextBoxFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+    </td></tr><tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Birthday)
+            </td><td>
+            @Html.Kendo().DatePickerFor(model => model.Birthday)
+            @Html.ValidationMessageFor(model => model.Birthday)
+            </td>
+       <td>
+            @Html.DisplayNameFor(model => model.Website)
+           </td><td>
+            @Html.Kendo().TextBoxFor(model => model.Website)
+            @Html.ValidationMessageFor(model => model.Website)
+    </td></tr><tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Mailbox)
+            </td><td>
+            @Html.Kendo().TextBoxFor(model => model.Mailbox)
+            @Html.ValidationMessageFor(model => model.Mailbox)
+            </td>
+       <td>
+            @Html.DisplayNameFor(model => model.AreaName)
+           </td><td>
+            @Html.Kendo().TextBoxFor(model => model.AreaName)
+            @Html.ValidationMessageFor(model => model.AreaName)
+    </td></tr><tr>
+        <td>
+            @Html.DisplayNameFor(model => model.CityName)
+            </td><td>
+            @Html.Kendo().TextBoxFor(model => model.CityName)
+            @Html.ValidationMessageFor(model => model.CityName)
+            </td>
+       <td>
+            @Html.DisplayNameFor(model => model.CountryName)
+           </td><td>
+            @Html.Kendo().TextBoxFor(model => model.CountryName)
+            @Html.ValidationMessageFor(model => model.CountryName)
+    </td></tr><tr>
+        <td>
+            @Html.DisplayNameFor(model => model.WardName)
+            </td><td>
+            @Html.Kendo().TextBoxFor(model => model.WardName)
+            @Html.ValidationMessageFor(model => model.WardName)
+    </td>
+       <td>
+            @Html.DisplayNameFor(model => model.CountyName)
+           </td><td>
+            @Html.Kendo().TextBoxFor(model => model.CountyName)
+            @Html.ValidationMessageFor(model => model.CountyName)
+    </td></tr><tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Disable)
+            </td><td>
+            @Html.Kendo().CheckBoxFor(model => model.Disable)
+            @Html.ValidationMessageFor(model => model.Disable)
+            </td>
+       <td>
+     
+           </td><td>
+        
+    </td></tr>
+</table>
+    <p style="text-align:right">
+    @(Html.Kendo().Button()
+                    .Name("Create1")
+                    .HtmlAttributes(new { type = "button" })
+                    .Content("Lưu & nhập tiếp")
+                    )
+    @(Html.Kendo().Button()
+            .Name("Create2")
+            .HtmlAttributes(new { type = "button" })
+            .Content("Lưu & sao chép")
+            )
+    @(Html.Kendo().Button()
+                    .Name("Dong")
+                    .HtmlAttributes(new { type = "button" })
+                    .Content("Đóng")
+                    )
+        </p>
+}
+</div>
