@@ -81,7 +81,7 @@
         <button onclick="enable()">Enable</button>
     </p>
 @{int i = 1;}
-<div id="grip">
+<div id="grip" style="min-height:300px">
     
 </div>
    
@@ -125,14 +125,7 @@
         }
     };
 
-    
-
-    function xoa() {
-        if (!confirm("Bạn có chắc chắn muốn xóa?"))
-        {
-            return;
-        }
-
+    function laysoluong() {
         var i = soluong;
         var list = Array();
         var j = 0;
@@ -142,6 +135,18 @@
                 j++;
             }
         };
+        return list;
+    };
+
+    function xoa() {
+        var list = laysoluong();
+        if (list.length == 0) {
+            alert("Bạn chưa chọn dòng nào");
+            return;
+        }
+        if (!confirm("Bạn có chắc chắn muốn xóa?")) {
+            return;
+        }
         
         $.ajax({
             type: 'POST',
@@ -175,8 +180,12 @@
     };
 
     function disable() {
-        if (!confirm("Bạn có chắc chắn muốn hủy kích hoạt?"))
-        {
+        var list = laysoluong();
+        if (list.length == 0) {
+            alert("Bạn chưa chọn dòng nào");
+            return;
+        }
+        if (!confirm("Bạn có chắc chắn muốn xóa?")) {
             return;
         }
 
@@ -208,8 +217,12 @@
     };
 
     function enable() {
-        if (!confirm("Bạn có chắc chắn muốn kích hoạt?"))
-        {
+        var list = laysoluong();
+        if (list.length == 0) {
+            alert("Bạn chưa chọn dòng nào");
+            return;
+        }
+        if (!confirm("Bạn có chắc chắn muốn xóa?")) {
             return;
         }
 
@@ -239,11 +252,6 @@
             }
         });
     };
-    function phantrang(t)
-    {
-        trang = t.value;
-        loaddefault();
-    }
     function loadgrip(data)
     {
             $("#grip").empty();
@@ -317,9 +325,14 @@
                 success: function (sl) {
                     for (k = 0; k < sl; k++) {
                         t = k + 1;
-                        html += "<input type='button' value='" + t + "' onclick='phantrang(this)'/>"
+                        html += "<input name='phantrang' type='button' value='" + t + "'/>"
                     }
                     $("#grip").append(html);
+                    $("[name='phantrang']").click(function () {
+                        trang = this.value;
+                        loaddefault();
+                    });
+                    $("[name='phantrang']")[trang-1].className = "tranghientai";
                 },
                 error: function (args) {
                     alert("Error on ajax post");
@@ -353,6 +366,7 @@
                 alert("Error on ajax post");
             }
         });
+        trang = 1;
     };
 
     $(document).ready(function () {
