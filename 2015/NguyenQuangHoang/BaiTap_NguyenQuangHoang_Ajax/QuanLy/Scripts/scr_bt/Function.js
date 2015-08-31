@@ -148,13 +148,20 @@
         $("#tb").find(":text").val(null);
     })
 
-    $("#btxoa").click(function () {
+    function getcheck() {
         var list = $(":input[name = 'check']");
         var dtr = Array();
         list.each(function () {
             if (this.checked == true)
                 dtr.push(this.value);
         })
+        return dtr;
+    }
+
+    $("#btxoa").click(function () {
+        
+        var dtr = Array();
+        dtr = getcheck();
 
         if (dtr.length == 0) {
             alert("Hãy Chọn Để Xóa");
@@ -179,12 +186,9 @@
     });
 
     $("#btdisable").click(function () {
-        var list = $(":input[name = 'check']");
         var d = Array();
-        list.each(function () {
-            if (this.checked == true)
-                d.push(this.value);
-        })
+        d = getcheck();
+
         if (d.length == 0) {
             alert("Hãy Chọn");
             return;
@@ -206,12 +210,10 @@
     });
 
     $("#btupdate").click(function () {
-        var list = $(":input[name = 'check']");
+        
         var und = Array();
-        list.each(function () {
-            if (this.checked == true)
-                und.push(this.value);
-        })
+        und = getcheck();
+
         if (und.length == 0) {
             alert("Hãy Chọn");
             return;
