@@ -158,6 +158,22 @@
         return dtr;
     }
 
+    function change(ul,dltd) {
+        $.ajax({
+            type: 'POST',
+            url: ul,
+            traditional: true,
+            dataType: "json",
+            data: { dl: dltd, page: pt },
+            success: function (data) {
+                LoadPage(1, data);
+            },
+            error: function (args) {
+                alert("Error on ajax post");
+            }
+        });
+    }
+
     $("#btxoa").click(function () {
         
         var dtr = Array();
@@ -170,19 +186,9 @@
         if (!confirm("Bạn có muốn xóa không?"))
             return;
 
-        $.ajax({
-            type: 'POST',
-            url: '/QuanLy/Destroy',
-            traditional: true,
-            dataType: "json",
-            data: { destroy: dtr, page: pt },
-            success: function (data) {
-                LoadPage(1,data);
-            },
-            error: function (args) {
-                alert("Error on ajax post");
-            }
-        });
+        var ul = '/QuanLy/Destroy';
+        
+        change(ul, dtr);
     });
 
     $("#btdisable").click(function () {
@@ -194,19 +200,9 @@
             return;
         }
 
-        $.ajax({
-            type: 'POST',
-            url: '/QuanLy/Disable',
-            traditional: true,
-            dataType: "json",
-            data: { disable: d, page: pt },
-            success: function (data) {
-                LoadPage(1, data);
-            },
-            error: function (args) {
-                alert("Error on ajax post");
-            }
-        });
+        var ul = '/QuanLy/Disable';
+
+        change(ul, d);
     });
 
     $("#btupdate").click(function () {
@@ -219,19 +215,9 @@
             return;
         }
 
-        $.ajax({
-            type: 'POST',
-            url: '/QuanLy/Undisable',
-            traditional: true,
-            dataType: "json",
-            data: { undisable: und, page: pt },
-            success: function (data) {
-                LoadPage(1, data);
-            },
-            error: function (args) {
-                alert("Error on ajax post");
-            }
-        });
+        var ul = '/QuanLy/Undisable';
+
+        change(ul, und);
     });
 
     $("#btthem").click(function (e) {
