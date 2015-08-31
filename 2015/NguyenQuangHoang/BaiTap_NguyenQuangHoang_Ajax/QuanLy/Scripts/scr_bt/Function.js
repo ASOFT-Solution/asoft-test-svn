@@ -2,83 +2,7 @@
 
     var pt = 1;
 
-    function loadgrid1(data, dt) {
-
-        $("#grid").empty();
-        var grid = "";
-
-        for (j = 0; j < dt; j++) {
-            grid = grid + "<input  type = 'button' name = 'page1' value = '" + (j + 1) + "'/>";
-        }
-
-        var i = 1;
-        grid = grid + "<table>" +
-            "<tr><td><input type='checkbox' id='checkid' /></td>" +
-                "<td>STT</td>" +
-                "<td>Đơn vị</td>" +
-                "<td>Mã hội viên</td>" +
-                "<td>Tên hội viên</td>" +
-                "<td>Địa chỉ</td>" +
-                "<td>Mã thuê/Số CMND</td>" +
-                "<td>Điện thoại di động</td>" +
-                "<td>Số điện thoại</td>" +
-                "<td>Fax</td>" +
-                "<td>Email</td>" +
-                "<td>Không kích hoạt</td>" +
-            "</tr>";
-        $.each(data, function (key, val) {
-            if (val["DivisionID"] == null) { val["DivisionID"] = "" };
-            if (val["MemberID"] == null) { val["MemberID"] = "" };
-            if (val["MemberName"] == null) { val["MemberName"] = "" };
-            if (val["Address"] == null) { val["Address"] = "" };
-            if (val["Identify"] == null) { val["Identify"] = "" };
-            if (val["Phone"] == null) { val["Phone"] = "" };
-            if (val["Tel"] == null) { val["Tel"] = "" };
-            if (val["Fax"] == null) { val["Fax"] = "" };
-            if (val["Email"] == null) { val["Email"] = "" };
-            grid = grid +
-                "<tr><td><input type='checkbox' name='check' value='" + val['APK'] + "'/></td>" +
-                "<td>" + i + "</td>" +
-                "<td>" + val["DivisionID"] + "</td>" +
-                "<td>" + val["MemberID"] + "</td>" +
-                "<td>" + val["MemberName"] + "</td>" +
-                "<td>" + val["Address"] + "</td>" +
-                "<td>" + val["Identify"] + "</td>" +
-                "<td>" + val["Phone"] + "</td>" +
-                "<td>" + val["Tel"] + "</td>" +
-                "<td>" + val["Fax"] + "</td>" +
-                "<td>" + val["Email"] + "</td>" +
-                "<td>" + val["Disable"] + "</td>" +
-                "<tr>";
-            i++;
-        });
-        grid = grid + "</table>";
-
-        $("#grid").append(grid);
-
-        $("#grid").find("td").css("background", "#FFC");
-
-        $("#checkid").click(function () {
-            var c = this.checked;
-            $("[name = 'check']").prop('checked', c);
-        });
-
-
-        $("[name= 'page1']").click(function () {
-            pt = this.value;
-            search(2, this.value);
-        });
-    };
-
-    function loadgrid(data, dt) {
-
-        $("#grid").empty();
-        var grid = "";
-
-        for (j = 0; j < dt; j++) {
-            grid = grid + "<input  type = 'button' name = 'page' value = '" + (j + 1) + "'/>";
-        }
-
+    function load(data,grid) {
         var i = 1;
         grid = grid + "<table>" +
         "<tr><td><input type='checkbox' id='checkid' /></td>" +
@@ -122,8 +46,6 @@
         });
         grid = grid + "</table>";
 
-
-
         $("#grid").append(grid);
 
         $("#grid").find("td").css("background", "#FFC");
@@ -132,7 +54,35 @@
             var c = this.checked;
             $("[name = 'check']").prop('checked', c);
         });
+    }
 
+    function loadgrid1(data, dt) {
+
+        $("#grid").empty();
+        var grid = "";
+
+        for (j = 0; j < dt; j++) {
+            grid = grid + "<input  type = 'button' name = 'page1' value = '" + (j + 1) + "'/>";
+        }
+
+        load(data,grid);
+
+        $("[name= 'page1']").click(function () {
+            pt = this.value;
+            search(2, this.value);
+        });
+    };
+
+    function loadgrid(data, dt) {
+
+        $("#grid").empty();
+        var grid = "";
+
+        for (j = 0; j < dt; j++) {
+            grid = grid + "<input  type = 'button' name = 'page' value = '" + (j + 1) + "'/>";
+        }
+
+        load(data,grid);
 
         $("[name= 'page']").click(function () {
             pt = this.value;
