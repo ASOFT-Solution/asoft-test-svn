@@ -33,7 +33,7 @@
         .Name("grid")
         .Columns(columns =>
         {
-            columns.Template(c => c.APK).ClientTemplate("<input type='checkbox' onclick='xoacheckall(this)' name='clickone' value='#= APK #'/>").Title("<input type='checkbox' id='clickall'/>").Width(30);
+            columns.Template(c => c.APK).ClientTemplate("<input type='checkbox' name='clickone' value='#= APK #'/>").Title("<input type='checkbox' id='clickall'/>").Width(30);
             columns.Template(c => { }).ClientTemplate("<div name='stt'> </div>").Title("STT").Width(40);
             columns.Bound(c => c.DivisionID).Width(60);
             columns.Bound(c => c.MemberID).Width(110);

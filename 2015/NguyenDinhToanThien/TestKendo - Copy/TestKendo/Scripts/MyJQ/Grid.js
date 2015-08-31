@@ -1,7 +1,4 @@
 ﻿$(document).ready(function () {
-    var clickone = $(":checkbox[name='clickone']");
-
-
     $("#clickall").change(function () {
         var check = this.checked;
         $(":checkbox[name='clickone']").attr("checked", check);
@@ -16,11 +13,6 @@
         });
         return list;
     };
-
-    $(":checkbox[name='clickone'").click(function () {
-        alert("ok");
-    });
-
     $("#disable").click(function disable() {
         var list = laycheckbox();
         if (list.length == 0) {
@@ -80,14 +72,15 @@
 
 });
 
-function xoacheckall(t) {
-    if (!t.checked) {
-        $("#clickall").attr("checked", false);
-    }
-};
 function CreateSTT() {
     var stt = $("[name='stt']").html(function (index) {
         this.innerHTML = index + 1;
+    });
+
+    $("[name='clickone']").click(function () {
+        if (!$(this).attr("checked")) {
+            $("#clickall").attr("checked", false);
+        }
     });
 };
 
