@@ -22,6 +22,11 @@ namespace QuanLy.Controllers
             return View();
         }
 
+        public ActionResult Grid()
+        {
+            return View();
+        }
+
         public Page<HoiVien> Search1(int page)
         {
             MyConnectionDB db = new MyConnectionDB();
