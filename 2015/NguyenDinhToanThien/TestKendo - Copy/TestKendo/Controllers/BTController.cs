@@ -84,7 +84,7 @@ namespace TestKendo.Controllers
                 {
                     qr = qr + string.Format(" and Email like N'%{0}%'", frmc[8]);
                 }
-                if (frmc[9] == "false")
+                if (frmc[9] == "")
                 {
                     qr = qr + string.Format(" and Disable = '0'");
                 }
