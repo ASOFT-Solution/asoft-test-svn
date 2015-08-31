@@ -10,12 +10,12 @@
        
         var pt = 1;
 
-        function loadgrid1(data) {
+        function loadgrid1(data,dt) {
 
             $("#grid").empty();
             var grid = "";
 
-            for (j = 0; j < '@Session["count"]'; j ++) {
+            for (j = 0; j < dt; j ++) {
                 grid = grid + "<input  type = 'button' name = 'page1' value = '" + (j+1) + "'/>";
             }
 
@@ -74,7 +74,7 @@
 
             $("[name= 'page1']").click(function () {
                 pt = this.value;
-                search(this.value);
+                search(2,this.value);
             });
         };
 
@@ -144,17 +144,19 @@
           
             $("[name= 'page']").click(function () {
                 pt = this.value;
-                LoadPage(1,this.value);
+                phantrang(1,this.value);
             });       
         };
 
-        function LoadPage(tg,pg) {
+        function LoadPage(dk,dt) {
             $.ajax({
                 type: "POST",
                 url: "QuanLy/LoadPage",
                 success: function (data) {
-                    if(tg==1)
-                        phantrang(data,pg);
+                    if (dk == 1)
+                        loadgrid(dt, data);
+                    else
+                        loadgrid1(dt,data);
                 },
                 error: function (args) {
                     return 0;
@@ -162,13 +164,13 @@
             });
         }
 
-        function phantrang(dt,pg) {
+        function phantrang(dk,pg) {
             $.ajax({
                 type: "POST",
                 url: "QuanLy/LoadGrid",
                 data: { page: pg },
                 success: function (data1) {
-                    loadgrid(data1,dt);
+                    LoadPage(dk,data1);
                 },
                 error: function (args) {
                     alert("Error on ajax post");
@@ -177,22 +179,22 @@
         }
 
         $(function () {
-            LoadPage(1,1);
+            phantrang(1,1);
         });
 
 
         $("#frLoc").submit(function () {
-            search(1);
+            search(2,1);
         });
 
-        function search(ptr) {
+        function search(dk,ptr) {
 
             $.ajax({
                 type: "POST",
                 url: "QuanLy/srch",
                 data: $("#frLoc").serialize() + "&page=" + ptr,
                 success: function (data) {
-                    loadgrid1(data);
+                    LoadPage(dk,data);
                 },
                 error: function (args) {
                     alert(ptr);

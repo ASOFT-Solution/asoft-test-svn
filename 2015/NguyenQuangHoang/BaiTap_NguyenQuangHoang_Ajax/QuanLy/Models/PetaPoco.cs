@@ -2722,7 +2722,8 @@ namespace PetaPoco
 			get; 
 			set; 
 		}
-	}
+
+    }
 
 	/// <summary>
 	/// A simple helper class for build SQL statements

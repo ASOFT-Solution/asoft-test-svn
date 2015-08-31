@@ -77,6 +77,7 @@ namespace QuanLy.Controllers
         {
             TempData["search"] = srch;
             var s = Search1(page);
+            Session["page"] = s.TotalPages;
             return Json(s.Items);
         }
 
@@ -85,7 +86,8 @@ namespace QuanLy.Controllers
             MyConnectionDB db = new MyConnectionDB();
             string sql = "Select * from HoiVien";
             Page<HoiVien> ds;    
-            ds = db.Page<HoiVien>(page,10,sql);   
+            ds = db.Page<HoiVien>(page,10,sql);
+            Session["page"] = ds.TotalPages;
             return ds;
         }
 
@@ -97,10 +99,7 @@ namespace QuanLy.Controllers
 
         public ActionResult LoadPage()
         {
-            MyConnectionDB db = new MyConnectionDB();
-            string sql = "Select * from HoiVien";
-            Page<HoiVien> ds = db.Page<HoiVien>(1, 10, sql); ; 
-            return Json(ds.TotalPages);
+            return Json(Session["page"]);
         }
 
         public ActionResult Destroy(string[] destroy, int page)
