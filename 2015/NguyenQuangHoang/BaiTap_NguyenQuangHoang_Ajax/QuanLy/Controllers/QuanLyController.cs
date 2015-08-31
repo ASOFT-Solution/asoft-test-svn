@@ -107,10 +107,10 @@ namespace QuanLy.Controllers
             return Json(Session["page"]);
         }
 
-        public ActionResult Destroy(string[] destroy, int page)
+        public ActionResult Destroy(string[] dl, int page)
         {
             MyConnectionDB db = new MyConnectionDB();
-            foreach (string dt in destroy)
+            foreach (string dt in dl)
             {
                 string sql = string.Format("delete from hoivien where APK = '{0}'", dt);
                 db.Execute(sql);
@@ -119,10 +119,10 @@ namespace QuanLy.Controllers
             return Json(dele.Items);
         }
 
-        public ActionResult Undisable(string[] undisable, int page)
+        public ActionResult Undisable(string[] dl, int page)
         {
             MyConnectionDB db = new MyConnectionDB();
-            foreach (string dt in undisable)
+            foreach (string dt in dl)
             {
                 string sql = string.Format("update HoiVien set Disable = 0 where APK = '{0}'", dt);
                 db.Execute(sql);
@@ -131,10 +131,10 @@ namespace QuanLy.Controllers
             return Json(undis.Items);
         }
 
-        public ActionResult Disable(string[] disable, int page)
+        public ActionResult Disable(string[] dl, int page)
         {
             MyConnectionDB db = new MyConnectionDB();
-            foreach (string dt in disable)
+            foreach (string dt in dl)
             {
                 string sql = string.Format("update HoiVien set Disable = 1 where APK = '{0}'", dt);
                 db.Execute(sql);
@@ -157,7 +157,7 @@ namespace QuanLy.Controllers
             int disable = 0;
             if (create.Disable == true)
                 disable = 1;
-            string sql = "Insert into HoiVien (DivisionID,MemberID,MemberName,ShortName,Address,Identify,Phone,Tel,Fax,Email,Birthday,Website,Mailbox,AreaName,CityName,CountryName,WardName,CountyName,Disable) values ('" + create.DivisionID + "','" + create.MemberID + "','" + create.MemberName + "','" + create.ShortName + "','" + create.Address + "','" + create.Identify + "','" + create.Phone + "','" + create.Tel + "','" + create.Fax + "','" + create.Email + "','" + create.Birthday + "','" + create.Website + "','" + create.Mailbox + "','" + create.AreaName + "','" + create.CityName + "','" + create.CountryName + "','" + create.WardName + "','" + create.CountyName + "','" + disable + "')";
+            string sql = "Insert into HoiVien (DivisionID,MemberID,MemberName,ShortName,Address,Identify,Phone,Tel,Fax,Email,Birthday,Website,Mailbox,AreaName,CityName,CountryName,WardName,CountyName,Disable) values (N'" + create.DivisionID + "',N'" + create.MemberID + "',N'" + create.MemberName + "',N'" + create.ShortName + "',N'" + create.Address + "',N'" + create.Identify + "',N'" + create.Phone + "',N'" + create.Tel + "',N'" + create.Fax + "',N'" + create.Email + "',N'" + create.Birthday + "',N'" + create.Website + "',N'" + create.Mailbox + "',N'" + create.AreaName + "',N'" + create.CityName + "',N'" + create.CountryName + "',N'" + create.WardName + "',N'" + create.CountyName + "','" + disable + "')";
             MyConnectionDB db = new MyConnectionDB();
             db.Execute(sql);
 
