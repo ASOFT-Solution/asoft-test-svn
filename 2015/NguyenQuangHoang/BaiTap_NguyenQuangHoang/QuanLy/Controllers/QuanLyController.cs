@@ -16,45 +16,44 @@ namespace QuanLy.Controllers
     {
         //
         // GET: /QuanLy/
-
+        //Index của bài tập
         public ActionResult Index()
         {
             return View();
         }
 
+        //Partial popop thêm
         public ActionResult Insert()
         {
             return View();
         }
 
+        //Partial grid kendo
         public ActionResult Grid()
         {
             return View();
         }
 
-        public ActionResult Read([DataSourceRequest] DataSourceRequest request)
-        {
-            var ds = MyConnectionDB.GetInstance().Query<HoiVien>("select * from HoiVien");
-            return Json(ds.ToDataSourceResult(request));
-        }
-
+        //Xư lý lấy thông tin lọc dữ liệu từ view
         public void srch(HoiVien srch)
         {
-            TempData["search"] = srch;
+            TempData["search"] = srch;//Gán thông tin để lọc dữ liệu vào tempData chờ xử lý
         }
 
+        //Load Grid trong view đồng thời là hàm lọc dữ liẹu
         public ActionResult Search([DataSourceRequest] DataSourceRequest request)
         {
             string sql = "Select * from HoiVien";
             string temp = "";
             IEnumerable ds;
-            HoiVien srch = (HoiVien)TempData["search"];
-            if (srch == null)
+            HoiVien srch = (HoiVien)TempData["search"];//lây thông tin lọc dữ liệu
+            if (srch == null)//Không có trả về danh sách ban đầu
             {
                 ds = MyConnectionDB.GetInstance().Query<HoiVien>(sql);
             }
             else
             {
+                //kiểm tra các thông tin lọc dữ liệu nếu có thì ghép câu sql để tìm kiếm 
                 if (srch.DivisionID != null)
                 {
                     temp = temp + string.Format(" and DivisionID like N'%{0}%'", srch.DivisionID);
@@ -93,14 +92,15 @@ namespace QuanLy.Controllers
                 }
                 if (temp != null)
                 {
-                    sql = sql + " where 0=0" + temp;
+                    sql = sql + " where 0=0" + temp;// câu SQL cuối cùng
                 }
-                ds = MyConnectionDB.GetInstance().Query<HoiVien>(sql);
+                ds = MyConnectionDB.GetInstance().Query<HoiVien>(sql);//Tìm kiếm trả về kết quả
       
             }
-            return Json(ds.ToDataSourceResult(request));
+            return Json(ds.ToDataSourceResult(request));//Trả về kết quả cho View thông qua JSon
         }
 
+        //Delete dữ liệu
         public void Destroy(string[] destroy)
         {
             MyConnectionDB db = new MyConnectionDB();
@@ -111,6 +111,7 @@ namespace QuanLy.Controllers
             }
         }
 
+        //Update trường disable
         public void Undisable(string[] undisable)
         {
             MyConnectionDB db = new MyConnectionDB();
@@ -121,6 +122,7 @@ namespace QuanLy.Controllers
             }
         }
 
+        //Đánh trường disable
         public void Disable(string[] disable)
         {
             MyConnectionDB db = new MyConnectionDB();
@@ -131,6 +133,7 @@ namespace QuanLy.Controllers
             }
         }
 
+        //Kiểm tra dữ liệu thêm có trùng khóa chính trong sql không
         public ActionResult Testkey(string ma, string ten)
         {
             IEnumerable<HoiVien> test;
@@ -140,14 +143,33 @@ namespace QuanLy.Controllers
             return Json(sl,JsonRequestBehavior.AllowGet);
         }
 
+        //Thêm dữ liệu vào sql
         public void Createmember(DemoModels create)
         {
             int disable = 0;
             if (create.Disable == true)
                 disable = 1;
-            string sql = "Insert into HoiVien (DivisionID,MemberID,MemberName,ShortName,Address,Identify,Phone,Tel,Fax,Email,Birthday,Website,Mailbox,AreaName,CityName,CountryName,WardName,CountyName,Disable) values (N'" + create.DivisionID + "',N'" + create.MemberID + "',N'" + create.MemberName + "',N'" + create.ShortName + "',N'" + create.Address + "',N'" + create.Identify + "',N'" + create.Phone + "',N'" + create.Tel + "',N'" + create.Fax + "',N'" + create.Email + "',N'" + create.Birthday + "',N'" + create.Website + "',N'" + create.Mailbox + "',N'" + create.AreaName + "',N'" + create.CityName + "',N'" + create.CountryName + "',N'" + create.WardName + "',N'" + create.CountyName + "','" + disable + "')";
-            MyConnectionDB db = new MyConnectionDB();
-            db.Execute(sql);
+            HoiVien create1 = new HoiVien();
+            create1.DivisionID = create.DivisionID;
+            create1.MemberID = create.MemberID;
+            create1.MemberName = create.MemberName;
+            create1.ShortName = create.ShortName;
+            create1.Address = create.Address;
+            create1.Identify = create.Identify;
+            create1.Phone = create.Phone;
+            create1.Tel = create.Tel;
+            create1.Fax = create.Fax;
+            create1.Email = create.Email;
+            create1.Birthday = create.Birthday;
+            create1.Website = create.Website;
+            create1.Mailbox = create.Mailbox;
+            create1.AreaName = create.AreaName;
+            create1.CityName = create.CityName;
+            create1.CountryName = create.CountryName;
+            create1.WardName = create.WardName;
+            create1.CountyName = create.CountyName;
+            create1.Disable = Convert.ToByte(disable);       
+            MyConnectionDB.GetInstance().Insert(create1);
         }
     }
 }
