@@ -37,7 +37,9 @@
 }
 
 #menu{
-
+    margin-top:-12px;
+    height:35px;
+    background-color:#EEEEEE;
 }
 #content{
     
@@ -55,61 +57,66 @@
 }
 
 
-
-#menu ul {
-  padding-left:0px;
-  padding-top:10px;
-  margin-top:0px;
-  margin-bottom:30px;
-  background-color:#EEEEEE;
-  height:30px;
- 
-}
 #menu li {
-    padding-top:5px;
+    margin-top:10px;
+    min-width:100px;
+    text-align:center;
 }
-#menu ul li {
-  list-style-type: none;
-  z-index:5;
-  display: inline;
-  padding-left:10px;
-  padding-right:10px;
-  position:relative;
+#menu>ul{
+    margin-left:-35px;
+    background-color:#EEEEEE;
 }
-
-/*==Dropdown Menu==*/
-#menu ul li ul{
+#menu>ul>li{
+float:left;
+list-style-type:none;
+position:relative;
+z-index:1;
+}
+/*cap1*/
+#menu>ul>li>ul{
   display: none;
   position: absolute;
-  
   background-color:white;
+  list-style-type:none;
+  margin-left:-200px;
 }
-#menu ul li:hover>ul {
+#menu>ul>li>ul>li{
+	float:left;
+}
+#menu>ul>li:hover>ul {
   display: block;
   width:1000px;
 }
-#menu ul li:hover {
+#menu>ul>li:hover {
   background-color:white;
 }
-#menu ul li ul li:hover {
-  background-color:aqua;
+/*cap2*/
+#menu>ul>li>ul>li>ul{
+  display: none;
+  position: absolute;
+  background-color:white;
+  list-style-type:none;
+  border:solid 2px;
+  border-top:none;
+  max-width:300px;
+  padding:0px;
+}
+#menu>ul>li>ul>li>ul>li{
+	text-align:left;
+    width:250px;
+    padding-left:50px;
+}
+#menu>ul>li>ul>li:hover>ul {
+  display: block;
+  width:1000px;
+}
+#menu>ul>li>ul>li:hover {
+    background-color:aqua;
 }
 
-/*==Menu cấp 3==*/
-#menu ul li ul li ul{
-    display:none;
-    position:absolute;
-    margin-left:50px;
-   
-}
-#menu ul li ul li:hover>ul {
-     width:200px;
-}
-#menu ul li ul li ul li:hover {
+
+#menu>ul>li>ul>li>ul>li:hover {
     background-color:blue;
-}
-.m-level3 {
-    background-color:white;
 }
 
 
