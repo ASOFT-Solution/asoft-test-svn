@@ -5,176 +5,17 @@
     ViewBag.Title = "Index";
 }
 
-<script type="text/javascript">
-    $(document).ready(function () {
-
-        $("#checkid").click(function () {
-            var c = this.checked;
-            $(":input[name = 'check']").prop('checked', c);  
-        });
-        $("#frLoc").submit(function () {
-
-            var url = "QuanLy/srch"; // the script where you handle the form input.
-
-            $.ajax({
-                type: "POST",
-                url: $("#frLoc").attr("action"),
-                data: $("#frLoc").serialize(), // serializes the form's elements.
-                success: function (data) {
-                    $('#grid').data('kendoGrid').dataSource.read();
-                },
-                error: function (args) {
-                alert("Error on ajax post");
-            }
-            });
-
-        });
-        $("#btlamlai").click(function () {
-            $("#tb").find(":text").val(null);
-        })
-        $("#btxoa").click(function () {
-            var list = $(":input[name = 'check']");
-            var dtr = Array();
-            list.each(function () {
-                if (this.checked == true)
-                    dtr.push(this.value);
-            })
-            if (dtr.length == 0) {
-                alert("Hãy Chọn Để Xóa");
-                return;
-            }
-            if (!confirm("Bạn có muốn xóa không?"))
-                return
-
-            $.ajax({
-                type: 'POST',
-                url: '/QuanLy/Destroy',
-                traditional: true,
-                dataType: "json",
-                data: { destroy: dtr },
-                success: function (data) {
-                    $('#grid').data('kendoGrid').dataSource.read();
-                },
-                error: function (args) {
-                    alert("Error on ajax post");
-                }
-            });
-        });
-        $("#btdisable").click(function () {
-            var list = $(":input[name = 'check']");
-            var d = Array();
-            list.each(function () {
-                if (this.checked == true)
-                    d.push(this.value);
-            })
-            if (d.length == 0) {
-                alert("Hãy Chọn");
-                return;
-            }
-
-            $.ajax({
-                type: 'POST',
-                url: '/QuanLy/Disable',
-                traditional: true,
-                dataType: "json",
-                data: { disable: d },
-                success: function (data) {
-                    $('#grid').data('kendoGrid').dataSource.read();
-                },
-                error: function (args) {
-                    alert("Error on ajax post");
-                }
-            });
-        });
-        $("#btupdate").click(function () {
-            var list = $(":input[name = 'check']");
-            var und = Array();
-            list.each(function () {
-                if (this.checked == true)
-                    und.push(this.value);
-            })
-            if (und.length == 0) {
-                alert("Hãy Chọn");
-                return;
-            }
-
-            $.ajax({
-                type: 'POST',
-                url: '/QuanLy/Undisable',
-                traditional: true,
-                dataType: "json",
-                data: { undisable: und },
-                success: function (data) {
-                    $('#grid').data('kendoGrid').dataSource.read();
-                },
-                error: function (args) {
-                    alert("Error on ajax post");
-                }
-            });
-        });
-
-        $("#btthem").click(function (e) {
-            $("#pp").data("kendoWindow").open();
-        });
-
-        $("#btdong").click(function (e) {
-            temp = -1;
-            $("#pp").data("kendoWindow").close();
-        });
-
-        var temp = -1;
-
-        $("#btluu").click(function () {
-            temp = 0;
-        });
-
-        $("#btluusc").click(function () {
-            temp = 1;
-        });
-
-        
-
-        $(function () {
-            var validator = $("#ticketsForm").kendoValidator().data("kendoValidator")
-            $("form").submit(function (event) {
-                event.preventDefault();
-                if (temp == -1)
-                    return;
-                if (validator.validate()) {
-                    testkey();
-                }
-            });
-        });
-
-        function testkey() {
-            var mdv = $("#ticketsForm").find("#DivisionID").val();
-            var mhv = $("#ticketsForm").find("#MemberID").val();
-            $.getJSON("QuanLy/Testkey", { ma: mdv, ten: mhv }, function (data) {
-                if (data > 0) {
-                    $("#none").css("display", "inline");
-                }
-                else {
-                        $.ajax({
-                            type: "POST",
-                            url: $("#ticketsForm").attr("action"),
-                            data: $("#ticketsForm").serialize(), // serializes the form's elements.
-                            success: function (data) {
-                                if (temp == 0)
-                                    $("#ticketsForm").find(":text[name != 'Birthday']").val(null);
-                                $('#grid').data('kendoGrid').dataSource.read();
-                                $("#none").css("display", "none");
-                                alert("Thêm Thành Công");
-                            },
-                            error: function (args) {
-                                alert("Thêm Thất Bại");
-                            }
-                     });
-                }
-            })
-        }
-
-    });
-</script>
+@(Html.Kendo().Window()
+    .Name("pp")
+    .Title("DANH MỤC HỘI VIÊN")
+    .Content(@<text>
+            @Html.Partial("Insert")
+    </text>)
+    .Draggable()
+    .Visible(false)
+    .Resizable()
+    .Width(800)
+)
 
 <div style="font-size: 25px ; font-weight: bold">
 DANH MỤC HỘI VIÊN
@@ -188,19 +29,22 @@ DANH MỤC HỘI VIÊN
                 Đơn Vị
             </td>
             <td>
-                @(Html.Kendo().TextBoxFor(m=>m.DivisionID))
+                @(Html.Kendo().TextBoxFor(m=>m.DivisionID)
+                .HtmlAttributes(new { @id = "border" }))
             </td>
             <td>
                 Địa Chỉ
             </td>
             <td>
-                @(Html.Kendo().TextBoxFor(m=>m.Address))
+                @(Html.Kendo().TextBoxFor(m=>m.Address)
+                .HtmlAttributes(new { @id = "border" }))
             </td>
             <td>
                 Số Điện Thoại   
             </td>
             <td>
-               @(Html.Kendo().TextBoxFor(m=>m.Tel))
+               @(Html.Kendo().TextBoxFor(m=>m.Tel)
+               .HtmlAttributes(new { @id = "border" }))
             </td>
         </tr>
         <tr>
@@ -208,19 +52,22 @@ DANH MỤC HỘI VIÊN
                 Mã Hội Viên
             </td>
             <td>
-                @(Html.Kendo().TextBoxFor(m=>m.MemberID))
+                @(Html.Kendo().TextBoxFor(m=>m.MemberID)
+                .HtmlAttributes(new { @id = "border" }))
             </td>
             <td>
                 Mã Số Thuế/Số CMND
             </td>
             <td>
-                @(Html.Kendo().TextBoxFor(m=>m.Identify))
+                @(Html.Kendo().TextBoxFor(m=>m.Identify)
+                .HtmlAttributes(new { @id = "border" }))
             </td>
             <td>
                 Fax  
             </td>
             <td>
-               @(Html.Kendo().TextBoxFor(m=>m.Fax))
+               @(Html.Kendo().TextBoxFor(m=>m.Fax)
+               .HtmlAttributes(new { @id = "border" }))
             </td>
         </tr>
         <tr>
@@ -228,19 +75,22 @@ DANH MỤC HỘI VIÊN
                 Tên Hội Viên
             </td>
             <td>
-                @(Html.Kendo().TextBoxFor(m=>m.MemberName))
+                @(Html.Kendo().TextBoxFor(m=>m.MemberName)
+                .HtmlAttributes(new { @id = "border" }))
             </td>
             <td>
                 Điện Thoại Di Động
             </td>
             <td>
-                @(Html.Kendo().TextBoxFor(m=>m.Phone))
+                @(Html.Kendo().TextBoxFor(m=>m.Phone)
+                .HtmlAttributes(new { @id = "border" }))
             </td>
             <td>
                 Email   
             </td>
             <td>
-                @(Html.Kendo().TextBoxFor(m=>m.Email))
+                @(Html.Kendo().TextBoxFor(m=>m.Email)
+                .HtmlAttributes(new { @id = "border" }))
             </td>
         </tr>
     </table>
@@ -289,240 +139,14 @@ DANH MỤC HỘI VIÊN
     )  
 </div>
     
-@{var counter = 1;}
+
 <div  style="float: left">
     <div id="demo-section">
-    @(Html.Kendo().Grid<MyConnection.HoiVien>()
-        .Name("grid")
-        .Columns(columns =>
-        {
-            columns.Template(p => p.APK)
-            .Title("<input type='checkbox' id='checkid' class='' ")
-            .ClientTemplate("<input type='checkbox' name='check' class='ck' value = '#=APK#' />")
-            .HtmlAttributes(new { style = "text-align: center" });
-            columns.Template(p => counter++).Title("STT");
-            columns.Bound(p => p.DivisionID).Title("Đơn Vị");
-            columns.Bound(p => p.MemberID).Title("Mã Hội Viên");
-            columns.Bound(p => p.MemberName).Title("Tên Hội Viên");
-            columns.Bound(p => p.Address).Title("Địa Chỉ");
-            columns.Bound(p => p.Identify).Title("Mã Số Thuế/Số CMND");
-            columns.Bound(p => p.Phone).Title("Điện Thoại Di Động");
-            columns.Bound(p => p.Tel).Title("Số Điện Thoại");
-            columns.Bound(p => p.Fax).Title("Fax");
-            columns.Bound(p => p.Email).Title("Email");
-            columns.Bound(p => p.Disable).Title("Không Kích Hoạt");
-        })
-        .Pageable()
-        .Sortable()
-        .Selectable(selectable => selectable
-            .Mode(GridSelectionMode.Multiple)
-            .Type(GridSelectionType.Row))
-        .DataSource(dataSource => dataSource
-            .Ajax()
-            .PageSize(15)
-            .Read(read => read.Action("Search", "QuanLy"))
-            .Model(model => model.Id(p => p.APK))
-         )
-         .HtmlAttributes(new { style = "width: 900px" })
-    )
+           @Html.Partial("Grid");
     </div>
 </div>
 
-@(Html.Kendo().Window()
-    .Name("pp")
-    .Title("DANH MỤC HỘI VIÊN")
-    .Content(@<text>
-<form id="ticketsForm" action="QuanLy/Createmember" onsubmit="return false"> 
-<div id="none">
-    Trùng Khóa Chính
-</div>
-<table>
-        <tr>
-            <td>
-                Đơn Vị
-            </td>
-            <td>
-                 @(Html.Kendo().TextBoxFor(m => m.DivisionID)
-                    .Name("DivisionID")
-                    .HtmlAttributes(new { required = "required", validationmessage = "Không để trống mã đơn vị"})
-                )
-            </td>
-            <td>
-                Ngày Sinh
-            </td>
-            <td>    
-                @(Html.Kendo().DatePickerFor(m => m.Birthday)
-                      .Name("Birthday")
-                      .Value("1/1/1990")
-                      .Format("MM/dd/yyyy")
-                )
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Mã Hội Viên
-            </td>
-            <td>
-                @(Html.Kendo().TextBoxFor(m => m.MemberID)
-                    .Name("MemberID")
-                    .HtmlAttributes(new { required = "required", validationmessage = "Không để trống mã hội viên" })
-                )
-            </td>
-            <td>
-                Website
-            </td>
-            <td>    
-                @(Html.Kendo().TextBoxFor(m => m.Website)
-                )
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Tên Hội Viên
-            </td>
-            <td>
-                @(Html.Kendo().TextBoxFor(m => m.MemberName)
-                )
-            </td>
-            <td>
-                Hộp Thư
-            </td>
-            <td>    
-                @(Html.Kendo().TextBoxFor(m => m.Mailbox)
-                )
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Tên Riêng
-            </td>
-            <td>
-                @(Html.Kendo().TextBoxFor(m => m.ShortName)
-                )
-            </td>        
-            <td>
-                Mã Vùng
-            </td>
-            <td>    
-                @(Html.Kendo().TextBoxFor(m => m.AreaName)
-                )
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Số Điện Thoại
-            </td>
-            <td>
-                @(Html.Kendo().TextBoxFor(m => m.Tel)
-                    .HtmlAttributes(new { pattern = "\\d{8,11}", type = "tel",validationmessage = "Cần nhập chính xác số điện thoại" })
-                )
-            </td>
-            <td>
-                Phường/Xã
-            </td>
-            <td>    
-                @(Html.Kendo().TextBoxFor(m => m.WardName)
-                )
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Địa Chỉ
-            </td>
-            <td>
-                @(Html.Kendo().TextBoxFor(m => m.Address)
-                )
-            </td>
-            <td>
-                Quận/Huyện
-            </td>
-            <td>    
-                @(Html.Kendo().TextBoxFor(m => m.CountyName)
-                )
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Mã Số Thuế/Số CMND
-            </td>
-            <td>
-                @(Html.Kendo().TextBoxFor(m => m.Identify)
-                )
-            </td>
-            <td>
-                Tỉnh/Thành
-            </td>
-            <td>    
-                @(Html.Kendo().TextBoxFor(m => m.CityName)
-                )
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Điện Thoại Di Động
-            </td>
-            <td>
-                @(Html.Kendo().TextBoxFor(m => m.Phone)
-                )
-            </td>
-            <td>
-                Quốc Gia
-            </td>
-            <td>    
-                @(Html.Kendo().TextBoxFor(m => m.CountryName)
-                )
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Fax
-            </td>
-            <td>
-                @(Html.Kendo().TextBoxFor(m => m.Fax)
-                )
-            </td>
-            <td>
-                Không Hiển Thị
-            </td>
-            <td>    
-                @(Html.Kendo().CheckBoxFor(m => m.Disable)
-                )
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Email
-            </td>
-            <td>
-                @(Html.Kendo().TextBoxFor(m => m.Email)
-                    .HtmlAttributes(new {  type = "email", data_email_msg = "Email Đúng Định Dạng ?"})
-                )
-            </td>
-        </tr>
-    </table>
-    <div style="float: right">
-            @(Html.Kendo().Button()
-              .Name("btluu")
-              .HtmlAttributes(new  { type = "submit" })
-              .Content("Lưu & Nhập tiếp")
-              )
-            @(Html.Kendo().Button()
-              .Name("btluusc")
-              .HtmlAttributes(new  { type = "submit" })
-              .Content("Lưu & Sao Chép")
-              )
-            @(Html.Kendo().Button()
-              .Name("btdong")
-              .Content("Đóng")
-              )
-    </div>
-    </form>
-    </text>)
-    .Draggable()
-    .Visible(false)
-    .Resizable()
-    .Width(800)
-)
+
 
 <style>
     #demo-section {
@@ -533,6 +157,11 @@ DANH MỤC HỘI VIÊN
     display: none;
     color: red;
 }
+    #border {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+    }
 </style>
 
 

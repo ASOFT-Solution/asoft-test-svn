@@ -13,6 +13,7 @@
         @Scripts.Render("~/bundles/kendo")
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/scr_bt")
     </head>
     <body>
         <div id="background">
@@ -22,40 +23,40 @@
                          <div id="up">
                              ASOFT-ERP 9.0
                          </div>
-                         <div style="color: white">
+                         <div id="down">
                              HỆ THỐNG QUẢN TRỊ NGUỒN LỰC DOANH NGHIỆP
                          </div>
                      </div>
                      <div id="navigation1">
-                         @(Html.Kendo().Menu()
-                          .Name("Menu")
-                          .Items(items =>
-                          {
-                                items.Add().Text("Thông Tin Điều Hành");
-                                items.Add().Text("POST")
-                                .Items(children =>
-                                {
-                                   children.Add().Text("Thiết Lập");
-
-                                   children.Add().Text("Danh Mục")
-                                   .Items(innerChildren =>
-                                   {
-                                       innerChildren.Add().Text("Danh Mục Cửa Hàng");
-                                       innerChildren.Add().Text("Danh Mục Hàng Hóa");
-                                       innerChildren.Add().Text("Danh Mục Hội Viên");
-                                       innerChildren.Add().Text("Danh Mục Hình Thức Thanh Toán");
-                                   });
-
-                                   children.Add().Text("Nghiệp Vụ");
-
-                                   children.Add().Text("Báo Cáo");
-                                });
-                                items.Add().Text("CRM");
-                                items.Add().Text("QLHV");
-                          })
-                        )                    
+                         <ul>
+                            <li class="mn"><a href="#">Thông Tin Diều Hành</a></li>
+                            <li class="mn"><a href="#">POS</a>
+                                <ul id="mn5">
+                                    <li class="mn1"><a href="#">Thiết Lập</a></li>
+                                    <li class="mn1"><a href="#">Danh Mục</a>
+                                        <ul id="mnc">
+                                            <li style="background:none; border: none">&nbsp</li>
+                                            <li style="border-top: 1px solid black;">&nbsp</li>
+                                            <li class="mn2"><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspDanh Mục Cửa Hàng</a></li>
+                                            <li>&nbsp</li>
+                                            <li class="mn2"><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspDanh Mục Hàng Hóa</a></li>
+                                            <li>&nbsp</li>
+                                            <li class="mn2"><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspDanh Mục Hội Viên</a></li>
+                                            <li>&nbsp</li>    
+                                            <li class="mn2"><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspDanh Mục Hình Thức Thánh Toán</a></li>
+                                            <li>&nbsp</li> 
+                                        </ul>
+                                    </li>
+                                    <li class="mn1"><a href="#">Nghiệp Vụ</a></li>
+                                    <li class="mn1"><a href="#">Báo Cáo</a></li>
+                                </ul>
+                            </li>
+                            <li class="mn"><a href="#">CRM</a></li>
+                            <li class="mn"><a href="#">QLHV</a></li>
+                        </ul>
                      </div>
-                     <div style="height: 25px">
+                     <div id="menu">
+                         
                      </div>                  
                       <hr style="width: 900px ; color:cornflowerblue"/>
                  </div>
@@ -66,3 +67,6 @@
         </div>
     </body>
 </html>
+
+<script>
+</script>

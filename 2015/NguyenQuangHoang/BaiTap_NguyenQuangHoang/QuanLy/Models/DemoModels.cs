@@ -7,6 +7,7 @@ namespace QuanLy.Models
 {
     public class DemoModels
     {
+        public string APK { get; set; }
         public string DivisionID { get; set; }
         public string MemberID { get; set; }
         public string MemberName { get; set; }
