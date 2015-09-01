@@ -1,0 +1,45 @@
+﻿@model QuanLy.Models.DemoModels
+@using Kendo.Mvc.UI
+
+@(Html.Kendo().Grid<MyConnection.HoiVien>()
+        .Name("grid")
+        .Columns(columns =>
+        {
+            columns.Template(p => p.APK)
+            .Title("<input type='checkbox' id='checkid' class='' ")
+            .ClientTemplate("<input type='checkbox' name='check' class='ck' value = '#=APK#' />")
+            .HtmlAttributes(new { style = "text-align: center" });
+            columns.Template(p => {}).Title("STT").ClientTemplate("<div name='stt'></div>");
+            columns.Bound(p => p.DivisionID).Title("Đơn Vị");
+            columns.Bound(p => p.MemberID).Title("Mã Hội Viên");
+            columns.Bound(p => p.MemberName).Title("Tên Hội Viên");
+            columns.Bound(p => p.Address).Title("Địa Chỉ");
+            columns.Bound(p => p.Identify).Title("Mã Số Thuế/Số CMND");
+            columns.Bound(p => p.Phone).Title("Điện Thoại Di Động");
+            columns.Bound(p => p.Tel).Title("Số Điện Thoại");
+            columns.Bound(p => p.Fax).Title("Fax");
+            columns.Bound(p => p.Email).Title("Email");
+            columns.Bound(p => p.Disable).Title("Không Kích Hoạt");
+        })
+        .Events(e => e.DataBound("themstt"))
+        .Pageable()
+        .Sortable()
+        .Selectable(selectable => selectable
+            .Mode(GridSelectionMode.Multiple)
+            .Type(GridSelectionType.Row))
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .PageSize(10)
+            .Read(read => read.Action("Search", "QuanLy"))
+            .Model(model => model.Id(p => p.APK))
+         )
+         .HtmlAttributes(new { style = "width: 900px" })
+    )
+
+<script type="text/javascript">
+    function themstt() {
+        $("[name = 'stt']").html(function (index) {
+            this.innerHTML = index + 1;
+        });
+    }
+</script>
