@@ -168,5 +168,12 @@ namespace TestKendo.Controllers
             return "ok";
         }
 
+        public ActionResult Menu()
+        {
+            var db = new PetaPoco.Database("MyConnection");
+            //PetaPoco.Page<HoiVien> rs = MyConnectionDB.GetInstance().Page<HoiVien>(1, 2, "select * from HoiVien");
+            return PartialView(db.Query<MenuDaCap>("select * from MenuDaCap").ToList());
+        }
+
     }
 }

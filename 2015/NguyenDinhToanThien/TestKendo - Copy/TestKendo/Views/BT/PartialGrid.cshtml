@@ -2,22 +2,22 @@
 <div id="themxoasua">
 @(Html.Kendo().Button()
     .Name("them")
-    .HtmlAttributes(new { type = "button",title = "Add new"})
+    .HtmlAttributes(new { type = "button",title = "Add new", @class="m-button"})
     .ImageUrl(Url.Content("~/images/icon/plus.ico"))
     .Content(""))
 @(Html.Kendo().Button()
     .Name("xoa")
-    .HtmlAttributes( new {type = "button",title = "Delete"} )
+    .HtmlAttributes( new {type = "button",title = "Delete", @class="m-button"} )
     .ImageUrl(Url.Content("~/images/icon/delete.ico"))
     .Content(""))
 @(Html.Kendo().Button()
     .Name("disable")
-    .HtmlAttributes( new {type = "button",title = "Disable"} )
+    .HtmlAttributes( new {type = "button",title = "Disable", @class="m-button"} )
     .ImageUrl(Url.Content("~/images/icon/checkdisable.bmp"))
     .Content(""))
 @(Html.Kendo().Button()
     .Name("enable")
-    .HtmlAttributes( new {type = "button",title = "Enable"} )
+    .HtmlAttributes( new {type = "button",title = "Enable", @class="m-button"} )
     .ImageUrl(Url.Content("~/images/icon/checkenable.ico"))
     .Content(""))
 </div>
@@ -81,10 +81,11 @@
     }
     .k-pager-info {
         color:GrayText;
+        display:none;
     }
 
     #clientsDb {
-            text-align:center;
+            text-align:left;
             height: 396px;
             margin: 0px 20px auto 0;
             padding: 51px 4px 0 4px;
@@ -114,5 +115,26 @@
     .k-button .k-image
     {
         height: 16px;
+    }
+    .k-button {
+        border-radius:0px;
+    }
+    .k-pager-refresh {
+        display:none;
+    }
+
+    .k-pager-numbers .k-state-selected {
+        border-radius:0px;
+        background-color:blue;
+        border-color:blue;
+    }
+    .m-button {
+        background-color:white;
+        border:none;
+    }
+    .k-textbox {
+        border:none;
+        border-bottom:1px solid black;
+        border-radius:0px;
     }
 </style>

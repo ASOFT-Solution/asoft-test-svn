@@ -166,14 +166,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AsoftController.cs" />
     <Compile Include="Controllers\BTController.cs" />
-    <Compile Include="Controllers\EmailController.cs" />
-    <Compile Include="Controllers\HelloController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\TestController.cs" />
-    <Compile Include="Controllers\TestViewController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1199,18 +1192,6 @@
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\_RemoveExternalLoginsPartial.cshtml" />
-    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Manage.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -1333,26 +1314,17 @@
     <Content Include="Scripts\kendo\kendo.virtuallist.min.js.map" />
     <Content Include="Scripts\kendo\kendo.web.min.js.map" />
     <Content Include="Scripts\kendo\kendo.window.min.js.map" />
-    <Content Include="Views\Hello\SendMail.cshtml" />
-    <Content Include="Views\Email\Index.cshtml" />
-    <Content Include="Views\Email\Success.cshtml" />
-    <Content Include="Views\Hello\Index.cshtml" />
-    <Content Include="Views\Hello\Combobox.cshtml" />
-    <Content Include="Views\Hello\Ketqua.cshtml" />
     <Content Include="Views\TestView\Email.cshtml" />
     <Content Include="Views\TestView\Lop.cshtml" />
     <Content Include="Views\TestView\Index.cshtml" />
-    <Content Include="Views\Hello\Menu.cshtml" />
     <Content Include="Views\Shared\_template.cshtml" />
-    <Content Include="Views\Asoft\Index.cshtml" />
-    <Content Include="Views\Asoft\Create.cshtml" />
     <Content Include="Views\Test\Tempdata.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\BT\Index.cshtml" />
-    <Content Include="Views\BT\testpopup.cshtml" />
     <Content Include="Views\BT\CreateHoiVien.cshtml" />
     <Content Include="Views\BT\PartialSearch.cshtml" />
     <Content Include="Views\BT\PartialGrid.cshtml" />
+    <Content Include="Views\BT\Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

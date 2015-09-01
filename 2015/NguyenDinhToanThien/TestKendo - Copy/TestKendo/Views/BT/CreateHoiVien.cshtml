@@ -75,7 +75,7 @@
         <td>
             @Html.DisplayNameFor(model => model.Birthday)
             </td><td>
-            @Html.Kendo().DatePickerFor(model => model.Birthday)
+            @Html.Kendo().DatePickerFor(model => model.Birthday).HtmlAttributes(new {@class="m-picker" })
             @Html.ValidationMessageFor(model => model.Birthday)
             </td>
        <td>
