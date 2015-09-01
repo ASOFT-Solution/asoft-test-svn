@@ -32,7 +32,7 @@
 }
 </ul> */}
 
-@(Html.Kendo().Menu()
+@{/*(Html.Kendo().Menu()
       .Name("Menu")
       .Items(items =>
       {
@@ -58,7 +58,29 @@
           items.Add()
               .Text("QLHV");
       })
-)
+)*/}
+
+<ul class="m-level1">
+    <li>Thông tin điều hành
+    </li>
+    <li>POS
+        <ul class="m-level2">
+            <li>Thiết lập</li>
+            <li>Danh mục
+                <ul class="m-level3">
+                    <li >Danh mục cửa hàng</li>
+                    <li>Danh mục hàng hóa</li>
+                    <li>Danh mục hội viên</li>
+                    <li>Danh mục hình thức thanh toán</li>
+                </ul>
+            </li>
+            <li>Nghiệp vụ</li>
+            <li>Báo cáo</li>
+        </ul>
+    </li>
+    <li>CRM</li>
+    <li>QLHV</li>
+</ul>
 
 <style>
     #menu h2 {
@@ -90,7 +112,6 @@
         clear: left;
         margin: 5px 0 5px 12px;
     }
-
 </style>
 
 
