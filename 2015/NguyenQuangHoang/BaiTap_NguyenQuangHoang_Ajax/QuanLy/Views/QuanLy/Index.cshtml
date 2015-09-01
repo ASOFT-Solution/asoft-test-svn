@@ -29,19 +29,22 @@ DANH MỤC HỘI VIÊN
                 Đơn Vị
             </td>
             <td>
-                @(Html.Kendo().TextBoxFor(m=>m.DivisionID))
+                @(Html.Kendo().TextBoxFor(m => m.DivisionID)
+                .HtmlAttributes(new { @id = "border" }))
             </td>
             <td>
                 Địa Chỉ
             </td>
             <td>
-                @(Html.Kendo().TextBoxFor(m=>m.Address))
+                @(Html.Kendo().TextBoxFor(m=>m.Address)
+                .HtmlAttributes(new { @id = "border" }))
             </td>
             <td>
                 Số Điện Thoại   
             </td>
             <td>
-               @(Html.Kendo().TextBoxFor(m=>m.Tel))
+               @(Html.Kendo().TextBoxFor(m=>m.Tel)
+               .HtmlAttributes(new { @id = "border" }))
             </td>
         </tr>
         <tr>
@@ -49,19 +52,22 @@ DANH MỤC HỘI VIÊN
                 Mã Hội Viên
             </td>
             <td>
-                @(Html.Kendo().TextBoxFor(m=>m.MemberID))
+                @(Html.Kendo().TextBoxFor(m=>m.MemberID)
+                .HtmlAttributes(new { @id = "border" }))
             </td>
             <td>
                 Mã Số Thuế/Số CMND
             </td>
             <td>
-                @(Html.Kendo().TextBoxFor(m=>m.Identify))
+                @(Html.Kendo().TextBoxFor(m=>m.Identify)
+                .HtmlAttributes(new { @id = "border" }))
             </td>
             <td>
                 Fax  
             </td>
             <td>
-               @(Html.Kendo().TextBoxFor(m=>m.Fax))
+               @(Html.Kendo().TextBoxFor(m=>m.Fax)
+               .HtmlAttributes(new { @id = "border" }))
             </td>
         </tr>
         <tr>
@@ -69,19 +75,22 @@ DANH MỤC HỘI VIÊN
                 Tên Hội Viên
             </td>
             <td>
-                @(Html.Kendo().TextBoxFor(m=>m.MemberName))
+                @(Html.Kendo().TextBoxFor(m=>m.MemberName)
+                .HtmlAttributes(new { @id = "border" }))
             </td>
             <td>
                 Điện Thoại Di Động
             </td>
             <td>
-                @(Html.Kendo().TextBoxFor(m=>m.Phone))
+                @(Html.Kendo().TextBoxFor(m=>m.Phone)
+                .HtmlAttributes(new { @id = "border" }))
             </td>
             <td>
                 Email   
             </td>
             <td>
-                @(Html.Kendo().TextBoxFor(m=>m.Email))
+                @(Html.Kendo().TextBoxFor(m=>m.Email)
+                .HtmlAttributes(new { @id = "border" }))
             </td>
         </tr>
     </table>
@@ -147,6 +156,11 @@ DANH MỤC HỘI VIÊN
     display: none;
     color: red;
 }
+    #border {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+    }
 </style>
 
 
