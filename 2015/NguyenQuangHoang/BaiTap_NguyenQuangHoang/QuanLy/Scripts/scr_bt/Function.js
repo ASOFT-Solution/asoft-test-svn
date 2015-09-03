@@ -1,5 +1,7 @@
 ﻿$(document).ready(function () {
 
+    $("#ticketsForm").kendoValidator();
+
     $("#checkid").click(function () {
         var c = this.checked;
         $(":input[name = 'check']").prop('checked', c); //Xử lý check all
@@ -13,7 +15,7 @@
             success: function (data) {
                 $('#grid').data('kendoGrid').dataSource.read();//Trả về kết quả về Grid
             },
-            error: function (args) {
+            error: function (args) {    
                 alert("Error on ajax post");
             }
         });
@@ -109,29 +111,25 @@
     $("#btdong").click(function (e) {//Đóng popup thêm
         temp = -1;
         $("#pp").data("kendoWindow").close();
+        $("#ticketsForm").find(":text[name != 'Birthday']").val(null);
+        $("#none").css("display", "none");
     });
 
     var temp = -1;//Biên temp dùng để tránh tình trang click button đóng dữ liệu vẫn được thêm
 
     $("#btluu").click(function () {//temp = 0 ==> Lưu và nhập tiếp
         temp = 0;
+        testkey();
     });
 
     $("#btluusc").click(function () {//tem[ = 1 ==> Lưu sao chép
         temp = 1;
+        testkey();
     });
 
-
-
-    $(function () {
-        if (temp == -1)//temp = -1 => đã đóng popup
-            return;
-            testkey();
-        });
-
     function testkey() {
-        var mdv = $("#ticketsForm").find("#DivisionID").val(); //lấy giá trị mã đơn vị
-        var mhv = $("#ticketsForm").find("#MemberID").val();//lấy giá trị mã hôi viên
+        var mdv = $("#ticketsForm").find("[name = 'DivisionID']").val(); //lấy giá trị mã đơn vị
+        var mhv = $("#ticketsForm").find("[name = 'MemberID']").val();//lấy giá trị mã hôi viên
         $.getJSON("QuanLy/Testkey", { ma: mdv, ten: mhv }, function (data) { // Kiểm tra trùng khóa chính => trùng: data > 0
             if (data > 0) {
                 $("#none").css("display", "inline");

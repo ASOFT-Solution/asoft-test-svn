@@ -1,11 +1,10 @@
 ﻿@model QuanLy.Models.DemoModels
 @using Kendo.Mvc.UI
 
-
-<form id="ticketsForm" action="QuanLy/Createmember" onsubmit="return false"> 
 <div id="none">
     Trùng Khóa Chính
 </div>
+<form id="ticketsForm" action="QuanLy/Createmember" onsubmit="return false"> 
 <table>
         <tr>
             <td>
@@ -93,7 +92,8 @@
                 @(Html.Kendo().TextBoxFor(m => m.Tel)
                  .HtmlAttributes(new { @id = "border" })
                 )
-                 @Html.ValidationMessageFor(m => m.Tel)
+                @Html.ValidationMessageFor(m => m.Tel)
+                 
             </td>
             <td>
                 Phường/Xã
@@ -148,6 +148,7 @@
                 @(Html.Kendo().TextBoxFor(m => m.Phone)
                 .HtmlAttributes(new { @id = "border" })
                 )
+                @Html.ValidationMessageFor(m => m.Phone)
             </td>
             <td>
                 Quốc Gia

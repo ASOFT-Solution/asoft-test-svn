@@ -171,3 +171,7 @@ a {
     height: auto;
     width: auto;
 }
+
+.k-window-titlebar {
+    background: cornflowerblue;
+}

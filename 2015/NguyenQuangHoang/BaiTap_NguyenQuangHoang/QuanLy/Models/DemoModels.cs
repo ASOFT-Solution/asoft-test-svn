@@ -24,6 +24,7 @@ namespace QuanLy.Models
 
         public string Identify { get; set; }
 
+        [RegularExpression(@"\b\d{6,11}", ErrorMessage = "Số điện thoại từ 6-11 ký tự !")]//Checkinput kiểm tra có phải số điện thoại từ 6 đên - 11 ký số không
         public string Phone { get; set; }
 
         [RegularExpression(@"\b\d{6,11}", ErrorMessage = "Số điện thoại từ 6-11 ký tự !")]//Checkinput kiểm tra có phải số điện thoại từ 6 đên - 11 ký số không
