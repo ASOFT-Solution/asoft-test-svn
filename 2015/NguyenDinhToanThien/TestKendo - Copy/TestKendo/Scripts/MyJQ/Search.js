@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () { 
-
+//Xu ly cho button lam lai
 $("#lamlai").click(function lamlai() {
     $("#donvi").val("");
     $("#diachi").val("");
@@ -12,7 +12,7 @@ $("#lamlai").click(function lamlai() {
     $("#email").val("");
     $("#checkdisable").attr("checked",false);
 });
-
+//xu ly cho button loc du lieu
 $("#locdulieu").click(function locdulieu() {
     var duongdan = 'bt/gantempdata';
     var list = Array();
@@ -31,7 +31,7 @@ $("#locdulieu").click(function locdulieu() {
     else {
         list.push("");
     }
-    guidulieuveserver(duongdan, list);
+    guidulieuveserver(duongdan, list);//Goi ham de dua du lieu ve server
 });
 
 });

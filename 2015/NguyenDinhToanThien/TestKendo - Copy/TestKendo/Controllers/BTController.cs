@@ -25,8 +25,6 @@ namespace TestKendo.Controllers
             return Json(GetCustomers().ToDataSourceResult(request));
         }
 
-        
-
         public bool GanTempData(string[] dulieu)
         {
             TempData["dieukienloc"] = dulieu;
@@ -92,8 +90,7 @@ namespace TestKendo.Controllers
             }
             return kq;
         }
-
-      
+   
         public bool enable(string[] dulieu)
         {
             var db = new PetaPoco.Database("MyConnection");
@@ -155,7 +152,7 @@ namespace TestKendo.Controllers
         public string create(HoiVien hv)
         {
             var db = new PetaPoco.Database("MyConnection");
-            hv.APK = Guid.NewGuid();
+            hv.APK = Guid.NewGuid();//Tao ma apk moi
             try { db.Insert(hv); }
             catch (Exception e)
             {

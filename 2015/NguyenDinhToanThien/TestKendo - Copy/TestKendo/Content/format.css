@@ -56,7 +56,7 @@
     background-color:black;
 }
 
-
+/*Menu tu lam*/
 #menu li {
     margin-top:10px;
     min-width:100px;
@@ -125,5 +125,115 @@ z-index:1;
     background-color:blue;
 }
 
+/*grid*/
+    .k-header {
+        background-color:Menu;
+    }
+    .k-grid-header-wrap .k-header .k-link {
+        font-weight:bold;
+        text-align:center;
+    }
+    .k-pager-wrap .k-link {
+        border-radius:0px;
+        border:0px;
+    }
+    .k-pager-sizes {
+        margin-left:0px;    
+    }
+    .k-pager-info {
+        color:GrayText;
+        display:none;
+    }
+
+    #clientsDb {
+            text-align:left;
+            height: 396px;
+            margin: 0px 20px auto 0;
+            padding: 51px 4px 0 4px;
+            font-size:11px
+    }
+    .customer-photo {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-size: 32px 35px;
+        background-position: center center;
+        vertical-align: middle;
+        line-height: 32px;
+        box-shadow: inset 0 0 1px #999, inset 0 0 10px rgba(0,0,0,.2);
+        margin-left: 5px;
+    }
+
+    .customer-name {
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 32px;
+        padding-left: 3px;
+    }  
+
+        /*button*/
+    .k-button .k-image
+    {
+        height: 16px;
+    }
+    .k-button {
+        border-radius:0px;
+    }
+    .k-pager-refresh {
+        display:none;
+    }
+
+    .k-pager-numbers .k-state-selected {
+        border-radius:0px;
+        background-color:blue;
+        border-color:blue;
+    }
+    .m-button {
+        background-color:white;
+        border:none;
+    }
+    .k-textbox {
+        border:none;
+        border-bottom:1px solid black;
+        border-radius:0px;
+    }
+
+/*Menu kendo*/
+     #menu h2 {
+        font-size: 1em;
+        text-transform: uppercase;
+        padding: 5px 10px;
+    }
+    #template img {
+        margin: 5px 20px 0 0;
+        float: left;
+    }
+    #template {
+        width: 380px;
+    }
+    #template ol {
+        float: left;
+        margin: 0;
+        padding: 10px 10px 0 10px;
+    }
+    #template:after {
+        content: ".";
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+    }
+    #template .k-button {
+        float: left;
+        clear: left;
+        margin: 5px 0 5px 12px;
+    }
+
+        /*Popup kendo*/
+    .k-window-titlebar{
+        background-color:blue;
+        color:white;
+    }
 
 
