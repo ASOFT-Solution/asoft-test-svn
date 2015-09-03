@@ -22,12 +22,12 @@ namespace TestKendo.Controllers
 
         public ActionResult Customers_Read([DataSourceRequest]DataSourceRequest request)
         {
-            return Json(GetCustomers().ToDataSourceResult(request));
+            return Json(GetCustomers().ToDataSourceResult(request));//Tra ve doi tuong json cho view
         }
 
         public bool GanTempData(string[] dulieu)
         {
-            TempData["dieukienloc"] = dulieu;
+            TempData["dieukienloc"] = dulieu;//Gan dieu kien loc vao tempdata de truy van
             return true;
         }
 
@@ -35,12 +35,11 @@ namespace TestKendo.Controllers
         {
             var db = new PetaPoco.Database("MyConnection");
             IEnumerable<HoiVien> kq;
-            if (TempData["dieukienloc"] == null)
+            if (TempData["dieukienloc"] == null)//truy van mac dinh
             {
-                //PetaPoco.Page<HoiVien> rs = MyConnectionDB.GetInstance().Page<HoiVien>(1, 2, "select * from HoiVien");
                 kq = db.Query<HoiVien>("select * from HoiVien where Disable = '0'");
             }
-            else
+            else//Truy van khi da co tempdata(da co dieu kien loc)
             {
                 TempData.Keep("dieukienloc");
                 string[] frmc = (string[])TempData["dieukienloc"];
@@ -95,7 +94,7 @@ namespace TestKendo.Controllers
         {
             var db = new PetaPoco.Database("MyConnection");
             try{
-                for (int i = 0; i < dulieu.Length; i++)
+                for (int i = 0; i < dulieu.Length; i++)//enable theo ma apk nhan duoc
                 {
                     string qr = string.Format("update hoivien set Disable = '0' where APK = '{0}'", dulieu[i]);
                     db.Execute(qr);
@@ -114,7 +113,7 @@ namespace TestKendo.Controllers
             var db = new PetaPoco.Database("MyConnection");
             try
             {
-                for (int i = 0; i < dulieu.Length; i++)
+                for (int i = 0; i < dulieu.Length; i++)//disable theo ma apk nhan duoc
                 {
                     string qr = string.Format("update hoivien set Disable = '1' where APK = '{0}'", dulieu[i]);
                     db.Execute(qr);
@@ -131,7 +130,7 @@ namespace TestKendo.Controllers
         {
             var db = new PetaPoco.Database("MyConnection");
             try{
-                for (int i = 0; i < dulieu.Length; i++)
+                for (int i = 0; i < dulieu.Length; i++)//xoa du lieu tren trong list apk nhan duoc
                 {
                     string qr = string.Format("delete from hoivien where APK = '{0}'", dulieu[i]);
                     db.Execute(qr);
@@ -141,12 +140,6 @@ namespace TestKendo.Controllers
             {
                 return false;
             };
-        }
-
-
-        public ActionResult testpopup()
-        {
-            return View();
         }
 
         public string create(HoiVien hv)
@@ -168,8 +161,7 @@ namespace TestKendo.Controllers
         public ActionResult Menu()
         {
             var db = new PetaPoco.Database("MyConnection");
-            //PetaPoco.Page<HoiVien> rs = MyConnectionDB.GetInstance().Page<HoiVien>(1, 2, "select * from HoiVien");
-            return PartialView(db.Query<MenuDaCap>("select * from MenuDaCap").ToList());
+            return PartialView(db.Query<MenuDaCap>("select * from MenuDaCap").ToList());//dua ket qua ve de view hien thi menu
         }
 
     }

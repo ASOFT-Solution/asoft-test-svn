@@ -7,10 +7,11 @@
     $("#MemberID").click(function () {
         thongbaoloi("");
     });
-//Tao hieu ung thong bao loi khi them du lieu (xu ly thua)
+//Tao thong bao loi khi them du lieu
 function thongbaoloi(tb) {
     var tbl = $("#thongbaoloi");
     tbl.html(tb);
+    //(xu ly thua hieu ung)
     /*var t = 90;
     setTimeout(function () {
         tbl.css("backgroundColor", "blue");
@@ -104,15 +105,24 @@ $(function () {
 
 //xu ly khi dong popup them
 function onClose() {
+    $("#FormId")[0].reset();//Xoa trang form truoc khi dong
+    thongbaoloi("");//Xoa trang thong bao loi
+    $(".field-validation-valid").remove("");//Xoa trang validation
     $("#window").data("kendoWindow").close();//dong popup
     var grid = $("#grid").data("kendoGrid");
     grid.dataSource.page(1);//tai lai grid de cap nhat du lieu
 }
 
 $("#Dong").click( function DongCuaSo() {
-    $("#FormId")[0].reset();//Xoa trang form truoc khi dong
-    thongbaoloi("");//Xoa trang thong bao loi
-    $(".field-validation-valid").remove("");//Xoa trang validation
     onClose();//Goi ham dong popup
+});
+//Xu ly khi nhan button them se mo popup
+$("#them").bind("click", function () {
+    $("#window").data("kendoWindow").open();
+    $("#window").data("kendoWindow").focus;
+    //Tao su kien click cho nut x
+    $(".k-window-action").click(function () {
+        onClose();
+    });
 });
 });

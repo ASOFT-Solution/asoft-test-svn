@@ -4,11 +4,11 @@
  foreach(var i in Model)
  {
      if (m_id == i.MaParent)
-    {
+     {
     <li>
-        @Html.Raw("<a href='bt/menu'>" + i.Ten + "</a>")
+        @Html.Raw("<a href='#'>" + i.Ten + "</a>")
         <ul>
-           @ListArrayItems(i.MaMenu)
+            @ListArrayItems(i.MaMenu)
         </ul>
     </li> 
     }
@@ -23,7 +23,7 @@
             continue; 
         }
     <li>
-        @Html.Raw("<a href='bt/menu'>" + i.Ten + "</a>")
+        @Html.Raw("<a href='#'>" + i.Ten + "</a>")
         <ul>
            @ListArrayItems(i.MaMenu)
         </ul>
