@@ -1,7 +1,7 @@
 ﻿@model MyConnection.HoiVien
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Trang chủ";
 }
 
 @(Html.Kendo().Window()
@@ -16,7 +16,7 @@
     .Width(700)
     .Actions(a=>a.Clear())
 )
-
+<hr style="margin-bottom:-20px;margin-top:28px;"/>
 <h2>Danh mục hội viên</h2>
 
     @Html.Partial("PartialSearch")

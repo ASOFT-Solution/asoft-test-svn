@@ -1,12 +1,12 @@
 ﻿@model List<MyConnection.MenuDaCap>
 
-@{/* @helper ListArrayItems(int m_id) {
+@helper ListArrayItems(int m_id) {
  foreach(var i in Model)
  {
      if (m_id == i.MaParent)
     {
     <li>
-        @i.Ten
+        @Html.Raw("<a href='bt/menu'>" + i.Ten + "</a>")
         <ul>
            @ListArrayItems(i.MaMenu)
         </ul>
@@ -23,14 +23,14 @@
             continue; 
         }
     <li>
-        @Html.Raw(i.Ten)
+        @Html.Raw("<a href='bt/menu'>" + i.Ten + "</a>")
         <ul>
            @ListArrayItems(i.MaMenu)
         </ul>
     </li>
     }
 }
-</ul> */}
+</ul>
 
 @{/*(Html.Kendo().Menu()
       .Name("Menu")
@@ -60,14 +60,12 @@
       })
 )*/}
 
-<ul class="m-level1">
+@{/*<ul>
     <li>Thông tin điều hành
-    </li>
-    <li>POS
-        <ul class="m-level2">
+       <ul>
             <li>Thiết lập</li>
             <li>Danh mục
-                <ul class="m-level3">
+                <ul>
                     <li >Danh mục cửa hàng</li>
                     <li>Danh mục hàng hóa</li>
                     <li>Danh mục hội viên</li>
@@ -78,9 +76,52 @@
             <li>Báo cáo</li>
         </ul>
     </li>
-    <li>CRM</li>
-    <li>QLHV</li>
-</ul>
+    <li>POS
+        <ul>
+            <li>Thiết lập</li>
+            <li>Danh mục
+                <ul>
+                    <li >Danh mục cửa hàng</li>
+                    <li>Danh mục hàng hóa</li>
+                    <li>Danh mục hội viên</li>
+                    <li>Danh mục hình thức thanh toán</li>
+                </ul>
+            </li>
+            <li>Nghiệp vụ</li>
+            <li>Báo cáo</li>
+        </ul>
+    </li>
+    <li>CRM
+         <ul>
+            <li>Thiết lập</li>
+            <li>Danh mục
+                <ul>
+                    <li >Danh mục cửa hàng</li>
+                    <li>Danh mục hàng hóa</li>
+                    <li>Danh mục hội viên</li>
+                    <li>Danh mục hình thức thanh toán</li>
+                </ul>
+            </li>
+            <li>Nghiệp vụ</li>
+            <li>Báo cáo</li>
+        </ul>
+    </li>
+    <li>QLHV
+        <ul>
+            <li>Thiết lập</li>
+            <li>Danh mục
+                <ul>
+                    <li >Danh mục cửa hàng</li>
+                    <li>Danh mục hàng hóa</li>
+                    <li>Danh mục hội viên</li>
+                    <li>Danh mục hình thức thanh toán</li>
+                </ul>
+            </li>
+            <li>Nghiệp vụ</li>
+            <li>Báo cáo</li>
+        </ul>
+    </li>
+</ul>*/}
 
 <style>
     #menu h2 {
