@@ -17,7 +17,6 @@
                 alert("Error on ajax post");
             }
         });
-
     });
     $("#btlamlai").click(function () {//button làm lại: xóa trắng các button trong dãy lọc
         $("#tb").find(":text").val(null);
@@ -129,7 +128,6 @@
             return;
             testkey();
         });
-    });
 
     function testkey() {
         var mdv = $("#ticketsForm").find("#DivisionID").val(); //lấy giá trị mã đơn vị
