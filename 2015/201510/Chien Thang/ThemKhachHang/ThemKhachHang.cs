@@ -35,15 +35,24 @@ namespace ThemKhachHang
         {
             BindingSource bindingSource = null;
             DataRow mtRowView = null;
-            string frmName = _data.FrmMain.Text;
             bindingSource = _data.BsMain as BindingSource;
             mtRowView = (bindingSource.Current as DataRowView).Row;
-            if (frmName == "Nhân viên")
-                mtRowView["IsNV"] = true;
-            else if (frmName == "Khách hàng")
-                mtRowView["IsKH"] = true;
-            else
-                mtRowView["IsNCC"] = true;
+            if (mtRowView.RowState != DataRowState.Added)
+                return;
+            DataRow dr = _data.DrTable;
+            if (_data.DrTable["ListType"].ToString() == "2") //Trường hợp Form load lên thuộc danh mục nhân viên
+            {
+                mtRowView["isNV"] = true;
+            }
+            else if (_data.DrTable["ListType"].ToString() == "3") //Trường hợp Form load lên thuộc danh mục khách hàng
+            {
+                mtRowView["isKH"] = true;
+            }
+            else if (_data.DrTable["ListType"].ToString() == "4") //Trường hợp Form load lên thuộc danh mục nhà cung cấp
+            {
+                mtRowView["isNCC"] = true;
+            }
+            
         }
     }
 }
