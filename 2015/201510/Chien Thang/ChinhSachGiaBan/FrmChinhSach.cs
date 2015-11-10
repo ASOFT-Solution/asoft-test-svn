@@ -45,6 +45,7 @@ namespace ChinhSachGiaBan
         }
         private void LoadData()
         {
+            //Kiểm tra đã nhập kho chưa
             string sql = string.Format("SELECT d.MaKH, k.TenKH, d.MaVT, v.TenVT, d.MaDVT, d.Gia FROM DMChinhSachGia d inner join DMKH k on d.MaKH=k.MaKH inner join DMVT v on d.MaVT=v.MaVT Where d.MaKH = '{0}'", _drCurMaster["MaKH"]);
             _dt = _dbData.GetDataTable(sql);
             CreateCheckColumn();
@@ -86,7 +87,7 @@ namespace ChinhSachGiaBan
         {
             DataView dv = new DataView(_dt);
             dv.RowFilter = "Check = true";
-            if (dv.Count == 0)
+            if (dv.Count == 0) //Trường hợp chưa chọn vật tư
             {
                 XtraMessageBox.Show("Phải chọn ít nhất một vật tư");
             }

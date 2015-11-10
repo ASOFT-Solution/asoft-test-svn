@@ -37,15 +37,18 @@ namespace ChinhSachGiaBan
         }
         public void Execute(int menuID)
         {
+            // [Chiến Thắng] Tạo mới 09/11/2015
+            // Tạo ICForm màn hình chức năng chọn bảng giá vật tư theo khách hàng
+
             DataRow drCurMaster = (_data.BsMain.Current as DataRowView).Row;
-            if (drCurMaster["MaKH"].ToString() == string.Empty)
+            if (drCurMaster["MaKH"].ToString() == string.Empty) //Chưa chọn thông tin khách hàng
                 XtraMessageBox.Show("Chưa có thông tin khách hàng");
             else
             {
                 GridView gvDetail = (_data.FrmMain.Controls.Find("gcMain", true)[0] as GridControl).MainView as GridView;
                 FrmChinhSach frm = new FrmChinhSach(drCurMaster);
                 frm.ShowDialog();
-                if (frm.Result != null && frm.Result.Count > 0)
+                if (frm.Result != null && frm.Result.Count > 0) //Nếu đã chọn dữ liệu 
                 {
                     gvDetail.OptionsNavigation.AutoFocusNewRow = true; //Tự động focus vào dòng mới thêm. Nếu không có chạy 2 lần sẽ bị lỗi.
                     //Thêm dữ liệu vào lưới
