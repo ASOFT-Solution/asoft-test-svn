@@ -12,7 +12,6 @@ namespace CheckPhatSinh
 {
     public class CheckPhatSinh : ICData
     {
-        
         public CheckPhatSinh()
         {
             _info = new InfoCustomData(IDataType.Single);
@@ -22,7 +21,10 @@ namespace CheckPhatSinh
         private Database _dbData = Database.NewDataDatabase();
         public DataCustomData Data
         {
-            set { _data = value; }
+            set
+            {
+                _data = value;
+            }
         }
         public void ExecuteAfter()
         {
@@ -30,10 +32,16 @@ namespace CheckPhatSinh
         }
         public void ExecuteBefore()
         {
+            // [Chiến Thắng] Tạo mới 05/10/2015
+            // Kiểm tra nếu dữ liệu đã phát sinh thì không cho chỉnh sửa mã vật tư.
+
+
+            //Trường hợp xóa
             DataRow dr = _data.DsData.Tables[0].Rows[_data.CurMasterIndex];
             if (dr.RowState == DataRowState.Deleted)
             {
                 dr.RejectChanges();
+		// Kiểm tra vật tư đã phát sinh chưa.
                 string sql = string.Format("Select top 1  MaVT from BLVT where MaVT = {0}", dr["MaVT"]);
                 if (_dbData.GetValue(sql) == null)
                 {
@@ -50,10 +58,15 @@ namespace CheckPhatSinh
         }
         public InfoCustomData Info
         {
-            get { return _info; }
+            get
+            {
+                return _info;
+            }
         }
-        public void ExecuteBeforeCheckRules() 
+        public void ExecuteBeforeCheckRules()
         {
+
+            //Trường hợp sửa
             DataRow dr = _data.DsData.Tables[0].Rows[_data.CurMasterIndex];
             if (dr.RowState == DataRowState.Added)
                 return;
@@ -64,7 +77,7 @@ namespace CheckPhatSinh
             string sql = string.Format("Select top 1  MaVT from BLVT where MaVT = {0}", drTemp["MaVT"]);
             if (_dbData.GetValue(sql) != null)
             {
-                if (dr["MaVT"] == drTemp["MaVT"])
+                if (dr["MaVT"] == drTemp["MaVT"]) //Nếu không sửa mã vật tư thì được sửa các thông tin còn lại
                     _info.Result = true;
                 else
                 {
