@@ -45,7 +45,7 @@ namespace ChinhSachGiaBan
         }
         private void LoadData()
         {
-            //Kiểm tra đã nhập kho chưa
+            //Load dữ liệu từ bảng DMChinhSachGia
             string sql = string.Format("SELECT d.MaKH, k.TenKH, d.MaVT, v.TenVT, d.MaDVT, d.Gia FROM DMChinhSachGia d inner join DMKH k on d.MaKH=k.MaKH inner join DMVT v on d.MaVT=v.MaVT Where d.MaKH = '{0}'", _drCurMaster["MaKH"]);
             _dt = _dbData.GetDataTable(sql);
             CreateCheckColumn();
@@ -95,6 +95,7 @@ namespace ChinhSachGiaBan
             {
                 for (int i = 0; i < dv.Count; i++)
                 {
+		    // Kiểm tra vật tư đã nhập kho chưa.
                     string sql = string.Format("Select * From wTonkhoTucThoi Where MaVT = '{0}' and MaDVT = '{1}'", dv[i]["MaVT"], dv[i]["MaDVT"]);
                     if (_dbData.GetValue(sql) == null) //Vật tư chưa nhập kho thì xóa khỏi Dataview
                     {
