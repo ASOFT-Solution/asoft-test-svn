@@ -28,11 +28,13 @@ namespace ThemKhachHang
         }
         public void AddEvent()
         {
+            // Thêm sự kiện FormLoad
             _data.FrmMain.Load += new EventHandler(FormLoad);
-            
         }
         void FormLoad(object sender, EventArgs e)
         {
+            // [Chiến Thắng] Tạo mới 09/11/2015
+            // Tự động check vào các ô nhân viên, khách hàng, nhà cung cấp khi Form load lên.
             BindingSource bindingSource = null;
             DataRow mtRowView = null;
             bindingSource = _data.BsMain as BindingSource;
