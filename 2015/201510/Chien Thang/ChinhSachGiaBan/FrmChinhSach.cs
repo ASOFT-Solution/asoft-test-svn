@@ -32,6 +32,7 @@ namespace ChinhSachGiaBan
             switch (e.KeyCode)
             {
                 case Keys.F12:
+                    gvCS.FocusedRowHandle++; // Phải có dòng này để khi ấn phím F12 mới nhận đủ dữ liệu
                     SaveData();
                     break;
                 case Keys.Escape:
