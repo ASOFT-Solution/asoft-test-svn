@@ -23,7 +23,8 @@ namespace CheckDMVT
         {
             _info = new InfoCustomData(IDataType.Single);
         }
-
+        //[Lệ Huyền] tạo mới ngày [2/11/2015]
+        //Kiểm tra phát sinh của vật tư
         #region ICData Members
 
         public DataCustomData Data
@@ -38,6 +39,8 @@ namespace CheckDMVT
         {
 
         }
+        //[Lệ Huyền] tạo mới ngày [2/11/2015]
+        //Updated ngày [11/11/2015]
         public void ExecuteBefore()
         {
             DataRow row1 = _data.DsData.Tables[0].Rows[_data.CurMasterIndex];
