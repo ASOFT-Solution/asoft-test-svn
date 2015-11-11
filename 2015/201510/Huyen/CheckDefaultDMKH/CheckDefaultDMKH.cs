@@ -54,21 +54,24 @@ namespace CheckDefaultDMKH
             mtRowView = (bindingSource.Current as DataRowView).Row;
             if (mtRowView == null || mtRowView.RowState == DataRowState.Deleted)
                 return;
-            string _strCheck = _data.DrTable["ExtraSql"].ToString();
-            if (!COLUMN_NAME.Contains(_strCheck))
-                return;
-            if (_strCheck == "isKH = 1")
-            {
-                mtRowView["IsKH"] = true;
-            }
-            else if (_strCheck == "isNV = 1")
-            {
-                mtRowView["IsNV"] = true;
-            }
-            else
-            {
-                mtRowView["IsNCC"] = true;
-            }
+			if(mtRowView.RowState == DataRowState.Added)
+			{
+				string _strCheck = _data.DrTable["ExtraSql"].ToString();
+				if (!COLUMN_NAME.Contains(_strCheck))
+					return;
+				if (_strCheck == "isKH = 1")
+				{
+					mtRowView["IsKH"] = true;
+				}
+				else if (_strCheck == "isNV = 1")
+				{
+					mtRowView["IsNV"] = true;
+				}
+				else
+				{
+					mtRowView["IsNCC"] = true;
+				}
+			}
         }
         #endregion
     }
