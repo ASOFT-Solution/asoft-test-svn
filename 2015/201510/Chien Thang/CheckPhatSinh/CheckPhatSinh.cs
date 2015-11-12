@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +19,7 @@ namespace CheckPhatSinh
         private InfoCustomData _info;
         private DataCustomData _data;
         private Database _dbData = Database.NewDataDatabase();
+        private DataView _dv;
         public DataCustomData Data
         {
             set
@@ -35,26 +36,17 @@ namespace CheckPhatSinh
             // [Chiến Thắng] Tạo mới 05/10/2015
             // Kiểm tra nếu dữ liệu đã phát sinh thì không cho chỉnh sửa mã vật tư.
 
-
             //Trường hợp xóa
-            DataRow dr = _data.DsData.Tables[0].Rows[_data.CurMasterIndex];
-            if (dr.RowState == DataRowState.Deleted)
+            _dv = new DataView(_data.DsData.Tables[0]);
+            _dv.RowStateFilter = DataViewRowState.Deleted; // Hiện thị dòng dữ liệu trước khi bị xóa
+            if (_dv.Count == 0)
+                return;
+            DataRowView drv = _dv[0];
+            if (CheckExist(drv["MaVT"].ToString())) // Kiểm tra dữ liệu đã phát sinh chưa
             {
-                dr.RejectChanges();
-		// Kiểm tra vật tư đã phát sinh chưa.
-                string sql = string.Format("Select top 1  MaVT from BLVT where MaVT = {0}", dr["MaVT"]);
-                if (_dbData.GetValue(sql) == null)
-                {
-                    dr.Delete();
-                    _info.Result = true;
-                }
-                else
-                {
-                    XtraMessageBox.Show("Vật tư đã phát sinh, không được phép chỉnh sửa.");
-                    dr.RejectChanges();
-                    _info.Result = false;
-                }
+                ShowMessageBox();
             }
+            
         }
         public InfoCustomData Info
         {
@@ -65,27 +57,43 @@ namespace CheckPhatSinh
         }
         public void ExecuteBeforeCheckRules()
         {
-
             //Trường hợp sửa
-            DataRow dr = _data.DsData.Tables[0].Rows[_data.CurMasterIndex];
-            if (dr.RowState == DataRowState.Added)
+            _dv = new DataView(_data.DsData.Tables[0]);
+            string maVTModify = _dv[_data.CurMasterIndex]["MaVT"].ToString(); //Mã vật tư sau khi sửa
+            _dv.RowStateFilter = DataViewRowState.ModifiedOriginal; // Hiện thị dòng dữ liệu trước khi được chỉnh sửa
+            if (_dv.Count == 0)
                 return;
-            DataSet dsCopy = _data.DsData.Copy();
-            DataTable dt = dsCopy.Tables[0];
-            DataRow drTemp = dt.Rows[_data.CurMasterIndex];
-            drTemp.RejectChanges();
-            string sql = string.Format("Select top 1  MaVT from BLVT where MaVT = {0}", drTemp["MaVT"]);
-            if (_dbData.GetValue(sql) != null)
+            DataRowView drv = _dv[0];
+            if (CheckExist(drv["MaVT"].ToString())) // Kiểm tra dữ liệu đã phát sinh chưa
             {
-                if (dr["MaVT"] == drTemp["MaVT"]) //Nếu không sửa mã vật tư thì được sửa các thông tin còn lại
+                if (drv["MaVT"].ToString() == maVTModify) // Kiểm tra mã vật tư trước khi sủa và sau khi sủa
+                {
                     _info.Result = true;
+                }
+                    
                 else
                 {
-                    XtraMessageBox.Show("Vật tư đã phát sinh, không được phép chỉnh sửa.");
-                    dr.RejectChanges();
-                    _info.Result = false;
+                    ShowMessageBox();
                 }
             }
+        }
+        private bool CheckExist(string maVT) // Kiểm tra dữ liệu đã phát sinh chưa
+        {
+            string sql = string.Format("Select top 1  MaVT from BLVT where MaVT = '{0}'", maVT);
+            if (_dbData.GetValue(sql) != null)
+                return true;
+            return false;
+        }
+        private void ShowMessageBox()
+        {
+            _data.DsData.RejectChanges();
+            string msg = "Vật tư đã phát sinh, không được phép chỉnh sửa.";
+            if (Config.GetValue("Language").ToString() == "1")
+            {
+                msg = UIDictionary.Translate(msg);
+            }
+            XtraMessageBox.Show(msg);
+            _info.Result = false;
         }
     }
 }
