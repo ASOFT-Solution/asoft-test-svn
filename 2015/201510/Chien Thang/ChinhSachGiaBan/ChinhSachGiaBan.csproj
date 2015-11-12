@@ -105,6 +105,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FrmChinhSach.af.resx">
+      <DependentUpon>FrmChinhSach.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmChinhSach.resx">
       <DependentUpon>FrmChinhSach.cs</DependentUpon>
     </EmbeddedResource>

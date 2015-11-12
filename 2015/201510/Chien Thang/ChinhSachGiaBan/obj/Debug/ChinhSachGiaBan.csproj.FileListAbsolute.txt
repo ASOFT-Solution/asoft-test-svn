@@ -21,3 +21,6 @@ D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\ChinhSachGiaBan\bin\Debug\All_MdDt_ICF_
 D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\ChinhSachGiaBan\obj\Debug\All_MdDt_ICF_ChinhSachGiaBan.dll.licenses
 D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\ChinhSachGiaBan\obj\Debug\All_MdDt_ICF_ChinhSachGiaBan.dll
 D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\ChinhSachGiaBan\obj\Debug\All_MdDt_ICF_ChinhSachGiaBan.pdb
+D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\ChinhSachGiaBan\obj\Debug\ChinhSachGiaBan.FrmChinhSach.af.resources
+D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\ChinhSachGiaBan\bin\Debug\af\All_MdDt_ICF_ChinhSachGiaBan.resources.dll
+D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\ChinhSachGiaBan\obj\Debug\af\All_MdDt_ICF_ChinhSachGiaBan.resources.dll

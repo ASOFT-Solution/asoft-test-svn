@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmChinhSach));
             this.gcCS = new DevExpress.XtraGrid.GridControl();
             this.gvCS = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colMaKH = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -49,14 +50,11 @@
             // 
             // gcCS
             // 
-            this.gcCS.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gcCS.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.gcCS, "gcCS");
             this.gcCS.MainView = this.gvCS;
             this.gcCS.Name = "gcCS";
             this.gcCS.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemCheckEdit1});
-            this.gcCS.Size = new System.Drawing.Size(805, 286);
-            this.gcCS.TabIndex = 0;
             this.gcCS.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvCS,
             this.gridView2});
@@ -79,58 +77,48 @@
             // 
             // colMaKH
             // 
-            this.colMaKH.Caption = "Mã khách hàng";
+            resources.ApplyResources(this.colMaKH, "colMaKH");
             this.colMaKH.FieldName = "MaKH";
             this.colMaKH.Name = "colMaKH";
             this.colMaKH.OptionsColumn.AllowEdit = false;
             // 
             // colMaVT
             // 
-            this.colMaVT.Caption = "Mã vật tư";
+            resources.ApplyResources(this.colMaVT, "colMaVT");
             this.colMaVT.FieldName = "MaVT";
             this.colMaVT.Name = "colMaVT";
             this.colMaVT.OptionsColumn.AllowEdit = false;
-            this.colMaVT.Visible = true;
-            this.colMaVT.VisibleIndex = 0;
             // 
             // colTenVT
             // 
-            this.colTenVT.Caption = "Tên vật tư";
+            resources.ApplyResources(this.colTenVT, "colTenVT");
             this.colTenVT.FieldName = "TenVT";
             this.colTenVT.Name = "colTenVT";
             this.colTenVT.OptionsColumn.AllowEdit = false;
-            this.colTenVT.Visible = true;
-            this.colTenVT.VisibleIndex = 1;
             // 
             // colDVT
             // 
-            this.colDVT.Caption = "Đơn vị tính";
+            resources.ApplyResources(this.colDVT, "colDVT");
             this.colDVT.FieldName = "MaDVT";
             this.colDVT.Name = "colDVT";
             this.colDVT.OptionsColumn.AllowEdit = false;
-            this.colDVT.Visible = true;
-            this.colDVT.VisibleIndex = 2;
             // 
             // colGia
             // 
-            this.colGia.Caption = "Đơn giá";
+            resources.ApplyResources(this.colGia, "colGia");
             this.colGia.FieldName = "Gia";
             this.colGia.Name = "colGia";
             this.colGia.OptionsColumn.AllowEdit = false;
-            this.colGia.Visible = true;
-            this.colGia.VisibleIndex = 3;
             // 
             // colCheck
             // 
-            this.colCheck.Caption = "Chọn";
+            resources.ApplyResources(this.colCheck, "colCheck");
             this.colCheck.FieldName = "Check";
             this.colCheck.Name = "colCheck";
-            this.colCheck.Visible = true;
-            this.colCheck.VisibleIndex = 4;
             // 
             // repositoryItemCheckEdit1
             // 
-            this.repositoryItemCheckEdit1.AutoHeight = false;
+            resources.ApplyResources(this.repositoryItemCheckEdit1, "repositoryItemCheckEdit1");
             this.repositoryItemCheckEdit1.Name = "repositoryItemCheckEdit1";
             // 
             // gridView2
@@ -140,40 +128,29 @@
             // 
             // checkBox
             // 
-            this.checkBox.AutoSize = true;
-            this.checkBox.Location = new System.Drawing.Point(12, 298);
+            resources.ApplyResources(this.checkBox, "checkBox");
             this.checkBox.Name = "checkBox";
-            this.checkBox.Size = new System.Drawing.Size(98, 17);
-            this.checkBox.TabIndex = 1;
-            this.checkBox.Text = "Chọn/bỏ tất cả";
             this.checkBox.UseVisualStyleBackColor = true;
             this.checkBox.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
             // 
             // btClose
             // 
-            this.btClose.Location = new System.Drawing.Point(652, 292);
+            resources.ApplyResources(this.btClose, "btClose");
             this.btClose.Name = "btClose";
-            this.btClose.Size = new System.Drawing.Size(141, 27);
-            this.btClose.TabIndex = 2;
-            this.btClose.Text = "Esc-Thoát";
             this.btClose.UseVisualStyleBackColor = true;
             this.btClose.Click += new System.EventHandler(this.btClose_Click);
             // 
             // btSave
             // 
-            this.btSave.Location = new System.Drawing.Point(505, 292);
+            resources.ApplyResources(this.btSave, "btSave");
             this.btSave.Name = "btSave";
-            this.btSave.Size = new System.Drawing.Size(141, 27);
-            this.btSave.TabIndex = 3;
-            this.btSave.Text = "F12-Lưu";
             this.btSave.UseVisualStyleBackColor = true;
             this.btSave.Click += new System.EventHandler(this.btSave_Click);
             // 
             // FrmChinhSach
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(805, 342);
             this.Controls.Add(this.btSave);
             this.Controls.Add(this.btClose);
             this.Controls.Add(this.checkBox);
@@ -182,8 +159,6 @@
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.Name = "FrmChinhSach";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Chính sách giá bán vật tư theo khách hàng";
             this.Load += new System.EventHandler(this.FrmChinhSach_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmChinhSach_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.gcCS)).EndInit();
@@ -208,7 +183,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colTenVT;
         private DevExpress.XtraGrid.Columns.GridColumn colDVT;
         private DevExpress.XtraGrid.Columns.GridColumn colGia;
-        private DevExpress.XtraGrid.Columns.GridColumn colCheck;
         private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit1;
+        private DevExpress.XtraGrid.Columns.GridColumn colCheck;
     }
 }
