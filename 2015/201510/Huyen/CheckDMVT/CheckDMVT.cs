@@ -43,54 +43,48 @@ namespace CheckDMVT
         //Updated ngày [11/11/2015]
         public void ExecuteBefore()
         {
-            DataRow row1 = _data.DsData.Tables[0].Rows[_data.CurMasterIndex];
-            if (row1.RowState != DataRowState.Deleted)
-            {
-                return;
-            }
-            row1.RejectChanges();
-            string _sqlCheckError = string.Format("Select top 1 MaVT from BLVT where MaVT = '{0}'", row1["MaVT"]);
-            if(_dbData.GetValue(_sqlCheckError) != null)
-            {
-                if (row1.RowState == DataRowState.Unchanged)
-                {
-                    row1.RejectChanges();
-                    XtraMessageBox.Show("Vật tư đã phát sinh, không được phép xóa!");
-                }
-            }
-            else
-            {
-                row1.Delete();
-            }
+            CheckData(DataViewRowState.Deleted, "Vật tư đã phát sinh, không được phép xóa.");
         }
         public void ExecuteBeforeCheckRules()
         {
-            DataRow row = _data.DsData.Tables[0].Rows[_data.CurMasterIndex];
-            string _sqlCheckError = string.Format("Select top 1 MaVT from BLVT where MaVT = '{0}'", row["MaVT"]);
-            _dbData = _data.DbData;
-            if (row.RowState == DataRowState.Added)
-            {
+            CheckData(DataViewRowState.ModifiedOriginal, "Vật tư đã phát sinh, không được phép chỉnh sửa.");
+        }
+
+        private void CheckData(DataViewRowState filterState, string errorMessage)
+        {
+            DataView dv = new DataView(_data.DsData.Tables[0]);
+            dv.RowStateFilter = filterState;
+            if (dv.Count == 0)
                 return;
-            }
-            if (row.RowState == DataRowState.Modified)
+            DataRowView drv = dv[0];
+            if (CheckExist(drv["MaVT"].ToString()))
             {
-                DataSet dsCopy = _data.DsData.Copy();
-                DataRow rowTemp = dsCopy.Tables[0].Rows[_data.CurMasterIndex];
-                rowTemp.RejectChanges(); 
-                string MaVT = row["MaVT"].ToString(); 
-                if (row["MaVT"] != rowTemp["MaVT"])
-                { 
-                    MaVT = rowTemp["MaVT"].ToString();
-                }
-                string _sqlCheckErrorModified = string.Format("Select top 1 MaVT from BLVT where MaVT = '{0}'", MaVT);
-                if (_dbData.GetValue(_sqlCheckErrorModified) != null)
-                {
-                    row.RejectChanges();
-                    XtraMessageBox.Show("Vật tư đã phát sinh, không được phép chỉnh sửa!");
-                    return;
-                }
+                _data.DsData.RejectChanges();
+                ShowMessageBox(errorMessage);
+                _info.Result = false;
+            }
+            else
+            {
+                _info.Result = true;
             }
         }
+
+         private bool CheckExist(string maVT)
+        {
+            string _sqlCheckError = string.Format("Select top 1 MaVT from BLVT where MaVT = '{0}'", maVT);
+            if (_dbData.GetValue(_sqlCheckError) != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+         private void ShowMessageBox(string msg)
+         {
+             if (Config.GetValue("Language").ToString() == "1")
+                 msg = UIDictionary.Translate(msg);
+             XtraMessageBox.Show(msg);
+         }
         #endregion
     }
 }
