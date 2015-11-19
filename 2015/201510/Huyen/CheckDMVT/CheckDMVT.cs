@@ -37,19 +37,20 @@ namespace CheckDMVT
         }
         public void ExecuteAfter()
         {
-
+            
         }
         //[Lệ Huyền] tạo mới ngày [2/11/2015]
         //Updated ngày [11/11/2015]
+        //Updated ngày [19/11/2015]
         public void ExecuteBefore()
-        {
+        {         
             CheckData(DataViewRowState.Deleted, "Vật tư đã phát sinh, không được phép xóa.");
+            CheckData(DataViewRowState.ModifiedOriginal, "Vật tư đã phát sinh, không được phép chỉnh sửa.");
         }
         public void ExecuteBeforeCheckRules()
         {
-            CheckData(DataViewRowState.ModifiedOriginal, "Vật tư đã phát sinh, không được phép chỉnh sửa.");
+          
         }
-
         private void CheckData(DataViewRowState filterState, string errorMessage)
         {
             DataView dv = new DataView(_data.DsData.Tables[0]);
@@ -57,18 +58,24 @@ namespace CheckDMVT
             if (dv.Count == 0)
                 return;
             DataRowView drv = dv[0];
-            if (CheckExist(drv["MaVT"].ToString()))
+            string OldMaVT = drv["MaVT"].ToString();
+            dv.RowStateFilter = DataViewRowState.ModifiedCurrent;
+            string NewMaVT = drv["MaVT"].ToString();
+            if (CheckExist(OldMaVT))
+          
             {
-                _data.DsData.RejectChanges();
-                ShowMessageBox(errorMessage);
-                _info.Result = false;
+                if (NewMaVT != OldMaVT)
+                {
+                    ShowMessageBox(errorMessage);
+                    _info.Result = false;
+                    return;
+                }              
             }
             else
             {
                 _info.Result = true;
             }
         }
-
          private bool CheckExist(string maVT)
         {
             string _sqlCheckError = string.Format("Select top 1 MaVT from BLVT where MaVT = '{0}'", maVT);
@@ -78,7 +85,6 @@ namespace CheckDMVT
             }
             return false;
         }
-
          private void ShowMessageBox(string msg)
          {
              if (Config.GetValue("Language").ToString() == "1")
