@@ -74,6 +74,8 @@
             this.gvCS.OptionsSelection.MultiSelect = true;
             this.gvCS.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colMaKH, DevExpress.Data.ColumnSortOrder.Ascending)});
+            this.gvCS.CellValueChanging += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gvCS_CellValueChanging);
+            this.gvCS.RowStyle += new DevExpress.XtraGrid.Views.Grid.RowStyleEventHandler(this.gvCS_RowStyle);
             // 
             // colMaKH
             // 
@@ -131,7 +133,7 @@
             resources.ApplyResources(this.checkBox, "checkBox");
             this.checkBox.Name = "checkBox";
             this.checkBox.UseVisualStyleBackColor = true;
-            this.checkBox.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
+            this.checkBox.Click += new System.EventHandler(this.checkBox_Click);
             // 
             // btClose
             // 

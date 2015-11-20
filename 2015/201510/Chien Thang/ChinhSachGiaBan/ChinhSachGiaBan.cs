@@ -17,7 +17,7 @@ namespace ChinhSachGiaBan
         private DataCustomFormControl _data;
         public ChinhSachGiaBan()
         {
-            InfoCustomForm info1 = new InfoCustomForm(IDataType.MasterDetailDt, 2307, "Chọn chính sách giá bán theo khách hàng", "Chọn chính sách giá bán theo khách hàng", "MT32");
+            InfoCustomForm info1 = new InfoCustomForm(IDataType.MasterDetailDt, 2307, "Chọn chính sách giá bán theo khách hàng", "Select policies price by customer", "MT32");
             _lstInfo.Add(info1);
         }
         public DataCustomFormControl Data

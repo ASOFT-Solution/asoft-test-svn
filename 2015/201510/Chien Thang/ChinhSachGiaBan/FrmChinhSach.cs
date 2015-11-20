@@ -13,6 +13,7 @@ using DevExpress.XtraGrid.Views.Grid;
 using CDTControl;
 using DevExpress.XtraGrid.Views.Base;
 using CDTLib;
+using CDTControl;
 
 namespace ChinhSachGiaBan
 {
@@ -22,7 +23,8 @@ namespace ChinhSachGiaBan
         private DataTable _dt;
         private Database _dbData = Database.NewDataDatabase();
         public DataView Result = null;
-        private List<int> rowCheck = new List<int>();
+        private int numRowCheck = 0;
+        public List<int> RowChangeColor = new List<int>(); //Danh sách chứa các vật tư chưa nhập kho để đổi màu
         public FrmChinhSach(DataRow drCurMaster)
         {
             InitializeComponent();
@@ -31,7 +33,10 @@ namespace ChinhSachGiaBan
 
         private void FrmChinhSach_Load(object sender, EventArgs e)
         {
+            FormatColumnString();
             LoadData();
+            if (Config.GetValue("Language").ToString() != "0")
+                FormFactory.DevLocalizer.Translate(this);
         }
         private void LoadData()
         {
@@ -40,33 +45,16 @@ namespace ChinhSachGiaBan
             _dt = _dbData.GetDataTable(sql);
             CreateCheckColumn();
             gcCS.DataSource = _dt;
-            colGia.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            colGia.DisplayFormat.FormatString = "{0:n0}";
             gvCS.ExpandAllGroups();
+        }
+        private void FormatColumnString() //Định dạng lại kiểu hiện thị dữ liệu
+        {
+            colGia.DisplayFormat.FormatString = FormatString.GetReportFormat("DonGia");
         }
 
         private void btClose_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void checkBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox.Checked) //Check hết vào tất cả các ô
-            {
-                foreach (DataRow dr in _dt.Rows)
-                {
-                    dr["Check"] = true;
-                }
-            }
-            else //Bỏ check
-            {
-                foreach (DataRow dr in _dt.Rows)
-                {
-                    dr["Check"] = false;
-                }
-            }
-            gvCS.RefreshData();
         }
 
         private void btSave_Click(object sender, EventArgs e)
@@ -75,6 +63,7 @@ namespace ChinhSachGiaBan
         }
         private void SaveData()
         {
+            RowChangeColor.Clear();
             DataView dv = new DataView(_dt);
             dv.RowFilter = "Check = true";
             if (dv.Count == 0) //Trường hợp chưa chọn vật tư
@@ -86,16 +75,23 @@ namespace ChinhSachGiaBan
                 for (int i = 0; i < dv.Count; i++)
                 {
                     string sql = string.Format("Select * From wTonkhoTucThoi Where MaVT = '{0}' and MaDVT = '{1}'", dv[i]["MaVT"], dv[i]["MaDVT"]);
-                    if (_dbData.GetValue(sql) == null) //Vật tư chưa nhập kho thì xóa khỏi Dataview
+                    if (_dbData.GetValue(sql) == null) //Vật tư chưa nhập kho thì đưa vào List để đổi màu
                     {
-                        dv.Delete(i);
-                        ShowMessageBox("Vật tư chưa nhập kho, vui lòng chon vật tư khác hoặc nhập kho vật tư hiện tại");
+                        int rowIndex = _dt.Rows.IndexOf(dv[i].Row); //Lấy vị trí của dòng chưa nhập kho
+                        RowChangeColor.Add(rowIndex);
+                        gvCS.RefreshRow(rowIndex);
                     }
                 }
-                Result = dv;
-                this.Close();
+                if (RowChangeColor.Count > 0)
+                {
+                    ShowMessageBox("Vật tư chưa nhập kho, vui lòng chon vật tư khác hoặc nhập kho vật tư hiện tại");
+                }
+                else
+                {
+                    Result = dv;
+                    this.Close();
+                }
             }
-
         }
 
         private void CreateCheckColumn() // Tạo thêm cột chọn
@@ -125,6 +121,56 @@ namespace ChinhSachGiaBan
                 msg = UIDictionary.Translate(msg);
             }
             XtraMessageBox.Show(msg);
+        }
+
+        private void gvCS_RowStyle(object sender, RowStyleEventArgs e) //Sự kiện đổi màu dòng
+        {
+            try
+            {
+                for (int i = 0; i < RowChangeColor.Count; i++)
+                {
+                    if (RowChangeColor[i] == e.RowHandle)
+                        e.Appearance.BackColor = Color.Red;
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        private void gvCS_CellValueChanging(object sender, CellValueChangedEventArgs e)
+        {
+            if (e.Column.FieldName != "Check")
+                return;
+            if (e.Value.Equals(true)) //Khi check sẽ tăng biến đếm lên
+                numRowCheck++;
+            else
+                numRowCheck--;
+            if (numRowCheck == gvCS.DataRowCount) //Nếu biến đếm bằng với số dòng trong Gridview thì check vào ô check all
+                checkBox.Checked = true;
+            else
+                checkBox.Checked = false;
+        }
+
+        private void checkBox_Click(object sender, EventArgs e)
+        {
+            if (checkBox.Checked) //Check hết vào tất cả các ô
+            {
+                foreach (DataRow dr in _dt.Rows)
+                {
+                    dr["Check"] = true;
+                    numRowCheck = gvCS.DataRowCount;
+                }
+            }
+            else //Bỏ check
+            {
+                foreach (DataRow dr in _dt.Rows)
+                {
+                    dr["Check"] = false;
+                    numRowCheck = 0;
+                }
+            }
+            gvCS.RefreshData();
         }
     }
 }
