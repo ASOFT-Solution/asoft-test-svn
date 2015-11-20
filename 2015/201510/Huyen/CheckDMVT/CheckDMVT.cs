@@ -56,24 +56,36 @@ namespace CheckDMVT
             DataView dv = new DataView(_data.DsData.Tables[0]);
             dv.RowStateFilter = filterState;
             if (dv.Count == 0)
-                return;
+             return;
             DataRowView drv = dv[0];
             string OldMaVT = drv["MaVT"].ToString();
-            dv.RowStateFilter = DataViewRowState.ModifiedCurrent;
-            string NewMaVT = drv["MaVT"].ToString();
+              
             if (CheckExist(OldMaVT))
-          
             {
-                if (NewMaVT != OldMaVT)
-                {
-                    ShowMessageBox(errorMessage);
-                    _info.Result = false;
-                    return;
-                }              
+             if (filterState == DataViewRowState.Deleted)
+             {
+              ShowMessageBox(errorMessage);
+              _info.Result = false;
+             }
+             else
+             {
+              dv.RowStateFilter = DataViewRowState.ModifiedCurrent;
+              string NewMaVT = drv["MaVT"].ToString();
+              if (NewMaVT != OldMaVT)
+              {
+               ShowMessageBox(errorMessage);
+               _info.Result = false;
+              }
+              else
+              {
+               _info.Result = true;
+              }
+             }
+             
             }
             else
             {
-                _info.Result = true;
+             _info.Result = true;
             }
         }
          private bool CheckExist(string maVT)
