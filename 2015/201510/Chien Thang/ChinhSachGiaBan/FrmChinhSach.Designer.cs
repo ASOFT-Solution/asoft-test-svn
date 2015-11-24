@@ -75,7 +75,6 @@
             this.gvCS.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colMaKH, DevExpress.Data.ColumnSortOrder.Ascending)});
             this.gvCS.CellValueChanging += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gvCS_CellValueChanging);
-            this.gvCS.RowStyle += new DevExpress.XtraGrid.Views.Grid.RowStyleEventHandler(this.gvCS_RowStyle);
             // 
             // colMaKH
             // 

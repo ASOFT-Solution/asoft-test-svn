@@ -1,19 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using CDTDatabase;
-using DevExpress.XtraGrid.Columns;
-using DevExpress.XtraGrid;
-using DevExpress.XtraGrid.Views.Grid;
 using CDTControl;
 using DevExpress.XtraGrid.Views.Base;
 using CDTLib;
-using CDTControl;
 
 namespace ChinhSachGiaBan
 {
@@ -24,7 +16,6 @@ namespace ChinhSachGiaBan
         private Database _dbData = Database.NewDataDatabase();
         public DataView Result = null;
         private int numRowCheck = 0;
-        public List<int> RowChangeColor = new List<int>(); //Danh sách chứa các vật tư chưa nhập kho để đổi màu
         public FrmChinhSach(DataRow drCurMaster)
         {
             InitializeComponent();
@@ -63,7 +54,6 @@ namespace ChinhSachGiaBan
         }
         private void SaveData()
         {
-            RowChangeColor.Clear();
             DataView dv = new DataView(_dt);
             dv.RowFilter = "Check = true";
             if (dv.Count == 0) //Trường hợp chưa chọn vật tư
@@ -72,17 +62,18 @@ namespace ChinhSachGiaBan
             }
             else
             {
+                int countRowError = 0;
                 for (int i = 0; i < dv.Count; i++)
                 {
                     string sql = string.Format("Select * From wTonkhoTucThoi Where MaVT = '{0}' and MaDVT = '{1}'", dv[i]["MaVT"], dv[i]["MaDVT"]);
-                    if (_dbData.GetValue(sql) == null) //Vật tư chưa nhập kho thì đưa vào List để đổi màu
+                    if (_dbData.GetValue(sql) == null) //Vật tư chưa nhập kho tô đỏ column mã vật tư
                     {
+                        countRowError++;
                         int rowIndex = _dt.Rows.IndexOf(dv[i].Row); //Lấy vị trí của dòng chưa nhập kho
-                        RowChangeColor.Add(rowIndex);
-                        gvCS.RefreshRow(rowIndex);
+                        gvCS.GetDataRow(rowIndex).SetColumnError("MaVT", "Chưa nhập kho"); //Hiển thị icon lỗi ở cột mã vật tư
                     }
                 }
-                if (RowChangeColor.Count > 0)
+                if (countRowError > 0)
                 {
                     ShowMessageBox("Vật tư chưa nhập kho, vui lòng chon vật tư khác hoặc nhập kho vật tư hiện tại");
                 }
@@ -123,21 +114,6 @@ namespace ChinhSachGiaBan
             XtraMessageBox.Show(msg);
         }
 
-        private void gvCS_RowStyle(object sender, RowStyleEventArgs e) //Sự kiện đổi màu dòng
-        {
-            try
-            {
-                for (int i = 0; i < RowChangeColor.Count; i++)
-                {
-                    if (RowChangeColor[i] == e.RowHandle)
-                        e.Appearance.BackColor = Color.Red;
-                }
-            }
-            catch
-            {
-            }
-        }
-
         private void gvCS_CellValueChanging(object sender, CellValueChangedEventArgs e)
         {
             if (e.Column.FieldName != "Check")
@@ -173,4 +149,5 @@ namespace ChinhSachGiaBan
             gvCS.RefreshData();
         }
     }
+    
 }

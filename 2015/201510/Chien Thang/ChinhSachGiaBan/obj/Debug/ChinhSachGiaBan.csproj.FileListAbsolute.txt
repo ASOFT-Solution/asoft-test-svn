@@ -1,3 +1,6 @@
+D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\ChinhSachGiaBan\bin\Debug\All_MdDt_ICF_ChinhSachGiaBan.dll
+D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\ChinhSachGiaBan\bin\Debug\All_MdDt_ICF_ChinhSachGiaBan.pdb
+D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\ChinhSachGiaBan\bin\Debug\af\All_MdDt_ICF_ChinhSachGiaBan.resources.dll
 D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\ChinhSachGiaBan\bin\Debug\CDTControl.dll
 D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\ChinhSachGiaBan\bin\Debug\CDTDatabase.dll
 D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\ChinhSachGiaBan\bin\Debug\CDTLib.dll
@@ -15,12 +18,9 @@ D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\ChinhSachGiaBan\bin\Debug\Microsoft.Off
 D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\ChinhSachGiaBan\bin\Debug\office.xml
 D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\ChinhSachGiaBan\obj\Debug\ResolveAssemblyReference.cache
 D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\ChinhSachGiaBan\obj\Debug\ChinhSachGiaBan.FrmChinhSach.resources
+D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\ChinhSachGiaBan\obj\Debug\ChinhSachGiaBan.FrmChinhSach.af.resources
 D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\ChinhSachGiaBan\obj\Debug\ChinhSachGiaBan.csproj.GenerateResource.Cache
-D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\ChinhSachGiaBan\bin\Debug\All_MdDt_ICF_ChinhSachGiaBan.dll
-D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\ChinhSachGiaBan\bin\Debug\All_MdDt_ICF_ChinhSachGiaBan.pdb
 D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\ChinhSachGiaBan\obj\Debug\All_MdDt_ICF_ChinhSachGiaBan.dll.licenses
+D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\ChinhSachGiaBan\obj\Debug\af\All_MdDt_ICF_ChinhSachGiaBan.resources.dll
 D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\ChinhSachGiaBan\obj\Debug\All_MdDt_ICF_ChinhSachGiaBan.dll
 D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\ChinhSachGiaBan\obj\Debug\All_MdDt_ICF_ChinhSachGiaBan.pdb
-D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\ChinhSachGiaBan\obj\Debug\ChinhSachGiaBan.FrmChinhSach.af.resources
-D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\ChinhSachGiaBan\bin\Debug\af\All_MdDt_ICF_ChinhSachGiaBan.resources.dll
-D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\ChinhSachGiaBan\obj\Debug\af\All_MdDt_ICF_ChinhSachGiaBan.resources.dll
