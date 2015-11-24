@@ -135,18 +135,23 @@ namespace ChinhSachGiaBan
                 foreach (DataRow dr in _dt.Rows)
                 {
                     dr["Check"] = true;
-                    numRowCheck = gvCS.DataRowCount;
                 }
+                numRowCheck = gvCS.DataRowCount;
             }
             else //Bỏ check
             {
                 foreach (DataRow dr in _dt.Rows)
                 {
                     dr["Check"] = false;
-                    numRowCheck = 0;
                 }
+                numRowCheck = 0;
             }
             gvCS.RefreshData();
+        }
+
+        private void gvCS_EndSorting(object sender, EventArgs e)
+        {
+           
         }
     }
     

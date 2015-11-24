@@ -74,6 +74,7 @@
             this.gvCS.OptionsSelection.MultiSelect = true;
             this.gvCS.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colMaKH, DevExpress.Data.ColumnSortOrder.Ascending)});
+            this.gvCS.EndSorting += new System.EventHandler(this.gvCS_EndSorting);
             this.gvCS.CellValueChanging += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gvCS_CellValueChanging);
             // 
             // colMaKH
