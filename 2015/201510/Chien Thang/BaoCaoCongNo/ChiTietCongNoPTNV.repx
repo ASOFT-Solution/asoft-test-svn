@@ -278,6 +278,7 @@ namespace XtraReportSerialization {
             this.GroupHeader2.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
                         this.table1});
             this.GroupHeader2.GroupFields.AddRange(new DevExpress.XtraReports.UI.GroupField[] {
+                        new DevExpress.XtraReports.UI.GroupField("Saleman", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending),
                         new DevExpress.XtraReports.UI.GroupField("MaKH", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending)});
             this.GroupHeader2.HeightF = 25F;
             this.GroupHeader2.Name = "GroupHeader2";
