@@ -47,14 +47,6 @@ namespace FormChinhSachGia
             if (menuID == _lstInfo[0].MenuID)
             {
                 GridView gvDetail = (_data.FrmMain.Controls.Find("gcMain", true)[0] as GridControl).MainView as GridView;
-                if (_data.BsMain.Current == null)
-                {
-                    string msg = "Chưa đủ số liệu để tra phiếu nhập";
-                    if (Config.GetValue("Language").ToString() == "1")
-                        msg = UIDictionary.Translate(msg);
-                    XtraMessageBox.Show(msg);
-                    return;
-                }
                 DataRow drCurMaster = (_data.BsMain.Current as DataRowView).Row;
                 DataRow drCurDetail = gvDetail.GetDataRow(gvDetail.FocusedRowHandle);
                 if (drCurMaster["MaKH"].ToString() == "")
@@ -81,28 +73,11 @@ namespace FormChinhSachGia
                     //Lấy dữ liệu
                     foreach (DataRowView dataRowView in frm.Result)
                     {
-                        string strTemp1 = dataRowView["MaVT"].ToString();
-                        string strTemp2 = dataRowView["MaDVT"].ToString();
-                        string _sqlView = @"Select MaVT, MaDVT from wTonKhoTucThoi Where MaVT = '" + strTemp1+ "' and MaDVT = '"+ strTemp2 + "'";
-                        DataTable dtView = new DataTable();
-                        dtView = _dbData.GetDataTable(_sqlView);
-                        dtView.PrimaryKey = new DataColumn[] {dtView.Columns["MaVT"] };
-                    //Kiểm tra xem MaVT và MaDVT load lên từ bảng DMChinhSachGia có chứa trong View Tonkhotucthoi
-                        if (dtView.Rows.Count > 0)
-                        {
-                            gvDetail.AddNewRow();
-                            gvDetail.SetFocusedRowCellValue(gvDetail.Columns["MaVT"], dataRowView["MaVT"]);
-                            gvDetail.SetFocusedRowCellValue(gvDetail.Columns["TenVT"], dataRowView["TenVT"]);
-                            gvDetail.SetFocusedRowCellValue(gvDetail.Columns["MaDVT"], dataRowView["MaDVT"]);
-                            gvDetail.SetFocusedRowCellValue(gvDetail.Columns["Gia"], dataRowView["Gia"]);
-                        }
-                        else
-                        {
-                            string msg = "Vật tư chưa nhập kho, vui lòng chon vật tư khác hoặc nhập kho vật tư hiện tại";
-                            if (Config.GetValue("Language").ToString() == "1")
-                                msg = UIDictionary.Translate(msg);
-                            XtraMessageBox.Show(msg);
-                        }
+                        gvDetail.AddNewRow();
+                        gvDetail.SetFocusedRowCellValue(gvDetail.Columns["MaVT"], dataRowView["MaVT"]);
+                        gvDetail.SetFocusedRowCellValue(gvDetail.Columns["TenVT"], dataRowView["TenVT"]);
+                        gvDetail.SetFocusedRowCellValue(gvDetail.Columns["MaDVT"], dataRowView["MaDVT"]);
+                        gvDetail.SetFocusedRowCellValue(gvDetail.Columns["Gia"], dataRowView["Gia"]);
                     }
                 }
             }

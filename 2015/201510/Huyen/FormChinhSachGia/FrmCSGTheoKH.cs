@@ -16,6 +16,8 @@ using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
+using DevExpress.XtraEditors.DXErrorProvider;
+using DevExpress.XtraEditors.Controls;
 
 
 namespace FormChinhSachGia
@@ -28,14 +30,16 @@ namespace FormChinhSachGia
         private DataRow _drCurDetail;
         private DataTable _dtVT = null;
         public DataView Result = null;
-        private Database _dbData = Database.NewDataDatabase();
-       // GridColumn column;
-      //  RepositoryItemCheckEdit edit;
+        private Database _dbData1 = Database.NewDataDatabase();
+        private Database _dbData2 = Database.NewDataDatabase();
+        private bool _isUserUnchecked = false;
+        
 
         #endregion
 
         //[Lệ Huyền] Tạo mới [05/11/2015]
         // Tạo mới màn hình chính sách giá bán vật tư theo khách hàng
+        //[Lệ Huyền] update [25/11/2015]
         public FrmCSGTheoKH(DataRow drCurMaster, DataRow drCurDetail)
         {
             InitializeComponent();
@@ -54,8 +58,8 @@ namespace FormChinhSachGia
                             FROM DMChinhSachGia d inner join DMKH k on d.MaKH=k.MaKH
                                    inner join DMVT v on d.MaVT=v.MaVT
                             Where d.MaKH = '" + _drCurMaster["MaKH"].ToString() + "'";
-             _dtVT = _dbData.GetDataTable(sql);
-             DataColumn column = new DataColumn("Check", typeof(Boolean));
+            _dtVT = _dbData1.GetDataTable(sql);
+            DataColumn column = new DataColumn("Check", typeof(Boolean));
             column.DefaultValue = false;
             _dtVT.Columns.Add(column);
             gcPN.DataSource = _dtVT;
@@ -74,24 +78,53 @@ namespace FormChinhSachGia
         /// </summary>
         public void SelectAll(bool isSelectAll)
         {
+            if (_isUserUnchecked)
+                return;
             for (int i = 0; i < gvPN.DataRowCount; i++)
             {
                 DataRow row = gvPN.GetDataRow(i) as DataRow;
                 row["Check"] = isSelectAll;
             }
+            _isUserUnchecked = false;
+
         }
+
         /// <summary>
         /// Handling node Save
         /// </summary>
         private void HandlingSave()
         {
+
             DataView dv = new DataView(_dtVT);
             dv.RowFilter = "Check = true";
             if (dv.Count > 0)
             {
+                foreach (DataRowView drv in dv)
+                {
+                    string strTemp1 = drv["MaVT"].ToString();
+                    string strTemp2 = drv["MaDVT"].ToString();
+                    string _sql = @"Select MaVT, MaDVT from wTonKhoTucThoi Where MaVT = '" + strTemp1 + "' and MaDVT = '" + strTemp2 + "'";
+                    DataTable dt = _dbData2.GetDataTable(_sql);
+                    DataView dv2 = new DataView(dt);
+                    
+                    if (dv2.Count == 0)
+                    {
+                        drv["Check"] = "false";
+                        drv.Row.SetColumnError("MaVT", "Vật tư chưa nhập kho");
+                        string msg = "Vật tư chưa nhập kho, vui lòng chon vật tư khác hoặc nhập kho vật tư hiện tại";
+                        if (Config.GetValue("Language").ToString() == "1")
+                            msg = UIDictionary.Translate(msg);
+                        XtraMessageBox.Show(msg);
+                    }
+
+                }
+
+            }
+            if (dv.Count > 0)
+            {
                 Result = dv;
                 this.DialogResult = DialogResult.OK;
-                this.Close();         
+                this.Close();
             }
             else
             {
@@ -99,9 +132,27 @@ namespace FormChinhSachGia
                 if (Config.GetValue("Language").ToString() == "1")
                     msg = UIDictionary.Translate(msg);
                 XtraMessageBox.Show(msg);
-                return;  
+                return;
             }
+           
+                
         }
+        /// <summary>
+        /// Handling node repositoryItemCheckEdit
+        /// </summary>
+        private bool SelectIndex()
+        { 
+            gvPN.FocusedRowHandle++;
+            string cellValue;
+            for (int i = 0; i < gvPN.DataRowCount; i++)
+            {
+                cellValue = gvPN.GetRowCellValue(i, "Check").ToString();
+                if (cellValue == "False")
+                    return true;
+            }
+            return false;
+        }
+
         #endregion
 
 
@@ -116,7 +167,11 @@ namespace FormChinhSachGia
             InitData();
             this.KeyPreview = true;
             this.KeyUp += new KeyEventHandler(FrmCSGTheoKH_KeyUp);
+            this.repositoryItemCheckEdit1.CheckStateChanged += new EventHandler(Checkchange);
+            if (Config.GetValue("Language").ToString() != "0")
+                FormFactory.DevLocalizer.Translate(this);
         }
+
         ///<summary>
         /// Handling KeyUp
         /// </summary>
@@ -131,7 +186,7 @@ namespace FormChinhSachGia
             {
                 this.Close();
             }
-            
+
         }
         /// <summary>
         /// Handling node Cancel
@@ -148,7 +203,6 @@ namespace FormChinhSachGia
         {
             HandlingSave();
         }
-        //
         /// <summary>
         /// Handling Check/Uncheck All
         /// </summary>
@@ -156,8 +210,25 @@ namespace FormChinhSachGia
         {
             SelectAll(CheckAll.Checked);
         }
+        /// <summary>
+        /// Handling repositoryItemCheckEdit1 change
+        /// </summary>
+        private void Checkchange(object sender, EventArgs e)
+        {
+            if (SelectIndex() == true)
+            {
+                _isUserUnchecked = true;
+                CheckAll.CheckState = CheckState.Unchecked;
+            }
+            else
+            {
+                _isUserUnchecked = false;
+                CheckAll.CheckState = CheckState.Checked;
+            }
+        }
 
         #endregion
-      
+       
     }
-}
+        
+ }

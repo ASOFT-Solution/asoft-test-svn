@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.gcPN = new DevExpress.XtraGrid.GridControl();
             this.gvPN = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.clMaVT = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -43,12 +44,14 @@
             this.btCancel = new DevExpress.XtraEditors.SimpleButton();
             this.btOk = new DevExpress.XtraEditors.SimpleButton();
             this.CheckAll = new DevExpress.XtraEditors.CheckEdit();
+            this.dxErrorProvider1 = new DevExpress.XtraEditors.DXErrorProvider.DXErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.gcPN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvPN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CheckAll.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dxErrorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // gcPN
@@ -67,6 +70,7 @@
             // 
             // gvPN
             // 
+            this.gvPN.Appearance.Row.Options.UseBackColor = true;
             this.gvPN.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.clMaVT,
             this.clTenVT,
@@ -78,8 +82,6 @@
             this.gvPN.GridControl = this.gcPN;
             this.gvPN.GroupCount = 2;
             this.gvPN.Name = "gvPN";
-            this.gvPN.OptionsSelection.EnableAppearanceFocusedCell = false;
-            this.gvPN.OptionsSelection.EnableAppearanceFocusedRow = false;
             this.gvPN.OptionsSelection.MultiSelect = true;
             this.gvPN.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.clMaKH, DevExpress.Data.ColumnSortOrder.Ascending),
@@ -197,6 +199,10 @@
             this.CheckAll.TabIndex = 2;
             this.CheckAll.CheckedChanged += new System.EventHandler(this.CheckAll_CheckedChanged);
             // 
+            // dxErrorProvider1
+            // 
+            this.dxErrorProvider1.ContainerControl = this;
+            // 
             // FrmCSGTheoKH
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -218,6 +224,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CheckAll.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dxErrorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -239,5 +246,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn clMaKH;
         private DevExpress.XtraGrid.Columns.GridColumn clTenKH;
         private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit2;
+        private DevExpress.XtraEditors.DXErrorProvider.DXErrorProvider dxErrorProvider1;
     }
 }
