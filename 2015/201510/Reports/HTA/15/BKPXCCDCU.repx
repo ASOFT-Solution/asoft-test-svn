@@ -21,6 +21,8 @@ namespace XtraReportSerialization {
         private DevExpress.XtraReports.UI.XRTableCell dg;
         private DevExpress.XtraReports.UI.XRTableCell tt;
         private DevExpress.XtraReports.UI.ReportHeaderBand ReportHeader;
+        private DevExpress.XtraReports.UI.XRLabel label3;
+        private DevExpress.XtraReports.UI.XRLabel label2;
         private DevExpress.XtraReports.UI.XRPictureBox Logo;
         private DevExpress.XtraReports.UI.XRLabel DiaChi;
         private DevExpress.XtraReports.UI.XRLabel TenCongTy;
@@ -282,6 +284,8 @@ namespace XtraReportSerialization {
             this.sl = new DevExpress.XtraReports.UI.XRTableCell();
             this.dg = new DevExpress.XtraReports.UI.XRTableCell();
             this.tt = new DevExpress.XtraReports.UI.XRTableCell();
+            this.label3 = new DevExpress.XtraReports.UI.XRLabel();
+            this.label2 = new DevExpress.XtraReports.UI.XRLabel();
             this.Logo = new DevExpress.XtraReports.UI.XRPictureBox();
             this.DiaChi = new DevExpress.XtraReports.UI.XRLabel();
             this.TenCongTy = new DevExpress.XtraReports.UI.XRLabel();
@@ -326,6 +330,8 @@ namespace XtraReportSerialization {
             // ReportHeader
             // 
             this.ReportHeader.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+                        this.label3,
+                        this.label2,
                         this.Logo,
                         this.DiaChi,
                         this.TenCongTy,
@@ -334,7 +340,7 @@ namespace XtraReportSerialization {
                         this.NgayCT1,
                         this.xrLabel1,
                         this.Title});
-            this.ReportHeader.HeightF = 108F;
+            this.ReportHeader.HeightF = 155.9167F;
             this.ReportHeader.Name = "ReportHeader";
             this.ReportHeader.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
             this.ReportHeader.Scripts.OnBeforePrint = "ReportHeader_BeforePrint";
@@ -532,82 +538,107 @@ namespace XtraReportSerialization {
             this.tt.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
             this.tt.Weight = 0.12534059945504086;
             // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold);
+            this.label3.LocationFloat = new DevExpress.Utils.PointFloat(100F, 25F);
+            this.label3.Name = "label3";
+            this.label3.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.label3.SizeF = new System.Drawing.SizeF(78.12506F, 25F);
+            this.label3.Text = "Địa chỉ:";
+            this.label3.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold);
+            this.label2.LocationFloat = new DevExpress.Utils.PointFloat(100F, 0F);
+            this.label2.Name = "label2";
+            this.label2.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.label2.SizeF = new System.Drawing.SizeF(78.12506F, 25F);
+            this.label2.Text = "Tên công ty:";
+            this.label2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
+            // 
             // Logo
             // 
             this.Logo.Image = ((System.Drawing.Image)(resources.GetObject("Logo.Image")));
             this.Logo.LocationFloat = new DevExpress.Utils.PointFloat(0F, 0F);
             this.Logo.Name = "Logo";
             this.Logo.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
-            this.Logo.SizeF = new System.Drawing.SizeF(100F, 51F);
+            this.Logo.SizeF = new System.Drawing.SizeF(100F, 50F);
             this.Logo.Sizing = DevExpress.XtraPrinting.ImageSizeMode.StretchImage;
             // 
             // DiaChi
             // 
             this.DiaChi.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold);
-            this.DiaChi.LocationFloat = new DevExpress.Utils.PointFloat(200.0417F, 25F);
+            this.DiaChi.LocationFloat = new DevExpress.Utils.PointFloat(178.1251F, 25F);
             this.DiaChi.Name = "DiaChi";
             this.DiaChi.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.DiaChi.SizeF = new System.Drawing.SizeF(548.9583F, 25F);
+            this.DiaChi.SizeF = new System.Drawing.SizeF(563.8749F, 25F);
             this.DiaChi.Text = "DiaChi";
             this.DiaChi.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
             // 
             // TenCongTy
             // 
             this.TenCongTy.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold);
-            this.TenCongTy.LocationFloat = new DevExpress.Utils.PointFloat(200.0417F, 0F);
+            this.TenCongTy.LocationFloat = new DevExpress.Utils.PointFloat(178.1251F, 0F);
             this.TenCongTy.Name = "TenCongTy";
             this.TenCongTy.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.TenCongTy.SizeF = new System.Drawing.SizeF(548.9584F, 25F);
+            this.TenCongTy.SizeF = new System.Drawing.SizeF(563.875F, 25F);
             this.TenCongTy.Text = "TenCongTy";
             this.TenCongTy.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
             // 
             // NgayCT2
             // 
             this.NgayCT2.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold);
-            this.NgayCT2.LocationFloat = new DevExpress.Utils.PointFloat(408F, 83F);
+            this.NgayCT2.LocationFloat = new DevExpress.Utils.PointFloat(408F, 130.9167F);
             this.NgayCT2.Name = "NgayCT2";
             this.NgayCT2.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
             this.NgayCT2.SizeF = new System.Drawing.SizeF(67F, 25F);
+            this.NgayCT2.StylePriority.UseTextAlignment = false;
             this.NgayCT2.Text = "NgayCT2";
             this.NgayCT2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
             // 
             // xrLabel3
             // 
             this.xrLabel3.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold);
-            this.xrLabel3.LocationFloat = new DevExpress.Utils.PointFloat(342F, 83F);
+            this.xrLabel3.LocationFloat = new DevExpress.Utils.PointFloat(342F, 130.9167F);
             this.xrLabel3.Name = "xrLabel3";
             this.xrLabel3.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
             this.xrLabel3.SizeF = new System.Drawing.SizeF(66F, 25F);
+            this.xrLabel3.StylePriority.UseTextAlignment = false;
             this.xrLabel3.Text = "Đến ngày:";
             this.xrLabel3.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
             // 
             // NgayCT1
             // 
             this.NgayCT1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold);
-            this.NgayCT1.LocationFloat = new DevExpress.Utils.PointFloat(275F, 83F);
+            this.NgayCT1.LocationFloat = new DevExpress.Utils.PointFloat(275F, 130.9167F);
             this.NgayCT1.Name = "NgayCT1";
             this.NgayCT1.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
             this.NgayCT1.SizeF = new System.Drawing.SizeF(67F, 25F);
+            this.NgayCT1.StylePriority.UseTextAlignment = false;
             this.NgayCT1.Text = "NgayCT1";
             this.NgayCT1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
             // 
             // xrLabel1
             // 
             this.xrLabel1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold);
-            this.xrLabel1.LocationFloat = new DevExpress.Utils.PointFloat(183F, 83F);
+            this.xrLabel1.LocationFloat = new DevExpress.Utils.PointFloat(183F, 130.9167F);
             this.xrLabel1.Name = "xrLabel1";
             this.xrLabel1.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
             this.xrLabel1.SizeF = new System.Drawing.SizeF(92F, 25F);
+            this.xrLabel1.StylePriority.UseTextAlignment = false;
             this.xrLabel1.Text = "Từ ngày:";
             this.xrLabel1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
             // 
             // Title
             // 
             this.Title.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Bold);
-            this.Title.LocationFloat = new DevExpress.Utils.PointFloat(108F, 50F);
+            this.Title.LocationFloat = new DevExpress.Utils.PointFloat(108F, 97.91666F);
             this.Title.Name = "Title";
             this.Title.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
             this.Title.SizeF = new System.Drawing.SizeF(475F, 33F);
+            this.Title.StylePriority.UseTextAlignment = false;
             this.Title.Text = "Title";
             this.Title.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
             // 
