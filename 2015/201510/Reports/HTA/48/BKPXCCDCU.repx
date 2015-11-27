@@ -340,7 +340,7 @@ namespace XtraReportSerialization {
                         this.NgayCT1,
                         this.xrLabel1,
                         this.Title});
-            this.ReportHeader.HeightF = 158F;
+            this.ReportHeader.HeightF = 162.5F;
             this.ReportHeader.Name = "ReportHeader";
             this.ReportHeader.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
             this.ReportHeader.Scripts.OnBeforePrint = "ReportHeader_BeforePrint";
@@ -590,7 +590,7 @@ namespace XtraReportSerialization {
             // NgayCT2
             // 
             this.NgayCT2.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold);
-            this.NgayCT2.LocationFloat = new DevExpress.Utils.PointFloat(408F, 133F);
+            this.NgayCT2.LocationFloat = new DevExpress.Utils.PointFloat(441F, 137.5F);
             this.NgayCT2.Name = "NgayCT2";
             this.NgayCT2.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
             this.NgayCT2.SizeF = new System.Drawing.SizeF(67F, 25F);
@@ -600,7 +600,7 @@ namespace XtraReportSerialization {
             // xrLabel3
             // 
             this.xrLabel3.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold);
-            this.xrLabel3.LocationFloat = new DevExpress.Utils.PointFloat(342F, 133F);
+            this.xrLabel3.LocationFloat = new DevExpress.Utils.PointFloat(375F, 137.5F);
             this.xrLabel3.Name = "xrLabel3";
             this.xrLabel3.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
             this.xrLabel3.SizeF = new System.Drawing.SizeF(66F, 25F);
@@ -610,7 +610,7 @@ namespace XtraReportSerialization {
             // NgayCT1
             // 
             this.NgayCT1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold);
-            this.NgayCT1.LocationFloat = new DevExpress.Utils.PointFloat(275F, 133F);
+            this.NgayCT1.LocationFloat = new DevExpress.Utils.PointFloat(303.5F, 137.5F);
             this.NgayCT1.Name = "NgayCT1";
             this.NgayCT1.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
             this.NgayCT1.SizeF = new System.Drawing.SizeF(67F, 25F);
@@ -620,17 +620,17 @@ namespace XtraReportSerialization {
             // xrLabel1
             // 
             this.xrLabel1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold);
-            this.xrLabel1.LocationFloat = new DevExpress.Utils.PointFloat(183F, 133F);
+            this.xrLabel1.LocationFloat = new DevExpress.Utils.PointFloat(237.5F, 137.5F);
             this.xrLabel1.Name = "xrLabel1";
             this.xrLabel1.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.xrLabel1.SizeF = new System.Drawing.SizeF(92F, 25F);
+            this.xrLabel1.SizeF = new System.Drawing.SizeF(66F, 25F);
             this.xrLabel1.Text = "Từ ngày:";
             this.xrLabel1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
             // 
             // Title
             // 
             this.Title.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Bold);
-            this.Title.LocationFloat = new DevExpress.Utils.PointFloat(108F, 100F);
+            this.Title.LocationFloat = new DevExpress.Utils.PointFloat(137.5F, 100F);
             this.Title.Name = "Title";
             this.Title.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
             this.Title.SizeF = new System.Drawing.SizeF(475F, 33F);
