@@ -481,7 +481,7 @@ namespace XtraReportSerialization {
             this.NgayCT2.LocationFloat = new DevExpress.Utils.PointFloat(435F, 123.625F);
             this.NgayCT2.Name = "NgayCT2";
             this.NgayCT2.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.NgayCT2.SizeF = new System.Drawing.SizeF(65.00003F, 25.00001F);
+            this.NgayCT2.SizeF = new System.Drawing.SizeF(83.99997F, 25.00001F);
             this.NgayCT2.Text = "NgayCT2";
             this.NgayCT2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
             // 
@@ -498,10 +498,10 @@ namespace XtraReportSerialization {
             // NgayCT1
             // 
             this.NgayCT1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold);
-            this.NgayCT1.LocationFloat = new DevExpress.Utils.PointFloat(302F, 123.625F);
+            this.NgayCT1.LocationFloat = new DevExpress.Utils.PointFloat(283F, 123.625F);
             this.NgayCT1.Name = "NgayCT1";
             this.NgayCT1.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.NgayCT1.SizeF = new System.Drawing.SizeF(65F, 25.00001F);
+            this.NgayCT1.SizeF = new System.Drawing.SizeF(83.99997F, 25.00001F);
             this.NgayCT1.Text = "NgayCT1";
             this.NgayCT1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
             // 
@@ -511,7 +511,7 @@ namespace XtraReportSerialization {
             this.xrLabel1.LocationFloat = new DevExpress.Utils.PointFloat(219F, 123.625F);
             this.xrLabel1.Name = "xrLabel1";
             this.xrLabel1.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.xrLabel1.SizeF = new System.Drawing.SizeF(81.00002F, 25.00001F);
+            this.xrLabel1.SizeF = new System.Drawing.SizeF(64.00003F, 25.00001F);
             this.xrLabel1.Text = "Từ ngày:";
             this.xrLabel1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
             // 
