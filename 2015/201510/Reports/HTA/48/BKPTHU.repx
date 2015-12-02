@@ -1,6 +1,6 @@
 /// <XRTypeInfo>
 ///   <AssemblyFullName>DevExpress.XtraReports.v11.1, Version=11.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</AssemblyFullName>
-///   <AssemblyLocation>C:\WINDOWS\assembly\GAC_MSIL\DevExpress.XtraReports.v11.1\11.1.4.0__b88d1754d700e49a\DevExpress.XtraReports.v11.1.dll</AssemblyLocation>
+///   <AssemblyLocation>C:\Windows\assembly\GAC_MSIL\DevExpress.XtraReports.v11.1\11.1.4.0__b88d1754d700e49a\DevExpress.XtraReports.v11.1.dll</AssemblyLocation>
 ///   <TypeName>DevExpress.XtraReports.UI.XtraReport</TypeName>
 ///   <Localization>English</Localization>
 /// </XRTypeInfo>
@@ -36,7 +36,6 @@ namespace XtraReportSerialization {
         private DevExpress.XtraReports.UI.XRLabel xrLabel1;
         private DevExpress.XtraReports.UI.XRLabel Title;
         private DevExpress.XtraReports.UI.BottomMarginBand BottomMargin;
-        private DevExpress.XtraReports.UI.XRLabel xrLabel23;
         private DevExpress.XtraReports.UI.XRLabel xrLabel22;
         private DevExpress.XtraReports.UI.XRPageInfo xrPageInfo1;
         private DevExpress.XtraReports.UI.ReportFooterBand ReportFooter;
@@ -264,7 +263,6 @@ namespace XtraReportSerialization {
         private void InitializeComponent() {
             DevExpress.XtraReports.UI.XRSummary summary1 = new DevExpress.XtraReports.UI.XRSummary();
             DevExpress.XtraReports.UI.XRSummary summary2 = new DevExpress.XtraReports.UI.XRSummary();
-            DevExpress.XtraReports.UI.XRSummary summary3 = new DevExpress.XtraReports.UI.XRSummary();
             this.PageHeader = new DevExpress.XtraReports.UI.PageHeaderBand();
             this.Detail = new DevExpress.XtraReports.UI.DetailBand();
             this.ReportHeader = new DevExpress.XtraReports.UI.ReportHeaderBand();
@@ -298,7 +296,6 @@ namespace XtraReportSerialization {
             this.NgayCT1 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel1 = new DevExpress.XtraReports.UI.XRLabel();
             this.Title = new DevExpress.XtraReports.UI.XRLabel();
-            this.xrLabel23 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel22 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrPageInfo1 = new DevExpress.XtraReports.UI.XRPageInfo();
             this.colTTTien = new DevExpress.XtraReports.UI.XRLabel();
@@ -372,7 +369,6 @@ namespace XtraReportSerialization {
             // BottomMargin
             // 
             this.BottomMargin.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
-                        this.xrLabel23,
                         this.xrLabel22,
                         this.xrPageInfo1});
             this.BottomMargin.HeightF = 25F;
@@ -716,22 +712,9 @@ namespace XtraReportSerialization {
             this.Title.Text = "Title";
             this.Title.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
             // 
-            // xrLabel23
-            // 
-            this.xrLabel23.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "ReportData.Ps")});
-            this.xrLabel23.LocationFloat = new DevExpress.Utils.PointFloat(675F, 0F);
-            this.xrLabel23.Name = "xrLabel23";
-            this.xrLabel23.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.xrLabel23.SizeF = new System.Drawing.SizeF(64.99994F, 25F);
-            summary1.Running = DevExpress.XtraReports.UI.SummaryRunning.Page;
-            this.xrLabel23.Summary = summary1;
-            this.xrLabel23.Text = "xrLabel23";
-            this.xrLabel23.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft;
-            // 
             // xrLabel22
             // 
-            this.xrLabel22.LocationFloat = new DevExpress.Utils.PointFloat(558F, 0F);
+            this.xrLabel22.LocationFloat = new DevExpress.Utils.PointFloat(621.8749F, 0F);
             this.xrLabel22.Name = "xrLabel22";
             this.xrLabel22.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
             this.xrLabel22.SizeF = new System.Drawing.SizeF(100F, 25F);
@@ -740,7 +723,7 @@ namespace XtraReportSerialization {
             // 
             // xrPageInfo1
             // 
-            this.xrPageInfo1.LocationFloat = new DevExpress.Utils.PointFloat(658F, 0F);
+            this.xrPageInfo1.LocationFloat = new DevExpress.Utils.PointFloat(721.8749F, 0F);
             this.xrPageInfo1.Name = "xrPageInfo1";
             this.xrPageInfo1.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
             this.xrPageInfo1.PageInfo = DevExpress.XtraPrinting.PageInfo.Number;
@@ -758,8 +741,8 @@ namespace XtraReportSerialization {
             this.colTTTien.Name = "colTTTien";
             this.colTTTien.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
             this.colTTTien.SizeF = new System.Drawing.SizeF(106.9999F, 25F);
-            summary2.Running = DevExpress.XtraReports.UI.SummaryRunning.Report;
-            this.colTTTien.Summary = summary2;
+            summary1.Running = DevExpress.XtraReports.UI.SummaryRunning.Report;
+            this.colTTTien.Summary = summary1;
             this.colTTTien.Text = "colTTTien";
             this.colTTTien.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
             // 
@@ -946,8 +929,8 @@ namespace XtraReportSerialization {
             this.colTTien.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold);
             this.colTTien.Name = "colTTien";
             this.colTTien.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            summary3.Running = DevExpress.XtraReports.UI.SummaryRunning.Group;
-            this.colTTien.Summary = summary3;
+            summary2.Running = DevExpress.XtraReports.UI.SummaryRunning.Group;
+            this.colTTien.Summary = summary2;
             this.colTTien.Text = "colTTien";
             this.colTTien.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
             this.colTTien.Weight = 0.14420476949439859;

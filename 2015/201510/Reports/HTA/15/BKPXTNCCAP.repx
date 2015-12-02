@@ -1,6 +1,6 @@
 /// <XRTypeInfo>
 ///   <AssemblyFullName>DevExpress.XtraReports.v11.1, Version=11.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</AssemblyFullName>
-///   <AssemblyLocation>C:\WINDOWS\assembly\GAC_MSIL\DevExpress.XtraReports.v11.1\11.1.4.0__b88d1754d700e49a\DevExpress.XtraReports.v11.1.dll</AssemblyLocation>
+///   <AssemblyLocation>C:\Windows\assembly\GAC_MSIL\DevExpress.XtraReports.v11.1\11.1.4.0__b88d1754d700e49a\DevExpress.XtraReports.v11.1.dll</AssemblyLocation>
 ///   <TypeName>DevExpress.XtraReports.UI.XtraReport</TypeName>
 ///   <Localization>English</Localization>
 /// </XRTypeInfo>
@@ -367,7 +367,7 @@ namespace XtraReportSerialization {
                         this.NgayCT1,
                         this.xrLabel1,
                         this.Title});
-            this.ReportHeader.HeightF = 169.7917F;
+            this.ReportHeader.HeightF = 162.5F;
             this.ReportHeader.Name = "ReportHeader";
             this.ReportHeader.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
             this.ReportHeader.Scripts.OnBeforePrint = "ReportHeader_BeforePrint";

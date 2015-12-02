@@ -1,6 +1,6 @@
 /// <XRTypeInfo>
 ///   <AssemblyFullName>DevExpress.XtraReports.v11.1, Version=11.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</AssemblyFullName>
-///   <AssemblyLocation>C:\WINDOWS\assembly\GAC_MSIL\DevExpress.XtraReports.v11.1\11.1.4.0__b88d1754d700e49a\DevExpress.XtraReports.v11.1.dll</AssemblyLocation>
+///   <AssemblyLocation>C:\Windows\assembly\GAC_MSIL\DevExpress.XtraReports.v11.1\11.1.4.0__b88d1754d700e49a\DevExpress.XtraReports.v11.1.dll</AssemblyLocation>
 ///   <TypeName>DevExpress.XtraReports.UI.XtraReport</TypeName>
 ///   <Localization>English</Localization>
 /// </XRTypeInfo>
@@ -15,9 +15,6 @@ namespace XtraReportSerialization {
         private DevExpress.XtraReports.UI.XRPictureBox Logo;
         private DevExpress.XtraReports.UI.XRLabel Title;
         private DevExpress.XtraReports.UI.DetailBand Detail;
-        private DevExpress.XtraReports.UI.XRCheckBox xrCheckBox3;
-        private DevExpress.XtraReports.UI.XRCheckBox xrCheckBox2;
-        private DevExpress.XtraReports.UI.XRCheckBox xrCheckBox1;
         private DevExpress.XtraReports.UI.XRTable xrTable1;
         private DevExpress.XtraReports.UI.XRTableRow xrTableRow1;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell6;
@@ -26,6 +23,10 @@ namespace XtraReportSerialization {
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell2;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell8;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell3;
+        private DevExpress.XtraReports.UI.XRTableCell tableCell1;
+        private DevExpress.XtraReports.UI.XRCheckBox xrCheckBox3;
+        private DevExpress.XtraReports.UI.XRCheckBox xrCheckBox1;
+        private DevExpress.XtraReports.UI.XRCheckBox xrCheckBox2;
         private DevExpress.XtraReports.UI.ReportFooterBand ReportFooter;
         private DevExpress.XtraReports.UI.XRLabel xrLabel2;
         private DevExpress.XtraReports.UI.XRLabel xrLabel1;
@@ -248,9 +249,6 @@ namespace XtraReportSerialization {
             this.TenCongTy = new DevExpress.XtraReports.UI.XRLabel();
             this.Logo = new DevExpress.XtraReports.UI.XRPictureBox();
             this.Title = new DevExpress.XtraReports.UI.XRLabel();
-            this.xrCheckBox3 = new DevExpress.XtraReports.UI.XRCheckBox();
-            this.xrCheckBox2 = new DevExpress.XtraReports.UI.XRCheckBox();
-            this.xrCheckBox1 = new DevExpress.XtraReports.UI.XRCheckBox();
             this.xrTable1 = new DevExpress.XtraReports.UI.XRTable();
             this.xrTableRow1 = new DevExpress.XtraReports.UI.XRTableRow();
             this.xrTableCell6 = new DevExpress.XtraReports.UI.XRTableCell();
@@ -259,6 +257,10 @@ namespace XtraReportSerialization {
             this.xrTableCell2 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell8 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell3 = new DevExpress.XtraReports.UI.XRTableCell();
+            this.tableCell1 = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrCheckBox3 = new DevExpress.XtraReports.UI.XRCheckBox();
+            this.xrCheckBox1 = new DevExpress.XtraReports.UI.XRCheckBox();
+            this.xrCheckBox2 = new DevExpress.XtraReports.UI.XRCheckBox();
             this.xrLabel2 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel1 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrTable3 = new DevExpress.XtraReports.UI.XRTable();
@@ -290,11 +292,8 @@ namespace XtraReportSerialization {
             // Detail
             // 
             this.Detail.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
-                        this.xrCheckBox3,
-                        this.xrCheckBox2,
-                        this.xrCheckBox1,
                         this.xrTable1});
-            this.Detail.HeightF = 25F;
+            this.Detail.HeightF = 26.04167F;
             this.Detail.Name = "Detail";
             this.Detail.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
             this.Detail.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft;
@@ -324,7 +323,7 @@ namespace XtraReportSerialization {
             // 
             // bottomMarginBand1
             // 
-            this.bottomMarginBand1.HeightF = 25F;
+            this.bottomMarginBand1.HeightF = 23.95833F;
             this.bottomMarginBand1.Name = "bottomMarginBand1";
             // 
             // label2
@@ -378,45 +377,14 @@ namespace XtraReportSerialization {
             // 
             // Title
             // 
-            this.Title.Font = new System.Drawing.Font("Times New Roman", 24F);
+            this.Title.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Bold);
             this.Title.LocationFloat = new DevExpress.Utils.PointFloat(0F, 58F);
             this.Title.Name = "Title";
             this.Title.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
             this.Title.SizeF = new System.Drawing.SizeF(1067F, 42F);
+            this.Title.StylePriority.UseFont = false;
             this.Title.Text = "Title";
             this.Title.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            // 
-            // xrCheckBox3
-            // 
-            this.xrCheckBox3.Borders = DevExpress.XtraPrinting.BorderSide.Bottom;
-            this.xrCheckBox3.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-                        new DevExpress.XtraReports.UI.XRBinding("CheckState", null, "Table.IsKH")});
-            this.xrCheckBox3.LocationFloat = new DevExpress.Utils.PointFloat(992F, 0F);
-            this.xrCheckBox3.Name = "xrCheckBox3";
-            this.xrCheckBox3.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
-            this.xrCheckBox3.SizeF = new System.Drawing.SizeF(25F, 25F);
-            // 
-            // xrCheckBox2
-            // 
-            this.xrCheckBox2.Borders = ((DevExpress.XtraPrinting.BorderSide)((DevExpress.XtraPrinting.BorderSide.Right | DevExpress.XtraPrinting.BorderSide.Bottom)));
-            this.xrCheckBox2.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-                        new DevExpress.XtraReports.UI.XRBinding("CheckState", null, "Table.IsNV")});
-            this.xrCheckBox2.LocationFloat = new DevExpress.Utils.PointFloat(1042F, 0F);
-            this.xrCheckBox2.Name = "xrCheckBox2";
-            this.xrCheckBox2.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
-            this.xrCheckBox2.SizeF = new System.Drawing.SizeF(25F, 25F);
-            this.xrCheckBox2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
-            // 
-            // xrCheckBox1
-            // 
-            this.xrCheckBox1.Borders = DevExpress.XtraPrinting.BorderSide.Bottom;
-            this.xrCheckBox1.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-                        new DevExpress.XtraReports.UI.XRBinding("CheckState", null, "Table.IsNCC")});
-            this.xrCheckBox1.LocationFloat = new DevExpress.Utils.PointFloat(1017F, 0F);
-            this.xrCheckBox1.Name = "xrCheckBox1";
-            this.xrCheckBox1.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
-            this.xrCheckBox1.SizeF = new System.Drawing.SizeF(25F, 25F);
-            this.xrCheckBox1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
             // 
             // xrTable1
             // 
@@ -425,7 +393,7 @@ namespace XtraReportSerialization {
             this.xrTable1.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 96F);
             this.xrTable1.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
                         this.xrTableRow1});
-            this.xrTable1.SizeF = new System.Drawing.SizeF(984F, 25F);
+            this.xrTable1.SizeF = new System.Drawing.SizeF(1059F, 26.04167F);
             this.xrTable1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft;
             // 
             // xrTableRow1
@@ -436,11 +404,12 @@ namespace XtraReportSerialization {
                         this.xrTableCell1,
                         this.xrTableCell2,
                         this.xrTableCell8,
-                        this.xrTableCell3});
+                        this.xrTableCell3,
+                        this.tableCell1});
             this.xrTableRow1.Name = "xrTableRow1";
             this.xrTableRow1.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 96F);
             this.xrTableRow1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft;
-            this.xrTableRow1.Weight = 1;
+            this.xrTableRow1.Weight = 1.0416666412353517;
             // 
             // xrTableCell6
             // 
@@ -508,7 +477,58 @@ namespace XtraReportSerialization {
             this.xrTableCell3.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
             this.xrTableCell3.Text = "xrTableCell3";
             this.xrTableCell3.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            this.xrTableCell3.Weight = 0.093495934959349589;
+            this.xrTableCell3.Weight = 0.0934958729317518;
+            // 
+            // tableCell1
+            // 
+            this.tableCell1.Borders = ((DevExpress.XtraPrinting.BorderSide)(((DevExpress.XtraPrinting.BorderSide.Left | DevExpress.XtraPrinting.BorderSide.Right) 
+                        | DevExpress.XtraPrinting.BorderSide.Bottom)));
+            this.tableCell1.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+                        this.xrCheckBox3,
+                        this.xrCheckBox1,
+                        this.xrCheckBox2});
+            this.tableCell1.Name = "tableCell1";
+            this.tableCell1.StylePriority.UseBorders = false;
+            this.tableCell1.Text = "tableCell1";
+            this.tableCell1.Weight = 0.076219698277915388;
+            // 
+            // xrCheckBox3
+            // 
+            this.xrCheckBox3.BorderColor = System.Drawing.Color.Transparent;
+            this.xrCheckBox3.Borders = DevExpress.XtraPrinting.BorderSide.Bottom;
+            this.xrCheckBox3.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+                        new DevExpress.XtraReports.UI.XRBinding("CheckState", null, "Table.IsKH")});
+            this.xrCheckBox3.LocationFloat = new DevExpress.Utils.PointFloat(9.999974F, 1.041667F);
+            this.xrCheckBox3.Name = "xrCheckBox3";
+            this.xrCheckBox3.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
+            this.xrCheckBox3.SizeF = new System.Drawing.SizeF(19.79169F, 25F);
+            this.xrCheckBox3.StylePriority.UseBorderColor = false;
+            // 
+            // xrCheckBox1
+            // 
+            this.xrCheckBox1.BorderColor = System.Drawing.Color.Transparent;
+            this.xrCheckBox1.Borders = DevExpress.XtraPrinting.BorderSide.Bottom;
+            this.xrCheckBox1.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+                        new DevExpress.XtraReports.UI.XRBinding("CheckState", null, "Table.IsNCC")});
+            this.xrCheckBox1.LocationFloat = new DevExpress.Utils.PointFloat(49.58337F, 1.041667F);
+            this.xrCheckBox1.Name = "xrCheckBox1";
+            this.xrCheckBox1.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
+            this.xrCheckBox1.SizeF = new System.Drawing.SizeF(19.79169F, 25F);
+            this.xrCheckBox1.StylePriority.UseBorderColor = false;
+            this.xrCheckBox1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            // 
+            // xrCheckBox2
+            // 
+            this.xrCheckBox2.BorderColor = System.Drawing.Color.Transparent;
+            this.xrCheckBox2.Borders = ((DevExpress.XtraPrinting.BorderSide)((DevExpress.XtraPrinting.BorderSide.Right | DevExpress.XtraPrinting.BorderSide.Bottom)));
+            this.xrCheckBox2.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+                        new DevExpress.XtraReports.UI.XRBinding("CheckState", null, "Table.IsNV")});
+            this.xrCheckBox2.LocationFloat = new DevExpress.Utils.PointFloat(29.7917F, 1.041667F);
+            this.xrCheckBox2.Name = "xrCheckBox2";
+            this.xrCheckBox2.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
+            this.xrCheckBox2.SizeF = new System.Drawing.SizeF(19.79169F, 25F);
+            this.xrCheckBox2.StylePriority.UseBorderColor = false;
+            this.xrCheckBox2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
             // 
             // xrLabel2
             // 
@@ -522,10 +542,12 @@ namespace XtraReportSerialization {
             // 
             // xrLabel1
             // 
+            this.xrLabel1.BorderColor = System.Drawing.Color.Transparent;
             this.xrLabel1.LocationFloat = new DevExpress.Utils.PointFloat(833F, 0F);
             this.xrLabel1.Name = "xrLabel1";
             this.xrLabel1.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
             this.xrLabel1.SizeF = new System.Drawing.SizeF(234F, 25F);
+            this.xrLabel1.StylePriority.UseBorderColor = false;
             this.xrLabel1.Text = "............, ngày.......tháng....... năm 20......";
             this.xrLabel1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
             // 
@@ -636,12 +658,12 @@ namespace XtraReportSerialization {
                         this.topMarginBand1,
                         this.bottomMarginBand1});
             this.Landscape = true;
-            this.Margins = new System.Drawing.Printing.Margins(15, 15, 25, 25);
+            this.Margins = new System.Drawing.Printing.Margins(15, 15, 25, 24);
             this.Name = "xtraReport1";
             this.PageHeight = 850;
             this.PageWidth = 1100;
-            this.ScriptReferencesString = "C:\\Program Files (x86)\\Asoft Software Solution\\Asoft Accounting 2015\\CDTLib.dll\r\n" +
-                "C:\\Program Files (x86)\\Asoft Software Solution\\Asoft Accounting 2015\\CDTControl." +
+            this.ScriptReferencesString = "D:\\Program Files (x86)\\Asoft Software Solution\\Asoft Accounting 2015\\CDTLib.dll\r\n" +
+                "D:\\Program Files (x86)\\Asoft Software Solution\\Asoft Accounting 2015\\CDTControl." +
                 "dll";
             this.Version = "11.1";
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).EndInit();

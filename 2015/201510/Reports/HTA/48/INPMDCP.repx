@@ -1,6 +1,6 @@
 /// <XRTypeInfo>
 ///   <AssemblyFullName>DevExpress.XtraReports.v11.1, Version=11.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</AssemblyFullName>
-///   <AssemblyLocation>C:\WINDOWS\assembly\GAC_MSIL\DevExpress.XtraReports.v11.1\11.1.4.0__b88d1754d700e49a\DevExpress.XtraReports.v11.1.dll</AssemblyLocation>
+///   <AssemblyLocation>C:\Windows\assembly\GAC_MSIL\DevExpress.XtraReports.v11.1\11.1.4.0__b88d1754d700e49a\DevExpress.XtraReports.v11.1.dll</AssemblyLocation>
 ///   <TypeName>DevExpress.XtraReports.UI.XtraReport</TypeName>
 ///   <Localization>English</Localization>
 /// </XRTypeInfo>
@@ -89,7 +89,6 @@ namespace XtraReportSerialization {
         private DevExpress.XtraReports.UI.XRLabel xrLabel10;
         private DevExpress.XtraReports.UI.BottomMarginBand BottomMargin;
         private DevExpress.XtraReports.UI.XRPageInfo xrPageInfo1;
-        private DevExpress.XtraReports.UI.XRLabel xrLabel27;
         private DevExpress.XtraReports.UI.XRLabel xrLabel26;
         private DevExpress.XtraReports.UI.TopMarginBand topMarginBand1;
         private System.Resources.ResourceManager _resources;
@@ -337,7 +336,6 @@ namespace XtraReportSerialization {
             DevExpress.XtraReports.UI.XRSummary summary12 = new DevExpress.XtraReports.UI.XRSummary();
             DevExpress.XtraReports.UI.XRSummary summary2 = new DevExpress.XtraReports.UI.XRSummary();
             DevExpress.XtraReports.UI.XRSummary summary3 = new DevExpress.XtraReports.UI.XRSummary();
-            DevExpress.XtraReports.UI.XRSummary summary13 = new DevExpress.XtraReports.UI.XRSummary();
             this.Detail = new DevExpress.XtraReports.UI.DetailBand();
             this.ReportHeader = new DevExpress.XtraReports.UI.ReportHeaderBand();
             this.ReportFooter = new DevExpress.XtraReports.UI.ReportFooterBand();
@@ -421,7 +419,6 @@ namespace XtraReportSerialization {
             this.xrTableCell30 = new DevExpress.XtraReports.UI.XRTableCell();
             this.TongTien = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrPageInfo1 = new DevExpress.XtraReports.UI.XRPageInfo();
-            this.xrLabel27 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel26 = new DevExpress.XtraReports.UI.XRLabel();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable2)).BeginInit();
@@ -506,9 +503,8 @@ namespace XtraReportSerialization {
             // 
             this.BottomMargin.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
                         this.xrPageInfo1,
-                        this.xrLabel27,
                         this.xrLabel26});
-            this.BottomMargin.HeightF = 25F;
+            this.BottomMargin.HeightF = 26.66667F;
             this.BottomMargin.Name = "BottomMargin";
             this.BottomMargin.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
             this.BottomMargin.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft;
@@ -595,8 +591,9 @@ namespace XtraReportSerialization {
                         new DevExpress.XtraReports.UI.XRBinding("Text", null, "d_TKNo")});
             this.dg.Name = "dg";
             this.dg.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.dg.StylePriority.UseTextAlignment = false;
             this.dg.Text = "dg";
-            this.dg.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
+            this.dg.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
             this.dg.Weight = 0.10714285714285714;
             // 
             // ttdt
@@ -1356,32 +1353,17 @@ namespace XtraReportSerialization {
             // 
             // xrPageInfo1
             // 
-            this.xrPageInfo1.LocationFloat = new DevExpress.Utils.PointFloat(558F, 0F);
+            this.xrPageInfo1.LocationFloat = new DevExpress.Utils.PointFloat(738.875F, 0F);
             this.xrPageInfo1.Name = "xrPageInfo1";
             this.xrPageInfo1.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
             this.xrPageInfo1.PageInfo = DevExpress.XtraPrinting.PageInfo.Number;
             this.xrPageInfo1.SizeF = new System.Drawing.SizeF(34F, 25F);
             this.xrPageInfo1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
             // 
-            // xrLabel27
-            // 
-            this.xrLabel27.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "default.d_Ps")});
-            this.xrLabel27.Font = new System.Drawing.Font("Times New Roman", 9.75F);
-            this.xrLabel27.LocationFloat = new DevExpress.Utils.PointFloat(600F, 0F);
-            this.xrLabel27.Name = "xrLabel27";
-            this.xrLabel27.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.xrLabel27.SizeF = new System.Drawing.SizeF(100F, 25F);
-            summary13.FormatString = "{0:### ### ### ###.##}";
-            summary13.Running = DevExpress.XtraReports.UI.SummaryRunning.Page;
-            this.xrLabel27.Summary = summary13;
-            this.xrLabel27.Text = "xrLabel27";
-            this.xrLabel27.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
-            // 
             // xrLabel26
             // 
             this.xrLabel26.Font = new System.Drawing.Font("Times New Roman", 9.75F);
-            this.xrLabel26.LocationFloat = new DevExpress.Utils.PointFloat(408F, 0F);
+            this.xrLabel26.LocationFloat = new DevExpress.Utils.PointFloat(588.875F, 0F);
             this.xrLabel26.Name = "xrLabel26";
             this.xrLabel26.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
             this.xrLabel26.SizeF = new System.Drawing.SizeF(150F, 25F);
@@ -1396,7 +1378,7 @@ namespace XtraReportSerialization {
                         this.ReportFooter,
                         this.BottomMargin,
                         this.topMarginBand1});
-            this.Margins = new System.Drawing.Printing.Margins(25, 25, 25, 25);
+            this.Margins = new System.Drawing.Printing.Margins(25, 25, 25, 27);
             this.Name = "xtraReport1";
             this.PageHeight = 1100;
             this.PageWidth = 850;

@@ -1,6 +1,6 @@
 /// <XRTypeInfo>
 ///   <AssemblyFullName>DevExpress.XtraReports.v11.1, Version=11.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</AssemblyFullName>
-///   <AssemblyLocation>C:\WINDOWS\assembly\GAC_MSIL\DevExpress.XtraReports.v11.1\11.1.4.0__b88d1754d700e49a\DevExpress.XtraReports.v11.1.dll</AssemblyLocation>
+///   <AssemblyLocation>C:\Windows\assembly\GAC_MSIL\DevExpress.XtraReports.v11.1\11.1.4.0__b88d1754d700e49a\DevExpress.XtraReports.v11.1.dll</AssemblyLocation>
 ///   <TypeName>DevExpress.XtraReports.UI.XtraReport</TypeName>
 ///   <Localization>English</Localization>
 /// </XRTypeInfo>
@@ -863,10 +863,10 @@ namespace XtraReportSerialization {
             // 
             this.xrLabel5.BackColor = System.Drawing.Color.Gainsboro;
             this.xrLabel5.Borders = ((DevExpress.XtraPrinting.BorderSide)((DevExpress.XtraPrinting.BorderSide.Right | DevExpress.XtraPrinting.BorderSide.Bottom)));
-            this.xrLabel5.LocationFloat = new DevExpress.Utils.PointFloat(75F, 27F);
+            this.xrLabel5.LocationFloat = new DevExpress.Utils.PointFloat(78.00001F, 27.00001F);
             this.xrLabel5.Name = "xrLabel5";
             this.xrLabel5.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.xrLabel5.SizeF = new System.Drawing.SizeF(75F, 26F);
+            this.xrLabel5.SizeF = new System.Drawing.SizeF(71.99999F, 25.99999F);
             this.xrLabel5.Text = "Số";
             this.xrLabel5.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
             // 
@@ -878,7 +878,7 @@ namespace XtraReportSerialization {
             this.xrLabel4.LocationFloat = new DevExpress.Utils.PointFloat(10.00001F, 27.00001F);
             this.xrLabel4.Name = "xrLabel4";
             this.xrLabel4.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.xrLabel4.SizeF = new System.Drawing.SizeF(65F, 25.99999F);
+            this.xrLabel4.SizeF = new System.Drawing.SizeF(68F, 25.99999F);
             this.xrLabel4.Text = "Ngày";
             this.xrLabel4.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
             // 
@@ -935,7 +935,7 @@ namespace XtraReportSerialization {
             this.xrTableCell9.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
             this.xrTableCell9.Text = "xrTableCell9";
             this.xrTableCell9.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            this.xrTableCell9.Weight = 0.0655241935483871;
+            this.xrTableCell9.Weight = 0.068548387096774188;
             // 
             // xrTableCell10
             // 
@@ -946,7 +946,7 @@ namespace XtraReportSerialization {
             this.xrTableCell10.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
             this.xrTableCell10.Text = "xrTableCell10";
             this.xrTableCell10.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            this.xrTableCell10.Weight = 0.07459677419354839;
+            this.xrTableCell10.Weight = 0.0715725806451613;
             // 
             // xrTableCell11
             // 
