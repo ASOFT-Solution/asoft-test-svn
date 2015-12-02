@@ -424,7 +424,7 @@ namespace XtraReportSerialization {
                         this.table3,
                         this.table2,
                         this.pivotGrid1});
-            this.Detail.HeightF = 63.28742F;
+            this.Detail.HeightF = 63.5F;
             this.Detail.KeepTogether = true;
             this.Detail.KeepTogetherWithDetailReports = true;
             this.Detail.MultiColumn.ColumnCount = 2;
@@ -575,7 +575,7 @@ namespace XtraReportSerialization {
                         this.fieldStinphtsinh,
                         this.fieldTK1,
                         this.fieldLoiTK});
-            this.pivotGrid1.LocationFloat = new DevExpress.Utils.PointFloat(0F, 0F);
+            this.pivotGrid1.LocationFloat = new DevExpress.Utils.PointFloat(0F, 1F);
             this.pivotGrid1.Name = "pivotGrid1";
             this.pivotGrid1.OptionsChartDataSource.UpdateDelay = 300;
             this.pivotGrid1.OptionsPrint.PrintColumnHeaders = DevExpress.Utils.DefaultBoolean.False;
@@ -1227,8 +1227,8 @@ namespace XtraReportSerialization {
             this.Margins = new System.Drawing.Printing.Margins(33, 33, 55, 55);
             this.Name = "xtraReport1";
             this.PageHeight = 827;
-            this.PageWidth = 12797;
-            this.PaperKind = System.Drawing.Printing.PaperKind.Custom;
+            this.PageWidth = 1169;
+            this.PaperKind = System.Drawing.Printing.PaperKind.A4;
             this.Scripts.OnBeforePrint = "xtraReport1_BeforePrint";
             this.ScriptsSource = resources.GetString("$this.ScriptsSource");
             this.SnapGridSize = 10F;
