@@ -1,6 +1,6 @@
 /// <XRTypeInfo>
 ///   <AssemblyFullName>DevExpress.XtraReports.v11.1, Version=11.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</AssemblyFullName>
-///   <AssemblyLocation>C:\Windows\assembly\GAC_MSIL\DevExpress.XtraReports.v11.1\11.1.4.0__b88d1754d700e49a\DevExpress.XtraReports.v11.1.dll</AssemblyLocation>
+///   <AssemblyLocation>C:\WINDOWS\assembly\GAC_MSIL\DevExpress.XtraReports.v11.1\11.1.4.0__b88d1754d700e49a\DevExpress.XtraReports.v11.1.dll</AssemblyLocation>
 ///   <TypeName>DevExpress.XtraReports.UI.XtraReport</TypeName>
 ///   <Localization>English</Localization>
 /// </XRTypeInfo>
@@ -8,6 +8,18 @@ namespace XtraReportSerialization {
     
     public class xtraReport1 : DevExpress.XtraReports.UI.XtraReport {
         private DevExpress.XtraReports.UI.DetailBand Detail;
+        private DevExpress.XtraReports.UI.XRTable xrTable1;
+        private DevExpress.XtraReports.UI.XRTableRow xrTableRow1;
+        private DevExpress.XtraReports.UI.XRTableCell tk;
+        private DevExpress.XtraReports.UI.XRTableCell tentk;
+        private DevExpress.XtraReports.UI.XRTableCell nod;
+        private DevExpress.XtraReports.UI.XRTableCell cod;
+        private DevExpress.XtraReports.UI.XRTableCell psn;
+        private DevExpress.XtraReports.UI.XRTableCell psc;
+        private DevExpress.XtraReports.UI.XRTableCell lkn;
+        private DevExpress.XtraReports.UI.XRTableCell lkc;
+        private DevExpress.XtraReports.UI.XRTableCell noc;
+        private DevExpress.XtraReports.UI.XRTableCell coc;
         private DevExpress.XtraReports.UI.XRTable xrTable2;
         private DevExpress.XtraReports.UI.XRTableRow xrTableRow2;
         private DevExpress.XtraReports.UI.XRTableCell tkb;
@@ -21,18 +33,6 @@ namespace XtraReportSerialization {
         private DevExpress.XtraReports.UI.XRTableCell lkc1;
         private DevExpress.XtraReports.UI.XRTableCell noc1;
         private DevExpress.XtraReports.UI.XRTableCell coc1;
-        private DevExpress.XtraReports.UI.XRTable xrTable1;
-        private DevExpress.XtraReports.UI.XRTableRow xrTableRow1;
-        private DevExpress.XtraReports.UI.XRTableCell tk;
-        private DevExpress.XtraReports.UI.XRTableCell tentk;
-        private DevExpress.XtraReports.UI.XRTableCell nod;
-        private DevExpress.XtraReports.UI.XRTableCell cod;
-        private DevExpress.XtraReports.UI.XRTableCell psn;
-        private DevExpress.XtraReports.UI.XRTableCell psc;
-        private DevExpress.XtraReports.UI.XRTableCell lkn;
-        private DevExpress.XtraReports.UI.XRTableCell lkc;
-        private DevExpress.XtraReports.UI.XRTableCell noc;
-        private DevExpress.XtraReports.UI.XRTableCell coc;
         private DevExpress.XtraReports.UI.ReportHeaderBand ReportHeader;
         private DevExpress.XtraReports.UI.XRLabel label7;
         private DevExpress.XtraReports.UI.XRLabel label6;
@@ -365,8 +365,19 @@ namespace XtraReportSerialization {
             this.BottomMargin = new DevExpress.XtraReports.UI.BottomMarginBand();
             this.PageHeader = new DevExpress.XtraReports.UI.PageHeaderBand();
             this.topMarginBand1 = new DevExpress.XtraReports.UI.TopMarginBand();
-            this.xrTable2 = new DevExpress.XtraReports.UI.XRTable();
             this.xrTable1 = new DevExpress.XtraReports.UI.XRTable();
+            this.xrTable2 = new DevExpress.XtraReports.UI.XRTable();
+            this.xrTableRow1 = new DevExpress.XtraReports.UI.XRTableRow();
+            this.tk = new DevExpress.XtraReports.UI.XRTableCell();
+            this.tentk = new DevExpress.XtraReports.UI.XRTableCell();
+            this.nod = new DevExpress.XtraReports.UI.XRTableCell();
+            this.cod = new DevExpress.XtraReports.UI.XRTableCell();
+            this.psn = new DevExpress.XtraReports.UI.XRTableCell();
+            this.psc = new DevExpress.XtraReports.UI.XRTableCell();
+            this.lkn = new DevExpress.XtraReports.UI.XRTableCell();
+            this.lkc = new DevExpress.XtraReports.UI.XRTableCell();
+            this.noc = new DevExpress.XtraReports.UI.XRTableCell();
+            this.coc = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableRow2 = new DevExpress.XtraReports.UI.XRTableRow();
             this.tkb = new DevExpress.XtraReports.UI.XRTableCell();
             this.tentkb = new DevExpress.XtraReports.UI.XRTableCell();
@@ -379,17 +390,6 @@ namespace XtraReportSerialization {
             this.noc1 = new DevExpress.XtraReports.UI.XRTableCell();
             this.coc1 = new DevExpress.XtraReports.UI.XRTableCell();
             this.tkme = new DevExpress.XtraReports.UI.XRLabel();
-            this.xrTableRow1 = new DevExpress.XtraReports.UI.XRTableRow();
-            this.tk = new DevExpress.XtraReports.UI.XRTableCell();
-            this.tentk = new DevExpress.XtraReports.UI.XRTableCell();
-            this.nod = new DevExpress.XtraReports.UI.XRTableCell();
-            this.cod = new DevExpress.XtraReports.UI.XRTableCell();
-            this.psn = new DevExpress.XtraReports.UI.XRTableCell();
-            this.psc = new DevExpress.XtraReports.UI.XRTableCell();
-            this.lkn = new DevExpress.XtraReports.UI.XRTableCell();
-            this.lkc = new DevExpress.XtraReports.UI.XRTableCell();
-            this.noc = new DevExpress.XtraReports.UI.XRTableCell();
-            this.coc = new DevExpress.XtraReports.UI.XRTableCell();
             this.label7 = new DevExpress.XtraReports.UI.XRLabel();
             this.label6 = new DevExpress.XtraReports.UI.XRLabel();
             this.Logo = new DevExpress.XtraReports.UI.XRPictureBox();
@@ -426,15 +426,15 @@ namespace XtraReportSerialization {
             this.xrLabel5 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel6 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel7 = new DevExpress.XtraReports.UI.XRLabel();
-            ((System.ComponentModel.ISupportInitialize)(this.xrTable2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xrTable2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // Detail
             // 
             this.Detail.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
-                        this.xrTable2,
-                        this.xrTable1});
+                        this.xrTable1,
+                        this.xrTable2});
             this.Detail.HeightF = 25F;
             this.Detail.Name = "Detail";
             this.Detail.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
@@ -516,18 +516,6 @@ namespace XtraReportSerialization {
             this.topMarginBand1.HeightF = 25F;
             this.topMarginBand1.Name = "topMarginBand1";
             // 
-            // xrTable2
-            // 
-            this.xrTable2.BorderColor = System.Drawing.Color.Black;
-            this.xrTable2.LocationFloat = new DevExpress.Utils.PointFloat(10F, 0F);
-            this.xrTable2.Name = "xrTable2";
-            this.xrTable2.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 96F);
-            this.xrTable2.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
-                        this.xrTableRow2});
-            this.xrTable2.SizeF = new System.Drawing.SizeF(1037F, 25F);
-            this.xrTable2.StylePriority.UseBorderColor = false;
-            this.xrTable2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft;
-            // 
             // xrTable1
             // 
             this.xrTable1.BorderColor = System.Drawing.Color.Black;
@@ -539,6 +527,158 @@ namespace XtraReportSerialization {
             this.xrTable1.SizeF = new System.Drawing.SizeF(1037F, 25F);
             this.xrTable1.StylePriority.UseBorderColor = false;
             this.xrTable1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft;
+            // 
+            // xrTable2
+            // 
+            this.xrTable2.BorderColor = System.Drawing.Color.Black;
+            this.xrTable2.LocationFloat = new DevExpress.Utils.PointFloat(9.999998F, 0F);
+            this.xrTable2.Name = "xrTable2";
+            this.xrTable2.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 96F);
+            this.xrTable2.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
+                        this.xrTableRow2});
+            this.xrTable2.SizeF = new System.Drawing.SizeF(1037F, 25F);
+            this.xrTable2.StylePriority.UseBorderColor = false;
+            this.xrTable2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft;
+            // 
+            // xrTableRow1
+            // 
+            this.xrTableRow1.Cells.AddRange(new DevExpress.XtraReports.UI.XRTableCell[] {
+                        this.tk,
+                        this.tentk,
+                        this.nod,
+                        this.cod,
+                        this.psn,
+                        this.psc,
+                        this.lkn,
+                        this.lkc,
+                        this.noc,
+                        this.coc});
+            this.xrTableRow1.Name = "xrTableRow1";
+            this.xrTableRow1.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 96F);
+            this.xrTableRow1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft;
+            this.xrTableRow1.Weight = 1;
+            // 
+            // tk
+            // 
+            this.tk.Borders = ((DevExpress.XtraPrinting.BorderSide)(((DevExpress.XtraPrinting.BorderSide.Left | DevExpress.XtraPrinting.BorderSide.Right) 
+                        | DevExpress.XtraPrinting.BorderSide.Bottom)));
+            this.tk.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "TK")});
+            this.tk.Name = "tk";
+            this.tk.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.tk.Scripts.OnBeforePrint = "tk_BeforePrint";
+            this.tk.Text = "tk";
+            this.tk.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
+            this.tk.Weight = 0.062082139446036286;
+            // 
+            // tentk
+            // 
+            this.tentk.Borders = ((DevExpress.XtraPrinting.BorderSide)((DevExpress.XtraPrinting.BorderSide.Right | DevExpress.XtraPrinting.BorderSide.Bottom)));
+            this.tentk.CanGrow = false;
+            this.tentk.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "TENTK")});
+            this.tentk.Name = "tentk";
+            this.tentk.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.tentk.Scripts.OnBeforePrint = "tentk_BeforePrint";
+            this.tentk.Text = "tentk";
+            this.tentk.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
+            this.tentk.Weight = 0.21203438395415472;
+            // 
+            // nod
+            // 
+            this.nod.Borders = ((DevExpress.XtraPrinting.BorderSide)((DevExpress.XtraPrinting.BorderSide.Right | DevExpress.XtraPrinting.BorderSide.Bottom)));
+            this.nod.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "Nợ đầu")});
+            this.nod.Name = "nod";
+            this.nod.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.nod.Scripts.OnBeforePrint = "nod_BeforePrint";
+            this.nod.Text = "nod";
+            this.nod.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            this.nod.Weight = 0.092645654250238782;
+            // 
+            // cod
+            // 
+            this.cod.Borders = ((DevExpress.XtraPrinting.BorderSide)((DevExpress.XtraPrinting.BorderSide.Right | DevExpress.XtraPrinting.BorderSide.Bottom)));
+            this.cod.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "Có đầu")});
+            this.cod.Name = "cod";
+            this.cod.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.cod.Scripts.OnBeforePrint = "cod_BeforePrint";
+            this.cod.Text = "cod";
+            this.cod.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            this.cod.Weight = 0.092645654250238782;
+            // 
+            // psn
+            // 
+            this.psn.Borders = ((DevExpress.XtraPrinting.BorderSide)((DevExpress.XtraPrinting.BorderSide.Right | DevExpress.XtraPrinting.BorderSide.Bottom)));
+            this.psn.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "PSNO")});
+            this.psn.Name = "psn";
+            this.psn.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.psn.Scripts.OnBeforePrint = "psn_BeforePrint";
+            this.psn.Text = "psn";
+            this.psn.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            this.psn.Weight = 0.085004775549188158;
+            // 
+            // psc
+            // 
+            this.psc.Borders = ((DevExpress.XtraPrinting.BorderSide)((DevExpress.XtraPrinting.BorderSide.Right | DevExpress.XtraPrinting.BorderSide.Bottom)));
+            this.psc.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "PSCO")});
+            this.psc.Name = "psc";
+            this.psc.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.psc.Scripts.OnBeforePrint = "psc_BeforePrint";
+            this.psc.Text = "psc";
+            this.psc.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            this.psc.Weight = 0.084049665711556823;
+            // 
+            // lkn
+            // 
+            this.lkn.Borders = ((DevExpress.XtraPrinting.BorderSide)((DevExpress.XtraPrinting.BorderSide.Right | DevExpress.XtraPrinting.BorderSide.Bottom)));
+            this.lkn.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "Lũy kế nợ")});
+            this.lkn.Name = "lkn";
+            this.lkn.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.lkn.Scripts.OnBeforePrint = "lkn_BeforePrint";
+            this.lkn.Text = "lkn";
+            this.lkn.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            this.lkn.Weight = 0.085004775549188158;
+            // 
+            // lkc
+            // 
+            this.lkc.Borders = ((DevExpress.XtraPrinting.BorderSide)((DevExpress.XtraPrinting.BorderSide.Right | DevExpress.XtraPrinting.BorderSide.Bottom)));
+            this.lkc.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "Lũy kế có")});
+            this.lkc.Name = "lkc";
+            this.lkc.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.lkc.Scripts.OnBeforePrint = "lkc_BeforePrint";
+            this.lkc.Text = "lkc";
+            this.lkc.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            this.lkc.Weight = 0.085004775549188158;
+            // 
+            // noc
+            // 
+            this.noc.Borders = ((DevExpress.XtraPrinting.BorderSide)((DevExpress.XtraPrinting.BorderSide.Right | DevExpress.XtraPrinting.BorderSide.Bottom)));
+            this.noc.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "Nợ cuối")});
+            this.noc.Name = "noc";
+            this.noc.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.noc.Scripts.OnBeforePrint = "noc_BeforePrint";
+            this.noc.Text = "noc";
+            this.noc.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            this.noc.Weight = 0.092645654250238782;
+            // 
+            // coc
+            // 
+            this.coc.Borders = ((DevExpress.XtraPrinting.BorderSide)((DevExpress.XtraPrinting.BorderSide.Right | DevExpress.XtraPrinting.BorderSide.Bottom)));
+            this.coc.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "Có cuối")});
+            this.coc.Name = "coc";
+            this.coc.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.coc.Scripts.OnBeforePrint = "coc_BeforePrint";
+            this.coc.Text = "coc";
+            this.coc.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            this.coc.Weight = 0.099331423113658071;
             // 
             // xrTableRow2
             // 
@@ -703,146 +843,6 @@ namespace XtraReportSerialization {
             this.tkme.Text = "tkme";
             this.tkme.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
             this.tkme.Visible = false;
-            // 
-            // xrTableRow1
-            // 
-            this.xrTableRow1.Cells.AddRange(new DevExpress.XtraReports.UI.XRTableCell[] {
-                        this.tk,
-                        this.tentk,
-                        this.nod,
-                        this.cod,
-                        this.psn,
-                        this.psc,
-                        this.lkn,
-                        this.lkc,
-                        this.noc,
-                        this.coc});
-            this.xrTableRow1.Name = "xrTableRow1";
-            this.xrTableRow1.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 96F);
-            this.xrTableRow1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft;
-            this.xrTableRow1.Weight = 1;
-            // 
-            // tk
-            // 
-            this.tk.Borders = ((DevExpress.XtraPrinting.BorderSide)(((DevExpress.XtraPrinting.BorderSide.Left | DevExpress.XtraPrinting.BorderSide.Right) 
-                        | DevExpress.XtraPrinting.BorderSide.Bottom)));
-            this.tk.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "TK")});
-            this.tk.Name = "tk";
-            this.tk.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.tk.Scripts.OnBeforePrint = "tk_BeforePrint";
-            this.tk.Text = "tk";
-            this.tk.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
-            this.tk.Weight = 0.062082139446036286;
-            // 
-            // tentk
-            // 
-            this.tentk.Borders = ((DevExpress.XtraPrinting.BorderSide)((DevExpress.XtraPrinting.BorderSide.Right | DevExpress.XtraPrinting.BorderSide.Bottom)));
-            this.tentk.CanGrow = false;
-            this.tentk.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "TENTK")});
-            this.tentk.Name = "tentk";
-            this.tentk.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.tentk.Scripts.OnBeforePrint = "tentk_BeforePrint";
-            this.tentk.Text = "tentk";
-            this.tentk.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
-            this.tentk.Weight = 0.21203438395415472;
-            // 
-            // nod
-            // 
-            this.nod.Borders = ((DevExpress.XtraPrinting.BorderSide)((DevExpress.XtraPrinting.BorderSide.Right | DevExpress.XtraPrinting.BorderSide.Bottom)));
-            this.nod.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "Nợ đầu")});
-            this.nod.Name = "nod";
-            this.nod.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.nod.Scripts.OnBeforePrint = "nod_BeforePrint";
-            this.nod.Text = "nod";
-            this.nod.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
-            this.nod.Weight = 0.092645654250238782;
-            // 
-            // cod
-            // 
-            this.cod.Borders = ((DevExpress.XtraPrinting.BorderSide)((DevExpress.XtraPrinting.BorderSide.Right | DevExpress.XtraPrinting.BorderSide.Bottom)));
-            this.cod.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "Có đầu")});
-            this.cod.Name = "cod";
-            this.cod.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.cod.Scripts.OnBeforePrint = "cod_BeforePrint";
-            this.cod.Text = "cod";
-            this.cod.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
-            this.cod.Weight = 0.092645654250238782;
-            // 
-            // psn
-            // 
-            this.psn.Borders = ((DevExpress.XtraPrinting.BorderSide)((DevExpress.XtraPrinting.BorderSide.Right | DevExpress.XtraPrinting.BorderSide.Bottom)));
-            this.psn.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "PSNO")});
-            this.psn.Name = "psn";
-            this.psn.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.psn.Scripts.OnBeforePrint = "psn_BeforePrint";
-            this.psn.Text = "psn";
-            this.psn.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
-            this.psn.Weight = 0.085004775549188158;
-            // 
-            // psc
-            // 
-            this.psc.Borders = ((DevExpress.XtraPrinting.BorderSide)((DevExpress.XtraPrinting.BorderSide.Right | DevExpress.XtraPrinting.BorderSide.Bottom)));
-            this.psc.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "PSCO")});
-            this.psc.Name = "psc";
-            this.psc.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.psc.Scripts.OnBeforePrint = "psc_BeforePrint";
-            this.psc.Text = "psc";
-            this.psc.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
-            this.psc.Weight = 0.084049665711556823;
-            // 
-            // lkn
-            // 
-            this.lkn.Borders = ((DevExpress.XtraPrinting.BorderSide)((DevExpress.XtraPrinting.BorderSide.Right | DevExpress.XtraPrinting.BorderSide.Bottom)));
-            this.lkn.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "Lũy kế nợ")});
-            this.lkn.Name = "lkn";
-            this.lkn.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.lkn.Scripts.OnBeforePrint = "lkn_BeforePrint";
-            this.lkn.Text = "lkn";
-            this.lkn.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
-            this.lkn.Weight = 0.085004775549188158;
-            // 
-            // lkc
-            // 
-            this.lkc.Borders = ((DevExpress.XtraPrinting.BorderSide)((DevExpress.XtraPrinting.BorderSide.Right | DevExpress.XtraPrinting.BorderSide.Bottom)));
-            this.lkc.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "Lũy kế có")});
-            this.lkc.Name = "lkc";
-            this.lkc.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.lkc.Scripts.OnBeforePrint = "lkc_BeforePrint";
-            this.lkc.Text = "lkc";
-            this.lkc.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
-            this.lkc.Weight = 0.085004775549188158;
-            // 
-            // noc
-            // 
-            this.noc.Borders = ((DevExpress.XtraPrinting.BorderSide)((DevExpress.XtraPrinting.BorderSide.Right | DevExpress.XtraPrinting.BorderSide.Bottom)));
-            this.noc.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "Nợ cuối")});
-            this.noc.Name = "noc";
-            this.noc.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.noc.Scripts.OnBeforePrint = "noc_BeforePrint";
-            this.noc.Text = "noc";
-            this.noc.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
-            this.noc.Weight = 0.092645654250238782;
-            // 
-            // coc
-            // 
-            this.coc.Borders = ((DevExpress.XtraPrinting.BorderSide)((DevExpress.XtraPrinting.BorderSide.Right | DevExpress.XtraPrinting.BorderSide.Bottom)));
-            this.coc.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "Có cuối")});
-            this.coc.Name = "coc";
-            this.coc.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.coc.Scripts.OnBeforePrint = "coc_BeforePrint";
-            this.coc.Text = "coc";
-            this.coc.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
-            this.coc.Weight = 0.099331423113658071;
             // 
             // label7
             // 
@@ -1142,10 +1142,10 @@ namespace XtraReportSerialization {
             this.xrLabel12.BackColor = System.Drawing.Color.WhiteSmoke;
             this.xrLabel12.Borders = ((DevExpress.XtraPrinting.BorderSide)((DevExpress.XtraPrinting.BorderSide.Right | DevExpress.XtraPrinting.BorderSide.Bottom)));
             this.xrLabel12.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold);
-            this.xrLabel12.LocationFloat = new DevExpress.Utils.PointFloat(393F, 25F);
+            this.xrLabel12.LocationFloat = new DevExpress.Utils.PointFloat(394F, 25F);
             this.xrLabel12.Name = "xrLabel12";
             this.xrLabel12.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.xrLabel12.SizeF = new System.Drawing.SizeF(98F, 25F);
+            this.xrLabel12.SizeF = new System.Drawing.SizeF(97F, 25F);
             this.xrLabel12.Text = "Có";
             this.xrLabel12.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
             // 
@@ -1266,8 +1266,8 @@ namespace XtraReportSerialization {
             this.PageWidth = 1100;
             this.ScriptsSource = resources.GetString("$this.ScriptsSource");
             this.Version = "11.1";
-            ((System.ComponentModel.ISupportInitialize)(this.xrTable2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xrTable2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
         }
     }
