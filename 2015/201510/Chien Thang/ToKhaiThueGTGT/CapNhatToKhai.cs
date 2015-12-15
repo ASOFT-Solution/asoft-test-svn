@@ -44,7 +44,7 @@ namespace ToKhaiThueGTGT
         private void LoadToKhaiHienTai()
         {
             if (string.IsNullOrEmpty(_MToKhaiID)) return;
-            string sql = string.Format(@"Select  mst.MToKhaiID, mst.KyToKhai, mst.NamToKhai, mst.NgayToKhai
+            string sql = string.Format(@"Select  mst.MToKhaiID, mst.KyToKhai, mst.DeclareType, mst.NamToKhai, mst.NgayToKhai
                                          , mst.QuyToKhai, mst.DienGiai, mst.InLanDau, mst.SoLanIn
                                          , mst.AmendedReturnDate,  mst.IsExten, mst.ExtenID, mst.VocationID
                                          , mst.IsInputAppendix, mst.IsOutputAppendix, mst.ExperiedDay
@@ -56,7 +56,40 @@ namespace ToKhaiThueGTGT
             DataTable dt = _Database.GetDataTable(sql);
             if (dt.Rows.Count > 0)
             {
+                this.dtNgayToKhai.EditValue = dt.Rows[0]["NgayToKhai"];
+                if (dt.Rows[0]["DeclareType"].ToString().Equals("1"))
+                {
+                    cbKyToKhai.EditValue = dt.Rows[0]["KyToKhai"];
+                }
+                else
+                {
+                    rdgChonToKhai.EditValue = dt.Rows[0]["DeclareType"];
+                    cbQuyToKhai.EditValue = dt.Rows[0]["QuyToKhai"];
+                }
+                chkInLanDau.EditValue = dt.Rows[0]["InLanDau"];
+                speSoLanIn.EditValue = dt.Rows[0]["SoLanIn"];
+                dtAmendedReturnDate.EditValue = dt.Rows[0]["AmendedReturnDate"];
+                chkIsExten.EditValue = dt.Rows[0]["IsExten"];
+                gleExtenID.EditValue = dt.Rows[0]["ExtenID"];
+                txtDienGiai.EditValue = dt.Rows[0]["DienGiai"];
+                gleVocationID.EditValue = dt.Rows[0]["VocationID"];
+                chkIsInputAppendix.EditValue = dt.Rows[0]["IsInputAppendix"];
+                chkIsOutputAppendix.EditValue = dt.Rows[0]["IsOutputAppendix"];
+                speExperiedDay.EditValue = dt.Rows[0]["ExperiedDay"];
+                txtExperiedAmount.EditValue = dt.Rows[0]["ExperiedAmount"];
+                txtPayableAmount.EditValue = dt.Rows[0]["PayableAmount"];
+                txtPayableCmt.EditValue = dt.Rows[0]["PayableCmt"];
+                dtPayableDate.EditValue = dt.Rows[0]["PayableDate"];
+                gleTaxDepartmentID.EditValue = dt.Rows[0]["TaxDepartmentID"];
+                gleTaxDepartID.EditValue = dt.Rows[0]["TaxDepartID"];
+                speReceivableExperied.EditValue = dt.Rows[0]["ReceivableExperied"];
+                txtReceivableAmount.EditValue = dt.Rows[0]["ReceivableAmount"];
+                memoExperiedReason.EditValue = dt.Rows[0]["ExperiedReason"];
 
+                rdgChonToKhai.Properties.ReadOnly = true;
+                cbKyToKhai.Properties.ReadOnly = cbQuyToKhai.Properties.ReadOnly = true;
+                chkInLanDau.Properties.ReadOnly = true;
+                speSoLanIn.Properties.ReadOnly = true;
             }
 
         }
@@ -107,6 +140,272 @@ namespace ToKhaiThueGTGT
             txtExperiedAmount.Properties.Mask.EditMask = FormatString.GetReportFormat("Tien");
             txtExperiedAmount.Properties.EditFormat.FormatString = FormatString.GetReportFormat("Tien");
         }
+
+        /// <summary>
+        /// CheckInput
+        /// </summary>
+        private bool CheckInput()
+        {
+            int flag = 0;
+            if (rdgChonToKhai.SelectedIndex == 0 && cbKyToKhai.Text == string.Empty)
+            {
+                cbKyToKhai.ErrorText = "Không được phép để trống";
+                flag++;
+            }
+            if (rdgChonToKhai.SelectedIndex == 1 && cbQuyToKhai.Text == string.Empty)
+            {
+                cbQuyToKhai.ErrorText = "Không được phép để trống";
+                flag++;
+            }
+            if (chkIsExten.Checked && gleExtenID.Text == string.Empty)
+            {
+                gleExtenID.ErrorText = "Không được phép để trống";
+                flag++;
+            }
+            if (flag != 0)
+                return false;
+            else
+                return true;
+
+        }
+
+        /// <summary>
+        /// Check tồn tại tờ khai
+        /// </summary>
+        private bool CheckExist()
+        {
+            int NamTaiChinh = Config.GetValue("NamLamViec") == null ? -1 : int.Parse(Config.GetValue("NamLamViec").ToString());
+            string soLanIn = string.Empty;
+            if (chkInLanDau.Checked)
+                soLanIn = "NULL";
+            else
+                soLanIn = speSoLanIn.EditValue.ToString();
+            string sqlCheck = string.Format(@"Select Top 1 1  From MToKhai 
+                                Where NamToKhai = {0} and 
+                                  (Case when {1} = 1 then KyToKhai end) = {2} or
+                                  (Case when {1} = 2 then QuyToKhai end) = {2} and
+                                  Solanin = {3}",NamTaiChinh, rdgChonToKhai.EditValue, rdgChonToKhai.SelectedIndex == 0 ? cbKyToKhai.Text : cbQuyToKhai.Text,
+                                                soLanIn);
+            if (_Database.GetValue(sqlCheck) != null)
+                return true;
+            return false;
+        }
+
+        /// <summary>
+        /// Check đang sử dụng
+        /// </summary>
+        private bool CheckUsing()
+        {
+            string sqlCheck = string.Format(@"Declare @Ky int,
+                                                @Nam int,
+                                                @SoLanIn int
+                                        Select @Ky = (Case when KyToKhai != 0 or DeclareType = 1 then KyToKhai else QuyToKhai end), @nam = NamToKhai, @SoLanIn = SoLanIn
+                                        From MTokhai
+                                        Where MToKhaiID = '{0}'
+                                        Select Top 1 1
+                                        From (
+                                                Select MToKhaiID, KyToKhai, QuyToKhai, SoLanin, InLandau from MTokhai
+                                                Where NamToKhai >= @Nam and (Case when KyToKhai != 0 or DeclareType = 1 then KyToKhai else QuyToKhai end) > @Ky
+                                                Union all
+                                                Select MToKhaiID, KyToKhai, QuyToKhai, SoLanin, InLandau from MTokhai
+                                                Where NamToKhai >= @Nam and (Case when KyToKhai != 0 or DeclareType = 1 then KyToKhai else QuyToKhai end) = @Ky  and SoLanIn >@SoLanIn
+                                                ) x", _MToKhaiID);
+            if (_Database.GetValue(sqlCheck) != null)
+                return true;
+            return false;
+        }
+
+        /// <summary>
+        /// Insert MToKhai
+        /// </summary>
+        private bool InsertMaster()
+        {
+            List<string> fieldName = new List<string>();
+            List<string> Values = new List<string>();
+            string pId = string.Empty;
+            pId = GetNewID();
+            try
+            {
+                fieldName.Add("MToKhaiID");
+                fieldName.Add("KyToKhai");
+                fieldName.Add("NamToKhai");
+                fieldName.Add("NgayToKhai");
+                fieldName.Add("DienGiai");
+                fieldName.Add("InLanDau");
+                fieldName.Add("SoLanIn");
+                fieldName.Add("QuyToKhai");
+                fieldName.Add("DeclareType");
+                fieldName.Add("AmendedReturnDate");
+                fieldName.Add("IsExten");
+                fieldName.Add("IsInputAppendix");
+                fieldName.Add("IsOutputAppendix");
+                fieldName.Add("ExperiedDay");
+                fieldName.Add("ExperiedAmount");
+                fieldName.Add("PayableAmount");
+                fieldName.Add("PayableCmt");
+                fieldName.Add("PayableDate");
+                fieldName.Add("ReceivableExperied");
+                fieldName.Add("ReceivableAmount");
+                fieldName.Add("ExperiedReason");
+                fieldName.Add("ExtenID");
+                fieldName.Add("VocationID");
+                fieldName.Add("TaxDepartmentID");
+                fieldName.Add("TaxDepartID");
+
+                Values.Clear();
+                Values.Add("convert( uniqueidentifier,'" + pId + "')");
+                Values.Add("'" + (rdgChonToKhai.SelectedIndex == 0 ? cbKyToKhai.EditValue.ToString() : "0" ) + "'");
+
+                int NamTaiChinh = Config.GetValue("NamLamViec") == null ? -1 : int.Parse(Config.GetValue("NamLamViec").ToString());
+                Values.Add("'" + NamTaiChinh.ToString() + "'");
+                Values.Add("cast('" + dtNgayToKhai.DateTime.ToShortDateString() + "' as datetime)");
+                Values.Add("N'" + txtDienGiai.Text + "'");
+
+                if (chkInLanDau.Checked)
+                {
+                    Values.Add("'1'");
+                    Values.Add("NULL");
+                    Values.Add("'" + (rdgChonToKhai.SelectedIndex == 1 ? cbQuyToKhai.EditValue.ToString() : "0") + "'");
+                    Values.Add("'" + rdgChonToKhai.EditValue.ToString() + "'");
+                    Values.Add("NULL");
+                    Values.Add("'" + (chkIsExten.Checked ? "1" : "0") + "'");
+                    Values.Add("'" + (chkIsInputAppendix.Checked ? "1" : "0") + "'");
+                    Values.Add("'" + (chkIsOutputAppendix.Checked ? "1" : "0") + "'");
+                    Values.Add("NULL");
+                    Values.Add("NULL");
+                    Values.Add("NULL");
+                    Values.Add("NULL");
+                    Values.Add("NULL");
+                    Values.Add("NULL");
+                    Values.Add("NULL");
+                    Values.Add("NULL");
+                    if (chkIsExten.Checked)
+                        Values.Add("'" + gleExtenID.EditValue.ToString() + "'");
+                    else
+                        Values.Add("NULL");
+
+                    if(gleVocationID.Text == string.Empty)
+                        Values.Add("NULL");
+                    else
+                        Values.Add("'" + gleVocationID.EditValue.ToString() + "'");
+                    Values.Add("NULL");
+                    Values.Add("NULL");
+                }
+                else
+                {
+                    Values.Add("'0'");
+                    Values.Add("'" + speSoLanIn.EditValue.ToString() + "'");
+                    Values.Add("'" + (rdgChonToKhai.SelectedIndex == 1 ? cbQuyToKhai.EditValue.ToString() : "0") + "'");
+                    Values.Add("'" + rdgChonToKhai.EditValue.ToString() + "'");
+                    Values.Add("cast('" + dtAmendedReturnDate.DateTime.ToShortDateString() + "' as datetime)");
+                    Values.Add("'" + (chkIsExten.Checked ? "1" : "0") + "'");
+                    Values.Add("NULL");
+                    Values.Add("NULL");
+                    Values.Add("'" + speExperiedDay.EditValue.ToString() + "'");
+
+                    if (txtExperiedAmount.Text == string.Empty)
+                        Values.Add("NULL");
+                    else
+                        Values.Add("'" + txtExperiedAmount.EditValue.ToString() + "'");
+
+                    if(txtPayableAmount.Text == string.Empty)
+                        Values.Add("NULL");
+                    else
+                        Values.Add("'" + txtPayableAmount.EditValue.ToString() + "'");
+
+                    if(txtPayableCmt.Text == string.Empty)
+                        Values.Add("NULL");
+                    else
+                        Values.Add("'" + txtPayableCmt.Text + "'");
+                    Values.Add("cast('" + dtPayableDate.DateTime.ToShortDateString() + "' as datetime)");
+                    Values.Add("'" + speReceivableExperied.EditValue.ToString() + "'");
+
+                    if(txtReceivableAmount.Text == string.Empty)
+                        Values.Add("NULL");
+                    else
+                        Values.Add("'" + txtReceivableAmount.EditValue.ToString() + "'");
+                    Values.Add("'" + memoExperiedReason.Text + "'");
+
+                    if (chkIsExten.Checked)
+                        Values.Add("'" + gleExtenID.EditValue.ToString() + "'");
+                    else
+                        Values.Add("NULL");
+
+                    if(gleVocationID.Text == string.Empty)
+                        Values.Add("NULL");
+                    else
+                        Values.Add("'" + gleVocationID.EditValue.ToString() + "'");
+
+                    if (gleTaxDepartmentID.Text == string.Empty)
+                    {
+                        Values.Add("NULL");
+                        Values.Add("NULL");
+                    }
+                    else
+                    {
+                        Values.Add("'" + gleTaxDepartmentID.EditValue.ToString() + "'");
+                        Values.Add("'" + gleTaxDepartID.EditValue.ToString() + "'");
+                    }
+                }
+
+                //Values.Add("'" + (chkInLanDau.Checked ? 1 : 0) + "'");
+                //Values.Add("'" + (chkInLanDau.Checked ? 0 : speSoLanIn.EditValue) + "'");
+                //Values.Add("'" + (rdgChonToKhai.EditValue.Equals("0") ? cbQuyToKhai.EditValue.ToString() : "0") + "'");
+                //Values.Add("'" + rdgChonToKhai.EditValue + "'");
+                //Values.Add("cast('" + dtAmendedReturnDate.EditValue.ToString() + "' as datetime)");
+                //Values.Add("'" + (chkIsExten.Checked ? 1 : 0) + "'");
+                //Values.Add("'" + (chkIsInputAppendix.Checked ? 1 : 0) + "'");
+                //Values.Add("'" + (chkIsOutputAppendix.Checked ? 1 : 0) + "'");
+                //Values.Add("'" + txtPayableAmount.Text + "'");
+                //Values.Add("'" + txtPayableCmt.Text + "'");
+                return this._Database.insertRow("MToKhai", fieldName, Values);
+            }
+            catch (Exception ex)
+            {
+
+                XtraMessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Update MToKhai
+        /// </summary>
+        private bool UpdateMaster()
+        {
+            bool result = false;
+            string pId = string.Empty;
+            StringBuilder strBuilder = new StringBuilder();
+            if (CheckExist())
+            {
+                ShowASoftMsg("Đã tồn tại tờ khai thuế kỳ tiếp theo hoặc khai bổ sung. Bạn không được phép sửa/Xóa.");
+                return false;
+            }
+            try
+            {
+                strBuilder.Append = string.Format(@"Update MToKhai set NgayToKhai = {0}, AmendedReturnDate = {1}, IsExten = {2},
+                                                    ExtenID = {3}, DienGiai = {4}, VocationID = {5}, IsInputAppendix = {6}, IsOutputAppendix = {7}, ExperiedDay = {8},
+                                                    ExperiedAmount = {9}, PayableAmount = {10}, PayableCmt = {11}, PayableDate = {12}, TaxDepartmentID = {13}, TaxDepartID = {14},
+                                                    ReceivableExperied = {15}, ReceivableAmount = {16}, ExperiedReason = {17}",
+                                                                                                                              dtNgayToKhai.EditValue, dtAmendedReturnDate.EditValue, chkIsExten.Checked == ? "1" : "0");
+            }
+            catch (Exception ex)
+            {
+
+                XtraMessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Get new ID
+        /// </summary>
+        private string GetNewID()
+        {
+            string result = _Database.GetValue("select NEWID()").ToString();
+
+            return result;
+        }
         /// <summary>
         /// Shows the A soft MSG.
         /// </summary>
@@ -131,7 +430,7 @@ namespace ToKhaiThueGTGT
 
         #region ----HandleEvents----
         /// <summary>
-        /// Xử lý sự kiện Load của CapNhatToKhai
+        /// Xử lý sự kiện FormLoad của CapNhatToKhai
         /// </summary>
         private void CapNhatToKhai_Load(object sender, EventArgs e)
         {
@@ -147,12 +446,13 @@ namespace ToKhaiThueGTGT
             dtNgayToKhai.EditValue = DateTime.Now;
             dtAmendedReturnDate.EditValue = DateTime.Now;
             dtPayableDate.EditValue = DateTime.Now;
-
-            
+     
             if (Config.GetValue("Language").ToString() == "1")
             {
                 FormFactory.DevLocalizer.Translate(this);
             }
+
+            LoadToKhaiHienTai();
         }
         /// <summary>
         /// Xử lý sự kiện chọn radio tờ khai
@@ -537,6 +837,7 @@ namespace ToKhaiThueGTGT
             _TG43 = _TG41 - _TG42;
         }
 
+
         /// <summary>
         /// GetStandardData
         /// </summary>
@@ -704,11 +1005,46 @@ namespace ToKhaiThueGTGT
         }
         #endregion
 
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (this._Action == FormAction.AddNew)
+            {
+                if (!CheckInput())
+                {
+                    ShowASoftMsg("Không được phép để trống");
+                    return;
+                }
+                if (CheckExist())
+                {
+                    ShowASoftMsg("Tờ khai thuế đã tồn tại");
+                    return;
+                }
+                if (InsertMaster())
+                {
+                   ShowASoftMsg("Tờ khai thuế GTGT tạo thành công!");
+                   this.Close();
+                }
+            }
+        }
+
        
 
        
 
         #endregion
+
+        private void CapNhatToKhai_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Escape:
+                    this.Close();
+                    break;
+                case Keys.F12:
+                    btnSave.PerformClick();
+                    break;
+            }
+        }
 
     }
 }

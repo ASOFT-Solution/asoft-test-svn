@@ -53,6 +53,10 @@ namespace ToKhaiThueGTGT
                     // Chọn dòng đầu tiên
                     gvDSToKhai.FocusedRowHandle = Math.Min(gvDSToKhai.RowCount - 1, 0);
                     break;
+                case 2:
+                    // Chọn dòng cuối cùng
+                    gvDSToKhai.FocusedRowHandle = gvDSToKhai.RowCount - 1;
+                    break;
             }
         }
         /// <summary>
@@ -93,12 +97,20 @@ namespace ToKhaiThueGTGT
         private void btnAdd_Click(object sender, EventArgs e)
         {
             CapNhatToKhai frm = new CapNhatToKhai();
+            frm.Action = CapNhatToKhai.FormAction.AddNew;
             frm.ShowDialog();
+            LoadData(2);
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-
+            object MToKhaiID = gvDSToKhai.GetRowCellValue(gvDSToKhai.FocusedRowHandle, "MToKhaiID");
+            if (MToKhaiID == null) return;
+            CapNhatToKhai frm = new CapNhatToKhai();
+            frm.MToKhaiID = MToKhaiID.ToString();
+            frm.Action = CapNhatToKhai.FormAction.Edit;
+            frm.ShowDialog();
+            LoadData(0);
         }
         /// <summary>
         /// Xử lý sự kiện Click của btnDelete
@@ -167,7 +179,7 @@ namespace ToKhaiThueGTGT
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
 
         private void DSToKhai_KeyDown(object sender, KeyEventArgs e)
@@ -176,6 +188,15 @@ namespace ToKhaiThueGTGT
             {
                 case Keys.Escape:
                     this.Close();
+                    break;
+                case Keys.F2:
+                    btnAdd.PerformClick();
+                    break;
+                case Keys.F3:
+                    btnEdit.PerformClick();
+                    break;
+                case Keys.F4:
+                    btnDelete.PerformClick();
                     break;
             }
         }

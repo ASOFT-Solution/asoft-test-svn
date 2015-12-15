@@ -328,7 +328,7 @@
             this.rdgChonToKhai.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.rdgChonToKhai.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
             new DevExpress.XtraEditors.Controls.RadioGroupItem(((short)(1)), "Tờ khai tháng"),
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(((short)(0)), "Tờ khai quý")});
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(((short)(2)), "Tờ khai quý")});
             this.rdgChonToKhai.Size = new System.Drawing.Size(107, 44);
             this.rdgChonToKhai.StyleController = this.layoutControl5;
             this.rdgChonToKhai.TabIndex = 2;
@@ -1320,6 +1320,7 @@
             this.btnSave.StyleController = this.layoutControl1;
             this.btnSave.TabIndex = 11;
             this.btnSave.Text = "F12-Lưu";
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnKHBS
             // 
@@ -1431,10 +1432,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 649);
             this.Controls.Add(this.layoutControl1);
+            this.KeyPreview = true;
             this.Name = "CapNhatToKhai";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Cập nhật tờ khai thuế giá trị gia tăng";
             this.Load += new System.EventHandler(this.CapNhatToKhai_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CapNhatToKhai_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.grbToKhai)).EndInit();
             this.grbToKhai.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl5)).EndInit();
