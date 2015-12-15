@@ -1,0 +1,13 @@
+D:\THUC TAP\ACC\302_Plugins\ToKhaiTTDB\bin\Release\ToKhaiTTDB_IC.dll
+D:\THUC TAP\ACC\302_Plugins\ToKhaiTTDB\bin\Release\ToKhaiTTDB_IC.pdb
+D:\THUC TAP\ACC\302_Plugins\ToKhaiTTDB\bin\Release\Plugins.dll
+D:\THUC TAP\ACC\302_Plugins\ToKhaiTTDB\bin\Release\ErrorManager.dll
+D:\THUC TAP\ACC\302_Plugins\ToKhaiTTDB\bin\Release\CDTLib.dll
+D:\THUC TAP\ACC\302_Plugins\ToKhaiTTDB\bin\Release\CDTDatabase.dll
+D:\THUC TAP\ACC\302_Plugins\ToKhaiTTDB\obj\Release\ResolveAssemblyReference.cache
+D:\THUC TAP\ACC\302_Plugins\ToKhaiTTDB\obj\Release\ToKhaiTTDB.Properties.Resources.resources
+D:\THUC TAP\ACC\302_Plugins\ToKhaiTTDB\obj\Release\ToKhaiTTDB.csproj.GenerateResource.Cache
+D:\THUC TAP\ACC\302_Plugins\ToKhaiTTDB\obj\Release\ToKhaiTTDB_IC.dll.licenses
+D:\THUC TAP\ACC\302_Plugins\ToKhaiTTDB\obj\Release\ToKhaiTTDB_IC.dll
+D:\THUC TAP\ACC\302_Plugins\ToKhaiTTDB\obj\Release\ToKhaiTTDB_IC.pdb
+D:\THUC TAP\ACC\302_Plugins\ToKhaiTTDB\obj\Release\ToKhaiTTDB.DSToKhaiThueTTDB.resources
