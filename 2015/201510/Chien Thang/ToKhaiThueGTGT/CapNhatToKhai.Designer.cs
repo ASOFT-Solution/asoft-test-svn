@@ -623,6 +623,7 @@
             this.chkIsOutputAppendix.Size = new System.Drawing.Size(473, 19);
             this.chkIsOutputAppendix.StyleController = this.layoutControl4;
             this.chkIsOutputAppendix.TabIndex = 1;
+            this.chkIsOutputAppendix.CheckedChanged += new System.EventHandler(this.chkIsInputAppendix_CheckedChanged);
             // 
             // chkIsInputAppendix
             // 
@@ -632,6 +633,7 @@
             this.chkIsInputAppendix.Size = new System.Drawing.Size(473, 19);
             this.chkIsInputAppendix.StyleController = this.layoutControl4;
             this.chkIsInputAppendix.TabIndex = 0;
+            this.chkIsInputAppendix.CheckedChanged += new System.EventHandler(this.chkIsInputAppendix_CheckedChanged);
             // 
             // layoutControlGroup4
             // 
@@ -1148,7 +1150,10 @@
             this.gvToKhai.OptionsBehavior.Editable = false;
             this.gvToKhai.OptionsCustomization.AllowGroup = false;
             this.gvToKhai.OptionsView.ShowGroupPanel = false;
+            this.gvToKhai.ValidatingEditor += new DevExpress.XtraEditors.Controls.BaseContainerValidateEditorEventHandler(this.gvToKhai_ValidatingEditor);
+            this.gvToKhai.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gvToKhai_CellValueChanged);
             this.gvToKhai.CustomRowCellEdit += new DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventHandler(this.gvToKhai_CustomRowCellEdit);
+            this.gvToKhai.ShowingEditor += new System.ComponentModel.CancelEventHandler(this.gvToKhai_ShowingEditor);
             // 
             // colSTT
             // 
