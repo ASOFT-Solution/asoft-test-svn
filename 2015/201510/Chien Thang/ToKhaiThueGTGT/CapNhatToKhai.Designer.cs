@@ -1151,9 +1151,11 @@
             this.gvToKhai.OptionsCustomization.AllowGroup = false;
             this.gvToKhai.OptionsView.ShowGroupPanel = false;
             this.gvToKhai.ValidatingEditor += new DevExpress.XtraEditors.Controls.BaseContainerValidateEditorEventHandler(this.gvToKhai_ValidatingEditor);
+            this.gvToKhai.BeforePrintRow += new DevExpress.XtraGrid.Views.Base.BeforePrintRowEventHandler(this.gvToKhai_BeforePrintRow);
             this.gvToKhai.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gvToKhai_CellValueChanged);
             this.gvToKhai.CustomRowCellEdit += new DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventHandler(this.gvToKhai_CustomRowCellEdit);
             this.gvToKhai.ShowingEditor += new System.ComponentModel.CancelEventHandler(this.gvToKhai_ShowingEditor);
+            this.gvToKhai.RowStyle += new DevExpress.XtraGrid.Views.Grid.RowStyleEventHandler(this.gvToKhai_RowStyle);
             // 
             // colSTT
             // 
@@ -1316,6 +1318,7 @@
             this.btnThoat.StyleController = this.layoutControl1;
             this.btnThoat.TabIndex = 12;
             this.btnThoat.Text = "ESC-Thoát";
+            this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
             // 
             // btnSave
             // 

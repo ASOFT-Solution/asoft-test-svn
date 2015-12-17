@@ -24,7 +24,9 @@ namespace ToKhaiThueGTGT
         private string _MToKhaiID = string.Empty;
         private int _NamTaiChinh;
         private int _type = 0;
+        private int _soLanIn = 0;
         private Dictionary<int, bool[]> _EditStatus = null;
+        private bool _HasEditFont = false;
 
         #endregion ---- Member variables ----
 
@@ -177,14 +179,6 @@ namespace ToKhaiThueGTGT
                     _EditStatus.Add(17, new bool[] { false, true });
                     break;
             }
-            
-            //_EditStatus.Add(2, new bool[] { false, true });
-            //_EditStatus.Add(6, new bool[] { false, true });
-            //_EditStatus.Add(16, new bool[] { false, true });
-            //_EditStatus.Add(17, new bool[] { false, true });
-            //_EditStatus.Add(18, new bool[] { false, true });
-            //_EditStatus.Add(21, new bool[] { false, true });
-            //_EditStatus.Add(24, new bool[] { false, true });
         }
 
         /// <summary>
@@ -225,14 +219,15 @@ namespace ToKhaiThueGTGT
         {
             string soLanIn = string.Empty;
             if (chkInLanDau.Checked)
-                soLanIn = "NULL";
+                soLanIn = "0";
             else
                 soLanIn = speSoLanIn.EditValue.ToString();
+
             string sqlCheck = string.Format(@"Select Top 1 1  From MToKhai 
                                 Where NamToKhai = {0} and 
-                                  (Case when {1} = 1 then KyToKhai end) = {2} or
-                                  (Case when {1} = 2 then QuyToKhai end) = {2} and
-                                  Solanin = {3}",_NamTaiChinh, rdgChonToKhai.EditValue, rdgChonToKhai.SelectedIndex == 0 ? cbKyToKhai.Text : cbQuyToKhai.Text,
+                                  ((Case when {1} = 1 then KyToKhai end) = {2} or
+                                  (Case when {1} = 2 then QuyToKhai end) = {2}) and
+                                  SoLanIn = {3}", _NamTaiChinh, rdgChonToKhai.EditValue, rdgChonToKhai.SelectedIndex == 0 ? cbKyToKhai.Text : cbQuyToKhai.Text,
                                                 soLanIn);
             if (_Database.GetValue(sqlCheck) != null)
                 return true;
@@ -264,13 +259,24 @@ namespace ToKhaiThueGTGT
         }
 
         /// <summary>
+        /// Check số lần in
+        /// </summary>
+        private bool CheckSoLanIn(int SoLanIn)
+        {
+            if (chkInLanDau.Checked)
+                return true;
+            if (SoLanIn > _soLanIn)
+                return false;
+            return true;
+        }
+
+        /// <summary>
         /// Insert MToKhai
         /// </summary>
-        private bool InsertMaster()
+        private bool InsertMaster(out string pId)
         {
             List<string> fieldName = new List<string>();
             List<string> Values = new List<string>();
-            string pId = string.Empty;
             pId = GetNewID();
             try
             {
@@ -302,7 +308,7 @@ namespace ToKhaiThueGTGT
 
                 Values.Clear();
                 Values.Add("convert( uniqueidentifier,'" + pId + "')");
-                Values.Add("'" + (rdgChonToKhai.SelectedIndex == 0 ? cbKyToKhai.EditValue.ToString() : "0" ) + "'");
+                Values.Add("'" + (rdgChonToKhai.SelectedIndex == 0 ? cbKyToKhai.EditValue.ToString() : "0") + "'");
                 Values.Add("'" + _NamTaiChinh.ToString() + "'");
                 Values.Add("cast('" + dtNgayToKhai.DateTime.ToShortDateString() + "' as datetime)");
 
@@ -314,7 +320,7 @@ namespace ToKhaiThueGTGT
                 if (chkInLanDau.Checked)
                 {
                     Values.Add("'1'");
-                    Values.Add("NULL");
+                    Values.Add("'0'");
                     Values.Add("'" + (rdgChonToKhai.SelectedIndex == 1 ? cbQuyToKhai.EditValue.ToString() : "0") + "'");
                     Values.Add("'" + rdgChonToKhai.EditValue.ToString() + "'");
                     Values.Add("NULL");
@@ -334,7 +340,7 @@ namespace ToKhaiThueGTGT
                     else
                         Values.Add("NULL");
 
-                    if(gleVocationID.Text == string.Empty)
+                    if (gleVocationID.Text == string.Empty)
                         Values.Add("NULL");
                     else
                         Values.Add("'" + gleVocationID.EditValue.ToString() + "'");
@@ -359,12 +365,12 @@ namespace ToKhaiThueGTGT
                     else
                         Values.Add("'" + txtExperiedAmount.EditValue.ToString() + "'");
 
-                    if(txtPayableAmount.Text == string.Empty)
+                    if (txtPayableAmount.Text == string.Empty)
                         Values.Add("NULL");
                     else
                         Values.Add("'" + txtPayableAmount.EditValue.ToString() + "'");
 
-                    if(txtPayableCmt.Text == string.Empty)
+                    if (txtPayableCmt.Text == string.Empty)
                         Values.Add("NULL");
                     else
                         Values.Add("'" + txtPayableCmt.Text + "'");
@@ -372,7 +378,7 @@ namespace ToKhaiThueGTGT
                     Values.Add("cast('" + dtPayableDate.DateTime.ToShortDateString() + "' as datetime)");
                     Values.Add("'" + speReceivableExperied.EditValue.ToString() + "'");
 
-                    if(txtReceivableAmount.Text == string.Empty)
+                    if (txtReceivableAmount.Text == string.Empty)
                         Values.Add("NULL");
                     else
                         Values.Add("'" + txtReceivableAmount.EditValue.ToString() + "'");
@@ -384,7 +390,7 @@ namespace ToKhaiThueGTGT
                     else
                         Values.Add("NULL");
 
-                    if(gleVocationID.Text == string.Empty)
+                    if (gleVocationID.Text == string.Empty)
                         Values.Add("NULL");
                     else
                         Values.Add("'" + gleVocationID.EditValue.ToString() + "'");
@@ -411,6 +417,58 @@ namespace ToKhaiThueGTGT
         }
 
         /// <summary>
+        /// InsertDetail
+        /// </summary>
+        /// <returns></returns>
+        private bool InsertDetail(string pMstID)
+        {
+            bool result = false;
+
+            List<string> fieldName = new List<string>();
+            List<string> Values = new List<string>();
+            string pId = string.Empty;
+            try
+            {
+                fieldName.Add("DToKhaiID");
+                fieldName.Add("MToKhaiID");
+                fieldName.Add("Stt");
+                fieldName.Add("ChiTieu");
+                fieldName.Add("CodeGT");
+                fieldName.Add("GTHHDV");
+                fieldName.Add("CodeThue");
+                fieldName.Add("ThueGTGT");
+                fieldName.Add("SortOrder");
+
+                if (_DataMain != null)
+                {
+                    foreach (DataRow dr in _DataMain.Rows)
+                    {
+                        Values.Clear();
+                        pId = GetNewID();
+                        Values.Add("convert( uniqueidentifier,'" + pId + "')");
+                        Values.Add("convert( uniqueidentifier,'" + pMstID + "')");
+                        Values.Add("'" + (dr["Stt"] == DBNull.Value ? string.Empty : dr["Stt"].ToString()) + "'");
+                        Values.Add("N'" + (dr["ChiTieu"] == DBNull.Value ? string.Empty : dr["ChiTieu"].ToString()) + "'");
+                        Values.Add("'" + (dr["CodeGT"] == DBNull.Value ? string.Empty : dr["CodeGT"].ToString()) + "'");
+                        Values.Add("'" + (dr["GTHHDV"] == DBNull.Value ? "0" : dr["GTHHDV"].ToString().Replace(",", ".")) + "'");
+                        Values.Add("'" + (dr["CodeThue"] == DBNull.Value ? string.Empty : dr["CodeThue"].ToString()) + "'");
+                        Values.Add("'" + (dr["ThueGTGT"] == DBNull.Value ? "0" : dr["ThueGTGT"].ToString().Replace(",", ".")) + "'");
+                        Values.Add("'" + (dr["SortOrder"] == DBNull.Value ? "0" : dr["SortOrder"].ToString()) + "'");
+                        result = this._Database.insertRow("DToKhai", fieldName, Values);
+                    }
+                }
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                XtraMessageBox.Show(e.Message);
+                return false;
+            }
+        }
+
+
+        /// <summary>
         /// Update MToKhai
         /// </summary>
         private bool UpdateMaster()
@@ -423,6 +481,7 @@ namespace ToKhaiThueGTGT
                 ShowASoftMsg("Đã tồn tại tờ khai thuế kỳ tiếp theo hoặc khai bổ sung. Bạn không được phép sửa/Xóa.");
                 return false;
             }
+
             try
             {
                 List<string> fieldName = new List<string>();
@@ -478,7 +537,11 @@ namespace ToKhaiThueGTGT
 
                 Values.Add((chkIsInputAppendix.Checked ? "1" : "0"));
                 Values.Add((chkIsOutputAppendix.Checked ? "1" : "0"));
-                Values.Add(speExperiedDay.EditValue.ToString());
+
+                if (!chkInLanDau.Checked)
+                    Values.Add(speExperiedDay.EditValue.ToString());
+                else
+                    Values.Add(DBNull.Value);
 
                 if (txtExperiedAmount.Text == string.Empty)
                     Values.Add(DBNull.Value);
@@ -495,7 +558,10 @@ namespace ToKhaiThueGTGT
                 else
                     Values.Add(txtPayableCmt.Text);
 
-                Values.Add(dtPayableDate.DateTime.ToShortDateString());
+                if (!chkInLanDau.Checked)
+                    Values.Add(dtPayableDate.DateTime.ToShortDateString());
+                else
+                    Values.Add(DBNull.Value);
 
                 if (gleTaxDepartmentID.Text == string.Empty)
                 {
@@ -508,7 +574,10 @@ namespace ToKhaiThueGTGT
                     Values.Add(gleTaxDepartID.EditValue.ToString());
                 }
 
-                Values.Add(speReceivableExperied.EditValue.ToString());
+                if (!chkInLanDau.Checked)
+                    Values.Add(speReceivableExperied.EditValue.ToString());
+                else
+                    Values.Add(DBNull.Value);
 
                 if (txtReceivableAmount.Text == string.Empty)
                     Values.Add(DBNull.Value);
@@ -524,7 +593,7 @@ namespace ToKhaiThueGTGT
 
                 result = _Database.UpdateDatabyPara(sqlUpdate, fieldName.ToArray(), Values.ToArray());
 
-           return result;
+                return result;
 
             }
             catch (Exception ex)
@@ -534,6 +603,39 @@ namespace ToKhaiThueGTGT
                 return false;
             }
         }
+
+        /// <summary>
+        /// UpdateDetail
+        /// </summary>
+        /// <returns></returns>
+        private bool UpdateDetail()
+        {
+            bool result = false;
+            string pId = string.Empty;
+            StringBuilder strBuilder = new StringBuilder();
+
+            try
+            {
+                if (this._DataMain != null)
+                {
+                    this._DataMain.TableName = "DToKhai";
+                }
+
+                strBuilder.Append("select dt.Stt, dt.ChiTieu, dt.CodeGT, dt.GTHHDV, dt.CodeThue, dt.ThueGTGT, dt.SortOrder, dt.DToKhaiID, dt.MToKhaiID ");
+                strBuilder.Append("from DToKhai dt ");
+                strBuilder.Append(string.Format("where dt.MToKhaiID='{0}' ", _MToKhaiID));
+
+                result = this._Database.UpdateDataTable(strBuilder.ToString(), this._DataMain);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                XtraMessageBox.Show(e.Message);
+                return false;
+            }
+        }
+
 
         /// <summary>
         /// Get new ID
@@ -585,8 +687,8 @@ namespace ToKhaiThueGTGT
             dtNgayToKhai.EditValue = DateTime.Now;
             dtAmendedReturnDate.EditValue = DateTime.Now;
             dtPayableDate.EditValue = DateTime.Now;
-            _NamTaiChinh =  Config.GetValue("NamLamViec") == null ? -1 : int.Parse(Config.GetValue("NamLamViec").ToString());
-     
+            _NamTaiChinh = Config.GetValue("NamLamViec") == null ? -1 : int.Parse(Config.GetValue("NamLamViec").ToString());
+
             if (Config.GetValue("Language").ToString() == "1")
             {
                 FormFactory.DevLocalizer.Translate(this);
@@ -634,7 +736,7 @@ namespace ToKhaiThueGTGT
                 lciGrbChamNop.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
                 lciGrbNoiDung.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
                 lcibtnKHBS.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
-                xtraTabControl1.TabPages[1].PageVisible = false;      
+                xtraTabControl1.TabPages[1].PageVisible = false;
             }
             else
             {
@@ -661,6 +763,7 @@ namespace ToKhaiThueGTGT
                     SoLanIn = _Database.GetValue(sqlGetSoLanIn);
                     if (SoLanIn == null) return;
                     speSoLanIn.EditValue = SoLanIn;
+                    _soLanIn = int.Parse(SoLanIn.ToString());
                 }
             }
         }
@@ -676,6 +779,121 @@ namespace ToKhaiThueGTGT
             gleTaxDepartID.Properties.DisplayMember = "TaxDepartName";
             gleTaxDepartID.Properties.BestFitMode = DevExpress.XtraEditors.Controls.BestFitMode.BestFitResizePopup;
             gleTaxDepartID.Properties.View.OptionsView.ShowAutoFilterRow = true;
+        }
+
+        /// <summary>
+        /// Xử lý sự kiện keydown
+        /// </summary>
+        private void CapNhatToKhai_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Escape:
+                    this.Close();
+                    break;
+                case Keys.F12:
+                    btnSave.PerformClick();
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Sự kiện btnGetData
+        /// </summary>
+        private void btnGetData_Click(object sender, EventArgs e)
+        {
+            if (!CheckInput())
+            {
+                ShowASoftMsg("Không được phép để trống");
+                return;
+            }
+            InitialEditStatus(_type);
+            if (this._Action == FormAction.AddNew)
+            {
+                _DataMain = this.GetStandardData();
+            }
+            else
+            {
+                _DataMain = this.GetData();
+            }
+
+            if (_DataMain != null)
+            {
+                gcToKhai.DataSource = _DataMain;
+            }
+
+            CalculateAmount();
+        }
+
+        /// <summary>
+        /// Sự kiện btnSave
+        /// </summary>
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (this._Action == FormAction.AddNew)
+            {
+                if (!CheckInput())
+                {
+                    ShowASoftMsg("Không được phép để trống");
+                    return;
+                }
+
+                if (!CheckSoLanIn(int.Parse(speSoLanIn.EditValue.ToString())))
+                {
+                    ShowASoftMsg("Không tồn tại tờ khai thuê này trong kỳ tính thuế trên!");
+                    return;
+                }
+
+                if (CheckExist())
+                {
+                    ShowASoftMsg("Tờ khai thuế đã tồn tại");
+                    return;
+                }
+
+                if (_DataMain == null)
+                {
+                    ShowASoftMsg("Chưa nhập dữ liệu tờ khai");
+                    return;
+                }
+                string pMstID = string.Empty;
+                if (InsertMaster(out pMstID))
+                {
+                    if (InsertDetail(pMstID))
+                    {
+                        ShowASoftMsg("Tờ khai thuế GTGT tạo thành công!");
+                        this.Close();
+                    }
+                }
+            }
+            else
+            {
+                if (UpdateMaster() && UpdateDetail())
+                {
+                    ShowASoftMsg("Cập nhật tờ khai thuế GTGT thành công!");
+                    this.Close();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Sự kiện checkbox input, output
+        /// </summary>
+        private void chkIsInputAppendix_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkIsOutputAppendix.Checked)
+                _type = 2;
+            else
+                _type = 1;
+
+        }
+
+
+        /// <summary>
+        /// Xử lý sự kiện btnThoat click
+        /// </summary>
+        private void btnThoat_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
         #endregion
 
@@ -717,7 +935,7 @@ namespace ToKhaiThueGTGT
 
         #endregion
 
-    
+
         #region ----Member Varribles----
         private DataTable _DataMain = null;
         private FormAction _Action = FormAction.AddNew;
@@ -829,7 +1047,7 @@ namespace ToKhaiThueGTGT
                 object[] paraValues = new object[] { declareType, Ky, _NamTaiChinh, InLanDau, SoLanIn, IsInputAppendix, IsOutputAppendix };
 
                 dt = _Database.GetDataSetByStore("LayDuLieuToKhaiGTGT", paranames, paraValues);
-              
+
 
                 if (dt != null && dt.Rows.Count > 0)
                 {
@@ -1074,6 +1292,14 @@ namespace ToKhaiThueGTGT
         /// </summary>
         private void ReCalculate()
         {
+            _TG27 = _TG38 + _TG40 + _TG42;
+
+            _TG28 = _TG41 + _TG43;
+
+            _TG34 = _TG26 + _TG27;
+
+            _TG35 = _TG28;
+
             _TG36 = _TG35 - _TG25;
 
             _TG40a = _TG36 - _TG22 + _TG37 - _TG38 - _TG39;
@@ -1120,7 +1346,7 @@ namespace ToKhaiThueGTGT
             StringBuilder strBuilder = new StringBuilder();
             try
             {
-                strBuilder.Append("select dt.Stt, dt.ChiTieu, dt.CodeGT, dt.GTHHDV, dt.CodeThue, dt.ThueGTGT, dt.SortOrder, dt.DToKhaiID ");
+                strBuilder.Append("select dt.Stt, dt.ChiTieu, dt.CodeGT, dt.GTHHDV, dt.CodeThue, dt.ThueGTGT, dt.SortOrder, dt.DToKhaiID, dt.MToKhaiID");
                 strBuilder.Append(" from DToKhai dt");
                 strBuilder.Append(string.Format(" where dt.MToKhaiID='{0}' order by dt.SortOrder", _MToKhaiID));
                 data = _Database.GetDataTable(strBuilder.ToString());
@@ -1143,8 +1369,9 @@ namespace ToKhaiThueGTGT
         private void gvToKhai_CustomRowCellEdit(object sender, DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventArgs e)
         {
             object obj = gvToKhai.GetRowCellValue(e.RowHandle, "CodeGT");
+            object Stt = gvToKhai.GetRowCellValue(e.RowHandle, "Stt");
 
-            if (obj == null)
+            if (obj == null || obj.ToString() == string.Empty)
                 return;
 
             if (e.Column.FieldName == "GTHHDV")
@@ -1152,8 +1379,47 @@ namespace ToKhaiThueGTGT
                 if (CT21.Equals(obj.ToString()))
                 {
                     e.RepositoryItem = chk21;
+
                 }
             }
+            //if (Stt.ToString().Contains("a") || Stt.ToString().Contains("b") || Stt.ToString().Contains("c"))
+            //{
+            //    colSTT.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 8);
+            //    colChiTieu.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 8);
+            //    colCodeGT.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 8);
+            //    colGTHHDV.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 8);
+            //    colCodeThue.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 8);
+            //    colThueGTGT.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 8);
+            //}
+            //else
+            //{
+            //    colSTT.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 8, System.Drawing.FontStyle.Bold);
+            //    colChiTieu.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 8, System.Drawing.FontStyle.Bold);
+            //    colCodeGT.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 8, System.Drawing.FontStyle.Bold);
+            //    colGTHHDV.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 8, System.Drawing.FontStyle.Bold);
+            //    colCodeThue.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 8, System.Drawing.FontStyle.Bold);
+            //    colThueGTGT.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 8, System.Drawing.FontStyle.Bold);
+            //}
+
+            //if (Stt.ToString().Contains("I"))
+            //{
+            //    colSTT.AppearanceCell.BackColor = System.Drawing.Color.LightGray;
+            //    colChiTieu.AppearanceCell.BackColor = System.Drawing.Color.LightGray;
+            //    colCodeGT.AppearanceCell.BackColor = System.Drawing.Color.LightGray;
+            //    colGTHHDV.AppearanceCell.BackColor = System.Drawing.Color.LightGray;
+            //    colCodeThue.AppearanceCell.BackColor = System.Drawing.Color.LightGray;
+            //    colThueGTGT.AppearanceCell.BackColor = System.Drawing.Color.LightGray;
+            //}
+            //else
+            //{
+            //    colSTT.AppearanceCell.BackColor = System.Drawing.Color.Transparent;
+            //    colChiTieu.AppearanceCell.BackColor = System.Drawing.Color.Transparent;
+            //    colCodeGT.AppearanceCell.BackColor = System.Drawing.Color.Transparent;
+            //    colGTHHDV.AppearanceCell.BackColor = System.Drawing.Color.Transparent;
+            //    colCodeThue.AppearanceCell.BackColor = System.Drawing.Color.Transparent;
+            //    colThueGTGT.AppearanceCell.BackColor = System.Drawing.Color.Transparent;
+            //}
+
         }
         private void colThueGTGT_ParseEditValue(object sender, DevExpress.XtraEditors.Controls.ConvertEditValueEventArgs e)
         {
@@ -1275,83 +1541,8 @@ namespace ToKhaiThueGTGT
         }
 
         /// <summary>
-        /// Sự kiện btnGetData
+        /// Sự kiện cho phép sửa trên lưới
         /// </summary>
-        private void btnGetData_Click(object sender, EventArgs e)
-        {
-            if (!CheckInput())
-            {
-                ShowASoftMsg("Không được phép để trống");
-                return;
-            }
-            InitialEditStatus(_type);
-            if (this._Action == FormAction.AddNew)
-            {
-                _DataMain = this.GetStandardData();
-            }
-            else
-            {
-                _DataMain = this.GetData();
-            }
-
-            if (_DataMain != null)
-            {
-                gcToKhai.DataSource = _DataMain;
-            }
-
-            CalculateAmount();
-        }
-        #endregion
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            if (this._Action == FormAction.AddNew)
-            {
-                if (!CheckInput())
-                {
-                    ShowASoftMsg("Không được phép để trống");
-                    return;
-                }
-                if (CheckExist())
-                {
-                    ShowASoftMsg("Tờ khai thuế đã tồn tại");
-                    return;
-                }
-                if (InsertMaster())
-                {
-                    ShowASoftMsg("Tờ khai thuế GTGT tạo thành công!");
-                    this.Close();
-                }
-            }
-            else
-            {
-                if (UpdateMaster())
-                {
-                    ShowASoftMsg("Cập nhật tờ khai thuế GTGT thành công!");
-                    this.Close();
-                }
-            }
-        }
-
-       
-
-       
-
-        #endregion
-
-        private void CapNhatToKhai_KeyDown(object sender, KeyEventArgs e)
-        {
-            switch (e.KeyCode)
-            {
-                case Keys.Escape:
-                    this.Close();
-                    break;
-                case Keys.F12:
-                    btnSave.PerformClick();
-                    break;
-            }
-        }
-
         private void gvToKhai_ShowingEditor(object sender, CancelEventArgs e)
         {
             int sortOrder = int.MinValue;
@@ -1399,7 +1590,7 @@ namespace ToKhaiThueGTGT
                                     e.Cancel = true;
                                 }
                             }
-                           
+
                         }
                         // Other columns
                         else
@@ -1418,56 +1609,64 @@ namespace ToKhaiThueGTGT
             }
         }
 
+        /// <summary>
+        /// Sự kiện cellvaluechange
+        /// </summary>
         private void gvToKhai_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
             try
             {
-                object objCodeThue = gvToKhai.GetRowCellValue(e.RowHandle, "CodeThue");
-                object objCodeGT = gvToKhai.GetRowCellValue(e.RowHandle, "CodeGT");
-                double value = e.Value == null ? 0 : double.Parse(e.Value.ToString());
-
-                if (objCodeThue.ToString() != string.Empty)
+                string columnName = string.Empty;
+                object objCode;
+                if (gvToKhai.FocusedColumn == colGTHHDV)
                 {
-                    switch (objCodeThue.ToString())
-                    {
-                        case CT23:
-                            _TG23 = value;
-                            break;
-                        case CT24:
-                            _TG24 = value;
-                            break;
-                        case CT25:
-                            _TG25 = value;
-                            break;
-                        case CT26:
-                            _TG26 = value;
-                            break;
-                        case CT29:
-                            _TG29 = value;
-                            break;
-                        case CT30:
-                            _TG30 = value;
-                            break;
-                        case CT31:
-                            _TG31 = value;
-                            break;
-                        case CT32:
-                            _TG32 = value;
-                            break;
-                        case CT33:
-                            _TG33 = value;
-                            break;
-                        case CT37:
-                            _TG37 = value;
-                            break;
-                        case CT38:
-                            _TG38 = value;
-                            break;
-                        default:
-                            break;
-                    }
+                    objCode = gvToKhai.GetRowCellValue(e.RowHandle, "CodeGT");
+                }
+                else
+                {
+                    objCode = gvToKhai.GetRowCellValue(e.RowHandle, "CodeThue");
+                }
 
-                
+                double value = e.Value == null ? 0 : double.Parse(e.Value.ToString());
+                if (objCode.ToString() == string.Empty || objCode == null)
+                    return;
+                switch (objCode.ToString())
+                {
+                    case CT23:
+                        _TG23 = value;
+                        break;
+                    case CT24:
+                        _TG24 = value;
+                        break;
+                    case CT25:
+                        _TG25 = value;
+                        break;
+                    case CT26:
+                        _TG26 = value;
+                        break;
+                    case CT29:
+                        _TG29 = value;
+                        break;
+                    case CT30:
+                        _TG30 = value;
+                        break;
+                    case CT31:
+                        _TG31 = value;
+                        break;
+                    case CT32:
+                        _TG32 = value;
+                        break;
+                    case CT33:
+                        _TG33 = value;
+                        break;
+                    case CT37:
+                        _TG37 = value;
+                        break;
+                    case CT38:
+                        _TG38 = value;
+                        break;
+                    default:
+                        break;
                 }
 
                 ReCalculate();
@@ -1480,9 +1679,12 @@ namespace ToKhaiThueGTGT
             }
         }
 
+        /// <summary>
+        /// Sự kiện kiểm tra dữ liệu nhập
+        /// </summary>
         private void gvToKhai_ValidatingEditor(object sender, DevExpress.XtraEditors.Controls.BaseContainerValidateEditorEventArgs e)
         {
-            object objCode = gvToKhai.GetRowCellValue(gvToKhai.FocusedRowHandle, "CodeThue");
+            object objCode = gvToKhai.GetRowCellValue(gvToKhai.FocusedRowHandle, "CodeGT");
             if (objCode == null)
                 return;
 
@@ -1506,35 +1708,47 @@ namespace ToKhaiThueGTGT
             //        e.Valid = false;
             //    }
             //}
-             //Chi tieu 30
+            //Chi tieu 30
             if (objCode.Equals(CT30))
             {
                 double ct30 = 0;
                 if (double.TryParse(e.Value.ToString(), out ct30))
                 {
                     //Chi tieu 30*5% != 31
-                    if (gvToKhai.FocusedColumn == colThueGTGT && ((ct30 * 5 / 100) != _TG31))
+                    if (gvToKhai.FocusedColumn == colGTHHDV && ((ct30 * 5 / 100) != _TG31))
                     {
                         string msg = "Số thuế không tương ứng với doanh thu và thuế suất";
                         if (Config.GetValue("Language").ToString() == "1")
                             msg = UIDictionary.Translate(msg);
                         gvToKhai.SetColumnError(colThueGTGT, msg);
                         //e.ErrorText = msg;
-                        e.Valid = false;
+                        //e.Valid = false;
                     }
                 }
             }
-            
+
         }
 
-        private void chkIsInputAppendix_CheckedChanged(object sender, EventArgs e)
+        #endregion
+
+        private void gvToKhai_BeforePrintRow(object sender, DevExpress.XtraGrid.Views.Printing.CancelPrintRowEventArgs e)
         {
-            if (chkIsOutputAppendix.Checked)
-                _type = 2;            
-            else
-                _type = 1;
-            
+
         }
 
+
+        #endregion
+
+        private void gvToKhai_RowStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs e)
+        {
+            if (e.RowHandle >= 0)
+            {
+                string stt = gvToKhai.GetRowCellDisplayText(e.RowHandle, gvToKhai.Columns["Stt"]);
+                if (stt.Contains("I") || stt == "C" )
+                {
+                    e.Appearance.BackColor = Color.LightCyan;
+                }
+            }
+        }
     }
 }
