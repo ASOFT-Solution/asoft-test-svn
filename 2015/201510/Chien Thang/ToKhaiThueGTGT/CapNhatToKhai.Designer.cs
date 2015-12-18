@@ -623,7 +623,6 @@
             this.chkIsOutputAppendix.Size = new System.Drawing.Size(473, 19);
             this.chkIsOutputAppendix.StyleController = this.layoutControl4;
             this.chkIsOutputAppendix.TabIndex = 1;
-            this.chkIsOutputAppendix.CheckedChanged += new System.EventHandler(this.chkIsInputAppendix_CheckedChanged);
             // 
             // chkIsInputAppendix
             // 
@@ -633,7 +632,6 @@
             this.chkIsInputAppendix.Size = new System.Drawing.Size(473, 19);
             this.chkIsInputAppendix.StyleController = this.layoutControl4;
             this.chkIsInputAppendix.TabIndex = 0;
-            this.chkIsInputAppendix.CheckedChanged += new System.EventHandler(this.chkIsInputAppendix_CheckedChanged);
             // 
             // layoutControlGroup4
             // 
@@ -1151,7 +1149,6 @@
             this.gvToKhai.OptionsCustomization.AllowGroup = false;
             this.gvToKhai.OptionsView.ShowGroupPanel = false;
             this.gvToKhai.ValidatingEditor += new DevExpress.XtraEditors.Controls.BaseContainerValidateEditorEventHandler(this.gvToKhai_ValidatingEditor);
-            this.gvToKhai.BeforePrintRow += new DevExpress.XtraGrid.Views.Base.BeforePrintRowEventHandler(this.gvToKhai_BeforePrintRow);
             this.gvToKhai.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gvToKhai_CellValueChanged);
             this.gvToKhai.CustomRowCellEdit += new DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventHandler(this.gvToKhai_CustomRowCellEdit);
             this.gvToKhai.ShowingEditor += new System.ComponentModel.CancelEventHandler(this.gvToKhai_ShowingEditor);
@@ -1233,8 +1230,16 @@
             // 
             this.chk21.AutoHeight = false;
             this.chk21.Name = "chk21";
-            this.chk21.ValueChecked = ((short)(1));
-            this.chk21.ValueUnchecked = ((short)(0));
+            this.chk21.ValueChecked = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.chk21.ValueUnchecked = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.chk21.CheckedChanged += new System.EventHandler(this.checkEdit_CheckedChanged);
             // 
             // layoutControlGroup6

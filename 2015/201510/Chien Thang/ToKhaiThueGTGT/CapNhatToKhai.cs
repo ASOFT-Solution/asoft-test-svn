@@ -23,10 +23,8 @@ namespace ToKhaiThueGTGT
         private Database _Database = Database.NewDataDatabase();
         private string _MToKhaiID = string.Empty;
         private int _NamTaiChinh;
-        private int _type = 0;
         private int _soLanIn = 0;
         private Dictionary<int, bool[]> _EditStatus = null;
-        private bool _HasEditFont = false;
 
         #endregion ---- Member variables ----
 
@@ -150,35 +148,29 @@ namespace ToKhaiThueGTGT
         /// Initial status of column in grid
         /// </summary>
         /// <remarks>false: Not Editable; true: Editable</remarks>
-        private void InitialEditStatus(int type)
+        private void InitialEditStatus()
         {
             if (_EditStatus != null)
                 _EditStatus.Clear();
             else
                 _EditStatus = new Dictionary<int, bool[]>();
             _EditStatus.Add(1, new bool[] { true, false });
-            switch (type)
-            {
-                //IsInput = 0, IsOutput = 0 và IsInput = 1, IsOutput = 0
-                case 1:
-                    _EditStatus.Add(5, new bool[] { true, false });
-                    _EditStatus.Add(6, new bool[] { false, true });
-                    _EditStatus.Add(8, new bool[] { true, false });
-                    _EditStatus.Add(10, new bool[] { true, false });
-                    _EditStatus.Add(11, new bool[] { true, false });
-                    _EditStatus.Add(12, new bool[] { true, false });
-                    _EditStatus.Add(16, new bool[] { false, true });
-                    _EditStatus.Add(17, new bool[] { false, true });
-                    break;
+            _EditStatus.Add(2, new bool[] { false, true });
+            _EditStatus.Add(5, new bool[] { true, false });
+            _EditStatus.Add(6, new bool[] { false, true });
+            _EditStatus.Add(16, new bool[] { false, true });
+            _EditStatus.Add(17, new bool[] { false, true });
+            _EditStatus.Add(18, new bool[] { false, true });
+            _EditStatus.Add(21, new bool[] { false, true });
+            _EditStatus.Add(24, new bool[] { false, true });
 
-                //IsInput = 0, IsOutput = 1 và IsInput = 1, IsOutput = 1
-                case 2:
-                    _EditStatus.Add(5, new bool[] { true, false });
-                    _EditStatus.Add(6, new bool[] { false, true });
-                    _EditStatus.Add(16, new bool[] { false, true });
-                    _EditStatus.Add(17, new bool[] { false, true });
-                    break;
-            }
+            if (!chkIsOutputAppendix.Checked)
+            {
+                _EditStatus.Add(8, new bool[] { true, false });
+                _EditStatus.Add(10, new bool[] { true, false });
+                _EditStatus.Add(11, new bool[] { true, false });
+                _EditStatus.Add(12, new bool[] { true, false });
+            }     
         }
 
         /// <summary>
@@ -677,11 +669,10 @@ namespace ToKhaiThueGTGT
             rdgChonToKhai_SelectedIndexChanged(null, null);
             chkIsExten_CheckedChanged(null, null);
             chkInLanDau_CheckedChanged(null, null);
-            chkIsInputAppendix_CheckedChanged(null, null);
 
-            FormatTextbox();
-            LoadComboBox();
-            FormatColumns();
+            this.FormatTextbox();
+            this.LoadComboBox();
+            this.FormatColumns();
             gvToKhai.OptionsBehavior.Editable = true;
 
             dtNgayToKhai.EditValue = DateTime.Now;
@@ -807,7 +798,7 @@ namespace ToKhaiThueGTGT
                 ShowASoftMsg("Không được phép để trống");
                 return;
             }
-            InitialEditStatus(_type);
+            InitialEditStatus();
             if (this._Action == FormAction.AddNew)
             {
                 _DataMain = this.GetStandardData();
@@ -876,19 +867,6 @@ namespace ToKhaiThueGTGT
         }
 
         /// <summary>
-        /// Sự kiện checkbox input, output
-        /// </summary>
-        private void chkIsInputAppendix_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkIsOutputAppendix.Checked)
-                _type = 2;
-            else
-                _type = 1;
-
-        }
-
-
-        /// <summary>
         /// Xử lý sự kiện btnThoat click
         /// </summary>
         private void btnThoat_Click(object sender, EventArgs e)
@@ -939,7 +917,7 @@ namespace ToKhaiThueGTGT
         #region ----Member Varribles----
         private DataTable _DataMain = null;
         private FormAction _Action = FormAction.AddNew;
-
+        private double _TG21 = 0;
         private double _TG22 = 0;
         private double _TG23 = 0;
         private double _TG24 = 0;
@@ -1031,7 +1009,7 @@ namespace ToKhaiThueGTGT
             {
                 int declareType = int.Parse(rdgChonToKhai.EditValue.ToString());
 
-                int Ky = declareType == 1 ? int.Parse(cbKyToKhai.EditValue.ToString()) : int.Parse(cbKyToKhai.EditValue.ToString());
+                int Ky = declareType == 1 ? int.Parse(cbKyToKhai.EditValue.ToString()) : int.Parse(cbQuyToKhai.EditValue.ToString());
 
                 int InLanDau = chkInLanDau.Checked ? 1 : 0;
 
@@ -1100,11 +1078,10 @@ namespace ToKhaiThueGTGT
                     return;
 
                 string code = string.Empty;
-
                 foreach (DataRow dr in this._DataMain.Rows)
                 {
                     code = dr[pColCode] == DBNull.Value ? string.Empty : dr[pColCode].ToString();
-
+                    
                     // Chi tieu [22]
                     switch (code)
                     {
@@ -1292,9 +1269,9 @@ namespace ToKhaiThueGTGT
         /// </summary>
         private void ReCalculate()
         {
-            _TG27 = _TG38 + _TG40 + _TG42;
+            _TG27 = _TG29 + _TG30 + _TG32;
 
-            _TG28 = _TG41 + _TG43;
+            _TG28 = _TG31 + _TG33;
 
             _TG34 = _TG26 + _TG27;
 
@@ -1304,17 +1281,20 @@ namespace ToKhaiThueGTGT
 
             _TG40a = _TG36 - _TG22 + _TG37 - _TG38 - _TG39;
 
-            if (_TG40a < 0)
-            {
-                _TG41 = -_TG40a;
-                _TG40a = 0;
-            }
-            else
-            {
-                _TG41 = 0;
-            }
+            //if (_TG40a < 0)
+            //{
+            //    _TG41 = -_TG40a;
+            //    _TG40a = 0;
+            //}
+            //else
+            //{
+            //    _TG41 = 0;
+            //}
 
             _TG40 = _TG40a - _TG40b;
+
+            _TG41 = _TG36 - _TG22 + _TG37 - _TG38 - _TG39;
+
             _TG43 = _TG41 - _TG42;
         }
 
@@ -1369,7 +1349,6 @@ namespace ToKhaiThueGTGT
         private void gvToKhai_CustomRowCellEdit(object sender, DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventArgs e)
         {
             object obj = gvToKhai.GetRowCellValue(e.RowHandle, "CodeGT");
-            object Stt = gvToKhai.GetRowCellValue(e.RowHandle, "Stt");
 
             if (obj == null || obj.ToString() == string.Empty)
                 return;
@@ -1382,44 +1361,6 @@ namespace ToKhaiThueGTGT
 
                 }
             }
-            //if (Stt.ToString().Contains("a") || Stt.ToString().Contains("b") || Stt.ToString().Contains("c"))
-            //{
-            //    colSTT.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 8);
-            //    colChiTieu.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 8);
-            //    colCodeGT.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 8);
-            //    colGTHHDV.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 8);
-            //    colCodeThue.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 8);
-            //    colThueGTGT.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 8);
-            //}
-            //else
-            //{
-            //    colSTT.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 8, System.Drawing.FontStyle.Bold);
-            //    colChiTieu.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 8, System.Drawing.FontStyle.Bold);
-            //    colCodeGT.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 8, System.Drawing.FontStyle.Bold);
-            //    colGTHHDV.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 8, System.Drawing.FontStyle.Bold);
-            //    colCodeThue.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 8, System.Drawing.FontStyle.Bold);
-            //    colThueGTGT.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 8, System.Drawing.FontStyle.Bold);
-            //}
-
-            //if (Stt.ToString().Contains("I"))
-            //{
-            //    colSTT.AppearanceCell.BackColor = System.Drawing.Color.LightGray;
-            //    colChiTieu.AppearanceCell.BackColor = System.Drawing.Color.LightGray;
-            //    colCodeGT.AppearanceCell.BackColor = System.Drawing.Color.LightGray;
-            //    colGTHHDV.AppearanceCell.BackColor = System.Drawing.Color.LightGray;
-            //    colCodeThue.AppearanceCell.BackColor = System.Drawing.Color.LightGray;
-            //    colThueGTGT.AppearanceCell.BackColor = System.Drawing.Color.LightGray;
-            //}
-            //else
-            //{
-            //    colSTT.AppearanceCell.BackColor = System.Drawing.Color.Transparent;
-            //    colChiTieu.AppearanceCell.BackColor = System.Drawing.Color.Transparent;
-            //    colCodeGT.AppearanceCell.BackColor = System.Drawing.Color.Transparent;
-            //    colGTHHDV.AppearanceCell.BackColor = System.Drawing.Color.Transparent;
-            //    colCodeThue.AppearanceCell.BackColor = System.Drawing.Color.Transparent;
-            //    colThueGTGT.AppearanceCell.BackColor = System.Drawing.Color.Transparent;
-            //}
-
         }
         private void colThueGTGT_ParseEditValue(object sender, DevExpress.XtraEditors.Controls.ConvertEditValueEventArgs e)
         {
@@ -1616,7 +1557,6 @@ namespace ToKhaiThueGTGT
         {
             try
             {
-                string columnName = string.Empty;
                 object objCode;
                 if (gvToKhai.FocusedColumn == colGTHHDV)
                 {
@@ -1632,6 +1572,9 @@ namespace ToKhaiThueGTGT
                     return;
                 switch (objCode.ToString())
                 {
+                    case CT22:
+                        _TG22 = value;
+                        break;
                     case CT23:
                         _TG23 = value;
                         break;
@@ -1665,6 +1608,15 @@ namespace ToKhaiThueGTGT
                     case CT38:
                         _TG38 = value;
                         break;
+                    case CT39:
+                        _TG39 = value;
+                        break;
+                    case CT40b:
+                        _TG40b = value;
+                        break;
+                    case CT42:
+                        _TG42 = value;
+                        break;
                     default:
                         break;
                 }
@@ -1684,30 +1636,15 @@ namespace ToKhaiThueGTGT
         /// </summary>
         private void gvToKhai_ValidatingEditor(object sender, DevExpress.XtraEditors.Controls.BaseContainerValidateEditorEventArgs e)
         {
-            object objCode = gvToKhai.GetRowCellValue(gvToKhai.FocusedRowHandle, "CodeGT");
-            if (objCode == null)
+            object objCode = null;
+            if(gvToKhai.FocusedColumn == colGTHHDV)
+                objCode = gvToKhai.GetRowCellValue(gvToKhai.FocusedRowHandle, "CodeGT");
+            else if (gvToKhai.FocusedColumn == colThueGTGT)
+                objCode = gvToKhai.GetRowCellValue(gvToKhai.FocusedRowHandle, "CodeThue");
+
+            if (objCode == null || objCode.ToString() == string.Empty)
                 return;
 
-            // Chi tieu 42
-            //if (!objCode.Equals(CT42))
-            //{
-            //    return;
-            //}
-
-            //double ct42 = 0;
-            //if (double.TryParse(e.Value.ToString(), out ct42))
-            //{
-            //    // Chi tieu 42 > 41
-            //    if (gvToKhai.FocusedColumn == colThueGTGT &&
-            //    ct42 > _TG41)
-            //    {
-            //        string msg = "Chỉ tiêu [42] không thể lớn hơn chỉ tiêu [41]!";
-            //        if (Config.GetValue("Language").ToString() == "1")
-            //            msg = UIDictionary.Translate(msg);
-            //        e.ErrorText = msg;
-            //        e.Valid = false;
-            //    }
-            //}
             //Chi tieu 30
             if (objCode.Equals(CT30))
             {
@@ -1720,35 +1657,81 @@ namespace ToKhaiThueGTGT
                         string msg = "Số thuế không tương ứng với doanh thu và thuế suất";
                         if (Config.GetValue("Language").ToString() == "1")
                             msg = UIDictionary.Translate(msg);
-                        gvToKhai.SetColumnError(colThueGTGT, msg);
-                        //e.ErrorText = msg;
-                        //e.Valid = false;
+                        gvToKhai.GetDataRow(gvToKhai.FocusedRowHandle).SetColumnError("ThueGTGT", msg);
+                    }
+                    else
+                    {
+                        gvToKhai.GetDataRow(gvToKhai.FocusedRowHandle).ClearErrors();
                     }
                 }
             }
 
+            //Chi tieu 32
+            if (objCode.Equals(CT32))
+            {
+                double ct32 = 0;
+                if (double.TryParse(e.Value.ToString(), out ct32))
+                {
+                    //Chi tieu 32*10% != 33
+                    if (gvToKhai.FocusedColumn == colGTHHDV && ((ct32 * 10 / 100) != _TG33))
+                    {
+                        string msg = "Số thuế không tương ứng với doanh thu và thuế suất";
+                        if (Config.GetValue("Language").ToString() == "1")
+                            msg = UIDictionary.Translate(msg);
+                        e.ErrorText = msg;
+                        e.Valid = false;
+                    }
+                }
+            }
+
+            //Chi tieu 40b
+            if (objCode.Equals(CT40b))
+            {
+                double ct40b = 0;
+                if (double.TryParse(e.Value.ToString(), out ct40b))
+                {
+                    //Chi tieu 40b > 40a
+                    if (gvToKhai.FocusedColumn == colThueGTGT && (ct40b  > _TG40a))
+                    {
+                        string msg = "Chỉ tiêu 40b phải nhỏ hơn hoặc bằng chỉ tiêu 40a";
+                        if (Config.GetValue("Language").ToString() == "1")
+                            msg = UIDictionary.Translate(msg);
+                        e.ErrorText = msg;
+                        e.Valid = false;
+                    }
+                }
+            }
         }
-
-        #endregion
-
-        private void gvToKhai_BeforePrintRow(object sender, DevExpress.XtraGrid.Views.Printing.CancelPrintRowEventArgs e)
-        {
-
-        }
-
-
-        #endregion
 
         private void gvToKhai_RowStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs e)
         {
             if (e.RowHandle >= 0)
             {
                 string stt = gvToKhai.GetRowCellDisplayText(e.RowHandle, gvToKhai.Columns["Stt"]);
-                if (stt.Contains("I") || stt == "C" )
+                string sortOrder = gvToKhai.GetRowCellDisplayText(e.RowHandle, gvToKhai.Columns["SortOrder"]);
+                if (stt.Contains("I") || stt == "C" || stt == "V")
                 {
                     e.Appearance.BackColor = Color.LightCyan;
                 }
+
+                if (stt.Contains("a") || stt.Contains("b") || stt.Contains("c") || stt.Contains("4.1") || stt.Contains("4.2"))
+                {
+                    e.Appearance.Font = new System.Drawing.Font("Tahoma", 8);
+                }
+                else
+                {
+                    e.Appearance.Font = new System.Drawing.Font("Tahoma", 8, System.Drawing.FontStyle.Bold);
+                }
+
+                if (sortOrder == "16" || sortOrder == "17" || sortOrder == "20" || sortOrder == "21" || sortOrder == "22")
+                    e.Appearance.Font = new System.Drawing.Font("Tahoma", 8);
             }
+
+        #endregion
+
+        #endregion
+
+        
         }
     }
 }
