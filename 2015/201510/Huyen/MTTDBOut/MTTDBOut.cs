@@ -15,6 +15,7 @@ using CDTLib;
 using System.Data;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid;
+using CDTDatabase;
 
 
 namespace MTTDBOut
@@ -24,9 +25,10 @@ namespace MTTDBOut
         private DataCustomFormControl _data;
         private InfoCustomControl _info = new InfoCustomControl(IDataType.MasterDetailDt);
         private int _NamTaiChinh = -1;
-        public void SetNamTaiChinh()
+        private Database _Database = Database.NewDataDatabase();
+        private int NamTaiChinh()
         {
-            _NamTaiChinh = Config.GetValue("NamLamViec") == null ? -1 : int.Parse(Config.GetValue("NamLamViec").ToString());
+            return( Config.GetValue("NamLamViec") == null ? -1 : int.Parse(Config.GetValue("NamLamViec").ToString()));
         }
 
 
@@ -75,11 +77,13 @@ namespace MTTDBOut
             item5.AppearanceItemCaption.Options.UseBackColor = false;
             _data.FrmMain.Controls.Add(lcMain);
             item5 = lcMain.Root.AddItem();
-
             radioEdit1.SelectedIndexChanged += new EventHandler(radioEdit1_SelectedIndexChanged);
             radioEdit1_SelectedIndexChanged(null, null);
             this._data.FrmMain.Load += new EventHandler(FrmMain_Load);
-
+            //SpinEdit sepKy = _data.FrmMain.Controls.Find("KyBKBRTTDB", true)[0] as SpinEdit;
+            //DateEdit dtmInputDate = _data.FrmMain.Controls.Find("InputDate", true)[0] as DateEdit;
+            //sepKy.EditValueChanged += new EventHandler(sepKy_EditValueChanged);
+            //dtmInputDate.EditValueChanged += new EventHandler(dtmInputDate_EditValueChanged);
 
         }
 
@@ -102,40 +106,26 @@ namespace MTTDBOut
 
         private void LoadData()
         {
-            Control[] controls = null;
-            controls = _data.FrmMain.Controls.Find("radioEdit1", true);
-            Control[] controls1 = null;
-            Control[] controls2 = null;
-            Control[] controls3 = null;
-            Control[] controls4 = null;
-            controls1 = _data.FrmMain.Controls.Find("DeclareTypeName", true);
-            controls2 = _data.FrmMain.Controls.Find("DeclareType", true);
-            controls3 = _data.FrmMain.Controls.Find("KyBKBRTTDB", true);
-            controls4 = _data.FrmMain.Controls.Find("InputDate", true);
             RadioGroup radioEdit1 = _data.FrmMain.Controls.Find("radioEdit1", true)[0] as RadioGroup;
-
-            SpinEdit sepKy = controls3[0] as SpinEdit;
-            DateEdit dtmInputDate = controls4[0] as DateEdit;
+            SpinEdit sepKy = _data.FrmMain.Controls.Find("KyBKBRTTDB", true)[0] as SpinEdit;
+            DateEdit dtmInputDate = _data.FrmMain.Controls.Find("InputDate", true)[0] as DateEdit;
+            SpinEdit sepDeclareType = _data.FrmMain.Controls.Find("DeclareType", true)[0] as SpinEdit;
+            TextEdit txtDeclareTypeName = _data.FrmMain.Controls.Find("DeclareTypeName", true)[0] as TextEdit;
 
             if (radioEdit1.SelectedIndex == 0)
             {
-                TextEdit txtDeclareTypeName = controls1[0] as TextEdit;
                 txtDeclareTypeName.EditValue = "Tháng";
-
-                SpinEdit sepDeclareType = controls2[0] as SpinEdit;
                 sepDeclareType.EditValue = 1;
             }
             else if (radioEdit1.SelectedIndex == 1)
             {
-                TextEdit txtDeclareName = controls1[0] as TextEdit;
-                txtDeclareName.EditValue = "Lần phát sinh";
-
-                SpinEdit sepDeclareType = controls2[0] as SpinEdit;
+                txtDeclareTypeName.EditValue = "Lần phát sinh";
                 sepDeclareType.EditValue = 2;
-
                 sepKy.EditValue = 0;  
             }
-            LoadDataDetail(radioEdit1.SelectedIndex,sepKy.EditValue,dtmInputDate.EditValue);
+
+            sepKy.EditValueChanged += new EventHandler(sepKy_EditValueChanged);
+            dtmInputDate.EditValueChanged += new EventHandler(dtmInputDate_EditValueChanged);
         }
 
         protected void radioEdit1_SelectedIndexChanged(object sender, EventArgs e)
@@ -147,38 +137,44 @@ namespace MTTDBOut
             DataRow drMaster = (_data.BsMain.Current as DataRowView).Row;
 
             if (drMaster == null) return;
-            Control[] controls1 = null;
-            Control[] controls2 = null;
-            Control[] controls3 = null;
-            controls1 = _data.FrmMain.Controls.Find("DeclareTypeName", true);
-            controls2 = _data.FrmMain.Controls.Find("DeclareType", true);
-            controls3 = _data.FrmMain.Controls.Find("KyBKBRTTDB", true);
+            SpinEdit sepKy = _data.FrmMain.Controls.Find("KyBKBRTTDB", true)[0] as SpinEdit;
+            DateEdit dtmInputDate = _data.FrmMain.Controls.Find("InputDate", true)[0] as DateEdit;
+            SpinEdit sepDeclareType = _data.FrmMain.Controls.Find("DeclareType", true)[0] as SpinEdit;
+            TextEdit txtDeclareTypeName = _data.FrmMain.Controls.Find("DeclareTypeName", true)[0] as TextEdit;
+
             if (radioEdit1.SelectedIndex == 0)
             {
                 lcMain.GetControlByName("InputDate").Enabled = false;
                 lcMain.GetControlByName("KyBKBRTTDB").Enabled = true;
-
-                TextEdit txtDeclareTypeName = controls1[0] as TextEdit;
                 txtDeclareTypeName.EditValue = "Tháng";
-
-                SpinEdit sepDeclareType = controls2[0] as SpinEdit;
                 sepDeclareType.EditValue = 1;
             }
             else if (radioEdit1.SelectedIndex == 1)
             {
                 lcMain.GetControlByName("KyBKBRTTDB").Enabled = false;
                 lcMain.GetControlByName("InputDate").Enabled = true;
-
-                TextEdit txtDeclareName = controls1[0] as TextEdit;
-                txtDeclareName.EditValue = "Lần phát sinh";
-
-                SpinEdit sepDeclareType = controls2[0] as SpinEdit;
+                txtDeclareTypeName.EditValue = "Lần phát sinh";
                 sepDeclareType.EditValue = 2;
-
-                SpinEdit sepKy = controls3[0] as SpinEdit;
-                sepKy.EditValue = 0;
+                sepKy.EditValue = 0;     
             }
+            
         }
+        private void dtmInputDate_EditValueChanged(object sender, EventArgs e)
+        {
+            DateEdit dtmInputDate = _data.FrmMain.Controls.Find("InputDate", true)[0] as DateEdit;
+            SpinEdit sepDeclareType = _data.FrmMain.Controls.Find("DeclareType", true)[0] as SpinEdit;
+            SpinEdit sepKy = _data.FrmMain.Controls.Find("KyBKBRTTDB", true)[0] as SpinEdit;
+            LoadDataDetail(sepDeclareType.EditValue == null ? -1 : sepDeclareType.EditValue , sepKy.EditValue == null ? 0 : sepKy.EditValue, dtmInputDate.EditValue == null ? DateTime.Now.ToShortDateString() : dtmInputDate.DateTime.ToShortDateString());
+        }
+        private void sepKy_EditValueChanged(object sender, EventArgs e)
+        {
+            DateEdit dtmInputDate = _data.FrmMain.Controls.Find("InputDate", true)[0] as DateEdit;
+            SpinEdit sepDeclareType = _data.FrmMain.Controls.Find("DeclareType", true)[0] as SpinEdit;
+            SpinEdit sepKy = _data.FrmMain.Controls.Find("KyBKBRTTDB", true)[0] as SpinEdit;
+            LoadDataDetail(sepDeclareType.EditValue == null ? -1 : sepDeclareType.EditValue, sepKy.EditValue == null ? 0 : sepKy.EditValue, dtmInputDate.EditValue == null ? DateTime.Now.ToShortDateString() : dtmInputDate.DateTime.ToShortDateString());
+        }
+
+
 
         protected void FrmMain_Load(object sender, EventArgs e)
         {
@@ -190,13 +186,12 @@ namespace MTTDBOut
 
             mtRowView = (bindingSource.Current as DataRowView).Row;
             if (mtRowView == null || mtRowView.RowState == DataRowState.Deleted) return;
-            SetNamTaiChinh();
             Control[] controls = null;
             controls = _data.FrmMain.Controls.Find("NamBKBRTTDB", true);
             if (controls.Length > 0)
             {
                 SpinEdit spNam = controls[0] as SpinEdit;
-                spNam.EditValue = _NamTaiChinh;
+                spNam.EditValue = NamTaiChinh();
             }
             LayoutControl lcMain = _data.FrmMain.Controls.Find("lcMain", true)[0] as LayoutControl;
             LayoutControlItem item1 = GetElementByName(lcMain, "NamBKBRTTDB");
@@ -213,18 +208,25 @@ namespace MTTDBOut
             
             
         }
-
         private void LoadDataDetail(object declaretype, object declaretypeName1, object declaretypeName2)
         {
-            string query = string.Format(@"select NgayHd, NgayCt, Sohoadon, SoSerie, TenKH, TenVT, SoLuong_TTDB, GiaNT_TTDB, Gia_TTDB, PSNT_TTDB
-                            , PS_TTDB, MaNhomTTDB, ThueSuatTTDB, TienTTDBNT, TienTTDB, PS1NT_TTDB, PS1_TTDB 
+            string query = string.Format(@"select NgayHd as NgayHD, NgayCt, Sohoadon as SoHoaDon, SoSerie as SoSeries,TenKH, TenVT, SoLuong_TTDB as SoLuong, GiaNT_TTDB as GiaNT, Gia_TTDB as Gia, PSNT_TTDB as PsNT
+                            , PS_TTDB as Ps, TienTTDBNT, TienTTDB, PS1NT_TTDB as Ps1NT, PS1_TTDB as Ps1 ,MaNhomTTDB, ThueSuatTTDB
                         from TTDBOut where year(NgayCt) = {0}
            and 
            (Case when {1} = 1 then month(NgayCt) end) = {2}
            or
-           (Case when {1} = 2 then NgayCt end) = cast({3} as datetime)", _NamTaiChinh,declaretype,declaretypeName1 == null? 0: declaretypeName1,declaretypeName2 );
+           (Case when {1} = 2 then NgayCt end) = cast({3} as Datetime)", NamTaiChinh(), declaretype, declaretypeName1, declaretypeName2);
 
+            DataTable table = _Database.GetDataTable(query);
+            GridControl gcDetail = (_data.FrmMain.Controls.Find("gcMain", true)[0] as GridControl);
             GridView gvDetail = (_data.FrmMain.Controls.Find("gcMain", true)[0] as GridControl).MainView as GridView;
+            if (table.Rows.Count > 0)
+            {
+                gcDetail.DataSource = table;
+                gvDetail.ExpandAllGroups();
+                gvDetail.BestFitColumns();
+            }
            
         }
 

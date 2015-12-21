@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CDTDatabase, Version=1.0.5742.26719, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Asoft Software Solution\Asoft Accounting 2015\CDTDatabase.dll</HintPath>
+    </Reference>
     <Reference Include="CDTLib, Version=1.0.5627.28597, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Asoft Software Solution\Asoft Accounting 2015\CDTLib.dll</HintPath>
