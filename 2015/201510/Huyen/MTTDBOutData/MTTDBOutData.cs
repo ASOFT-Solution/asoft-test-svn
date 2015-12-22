@@ -44,47 +44,116 @@ namespace MTTDBOutData
         }
         public void ExecuteAfter()
         {
-        }
+            //DataView dvMst = null;
+            //DataRowView drvMst = null;
+            //DataView dvDt = null;
+            //string tkNo = string.Empty;
+            //dvMst = new DataView(_data.DsData.Tables[0]);
 
+            //#region "Delete"
+
+            //dvMst.RowStateFilter = DataViewRowState.Deleted;
+
+            //if (dvMst.Count > 0)
+            //{
+            //    drvMst = dvMst[0];
+            //    //DeleteRow(drvMst);
+            //    return;
+            //}
+            //#endregion "Delete"
+        }
         public void ExecuteBefore()
         {
-            
             DataView dvMst = new DataView(_data.DsData.Tables[0]);
-            dvMst.RowStateFilter = DataViewRowState.Added;
+            string query = string.Empty;
+            object exists = null;
+            dvMst.RowStateFilter = DataViewRowState.Added ;
 
-            DataView dvDt = new DataView(_data.DsData.Tables[1]);
-            dvDt.RowStateFilter = DataViewRowState.Added;
-
-            if (dvMst.Count > 0 || dvDt.Count > 0)
+            if (dvMst.Count > 0)
             {
 
-                string query = string.Format(@"select Top MTTDBOutID  from  MTTDBOut 
+                query = string.Format(@"select 1 from  MTTDBOut 
                     where (Case when {0} = 1 then KyBKBRTTDB end) = {1}
-                        or
-                       (Case when {0} = 2 then InputDate end) = cast({2} as datetime)
-                        and NamBKBRTTDB = {3}", dvMst[0]["DeclareType"].ToString(), dvMst[0]["KyBKBRTTDB"].ToString(), dvMst[0]["InputDate"].ToString(),NamTaiChinh());
-                DataTable table = _Database.GetDataTable(query);
-                if (table.Rows.Count > 0)
+                    or
+                   (Case when {0} = 2 then InputDate end) = cast({2} as datetime)
+                    and NamBKBRTTDB = {3}", dvMst[0]["DeclareType"].ToString(), dvMst[0]["KyBKBRTTDB"].ToString(), dvMst[0]["InputDate"].ToString() == "" ? DateTime.Now.ToShortDateString() : dvMst[0]["InputDate"].ToString(), NamTaiChinh());
+                exists = _data.DbData.GetValue(query);
+
+                if (exists != null)
                 {
-                    XtraMessageBox.Show("Bảng kê đã tồn tại");
+                    ShowMessageBox("Bảng kê đã tồn tại!");
                     _info.Result = false;
+                    return;
                 }
                 else
                 {
                     _info.Result = true;
                 }
-
             }
+                dvMst.RowStateFilter = DataViewRowState.Deleted;
+                if (dvMst.Count > 0)
+                {
+                    query = string.Format(@"Select 1 from  MToKhaiTTDB Where IsOutputAppendix = 1 and  (Case when {0} = 1 then KyToKhaiTTDB end) = {1}  or
+                                (Case when {0} = 2 then InputDate end) = cast({2} as datetime)
+                                and NamToKhaiTTDB = {3}", dvMst[0]["DeclareType"].ToString(), dvMst[0]["KyBKBRTTDB"].ToString(), dvMst[0]["InputDate"].ToString() == "" ? DateTime.Now.ToShortDateString() : dvMst[0]["InputDate"].ToString(), NamTaiChinh());
+                    exists = _data.DbData.GetValue(query);
+                    if (exists != null)
+                    {
+                        ShowMessageBox("Bảng kê được sử dụng bên tờ khai, bạn không được phép xóa.!");
+                        _info.Result = false;
+                        return;
+                    }
+                    else
+                    {
+                        query = string.Format(@"delete from MTTDBOut where MTTDBOutID = '{0}'",
+                                    dvMst[0]["MTTDBOutID"].ToString());
+
+                        _data.DbData.UpdateByNonQuery(query);
+
+                        // Delete DTTDBOut
+                        query = string.Format(@"delete from DTTDBOut where MTTDBOutID = '{0}'",
+                                            dvMst[0]["MTTDBOutID"].ToString());
+
+                        _data.DbData.UpdateByNonQuery(query);
+                        _info.Result = true;
+                    }
+
+                }
 
         }
 
          public void ExecuteBeforeCheckRules()
          {
+             
+         }
+         private void DeleteRow(DataRowView pDrv)
+         {
+            //string query = string.Format(@"Select 1 from  MTTDBOut Where MTTDBOutID = {0}",pDrv["MTTDBOutID"].ToString());
+            //DataTable table = _data.DbData.GetDataTable(query);
+            //foreach (DataRow dr in table.Rows)
+            //{
+            //    // Delete MTTDBOut
+            //    query = string.Format("delete from MTTDBOut where MTTDBOutID = {0}",
+            //                        dr["MTTDBOutID"].ToString());
 
+            //    _data.DbData.UpdateByNonQuery(query);
+
+            //    // Delete DTTDBOut
+            //    query = string.Format("delete from DTTDBOut where MTTDBOutID = {0}",
+            //                        dr["MTTDBOutID"].ToString());
+
+            //    _data.DbData.UpdateByNonQuery(query);
+            //}
          }
          private int NamTaiChinh()
          {
              return (Config.GetValue("NamLamViec") == null ? -1 : int.Parse(Config.GetValue("NamLamViec").ToString()));
+         }
+         private void ShowMessageBox(string msg)
+         {
+             if (Config.GetValue("Language").ToString() == "1")
+                 msg = UIDictionary.Translate(msg);
+             XtraMessageBox.Show(msg);
          }
         #endregion ICData Members
 
