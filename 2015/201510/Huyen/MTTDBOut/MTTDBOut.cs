@@ -58,7 +58,6 @@ namespace MTTDBOut
             }
             radioEdit1.BackColor = System.Drawing.Color.Transparent;
             radioEdit1.Properties.Columns = 1;
-            radioEdit1.SelectedIndex = 0;
             radioEdit1.BorderStyle = BorderStyles.NoBorder;
             radioEdit1.Name = "radioEdit1";
             LayoutControlItem item6 = GetElementByName(lcMain, "InputDate");
@@ -77,16 +76,15 @@ namespace MTTDBOut
             item5.AppearanceItemCaption.Options.UseBackColor = false;
             _data.FrmMain.Controls.Add(lcMain);
             item5 = lcMain.Root.AddItem();
+
+            this._data.FrmMain.Load += new EventHandler(Frm_Load);
             radioEdit1.SelectedIndexChanged += new EventHandler(radioEdit1_SelectedIndexChanged);
             radioEdit1_SelectedIndexChanged(null, null);
-            this._data.FrmMain.Load += new EventHandler(FrmMain_Load);
-            //SpinEdit sepKy = _data.FrmMain.Controls.Find("KyBKBRTTDB", true)[0] as SpinEdit;
-            //DateEdit dtmInputDate = _data.FrmMain.Controls.Find("InputDate", true)[0] as DateEdit;
-            //sepKy.EditValueChanged += new EventHandler(sepKy_EditValueChanged);
-            //dtmInputDate.EditValueChanged += new EventHandler(dtmInputDate_EditValueChanged);
-
+            SpinEdit sepKy = _data.FrmMain.Controls.Find("KyBKBRTTDB", true)[0] as SpinEdit;
+            DateEdit dtmInputDate = _data.FrmMain.Controls.Find("InputDate", true)[0] as DateEdit;
+            sepKy.EditValueChanged += new EventHandler(sepKy_EditValueChanged);
+            dtmInputDate.EditValueChanged += new EventHandler(dtmInputDate_EditValueChanged);
         }
-
 
         private LayoutControlItem GetElementByName(LayoutControl lcMain, string name)
         {
@@ -103,30 +101,6 @@ namespace MTTDBOut
             return null;
         }
 
-
-        private void LoadData()
-        {
-            RadioGroup radioEdit1 = _data.FrmMain.Controls.Find("radioEdit1", true)[0] as RadioGroup;
-            SpinEdit sepKy = _data.FrmMain.Controls.Find("KyBKBRTTDB", true)[0] as SpinEdit;
-            DateEdit dtmInputDate = _data.FrmMain.Controls.Find("InputDate", true)[0] as DateEdit;
-            SpinEdit sepDeclareType = _data.FrmMain.Controls.Find("DeclareType", true)[0] as SpinEdit;
-            TextEdit txtDeclareTypeName = _data.FrmMain.Controls.Find("DeclareTypeName", true)[0] as TextEdit;
-
-            if (radioEdit1.SelectedIndex == 0)
-            {
-                txtDeclareTypeName.EditValue = "Tháng";
-                sepDeclareType.EditValue = 1;
-            }
-            else if (radioEdit1.SelectedIndex == 1)
-            {
-                txtDeclareTypeName.EditValue = "Lần phát sinh";
-                sepDeclareType.EditValue = 2;
-                sepKy.EditValue = 0;  
-            }
-
-            sepKy.EditValueChanged += new EventHandler(sepKy_EditValueChanged);
-            dtmInputDate.EditValueChanged += new EventHandler(dtmInputDate_EditValueChanged);
-        }
 
         protected void radioEdit1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -173,10 +147,7 @@ namespace MTTDBOut
             SpinEdit sepKy = _data.FrmMain.Controls.Find("KyBKBRTTDB", true)[0] as SpinEdit;
             LoadDataDetail(sepDeclareType.EditValue == null ? -1 : sepDeclareType.EditValue, sepKy.EditValue == null ? 0 : sepKy.EditValue, dtmInputDate.EditValue == null ? DateTime.Now.ToShortDateString() : dtmInputDate.DateTime.ToShortDateString());
         }
-
-
-
-        protected void FrmMain_Load(object sender, EventArgs e)
+        private void Frm_Load(object sender, EventArgs e)
         {
             BindingSource bindingSource = null;
             DataRow mtRowView = null;
@@ -185,28 +156,25 @@ namespace MTTDBOut
             if (bindingSource == null || bindingSource.Current == null) return;
 
             mtRowView = (bindingSource.Current as DataRowView).Row;
-            if (mtRowView == null || mtRowView.RowState == DataRowState.Deleted) return;
-            Control[] controls = null;
-            controls = _data.FrmMain.Controls.Find("NamBKBRTTDB", true);
-            if (controls.Length > 0)
+            if (mtRowView == null || mtRowView.RowState == DataRowState.Deleted || mtRowView.RowState == DataRowState.Modified) return;
+            if (mtRowView.RowState == DataRowState.Added)
             {
-                SpinEdit spNam = controls[0] as SpinEdit;
+                SpinEdit spNam = _data.FrmMain.Controls.Find("NamBKBRTTDB", true)[0] as SpinEdit;
                 spNam.EditValue = NamTaiChinh();
+                LayoutControl lcMain = _data.FrmMain.Controls.Find("lcMain", true)[0] as LayoutControl;
+                LayoutControlItem item1 = GetElementByName(lcMain, "NamBKBRTTDB");
+                item1.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                LayoutControlItem item2 = GetElementByName(lcMain, "DeclareTypeName");
+                item2.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                LayoutControlItem item3 = GetElementByName(lcMain, "DeclareType");
+                item3.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                mtRowView["DeclareTypeName"] = "Tháng";
+                mtRowView["DeclareType"] = 1;
+                mtRowView["NamBKBRTTDB"] = NamTaiChinh();
+                RadioGroup radioEdit1 = _data.FrmMain.Controls.Find("radioEdit1", true)[0] as RadioGroup;
+                radioEdit1.SelectedIndex = 0;
             }
-            LayoutControl lcMain = _data.FrmMain.Controls.Find("lcMain", true)[0] as LayoutControl;
-            LayoutControlItem item1 = GetElementByName(lcMain, "NamBKBRTTDB");
-            item1.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
-            LayoutControlItem item2 = GetElementByName(lcMain, "DeclareTypeName");
-            item2.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
-            LayoutControlItem item3 = GetElementByName(lcMain, "DeclareType");
-            item3.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
-            LayoutControlItem item6 = GetElementByName(lcMain, "InputDate");
-            item6.TextVisible = false;
-            LayoutControlItem item7 = GetElementByName(lcMain, "KyBKBRTTDB");
-            item7.TextVisible = false;
-            LoadData();
-            
-            
+
         }
         private void LoadDataDetail(object declaretype, object declaretypeName1, object declaretypeName2)
         {
