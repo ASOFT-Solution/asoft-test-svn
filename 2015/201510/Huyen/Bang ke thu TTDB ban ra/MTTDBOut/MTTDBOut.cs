@@ -122,6 +122,7 @@ namespace MTTDBOut
                 lcMain.GetControlByName("KyBKBRTTDB").Enabled = true;
                 txtDeclareTypeName.EditValue = "Tháng";
                 sepDeclareType.EditValue = 1;
+                dtmInputDate.EditValue = null;
             }
             else if (radioEdit1.SelectedIndex == 1)
             {
