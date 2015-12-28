@@ -55,7 +55,7 @@ namespace MTTDBOutData
                        and 
                        (Case when {1} = 1 then month(NgayCt) end) = {2}
                        or
-                       (Case when {1} = 2 then NgayCt end) = cast({3} as Datetime)", NamTaiChinh(), drv["DeclareType"].ToString(), drv["KyBKBRTTDB"].ToString(), drv["InputDate"].ToString() == "" ? DateTime.Now.ToShortDateString() : drv["InputDate"].ToString());
+                       (Case when {1} = 2 then NgayCt end) = cast('{3}' as Datetime)", NamTaiChinh(), drv["DeclareType"].ToString(), drv["KyBKBRTTDB"].ToString(), drv["InputDate"].ToString() == "" ? DateTime.Now.ToShortDateString() : drv["InputDate"].ToString());
             DataSet table = _data.DbData.GetDataSet(query);
             object exists = null;
             // kiểm tra tồn tại của bảng kê khi thêm mới
@@ -66,7 +66,7 @@ namespace MTTDBOutData
                 query = string.Format(@"select 1 from  MTTDBOut 
                                 where (Case when {0} = 1 then KyBKBRTTDB end) = {1}
                                 or
-                               (Case when {0} = 2 then InputDate end) = cast({2} as datetime)
+                               (Case when {0} = 2 then InputDate end) = cast('{2}' as datetime)
                                 and NamBKBRTTDB = {3}", dvMst[0]["DeclareType"].ToString(), dvMst[0]["KyBKBRTTDB"].ToString(), dvMst[0]["InputDate"].ToString() == "" ? DateTime.Now.ToShortDateString() : dvMst[0]["InputDate"].ToString(), NamTaiChinh());
                 exists = _data.DbData.GetValue(query);
 
@@ -88,7 +88,7 @@ namespace MTTDBOutData
             if (dvMst.Count > 0)
             {
                 query = string.Format(@"Select 1 from  MToKhaiTTDB Where IsOutputAppendix = 1 and  (Case when {0} = 1 then KyToKhaiTTDB end) = {1}  or
-                                (Case when {0} = 2 then InputDate end) = cast({2} as datetime)
+                                (Case when {0} = 2 then InputDate end) = cast('{2}' as datetime)
                                 and NamToKhaiTTDB = {3}", dvMst[0]["DeclareType"].ToString(), dvMst[0]["KyBKBRTTDB"].ToString(), dvMst[0]["InputDate"].ToString() == "" ? DateTime.Now.ToShortDateString() : dvMst[0]["InputDate"].ToString(), NamTaiChinh());
                 exists = _data.DbData.GetValue(query);
                 if (exists != null)
