@@ -215,7 +215,7 @@ namespace MTTDBOut
            and 
            (Case when {1} = 1 then month(NgayCt) end) = {2}
            or
-           (Case when {1} = 2 then NgayCt end) = cast({3} as Datetime)", NamTaiChinh(), declaretype, declaretypeName1, declaretypeName2, mTTDBOutID);
+           (Case when {1} = 2 then NgayCt end) = cast('{3}' as Datetime)", NamTaiChinh(), declaretype, declaretypeName1, declaretypeName2, mTTDBOutID);
             DataTable table = _Database.GetDataTable(query);// tạo table mới chưa những row thoải đk tham số truyền vào
             GridControl gcDetail = (_data.FrmMain.Controls.Find("gcMain", true)[0] as GridControl);
             GridView gvDetail = (_data.FrmMain.Controls.Find("gcMain", true)[0] as GridControl).MainView as GridView;
