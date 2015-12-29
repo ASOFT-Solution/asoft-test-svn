@@ -1,0 +1,11 @@
+D:\THUC TAP\ACC\302_Plugins\MTTDBIn\obj\Debug\ResolveAssemblyReference.cache
+D:\THUC TAP\ACC\302_Plugins\MTTDBIn\obj\Debug\MTTDBIn.Properties.Resources.resources
+D:\THUC TAP\ACC\302_Plugins\MTTDBIn\obj\Debug\MTTDBIn.csproj.GenerateResource.Cache
+D:\THUC TAP\ACC\302_Plugins\MTTDBIn\bin\Debug\MTTDBIn_MdDt_ICC_MTTDBIn.dll
+D:\THUC TAP\ACC\302_Plugins\MTTDBIn\bin\Debug\MTTDBIn_MdDt_ICC_MTTDBIn.pdb
+D:\THUC TAP\ACC\302_Plugins\MTTDBIn\bin\Debug\CDTLib.dll
+D:\THUC TAP\ACC\302_Plugins\MTTDBIn\bin\Debug\Plugins.dll
+D:\THUC TAP\ACC\302_Plugins\MTTDBIn\bin\Debug\ErrorManager.dll
+D:\THUC TAP\ACC\302_Plugins\MTTDBIn\bin\Debug\CDTDatabase.dll
+D:\THUC TAP\ACC\302_Plugins\MTTDBIn\obj\Debug\MTTDBIn_MdDt_ICC_MTTDBIn.dll
+D:\THUC TAP\ACC\302_Plugins\MTTDBIn\obj\Debug\MTTDBIn_MdDt_ICC_MTTDBIn.pdb
