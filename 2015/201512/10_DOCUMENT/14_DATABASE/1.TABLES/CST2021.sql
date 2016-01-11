@@ -1,0 +1,30 @@
+﻿-- <Summary>
+---- 
+-- <History>
+---- Create on 09/06/2014 by Huỳnh Tấn Phú
+---- Modified on ... by ...
+---- <Example>
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[CST2021]') AND type in (N'U')) 	
+BEGIN	
+CREATE TABLE [dbo].[CST2021](
+	[APK] [uniqueidentifier] DEFAULT NEWID(),
+	[DivisionID] [nvarchar](50) NOT NULL,
+	[VoucherID] [nvarchar](50) NOT NULL,
+	[OrderNo] [int] NULL,	
+	[SystemID] [nvarchar](50) NULL,
+	[Code] [nvarchar](50) NULL,
+	[StatusID] [nvarchar](50) NULL,
+	[ProPosed] [nvarchar](50) NULL,	
+	[IsFinish] [tinyint] NULL,
+	[CheckPersonID] [nvarchar](50) NULL,	
+	[CheckNotes] [nvarchar](250) NULL,
+ CONSTRAINT [PK_CST2021] PRIMARY KEY CLUSTERED 
+(
+	[DivisionID] ASC,
+	[VoucherID] ASC,
+	[APK] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+
+
