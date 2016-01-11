@@ -47,7 +47,7 @@
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
             this.btnAdd = new DevExpress.XtraEditors.SimpleButton();
             this.btnDelete = new DevExpress.XtraEditors.SimpleButton();
-            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
+            this.btnEsc = new DevExpress.XtraEditors.SimpleButton();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -81,7 +81,7 @@
             this.layoutControl1.Controls.Add(this.btnCancel);
             this.layoutControl1.Controls.Add(this.btnAdd);
             this.layoutControl1.Controls.Add(this.btnDelete);
-            this.layoutControl1.Controls.Add(this.simpleButton1);
+            this.layoutControl1.Controls.Add(this.btnEsc);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
@@ -99,6 +99,7 @@
             this.btnEdit.StyleController = this.layoutControl1;
             this.btnEdit.TabIndex = 7;
             this.btnEdit.Text = "F3-Sửa";
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // gcDetail
             // 
@@ -127,6 +128,8 @@
             this.clDienGiai});
             this.gvDetail.GridControl = this.gcDetail;
             this.gvDetail.Name = "gvDetail";
+            this.gvDetail.OptionsCustomization.AllowGroup = false;
+            this.gvDetail.OptionsView.ShowGroupPanel = false;
             // 
             // clNgayToKhaiTTDB
             // 
@@ -135,7 +138,7 @@
             this.clNgayToKhaiTTDB.Name = "clNgayToKhaiTTDB";
             this.clNgayToKhaiTTDB.Visible = true;
             this.clNgayToKhaiTTDB.VisibleIndex = 0;
-            this.clNgayToKhaiTTDB.Width = 41;
+            this.clNgayToKhaiTTDB.Width = 38;
             // 
             // clDeclareType
             // 
@@ -144,16 +147,16 @@
             this.clDeclareType.Name = "clDeclareType";
             this.clDeclareType.Visible = true;
             this.clDeclareType.VisibleIndex = 1;
-            this.clDeclareType.Width = 25;
+            this.clDeclareType.Width = 23;
             // 
             // clDelareTypeName
             // 
             this.clDelareTypeName.Caption = "Tên kỳ tính thuế";
-            this.clDelareTypeName.FieldName = "DelareTypeName";
+            this.clDelareTypeName.FieldName = "DeclareTypeName";
             this.clDelareTypeName.Name = "clDelareTypeName";
             this.clDelareTypeName.Visible = true;
             this.clDelareTypeName.VisibleIndex = 2;
-            this.clDelareTypeName.Width = 47;
+            this.clDelareTypeName.Width = 44;
             // 
             // clInputDate
             // 
@@ -162,7 +165,7 @@
             this.clInputDate.Name = "clInputDate";
             this.clInputDate.Visible = true;
             this.clInputDate.VisibleIndex = 3;
-            this.clInputDate.Width = 41;
+            this.clInputDate.Width = 38;
             // 
             // clKyToKhaiTTDB
             // 
@@ -171,7 +174,7 @@
             this.clKyToKhaiTTDB.Name = "clKyToKhaiTTDB";
             this.clKyToKhaiTTDB.Visible = true;
             this.clKyToKhaiTTDB.VisibleIndex = 4;
-            this.clKyToKhaiTTDB.Width = 33;
+            this.clKyToKhaiTTDB.Width = 30;
             // 
             // clNamToKhaiTTDB
             // 
@@ -180,16 +183,17 @@
             this.clNamToKhaiTTDB.Name = "clNamToKhaiTTDB";
             this.clNamToKhaiTTDB.Visible = true;
             this.clNamToKhaiTTDB.VisibleIndex = 5;
-            this.clNamToKhaiTTDB.Width = 33;
+            this.clNamToKhaiTTDB.Width = 30;
             // 
             // clInLanDauName
             // 
             this.clInLanDauName.Caption = "In lần đầu";
             this.clInLanDauName.FieldName = "InLanDauName";
+            this.clInLanDauName.MinWidth = 40;
             this.clInLanDauName.Name = "clInLanDauName";
             this.clInLanDauName.Visible = true;
             this.clInLanDauName.VisibleIndex = 6;
-            this.clInLanDauName.Width = 28;
+            this.clInLanDauName.Width = 64;
             // 
             // clSoLanIn
             // 
@@ -198,7 +202,7 @@
             this.clSoLanIn.Name = "clSoLanIn";
             this.clSoLanIn.Visible = true;
             this.clSoLanIn.VisibleIndex = 7;
-            this.clSoLanIn.Width = 30;
+            this.clSoLanIn.Width = 23;
             // 
             // clAmendedReturnDate
             // 
@@ -207,7 +211,7 @@
             this.clAmendedReturnDate.Name = "clAmendedReturnDate";
             this.clAmendedReturnDate.Visible = true;
             this.clAmendedReturnDate.VisibleIndex = 8;
-            this.clAmendedReturnDate.Width = 44;
+            this.clAmendedReturnDate.Width = 34;
             // 
             // clIsOutputAppendix
             // 
@@ -216,7 +220,7 @@
             this.clIsOutputAppendix.Name = "clIsOutputAppendix";
             this.clIsOutputAppendix.Visible = true;
             this.clIsOutputAppendix.VisibleIndex = 9;
-            this.clIsOutputAppendix.Width = 49;
+            this.clIsOutputAppendix.Width = 40;
             // 
             // clIsInputAppendix
             // 
@@ -225,7 +229,7 @@
             this.clIsInputAppendix.Name = "clIsInputAppendix";
             this.clIsInputAppendix.Visible = true;
             this.clIsInputAppendix.VisibleIndex = 10;
-            this.clIsInputAppendix.Width = 56;
+            this.clIsInputAppendix.Width = 47;
             // 
             // clDienGiai
             // 
@@ -234,7 +238,7 @@
             this.clDienGiai.Name = "clDienGiai";
             this.clDienGiai.Visible = true;
             this.clDienGiai.VisibleIndex = 11;
-            this.clDienGiai.Width = 71;
+            this.clDienGiai.Width = 87;
             // 
             // btnCancel
             // 
@@ -263,15 +267,17 @@
             this.btnDelete.StyleController = this.layoutControl1;
             this.btnDelete.TabIndex = 3;
             this.btnDelete.Text = "F4-Xóa";
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
-            // simpleButton1
+            // btnEsc
             // 
-            this.simpleButton1.Location = new System.Drawing.Point(847, 397);
-            this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.Size = new System.Drawing.Size(77, 22);
-            this.simpleButton1.StyleController = this.layoutControl1;
-            this.simpleButton1.TabIndex = 2;
-            this.simpleButton1.Text = "ESC-Thoát";
+            this.btnEsc.Location = new System.Drawing.Point(847, 397);
+            this.btnEsc.Name = "btnEsc";
+            this.btnEsc.Size = new System.Drawing.Size(77, 22);
+            this.btnEsc.StyleController = this.layoutControl1;
+            this.btnEsc.TabIndex = 2;
+            this.btnEsc.Text = "ESC-Thoát";
+            this.btnEsc.Click += new System.EventHandler(this.btnEsc_Click);
             // 
             // layoutControlGroup1
             // 
@@ -308,7 +314,7 @@
             // 
             // layoutControlItem2
             // 
-            this.layoutControlItem2.Control = this.simpleButton1;
+            this.layoutControlItem2.Control = this.btnEsc;
             this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
             this.layoutControlItem2.Location = new System.Drawing.Point(835, 385);
             this.layoutControlItem2.Name = "layoutControlItem2";
@@ -402,9 +408,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(936, 431);
             this.Controls.Add(this.layoutControl1);
+            this.KeyPreview = true;
             this.Name = "DSToKhaiTTDB";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DANH MỤC TỜ KHAI THUẾ TIÊU THỤ ĐẶC BIỆT";
+            this.Load += new System.EventHandler(this.DSToKhaiTTDB_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DSToKhaiTTDB_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gcDetail)).EndInit();
@@ -443,7 +452,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn clDienGiai;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private DevExpress.XtraEditors.SimpleButton btnCancel;
-        private DevExpress.XtraEditors.SimpleButton simpleButton1;
+        private DevExpress.XtraEditors.SimpleButton btnEsc;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraEditors.SimpleButton btnDelete;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
