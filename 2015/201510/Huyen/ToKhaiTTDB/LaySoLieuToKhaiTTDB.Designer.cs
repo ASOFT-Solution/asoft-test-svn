@@ -96,7 +96,7 @@
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.chkIsOuputAppendix = new DevExpress.XtraEditors.CheckEdit();
+            this.chkIsOutputAppendix = new DevExpress.XtraEditors.CheckEdit();
             this.chkIsInputAppendix = new DevExpress.XtraEditors.CheckEdit();
             this.btnReadData = new DevExpress.XtraEditors.SimpleButton();
             this.btnKHBS = new DevExpress.XtraEditors.SimpleButton();
@@ -147,7 +147,6 @@
             this.emptySpaceItem18 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem22 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.chkIsOutputAppendix = new DevExpress.XtraEditors.CheckEdit();
             this.emptySpaceItem11 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem13 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem12 = new DevExpress.XtraLayout.EmptySpaceItem();
@@ -250,7 +249,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chkIsOuputAppendix.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkIsOutputAppendix.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkIsInputAppendix.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
             this.xtraTabControl1.SuspendLayout();
@@ -283,7 +282,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem18)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem22)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkIsOutputAppendix.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem12)).BeginInit();
@@ -1131,7 +1129,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.chkIsOuputAppendix);
+            this.groupBox1.Controls.Add(this.chkIsOutputAppendix);
             this.groupBox1.Controls.Add(this.chkIsInputAppendix);
             this.groupBox1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(551, 12);
@@ -1141,13 +1139,13 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông tin phụ lục TTDB";
             // 
-            // chkIsOuputAppendix
+            // chkIsOutputAppendix
             // 
-            this.chkIsOuputAppendix.Location = new System.Drawing.Point(15, 45);
-            this.chkIsOuputAppendix.Name = "chkIsOuputAppendix";
-            this.chkIsOuputAppendix.Properties.Caption = "Phụ lục bảng kê thuế TTDB bán ra";
-            this.chkIsOuputAppendix.Size = new System.Drawing.Size(352, 19);
-            this.chkIsOuputAppendix.TabIndex = 6;
+            this.chkIsOutputAppendix.Location = new System.Drawing.Point(15, 45);
+            this.chkIsOutputAppendix.Name = "chkIsOutputAppendix";
+            this.chkIsOutputAppendix.Properties.Caption = "Phụ lục bảng kê thuế TTDB bán ra";
+            this.chkIsOutputAppendix.Size = new System.Drawing.Size(195, 19);
+            this.chkIsOutputAppendix.TabIndex = 6;
             // 
             // chkIsInputAppendix
             // 
@@ -1703,14 +1701,6 @@
             this.emptySpaceItem22.Text = "emptySpaceItem22";
             this.emptySpaceItem22.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // chkIsOutputAppendix
-            // 
-            this.chkIsOutputAppendix.Location = new System.Drawing.Point(12, 467);
-            this.chkIsOutputAppendix.Name = "chkIsOutputAppendix";
-            this.chkIsOutputAppendix.Properties.Caption = "Phụ lục bảng kê thuế TTDB bán ra";
-            this.chkIsOutputAppendix.Size = new System.Drawing.Size(516, 19);
-            this.chkIsOutputAppendix.TabIndex = 5;
-            // 
             // emptySpaceItem11
             // 
             this.emptySpaceItem11.AllowHotTrack = false;
@@ -2087,7 +2077,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chkIsOuputAppendix.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkIsOutputAppendix.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkIsInputAppendix.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).EndInit();
             this.xtraTabControl1.ResumeLayout(false);
@@ -2120,7 +2110,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem18)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem22)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkIsOutputAppendix.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem12)).EndInit();
@@ -2197,7 +2186,6 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem35;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem36;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem37;
-        private DevExpress.XtraEditors.CheckEdit chkIsOutputAppendix;
         private DevExpress.XtraEditors.MemoEdit memoExperiedReason;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem38;
         private DevExpress.XtraEditors.DateEdit dtmNgayToKhaiTTDB;
@@ -2292,7 +2280,6 @@
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem7;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem5;
         private System.Windows.Forms.GroupBox groupBox1;
-        private DevExpress.XtraEditors.CheckEdit chkIsOuputAppendix;
         private DevExpress.XtraEditors.CheckEdit chkIsInputAppendix;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem4;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlPhuLuc;
@@ -2301,6 +2288,7 @@
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem22;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit dummy;
+        private DevExpress.XtraEditors.CheckEdit chkIsOutputAppendix;
 
     }
 }

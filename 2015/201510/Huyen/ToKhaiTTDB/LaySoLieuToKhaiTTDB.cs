@@ -597,25 +597,31 @@ namespace ToKhaiTTDB
                 if (chkInLanDau.Checked)
                 {
                     soLanIn = "0";
+                    IsCheckEdit("0");
                 }
                 else
+                {
                     soLanIn = sepSoLanIn.EditValue.ToString();
-                string query1 = string.Format(@"select MToKhaiTTDBID
+                    string query1 = string.Format(@"select MToKhaiTTDBID
                         from MToKhaiTTDB 
                         Where NamToKhaiTTDB = {0} 
                         and ((Case when {1} = 1 then KyToKhaiTTDB end) = {2} or
                          (Case when {1} = 2 then InputDate end) = Cast('{3}' as Datetime)) 
                         and SoLanin = isnull({4},0)-1 ", NamTaiChinh(), radDeclareType.SelectedIndex == 0 ? "1" : "2", cboKyToKhaiTTDB.EditValue == null ? 0 : cboKyToKhaiTTDB.EditValue, dtmInputDate.EditValue == null ? DateTime.Now.ToShortDateString() : dtmInputDate.DateTime.ToShortDateString(), soLanIn);
-                string key = _Database.GetValue(query1).ToString();
+                    string key = _Database.GetValue(query1).ToString();
 
-                query = string.Format(@"Select Top 1 TaxCheck from DToKhaiTTDB
+                    query = string.Format(@"Select Top 1 TaxCheck from DToKhaiTTDB
                                      where MToKhaiTTDBID = '{0}'
                                     order by Code", key);
-                string v = _Database.GetValue(query).ToString();
-                if (_Database.GetValue(query).ToString() == "True")
-                    IsCheckEdit("1");
-                else
-                    IsCheckEdit("0");
+                    string v = _Database.GetValue(query).ToString();
+                    if (_Database.GetValue(query).ToString() == "True")
+                        IsCheckEdit("1");
+                    else
+                        IsCheckEdit("0");
+
+                }
+
+               
             }
         }
         /// <summary>
@@ -1386,7 +1392,7 @@ namespace ToKhaiTTDB
             if (SelectTaxCheck())
                 key = "1";
             else
-                key = "2";
+                key = "0";
             try
             {
 
@@ -1571,10 +1577,14 @@ namespace ToKhaiTTDB
             {
                 string soLanIn = string.Empty;
                 if (chkInLanDau.Checked)
+                {
                     soLanIn = "0";
+                    data = GetStandardData();
+                }
                 else
+                {
                     soLanIn = sepSoLanIn.EditValue.ToString();
-                query = string.Format(@"select M.NgayToKhaiTTDB, M.DeclareType, M.KyToKhaiTTDB, M.NamToKhaiTTDB, M.InputDate
+                    query = string.Format(@"select M.NgayToKhaiTTDB, M.DeclareType, M.KyToKhaiTTDB, M.NamToKhaiTTDB, M.InputDate
                           , M.InLanDau, M.SoLanIn, D.DToKhaiTTDBID, D.Code, D.Stt, D.MaNhomTTDB
                           , D.TenNhomTTDB, D.MaDVT, D.SoLuong, D.Ps, D.Ps1, D.ThueSuat, D.Ps2, D.Ps3 
                         from DToKhaiTTDB D  inner join MToKhaiTTDB M on M.MToKhaiTTDBID = D.MToKhaiTTDBID
@@ -1583,9 +1593,10 @@ namespace ToKhaiTTDB
                          (Case when {1} = 2 then M.InputDate end) = Cast('{3}' as Datetime)) 
                         and M.SoLanin = isnull({4},0)-1
                         order by D.Code", NamTaiChinh(), radDeclareType.SelectedIndex == 0 ? "1" : "2", cboKyToKhaiTTDB.EditValue == null ? 0 : cboKyToKhaiTTDB.EditValue, dtmInputDate.EditValue == null ? DateTime.Now.ToShortDateString() : dtmInputDate.DateTime.ToShortDateString(), soLanIn);
-                data = _Database.GetDataTable(query);
-                DataColumn column = new DataColumn("Check", typeof(Decimal));
-                data.Columns.Add(column);
+                    data = _Database.GetDataTable(query);
+                    DataColumn column = new DataColumn("Check", typeof(Decimal));
+                    data.Columns.Add(column);
+                }
                 gcToKhai.DataSource = data;
                 gvToKhai.BestFitColumns();
                 return data;
