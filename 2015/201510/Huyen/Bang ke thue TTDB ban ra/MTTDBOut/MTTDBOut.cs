@@ -161,11 +161,11 @@ namespace MTTDBOut
                 LayoutControl lcMain = _data.FrmMain.Controls.Find("lcMain", true)[0] as LayoutControl;
                 //Ẩn các control không cần thiết
                 LayoutControlItem item1 = GetElementByName(lcMain, "NamBKBRTTDB");
-                //item1.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                item1.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
                 LayoutControlItem item2 = GetElementByName(lcMain, "DeclareTypeName");
-                //item2.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                item2.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
                 LayoutControlItem item3 = GetElementByName(lcMain, "DeclareType");
-                //item3.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                item3.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
                 //Set value cho các control lúc mới load lên
                 mtRowView["DeclareTypeName"] = "Tháng";
                 mtRowView["DeclareType"] = "1";
@@ -223,14 +223,14 @@ namespace MTTDBOut
                     CopyData(dr, drDt);//Copy row trong table mới vào row vừa tạo
                     dtTable.Rows.Add(drDt);//Add row vừa được copy vào table của GridView
                 }
-                gcDetail.DataSource = dtTable;
-                gvDetail.ExpandAllGroups();
+                gcDetail.DataSource = table;
                 gvDetail.BestFitColumns();
                 gvDetail.RefreshData();
                 _data.FrmMain.Update();     
             }
             else
             {
+                dtTable.Clear();
                 gcDetail.DataSource = null;
                 gvDetail.RefreshData();
             } 
