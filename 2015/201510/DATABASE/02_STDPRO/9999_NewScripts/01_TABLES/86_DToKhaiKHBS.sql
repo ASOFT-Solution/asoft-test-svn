@@ -26,3 +26,10 @@ BEGIN
 	
 	ALTER TABLE [dbo].[DToKhaiKHBS] CHECK CONSTRAINT [FK_DToKhaiKHBS_MToKhai2]	
 END
+
+
+-----
+if exists (select 1 from sys.objects where name = 'FK_DToKhaiKHBS_MToKhai2' and type='F')
+begin
+alter table DToKhaiKHBS drop constraint  FK_DToKhaiKHBS_MToKhai2
+end
