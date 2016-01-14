@@ -53,8 +53,8 @@ namespace MTTDBInData
                 string query = string.Empty;
                 object exists = null;
                 DataRowView drv = null;
-                // kiểm tra tồn tại của bảng kê khi thêm mới và khi chỉnh sửa
-                dvMst.RowStateFilter = DataViewRowState.Added | DataViewRowState.ModifiedCurrent;
+                // kiểm tra tồn tại của bảng kê khi thêm mới
+                dvMst.RowStateFilter = DataViewRowState.Added;
                 if (dvMst.Count > 0)
                 {
                     drv = dvMst[0];
