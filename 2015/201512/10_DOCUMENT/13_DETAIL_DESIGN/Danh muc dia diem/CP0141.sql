@@ -10,7 +10,7 @@ GO
 
 
 -- <Summary>
----- Kiểm tra ràng buộc dữ liệu cho phép Sửa/Xóa [Customize LAVO]
+---- Kiểm tra ràng buộc dữ liệu cho phép Sửa/Xóa 
 -- <History>
 ---- Create on 12/01/2016 --- Thị Phượng 
 ---- Modified on ... by 
@@ -45,12 +45,12 @@ BEGIN
 				GOTO EndMess
 		END 
 		-- Đã sử dụng trong Thông tin giao hàng - Đối tượng hay chưa? - AT0047
-		IF EXISTS (SELECT TOP 1 1 FROM AT0047 WHERE DivisionID = @DivisionID AND StationID = @KeyID )
-		BEGIN
-			SET @Status = 1
-			SET @Message = 'CFML000064'
-			GOTO EndMess
-		END 
+		--IF EXISTS (SELECT TOP 1 1 FROM AT0047 WHERE DivisionID = @DivisionID AND StationID = @KeyID )
+		--BEGIN
+		--	SET @Status = 1
+		--	SET @Message = 'CFML000064'
+		--	GOTO EndMess
+		--END 
 		-- Đã sử dụng trong Đơn hàng bán hay chưa? - 
 		--IF EXISTS (SELECT TOP 1 1 FROM OT2001 WHERE DivisionID = @DivisionID AND OrderType = 0 AND StationID = @KeyID )
 		--BEGIN
