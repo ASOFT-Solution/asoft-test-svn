@@ -90,7 +90,7 @@ namespace ToKhaiTTDB
         {
             InitializeComponent();
         }
-
+    
         #endregion ---- Constructors & Destructors ----
 
         #region ---- Handle events ----
@@ -1459,8 +1459,8 @@ namespace ToKhaiTTDB
             colPs2.DisplayFormat.FormatString = FormatString.GetReportFormat("Tien");
             colPs3.DisplayFormat.FormatString = FormatString.GetReportFormat("SoLuong");
             colTargetAmended.DisplayFormat.FormatString = FormatString.GetReportFormat("Tien");
-            colTargetAmended.DisplayFormat.FormatString = FormatString.GetReportFormat("Tien");
-            colTargetAmended.DisplayFormat.FormatString = FormatString.GetReportFormat("Tien");
+            colTargetReturn.DisplayFormat.FormatString = FormatString.GetReportFormat("Tien");
+            colTargetDifference.DisplayFormat.FormatString = FormatString.GetReportFormat("Tien");
             //master
             sepExperiedDay.Properties.Mask.EditMask = "d";
             sepExperiedDay.Properties.Mask.UseMaskAsDisplayFormat = true;
