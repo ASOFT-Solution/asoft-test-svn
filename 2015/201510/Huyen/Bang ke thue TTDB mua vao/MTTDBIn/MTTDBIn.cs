@@ -24,7 +24,7 @@ namespace MTTDBIn
         {
             return (Config.GetValue("NamLamViec") == null ? -1 : int.Parse(Config.GetValue("NamLamViec").ToString()));
         }
-
+		//Lệ Huyền create ngày 27/12/2015
         #region ICControl Members
 
         public DataCustomFormControl Data
