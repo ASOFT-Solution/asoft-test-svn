@@ -17,7 +17,8 @@ CP0143 @DivisionID ='CTY', @RouteID = '01'',''02'
  */
 CREATE PROCEDURE [dbo].[CP0143] 	
 	@DivisionID NVARCHAR(50),
-	@RouteID NVARCHAR(MAX)
+	@RouteID NVARCHAR(MAX),
+	@UserID AS VARCHAR(50) = ''
 AS
 DECLARE @sSQL1 NVARCHAR(MAX)
 SET @RouteID = ISNULL(@RouteID,'')

@@ -1,6 +1,4 @@
-﻿USE [HoangTran]
-GO
-
+﻿
 /****** Object:  StoredProcedure [dbo].[CP0144]    Script Date: 14/01/2016 10:27:36 AM ******/
 SET ANSI_NULLS ON
 GO
@@ -21,7 +19,8 @@ CP0144 @DivisionID ='AS', @RouteID = '01'
  */
 CREATE PROCEDURE [dbo].[CP0144] 	
 	@DivisionID NVARCHAR(50),
-	@RouteID NVARCHAR(50)
+	@RouteID NVARCHAR(50),
+	@UserID AS VARCHAR(50) = ''
 AS
 DECLARE @sSQL1 NVARCHAR(MAX)
 SET @RouteID = ISNULL(@RouteID,'')

@@ -1,6 +1,4 @@
-﻿USE [HoangTran]
-GO
-
+﻿
 /****** Object:  StoredProcedure [dbo].[CP0141]    Script Date: 13/01/2016 8:59:35 AM ******/
 SET ANSI_NULLS ON
 GO
