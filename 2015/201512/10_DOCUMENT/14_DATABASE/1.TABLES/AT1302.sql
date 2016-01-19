@@ -240,3 +240,11 @@ IF EXISTS (SELECT TOP 1 1 FROM sysobjects WHERE NAME='AT1302' AND xtype='U')
 		ON col.id=tab.id WHERE tab.name='AT1302' AND col.name='QCList')
 		ALTER TABLE AT1302 ADD QCList NVARCHAR(4000) NULL
 	END
+--- Modify on 19/01/2016 by Thị Phượng: Bổ sung trường Theo dõi vỏ Customize Hoàng Trần (CustomizeIndex = 51)
+
+	IF EXISTS (SELECT TOP 1 1 FROM sysobjects WHERE [name] = 'AT1302' AND xtype = 'U')
+    BEGIN
+        IF NOT EXISTS (SELECT TOP 1 1 FROM syscolumns col INNER JOIN sysobjects tab
+        ON col.id = tab.id WHERE tab.name = 'AT1302' AND col.name = 'IsBottle')
+        ALTER TABLE AT1302 ADD IsBottle TINYINT NULL
+    END
