@@ -5,6 +5,7 @@
 ---- Modified on 19/03/2015 by Lê Thị Hạnh: Thêm ETaxID và ETaxConvertedUnit - Thuế BVMT
 ---- Modified on 19/08/2015 by Trần Quốc Tuấn thêm ProductTypeID
 ---- Modified on 02/12/2015 by Phan thanh hoàng Vũ (CustomizeIndex = 43 (Secoin): Khi nhập bên Loại mặt hàng bên CI thì bắn qua Loại sản phẩm bên HRM)
+--- Modify on 19/01/2016 by Thị Phượng: Bổ sung trường Theo dõi vỏ Customize Hoàng Trần (CustomizeIndex = 51)
 ---- <Example>
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[AT1302]') AND type in (N'U'))
 CREATE TABLE [dbo].[AT1302](
