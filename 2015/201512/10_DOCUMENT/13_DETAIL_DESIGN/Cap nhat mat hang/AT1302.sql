@@ -244,6 +244,6 @@ IF EXISTS (SELECT TOP 1 1 FROM sysobjects WHERE NAME='AT1302' AND xtype='U')
 	IF EXISTS (SELECT TOP 1 1 FROM sysobjects WHERE [name] = 'AT1302' AND xtype = 'U')
     BEGIN
         IF NOT EXISTS (SELECT TOP 1 1 FROM syscolumns col INNER JOIN sysobjects tab
-        ON col.id = tab.id WHERE tab.name = 'AT1302' AND col.name = 'IsEmptyBottle')
+        ON col.id = tab.id WHERE tab.name = 'AT1302' AND col.name = 'IsBottle')
         ALTER TABLE AT1302 ADD IsEmptyBottle TINYINT NULL
     END
