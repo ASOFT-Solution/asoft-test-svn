@@ -9,6 +9,7 @@
 ---- Modified on 27/12/2013 by Bảo Anh
 ---- Modified on 24/06/2014 by Lê Thị Thu Hiền
 ---- Modified on 21/10/2015 by Kim Vu Bo sung 20 Columns SParameter khach hang
+---- Modified on 20/01/2016 by Thị Phượng Bổ sung CashierID và CashierTime customize Hoàng Trần
 ---- <Example>
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[AT2006]') AND type in (N'U'))
 CREATE TABLE [dbo].[AT2006](
@@ -220,5 +221,18 @@ END
         ALTER TABLE AT2006 ADD IsWeb TINYINT NULL
     END
 --CustomizeIndex = 51 (Hoàng Trần)--
+	IF EXISTS (SELECT TOP 1 1 FROM sysobjects WHERE [name] = 'AT2006' AND xtype = 'U')
+		BEGIN
+			IF NOT EXISTS (SELECT TOP 1 1 FROM syscolumns col INNER JOIN sysobjects tab
+			ON col.id = tab.id WHERE tab.name = 'AT2006' AND col.name = 'CashierID')
+			ALTER TABLE AT2006 ADD CashierID VARCHAR(50) NULL
+	END
+
+	IF EXISTS (SELECT TOP 1 1 FROM sysobjects WHERE [name] = 'AT2006' AND xtype = 'U')
+    BEGIN
+        IF NOT EXISTS (SELECT TOP 1 1 FROM syscolumns col INNER JOIN sysobjects tab
+        ON col.id = tab.id WHERE tab.name = 'AT2006' AND col.name = 'CashierTime')
+        ALTER TABLE AT2006 ADD CashierTime DATETIME NULL
+    END
 
 
