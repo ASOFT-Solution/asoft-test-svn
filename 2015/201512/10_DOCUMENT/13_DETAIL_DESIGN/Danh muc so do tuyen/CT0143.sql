@@ -1,42 +1,27 @@
-USE [HoangTran]
-GO
+﻿---- Create by Phan thanh hoàng vũ on 23/11/2015 2:50:53 PM
+---- Danh mục sơ đồ tuyến (LAVO bảng AT0135)
 
-/****** Object:  Table [dbo].[CT0143]    Script Date: 13/01/2016 2:28:48 PM ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
-GO
-
-CREATE TABLE [dbo].[CT0143]
-(
-	[APK] [uniqueidentifier] NOT NULL,
-	[DivisionID] [nvarchar](50) NOT NULL,
-	[RouteID] [nvarchar](50) NOT NULL,
-	[RouteName] [nvarchar](250) NULL,
-	[Description] [nvarchar](500) NULL,
-	[EmployeeID] [varchar](50) NULL,
-	[Disabled] [tinyint] NULL,
-	[CreateUserID] [nvarchar](50) NULL,
-	[CreateDate] [datetime] NULL,
-	[LastModifyUserID] [nvarchar](50) NULL,
-	[LastModifyDate] [datetime] NULL,
- CONSTRAINT [PK_CT0143] PRIMARY KEY CLUSTERED 
-(
-	[DivisionID] ASC,
-	[RouteID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-
-SET ANSI_PADDING OFF
-GO
-
-ALTER TABLE [dbo].[CT0143] ADD  CONSTRAINT [DF__CT0143__APK__28B508E6]  DEFAULT (newid()) FOR [APK]
-GO
-
-
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE OBJECT_ID = OBJECT_ID(N'[dbo].[CT0143]') AND TYPE IN (N'U'))
+BEGIN
+     CREATE TABLE [dbo].[CT0143]
+     (
+      [APK] UNIQUEIDENTIFIER DEFAULT NEWID() NOT NULL,
+      [DivisionID] VARCHAR(50) NOT NULL,
+      [RouteID] VARCHAR(50) NOT NULL,
+      [RouteName] NVARCHAR(250) NULL,
+      [Description] NVARCHAR(500) NULL,
+      [EmployeeID] VARCHAR(50) NULL,
+      [Disabled] TINYINT DEFAULT 0 NULL,
+      [CreateUserID] VARCHAR(50) NULL,
+      [CreateDate] DATETIME NULL,
+      [LastModifyUserID] VARCHAR(50) NULL,
+      [LastModifyDate] DATETIME NULL
+    CONSTRAINT [PK_CT0143] PRIMARY KEY CLUSTERED
+      (
+      [DivisionID],
+      [RouteID]
+      )
+WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+     )
+ ON [PRIMARY]
+END
