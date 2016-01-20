@@ -25,3 +25,10 @@ WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALL
      )
  ON [PRIMARY]
 END
+
+IF EXISTS (SELECT TOP 1 1 FROM sysobjects WHERE [name] = 'CT0143' AND xtype = 'U')
+    BEGIN
+        IF NOT EXISTS (SELECT TOP 1 1 FROM syscolumns col INNER JOIN sysobjects tab
+        ON col.id = tab.id WHERE tab.name = 'CT0143' AND col.name = 'IsCommon')
+        ALTER TABLE CT0143 ADD IsCommon TINYINT NULL
+    END
