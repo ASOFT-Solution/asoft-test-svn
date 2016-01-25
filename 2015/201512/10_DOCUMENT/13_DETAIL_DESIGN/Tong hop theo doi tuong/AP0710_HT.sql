@@ -210,7 +210,7 @@ ELSE
 	IF @FromO05ID IS NOT NULL AND @FromO05ID <> ''
 	BEGIN
 		SET @OWhere = @OWhere + ' And Isnull(AV7000.O05ID,'''') >= N''' + REPLACE(@FromO05ID, '[]', '') + 
-									''' And Isnull(AV7000.O050ID,'''') <= N''' + REPLACE(@ToO05ID, '[]', '') + ''''
+									''' And Isnull(AV7000.O05ID,'''') <= N''' + REPLACE(@ToO05ID, '[]', '') + ''''
 	END 
 --Theo dõi vỏ
 
