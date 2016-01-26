@@ -69,7 +69,7 @@ DECLARE @IsTime AS TINYINT
 IF @IsDate = 0 SET @IsTime = 1
 IF @IsDate = 1	SET @IsTime = 2
 
-EXEC AP7000 @DivisionID , 'ASOFTADMIN', @WareHouseID, @WareHouseID, @FromInventoryID, @ToInventoryID, @FromObjectID, @ToObjectID,
+EXEC AP7000 @DivisionID , @UserID, @WareHouseID, @WareHouseID, @FromInventoryID, @ToInventoryID, @FromObjectID, @ToObjectID,
 			@IsTime, @FromMonth, @FromYear, @ToMonth, @ToYear, @FromDate, @ToDate
 
 -------- Trả ra AV7008
