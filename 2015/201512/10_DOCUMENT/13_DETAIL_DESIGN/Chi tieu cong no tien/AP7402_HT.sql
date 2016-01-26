@@ -14,13 +14,13 @@ GO
 -- <Example>
 ---- EXEC AP7402_HT @DivisionID=N'AS',@CurrencyID=N'VND',@FromAccountID=N'1311',@ToAccountID=N'1311',@FromO05ID=N'NHOM01',@ToO05ID=N'NHOM02'
 CREATE PROCEDURE [dbo].[AP7402_HT] 
-    @DivisionID AS NVARCHAR(50), 
-    @CurrencyID AS NVARCHAR(50), 
-    @FromAccountID AS NVARCHAR(50), 
-    @ToAccountID AS NVARCHAR(50), 
-    @FromO05ID AS NVARCHAR(50), 
-    @ToO05ID AS NVARCHAR(50),
-    @StrDivisionID AS NVARCHAR(4000) = ''
+    @DivisionID AS VARCHAR(50), 
+    @CurrencyID AS VARCHAR(50), 
+    @FromAccountID AS VARCHAR(50), 
+    @ToAccountID AS VARCHAR(50), 
+    @FromO05ID AS VARCHAR(50), 
+    @ToO05ID AS VARCHAR(50),
+    @StrDivisionID AS VARCHAR(4000) = ''
 AS
 
 DECLARE @sql AS NVARCHAR(4000),
@@ -41,7 +41,7 @@ SET @sql = '
     SELECT TransactionID, 
         BatchID, VoucherID, TableID, D3.DivisionID, TranMonth, TranYear, 
         ''00'' AS RPTransactionType, 
-        TransactionTypeID, 
+        TransactionTypeID, D3.ObjectID,
 		 AT02.O05ID,  
         DebitAccountID, CreditAccountID, 
         DebitAccountID AS AccountID, 
@@ -61,7 +61,7 @@ SET @sql = '
         AND (AT02.O05ID BETWEEN ''' + @FromO05ID + ''' AND ''' + @ToO05ID + ''') 
         AND D3.CurrencyIDCN LIKE ''' + @CurrencyID + '''
 '
-print @sql
+
 IF @FromAccountID <> '%' 
     SET @SQL = @SQL + ' AND D3.DebitAccountID > = ''' + @FromAccountID + ''' AND D3.DebitAccountID< = ''' + @ToAccountID + ''' '
 ELSE
@@ -73,7 +73,7 @@ ELSE
 
 SET @sql = @sql + 'UNION ALL 
 SELECT TransactionID, BatchID, VoucherID, TableID, D3.DivisionID, TranMonth, TranYear, 
-''01'' AS RPTransactionType, TransactionTypeID, 
+''01'' AS RPTransactionType, TransactionTypeID, D3.ObjectID,
 CASE WHEN TransactionTypeID = ''T99'' THEN CreditObjectID ELSE AT02.O05ID END AS O05ID, 
 DebitAccountID, CreditAccountID, 
 CreditAccountID AS AccountID, 
@@ -92,7 +92,7 @@ WHERE AT1005.GroupID = ''G03'' AND
 D3.DivisionID ' + @StrDivisionID_New + '  AND 
 (CASE WHEN TransactionTypeID = ''T99'' THEN D3.CreditObjectID ELSE AT02.O05ID END BETWEEN N''' + @FromO05ID + ''' AND N''' + @ToO05ID + ''') AND 
 D3.CurrencyIDCN LIKE ''' + @CurrencyID + ''' '
-print @sql
+
 IF @FromAccountID <> '%' 
 SET @SQL = @SQL + ' AND D3.CreditAccountID > = ''' + @FromAccountID + ''' AND D3.CreditAccountID< = ''' + @ToAccountID + ''' '
 ELSE
