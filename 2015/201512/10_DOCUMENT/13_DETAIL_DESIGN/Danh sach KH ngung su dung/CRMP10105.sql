@@ -33,7 +33,6 @@ CREATE PROCEDURE [dbo].[CRMP10105] (
 AS
 DECLARE
         @sSQL   NVARCHAR (MAX),
-		@sSQL1   NVARCHAR (MAX),
 		@sWhere NVARCHAR(MAX),
 		@sWhere01 NVARCHAR(MAX),
 		@sWhere02 NVARCHAR(MAX),
@@ -124,7 +123,6 @@ IF @IsDate = 1
 		
 '
 	SET @sWhere02 = N' where b.DivisionID like '''+@DivisionID+''' '
-	Print @sSQL
-	Print @sWhere02
- EXEC (@sSQl+ @sWhere02)
+
+ EXEC (@sSQL+ @sWhere02)
 GO
