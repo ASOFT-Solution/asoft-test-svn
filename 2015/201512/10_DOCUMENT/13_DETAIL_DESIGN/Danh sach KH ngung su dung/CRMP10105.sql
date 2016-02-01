@@ -36,7 +36,6 @@ DECLARE
 		@sWhere NVARCHAR(MAX),
 		@sWhere01 NVARCHAR(MAX),
 		@sWhere02 NVARCHAR(MAX),
-		 @set  as Int ,
 		@sqlGroupBy as nvarchar(MAX),
 		@strTime as nvarchar(4000),
 		@FromMonthYearText NVARCHAR(20), 
