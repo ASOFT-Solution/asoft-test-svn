@@ -201,22 +201,22 @@ ELSE
 	END
 
  ---Mã phân tích theo đối tượng
-SET @OWhere = ''
-IF PATINDEX('[%]', @FromO05ID) > 0
-BEGIN
-    SET @OWhere = @OWhere + ' And AV7000.O05ID Like N''' + @FromO05ID + ''''
-END
-ELSE
-	IF @FromO05ID IS NOT NULL AND @FromO05ID <> ''
-	BEGIN
-		SET @OWhere = @OWhere + ' And Isnull(AV7000.O05ID,'''') >= N''' + REPLACE(@FromO05ID, '[]', '') + 
-									''' And Isnull(AV7000.O05ID,'''') <= N''' + REPLACE(@ToO05ID, '[]', '') + ''''
-	END 
+
 --Theo dõi vỏ
 
 IF @IsBottle = 1
-   SET @OWhere = @OWhere +''---' and isnull(AV7000.IsBottle,0)  ='  +  @IsBottle
-
+   SET @OWhere = ''
+	IF PATINDEX('[%]', @FromO05ID) > 0
+	BEGIN
+		SET @OWhere = @OWhere + ' And AV7000.O05ID Like N''' + @FromO05ID + ''''
+	END
+	ELSE
+		IF @FromO05ID IS NOT NULL AND @FromO05ID <> ''
+		BEGIN
+			SET @OWhere = @OWhere + ' And Isnull(AV7000.O05ID,'''') >= N''' + REPLACE(@FromO05ID, '[]', '') + 
+										''' And Isnull(AV7000.O05ID,'''') <= N''' + REPLACE(@ToO05ID, '[]', '') + ''''
+		END 
+Else SET @OWhere = @AnaWhere+ N''
 IF @IsDate = 1
     ---- xac dinh so lieu theo ngay
     SET @strTime = ' and (  D_C=''BD''   or VoucherDate < ''' + @FromDateText + ''') '
@@ -226,9 +226,13 @@ SET @sSQL2 = N'LEFT JOIN AT1015 O05 ON O05.DivisionID= AV7000.DivisionID AND  O0
 WHERE AV7000.DivisionID like N'''+ @DivisionID  + 
     ''' and
 D_C in (''D'',''C'', ''BD'' ) and
+isnull(AV7000.IsBottle, 0) = 1 AND
+(AV7000.InventoryID between N''' + @FromInventoryID + ''' and N''' + @ToInventoryID
+    + ''') and
 (AV7000.ObjectID between  N''' + @FromObjectID + ''' and  N''' + @ToObjectID
     + ''') and 
-(AV7000.O05ID between N''' + @FromO05ID + ''' and N''' + @ToO05ID + ''')'+ @OWhere +   ' '
+	(AV7000.WareHouseID like   N''' + @WareHouseID + 
+    ''' ) '+ @OWhere +  N' '
 
 
 
@@ -252,12 +256,12 @@ ISNULL(AV7000.SourceNo,'''') [SourceNo],
 O05.AnaName as AnaName, isnull(AV7000.IsBottle, 0) as IsBottle , AV7000.O05ID
 From AV7000 '
 
-SET @Ssql2 = @Ssql2 + @strTime + ' '
+SET @sSQL2 = @sSQL2 + @strTime + ' '
 
 IF @WareHouseID <> '%'
     SET @sSQl3 =' Group by  AV7000.DivisionID,  ' + @WareHouseID2 + 
         '  ,' + @WareHouseName + 
-        ',  AV7000.ObjectID,AV7000.S1, AV7000.S2, 	 AV7000.S3, 	 AV7000.I01ID, 	 AV7000.I02ID, 	 AV7000.I03ID, 	 AV7000.I04ID, 	 AV7000.I05ID, 
+        ',  AV7000.ObjectID,AV7000.InventoryID,	 AV7000.InventoryName, AV7000.S1, AV7000.S2, 	 AV7000.S3, 	 AV7000.I01ID, 	 AV7000.I02ID, 	 AV7000.I03ID, 	 AV7000.I04ID, 	 AV7000.I05ID, 
   ISNULL(AV7000.Parameter01,0) , ISNULL(AV7000.Parameter02,0) , ISNULL(AV7000.Parameter03,0) , ISNULL(AV7000.Parameter04,0) , ISNULL(AV7000.Parameter05,0) , 
  AV7000.ObjectName, AV7000.Address ,  AV7000.Specification, AV7000.D02Notes01 , AV7000.D02Notes02 , AV7000.D02Notes03, 	AV7000.Notes01, AV7000.Notes02, AV7000.Notes03, AV7000.Notes04, AV7000.Notes05, AV7000.Notes06, AV7000.Notes07, AV7000.Notes08,
 	AV7000.Notes09, AV7000.Notes10, AV7000.Notes11, AV7000.Notes12, AV7000.Notes13, AV7000.Notes14, AV7000.Notes15, ISNULL(AV7000.SourceNo,''''),
@@ -265,7 +269,7 @@ IF @WareHouseID <> '%'
 	'
 ELSE
    SET @sSQl3 =  
-        ' Group by  AV7000.DivisionID, AV7000.ObjectID, AV7000.S1, 	 AV7000.S2, AV7000.S3, AV7000.I01ID, 	 AV7000.I02ID, 	 AV7000.I03ID, AV7000.I04ID, 	 AV7000.I05ID, 
+        ' Group by  AV7000.DivisionID, AV7000.ObjectID, AV7000.InventoryID,	 AV7000.InventoryName, AV7000.S1, 	 AV7000.S2, AV7000.S3, AV7000.I01ID, 	 AV7000.I02ID, 	 AV7000.I03ID, AV7000.I04ID, 	 AV7000.I05ID, 
 ISNULL(AV7000.Parameter01,0), ISNULL(AV7000.Parameter02,0), ISNULL(AV7000.Parameter03,0), ISNULL(AV7000.Parameter04,0), ISNULL(AV7000.Parameter05,0), 
   AV7000.ObjectName, AV7000.Address ,  AV7000.Specification, AV7000.D02Notes01 , AV7000.D02Notes02 , AV7000.D02Notes03,AV7000.Notes01, AV7000.Notes02, AV7000.Notes03, AV7000.Notes04, AV7000.Notes05, AV7000.Notes06, AV7000.Notes07, AV7000.Notes08,
 	AV7000.Notes09, AV7000.Notes10, AV7000.Notes11, AV7000.Notes12, AV7000.Notes13, AV7000.Notes14, AV7000.Notes15, ISNULL(AV7000.SourceNo,''''),
@@ -312,24 +316,30 @@ AV7000.DivisionID, O05.AnaName as AnaName, isnull(AV7000.IsBottle, 0) as IsBottl
 '
 SET @sSQL1 = N'		
 		From AV7000 Full join AV0709 on
-						AV0709.ObjectID = AV7000.ObjectID AND AV0709.DivisionID = AV7000.DivisionID AND
-						Isnull(AV7000.O05ID,'''') = Isnull(AV0709.O05ID,'''') 
+						AV0709.ObjectID = AV7000.ObjectID AND AV0709.DivisionID = AV7000.DivisionID
+						
 		LEFT JOIN AT1015 O05 ON O05.DivisionID= AV7000.DivisionID AND  O05.AnaTypeID= AV7000.O05ID AND O05.AnaTypeID = ''O05''
 		'
  SET @sSQL2=N'
 	 WHERE AV7000.DivisionID like N'''+ @DivisionID  + 
-		''' and
-	D_C in (''D'',''C'', ''BD'' ) and
+		''' and D_C in (''D'',''C'', ''BD'' ) and
+		isnull(AV7000.IsBottle, 0) = 1 AND
+(AV7000.InventoryID between N''' + @FromInventoryID + ''' and N''' + @ToInventoryID
+    + ''') and
+		(AV7000.WareHouseID like   N''' + @WareHouseID + 
+    ''' ) and
 	(AV7000.ObjectID between  N''' + @FromObjectID + ''' and  N''' + @ToObjectID
-		+ ''') and 
-	(AV7000.O05ID between N''' + @FromO05ID + ''' and N''' + @ToO05ID + ''') 
-	'+ @OWhere + ''
+		+ ''') '+@strTime+ @OWhere + N''
 SET @sSQL3 = N' Group by  AV7000.DivisionID, AV7000.ObjectID,AV7000.S1,  AV7000.S2, AV7000.S3, AV7000.I01ID, 	 AV7000.I02ID, 	 AV7000.I03ID, AV7000.I04ID, 	 AV7000.I05ID, 
     ISNULL(AV7000.Parameter01,0), ISNULL(AV7000.Parameter02,0), ISNULL(AV7000.Parameter03,0), ISNULL(AV7000.Parameter04,0), ISNULL(AV7000.Parameter05,0), 
     AV7000.ObjectName, AV7000.Address ,  AV7000.Specification, AV7000.D02Notes01 , AV7000.D02Notes02 , AV7000.D02Notes03,AV7000.Notes01, AV7000.Notes02, AV7000.Notes03, AV7000.Notes04, AV7000.Notes05, AV7000.Notes06, AV7000.Notes07, AV7000.Notes08,
 	AV7000.Notes09, AV7000.Notes10, AV7000.Notes11, AV7000.Notes12, AV7000.Notes13, AV7000.Notes14, AV7000.Notes15, ISNULL(AV7000.SourceNo,''''),
 	O05.AnaName, isnull(AV7000.IsBottle, 0) , AV7000.O05ID
 	'
+	Print @sSQL
+	Print @sSQL1
+	Print @sSQL2
+	Print @sSQL3
 
 IF NOT EXISTS (SELECT TOP 1 1 FROM SYSOBJECTS WHERE  Xtype = 'V' AND NAME = 'AV0707')
    EXEC (' Create view AV0707 as ' + @sSQL+ @sSQL1 + @sSQL2 + @sSQL3)
@@ -372,16 +382,12 @@ SET @sSQL = '
 		isnull(AV0709.BeginQuantity,0) + isnull(AV0707.DebitQuantity,0)  - isnull(AV0707.CreditQuantity,0) as EndQuantity,
 		isnull(AV0709.BeginConvertedQuantity,0) + isnull(AV0707.DebitConvertedQuantity,0)  - isnull(AV0707.CreditConvertedQuantity,0) as EndConvertedQuantity,
 		isnull(AV0709.BeginMarkQuantity,0) + isnull(AV0707.DebitMarkQuantity,0)  - isnull(AV0707.CreditMarkQuantity,0) as EndMarkQuantity,
-		isnull(AV0709.BeginAmount,0) + isnull(AV0707.DebitAmount,0)  - isnull(AV0707.CreditAmount,0) as EndAmount, ''' + @DivisionID +  ''' AS DivisionID,
-		 '
-		
-	SET @sSQL1 = N'
-		isnull(AV0707.O05ID,AV0709.O05ID) AS O05ID
-		
-		From AV0707  Full join AV0709 on (AV0709.ObjectID = AV0707.ObjectID) and (AV0709.DivisionID = AV0707.DivisionID)
-						
-'
-EXEC (@sSQL + @sSQL1)
+		isnull(AV0709.BeginAmount,0) + isnull(AV0707.DebitAmount,0)  - isnull(AV0707.CreditAmount,0) as EndAmount, ''' + @DivisionID +  ''' AS DivisionID
+	    From AV0707  Full join AV0709 on 	
+				(AV0709.ObjectID = AV0707.ObjectID) and (AV0709.DivisionID = AV0707.DivisionID)		'
+				Print @sSQL
+	
+EXEC (@sSQL)
 --IF NOT EXISTS (SELECT TOP 1 1 FROM   SYSOBJECTS WHERE Xtype = 'V' AND NAME = 'AV0710')
 --    EXEC (' Create view AV0710 as ' + @sSQL)
 --ELSE
