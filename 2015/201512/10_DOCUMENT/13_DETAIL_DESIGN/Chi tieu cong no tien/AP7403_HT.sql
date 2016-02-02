@@ -93,17 +93,17 @@ If @GroupBy = 0    ---- Nhom theo doi tuong truoc , tai khoan sau
 		Object.O05ID AS GroupID,
 		O5.AnaName AS  GroupName,
 		D3.AccountID AS GroupID2,
-		AccountName AS GroupName2, '
+		AccountName AS GroupName2 '
 else   		----- Nhom theo tai khoan truoc, doi tuong sau
 	set @SqlGroupBy = ' 
 		D3.AccountID AS GroupID1,
-		AccountName AS GroupName1.
+		AccountName AS GroupName1,
 		Object.O05ID AS GroupID,
 		O5.AnaName AS  GroupName
 		'
 
 
-Exec AP7402  @DivisionID, @CurrencyID, @FromAccountID, @ToAccountID, @FromO05ID,  @ToO05ID, @StrDivisionID 
+Exec AP7402_HT  @DivisionID, @CurrencyID, @FromAccountID, @ToAccountID, @FromO05ID,  @ToO05ID, @StrDivisionID 
 
 IF @TypeD = 1	---- Theo ngay Hoa don
 	SET @TypeDate = 'InvoiceDate'
@@ -113,7 +113,7 @@ ELSE IF @TypeD = 2 	---- Theo ngay hach toan
 if @TypeD <> 0   ----- In theo ngay
 Begin
 SET @sSQL = ' 
-SELECT	D3.DivisionID, ' + @SqlGroupBy + '	
+SELECT	D3.DivisionID, ' + @SqlGroupBy + ',	
 		Object.VATNo, 
 		D3.AccountID, AccountName, AccountNameE, D3.CurrencyID,
 		Object.S1, Object.S2,  Object.S3, 
@@ -381,16 +381,11 @@ Else
 	--Print @sSQL	
 	
 	
-IF NOT EXISTS (SELECT NAME FROM SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[AV7403_HT]') AND OBJECTPROPERTY(ID, N'ISVIEW') = 1)
-	EXEC ('  CREATE VIEW AV7403_HT AS ' + @sSQL )
-ELSE
-	EXEC ('  ALTER VIEW AV7403_HT  AS ' + @sSQL )		
+--IF NOT EXISTS (SELECT NAME FROM SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[AV7403_HT]') AND OBJECTPROPERTY(ID, N'ISVIEW') = 1)
+--	EXEC ('  CREATE VIEW AV7403_HT AS ' + @sSQL )
+--ELSE
+--	EXEC ('  ALTER VIEW AV7403_HT  AS ' + @sSQL )		
 
-
-
-GO
-SET QUOTED_IDENTIFIER OFF
-GO
-SET ANSI_NULLS ON
+exec (@sSQL)
 GO
 
