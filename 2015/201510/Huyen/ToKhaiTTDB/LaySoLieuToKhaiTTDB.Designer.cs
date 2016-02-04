@@ -1253,7 +1253,6 @@
             this.gvToKhai.ValidatingEditor += new DevExpress.XtraEditors.Controls.BaseContainerValidateEditorEventHandler(this.gvToKhai_ValidatingEditor);
             this.gvToKhai.FocusedColumnChanged += new DevExpress.XtraGrid.Views.Base.FocusedColumnChangedEventHandler(this.gvToKhai_FocusedColumnChanged);
             this.gvToKhai.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gvToKhai_CellValueChanged);
-            this.gvToKhai.CellMerge += new DevExpress.XtraGrid.Views.Grid.CellMergeEventHandler(this.gvToKhai_CellMerge);
             this.gvToKhai.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gvToKhai_KeyDown);
             this.gvToKhai.CustomRowCellEditForEditing += new DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventHandler(this.gvToKhai_CustomRowCellEditForEditing);
             this.gvToKhai.CustomRowCellEdit += new DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventHandler(this.gvToKhai_CustomRowCellEdit);
@@ -1998,6 +1997,7 @@
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.ClientSize = new System.Drawing.Size(1196, 655);
             this.Controls.Add(this.layoutControl1);
+            this.KeyPreview = true;
             this.Name = "LaySoLieuToKhaiTTDB";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CẬP NHẬT TỜ KHAI THUẾ TIÊU THỤ ĐẶC BIỆT";

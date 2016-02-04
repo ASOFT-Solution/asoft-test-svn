@@ -26,55 +26,7 @@ namespace ToKhaiTTDB
         private int _DeclareType = 1;
         private string query = string.Empty;
 
-
         #endregion ---- Member variables ----
-
-        #region ---- Properties ----
-
-        public string MToKhaiTTDBID
-        {
-            get { return _MToKhaiTTDBID; }
-            set { _MToKhaiTTDBID = value; }
-        }
-        public int KyToKhaiTTDB
-        {
-            get { return _KyToKhaiTTDB; }
-            set { _KyToKhaiTTDB = value; }
-        }
-        public DateTime NgayToKhaiTTDB
-        {
-            get { return _NgayToKhaiTTDB; }
-            set { _NgayToKhaiTTDB = value; }
-        }
-        public int NamToKhaiTTDB
-        {
-            get { return _NamToKhaiTTDB; }
-            set { _NamToKhaiTTDB = value; }
-        }
-        public int DeclareType
-        {
-            get { return _DeclareType; }
-            set { _DeclareType = value; }
-        }
-
-        public string DienGiai
-        {
-            get { return _DienGiai; }
-            set { _DienGiai = value; }
-        }
-
-        public bool InLanDau
-        {
-            get { return _InLanDau; }
-            set { _InLanDau = value; }
-        }
-
-        public int SoLanIn
-        {
-            get { return _SoLanIn; }
-            set { _SoLanIn = value; }
-        }
-        #endregion ---- Properties ----
 
         #region ---- Constructors & Destructors ----
         /// <history>

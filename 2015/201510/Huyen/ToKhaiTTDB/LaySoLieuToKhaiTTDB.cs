@@ -21,6 +21,7 @@ namespace ToKhaiTTDB
 {
     public partial class LaySoLieuToKhaiTTDB : DevExpress.XtraEditors.XtraForm
     {
+        // Lệ Huyền tạo mới ngày 24/12/2015
         #region ---- Enums, Structs, Constants ----
         private enum ListType
         {
@@ -68,6 +69,7 @@ namespace ToKhaiTTDB
         private string _MToKhaiTTDBID = string.Empty;
         private DataTable _DataMain = null;
         private DataTable _dtKHBS = null;
+        private  DataTable data = null;
         private int _SortOrder = 1;
         private bool _GetOriginalData = false;
         private FormAction _Action = FormAction.AddNew;
@@ -136,10 +138,6 @@ namespace ToKhaiTTDB
             {
                 FormFactory.DevLocalizer.Translate(this);
             }
-
-            //DisableCell();
-            //foreach (GridColumn column in gvToKhai.Columns)
-            //column.OptionsColumn.AllowSort = DefaultBoolean.False;
         }
         private void DisableCell()
         {
@@ -585,7 +583,6 @@ namespace ToKhaiTTDB
                 query = string.Format(@"Select Top 1 TaxCheck from DToKhaiTTDB
                                      where MToKhaiTTDBID = '{0}'
                                     order by Code", _MToKhaiTTDBID);
-                string v = _Database.GetValue(query).ToString();
                 if (_Database.GetValue(query).ToString() == "True")
                     IsCheckEdit("1");
                 else
@@ -873,6 +870,43 @@ namespace ToKhaiTTDB
                 int _in = Convert.ToInt32(_Database.GetValue(query));
                 if (SoLanIn > (_in + 1))
                     return false;
+            }
+            return true;
+        }
+        /// <summary>
+        /// kiểm tra tháng hoặc lần phát sinh trước đó đã tồn tại hay chưa
+        /// </summary>
+        /// <param name="SoLanIn"></param>
+        /// <returns></returns>
+        private bool CheckExistsToKhaiKeTiep()
+        {
+            int ky = 0;
+            DateTime inputdate = DateTime.MinValue;
+            if (chkInLanDau.Checked)
+            {
+                query = @"select max(KyToKhaiTTDB)+ 1 as Ky, max(InputDate)+ 1 as InputDate from MToKhaiTTDB";
+                data = _Database.GetDataTable(query);
+                if (data.Rows.Count > 0)
+                {
+                    DataRow row = data.Rows[0];
+                    if (radDeclareType.SelectedIndex == 0)
+                    {
+                        if (cboKyToKhaiTTDB.EditValue == null)
+                            return true;
+                        ky = row["Ky"] == DBNull.Value ? 1 : int.Parse(row["Ky"].ToString());
+                        if (ky < int.Parse(cboKyToKhaiTTDB.EditValue.ToString()))
+                            return false;
+                    }
+                    else
+                    {
+                        if (dtmInputDate.EditValue == null)
+                            return true;
+                        string v = row["InputDate"].ToString();
+                        inputdate = row["InputDate"].ToString() == "" ? Convert.ToDateTime(DateTime.Now.ToShortDateString()) : Convert.ToDateTime(row["InputDate"].ToString());
+                        if (inputdate < Convert.ToDateTime(dtmInputDate.EditValue.ToString()))
+                            return false;
+                    }
+                }
             }
             return true;
         }
@@ -1540,11 +1574,29 @@ namespace ToKhaiTTDB
 
             return result;
         }
+        private bool CheckExistsLanDau()
+        {
+            if (!chkInLanDau.Checked)
+            {
+                query = string.Format(@"select Top 1 1 from MToKhaiTTDB Where InLanDau = 1 and NamToKhaiTTDB = {0} 
+                    and ((Case when {1} = 1 then KyToKhaiTTDB end) = {2} or
+                     (Case when {1} = 2 then InputDate end) = Cast('{3}' as Datetime))", NamTaiChinh(), radDeclareType.SelectedIndex == 0 ? "1" : "2", cboKyToKhaiTTDB.EditValue == null ? 0 : cboKyToKhaiTTDB.EditValue, dtmInputDate.EditValue == null ? DateTime.Now.ToShortDateString() : dtmInputDate.DateTime.ToShortDateString());
+                object v = _Database.GetValue(query);
+                if (_Database.GetValue(query) == null)
+                    return false;
+            }
+            return true;
+        }
 
         #endregion ---- Private methods ----
 
         private void btnReadData_Click(object sender, EventArgs e)
         {
+            if (!CheckExistsLanDau())
+            {
+                ShowASoftMsg("Chưa có tờ khai lần đầu!");
+                return;
+            }
             if (this._Action == FormAction.AddNew)
             {
                 if (CheckInput())
@@ -1617,6 +1669,11 @@ namespace ToKhaiTTDB
             if (_DataMain != null && _DataMain.HasErrors)
             {
                 ShowASoftMsg("Dữ liệu chưa chính xác!");
+                return;
+            }
+            if (!CheckExistsLanDau())
+            {
+                ShowASoftMsg("Chưa có tờ khai lần đầu!");
                 return;
             }
             if (this._Action == FormAction.AddNew)
@@ -2047,10 +2104,22 @@ namespace ToKhaiTTDB
         private void dtmInputDate_EditValueChanged(object sender, EventArgs e)
         {
             Solanin();
+            if (!CheckExistsToKhaiKeTiep())
+            {
+                ShowASoftMsg("Không tồn tại tờ khai thuế này trong kỳ tính thuế trên!");
+                DefaultInput();
+                return;
+            }
         }
         private void cboKyToKhaiTTDB_EditValueChanged(object sender, EventArgs e)
         {
             Solanin();
+            if (!CheckExistsToKhaiKeTiep())
+            {
+                ShowASoftMsg("Không tồn tại tờ khai thuế này trong kỳ tính thuế trên!");
+                DefaultInput();
+                return;
+            }
         }
         /// <summary>
         /// Xử lý Load số lần in khi tờ khai là khai bổ sung
@@ -2078,12 +2147,53 @@ namespace ToKhaiTTDB
             }
         }
         /// <summary>
+        /// Điều chỉnh đúng số tháng hoặc lần phát sinh cho tờ khai lần đầu
+        /// </summary>
+        private void DefaultInput()
+        {
+            if (chkInLanDau.Checked)
+            {
+                if (radDeclareType.SelectedIndex == 0)
+                {
+                    query = @"select max(KyToKhaiTTDB)+ 1 from MToKhaiTTDB";
+                    object b = _Database.GetValue(query);
+                    if (b != DBNull.Value)
+                    {
+                        cboKyToKhaiTTDB.EditValue = Convert.ToInt32(_Database.GetValue(query));
+                    }
+                    else
+                    {
+                        cboKyToKhaiTTDB.EditValue = 1;
+                    }
+                }
+                else
+                {
+                    query = @"select max(InputDate)+ 1 from MToKhaiTTDB";
+                    object b = _Database.GetValue(query);
+                    if (b != DBNull.Value)
+                    {
+                        dtmInputDate.EditValue = Convert.ToDateTime(_Database.GetValue(query));
+                    }
+                    else
+                    {
+                        dtmInputDate.EditValue = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+                    }
+
+                }
+            }
+        }
+        /// <summary>
         /// Handling button Tổng hợp tờ khai
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnKHBS_Click(object sender, EventArgs e)
         {
+            if (!CheckExistsLanDau())
+            {
+                ShowASoftMsg("Chưa có tờ khai lần đầu!");
+                return;
+            }
             if (CheckInput())
             {
                 FillResultKHBS();
@@ -2227,7 +2337,7 @@ namespace ToKhaiTTDB
                 // dòng 1
                 dr = _dtKHBS.NewRow();
                 dr["SortOrder"] = _SortOrder;
-                dr["TargetTypeID"] = "II. Chỉ tiêu điều chỉnh giảm số thuế phải nộp";
+                dr["TargetTypeID"] = "I. Chỉ tiêu điều chỉnh tăng số thuế phải nộp";
                 dr["TargetName"] = "Thuế TTDB được khấu trừ";
                 dr["TargetID"] = 8;
                 dr["TargetReturn"] = ps2before;
@@ -2238,7 +2348,7 @@ namespace ToKhaiTTDB
                 //dòng 2
                 dr = _dtKHBS.NewRow();
                 dr["SortOrder"] = _SortOrder;
-                dr["TargetTypeID"] = "I. Chỉ tiêu điều chỉnh tăng số thuế phải nộp";
+                dr["TargetTypeID"] = "II. Chỉ tiêu điều chỉnh giảm số thuế phải nộp";
                 dr["TargetReturn"] = 0;
                 dr["TargetAmended"] = 0;
                 dr["TargetDifference"] = 0;
@@ -2261,8 +2371,7 @@ namespace ToKhaiTTDB
         /// </summary>
         /// <returns></returns>
         private DataTable ChiTieuSoSanhKHBS()
-        {
-            DataTable data = null;
+        { 
             string soLanIn = string.Empty;
             if (chkInLanDau.Checked)
                 soLanIn = "0";
@@ -2282,13 +2391,6 @@ namespace ToKhaiTTDB
             if (data.Rows.Count > 0)
                 return data;
             return null;
-        }
-
-        private void gvToKhai_CellMerge(object sender, DevExpress.XtraGrid.Views.Grid.CellMergeEventArgs e)
-        {
-            if (e.Column != gvToKhai.Columns["Check"]) return;
-            e.Merge = true;
-            e.Handled = true;
         }
     }
 }

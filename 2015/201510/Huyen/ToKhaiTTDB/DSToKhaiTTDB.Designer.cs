@@ -128,6 +128,7 @@
             this.clDienGiai});
             this.gvDetail.GridControl = this.gcDetail;
             this.gvDetail.Name = "gvDetail";
+            this.gvDetail.OptionsBehavior.Editable = false;
             this.gvDetail.OptionsCustomization.AllowGroup = false;
             this.gvDetail.OptionsView.ShowGroupPanel = false;
             // 
