@@ -25,10 +25,8 @@ CREATE PROCEDURE [dbo].[CRMP10104] (
 		@ToDate           DATETIME,
 		@IsDate           TINYINT,--- =1 theo ngày , = 0 Theo kỳ
 		@Period nvarchar(max),
-		@CheckBox1 TINYINT,-- =1 chọn theo khách hàng
 		@FromAccountID       Varchar(50),
 		@ToAccountID         Varchar(50),
-		@CheckBox2 TINYINT,--- = 1 Chọn theo nhân viên
 		@FromEmployeeID      Varchar(50),
 		@ToEmployeeID        Varchar(50),
 		@UserID  VARCHAR(50),
@@ -53,9 +51,9 @@ IF @PageNumber = 1 SET @TotalRow = 'COUNT(*) OVER ()' ELSE SET @TotalRow = 'NULL
 		SET @sWhere = @sWhere + ' AND OT01.DivisionID = '''+ @DivisionID+''''
 	Else 
 		SET @sWhere = @sWhere + ' AND OT01.DivisionID IN ('''+@DivisionIDList+''')'
-	IF @Checkbox1=1
+	IF @FromAccountID IS NOT NULL 
 		SET @sWhere = @sWhere +' AND (CR01.AccountID between N'''+@FromAccountID+N''' and N'''+@ToAccountID+N''')'
-	IF @Checkbox2=1
+	IF @FromEmployeeID IS NOT NULL
 		SET @sWhere = @sWhere +' AND (OT01.SalesManID between N'''+@FromEmployeeID+N''' and N'''+@ToEmployeeID+N''')'
 IF @IsDate = 1 
 		SET @sWhere = @sWhere + ' AND (CONVERT(VARCHAR(10),OT01.CreateDate,112) BETWEEN'''+ CONVERT(VARCHAR(20),@FromDate,112)+''' AND''' + CONVERT(VARCHAR(20),@ToDate,112) +''')'
