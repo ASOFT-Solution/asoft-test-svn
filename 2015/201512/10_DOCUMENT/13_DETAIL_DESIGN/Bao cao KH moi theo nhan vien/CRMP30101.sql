@@ -1,5 +1,5 @@
-﻿IF EXISTS (SELECT TOP 1 1 FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[CRMP10104]') AND  OBJECTPROPERTY(ID, N'IsProcedure') = 1)			
-DROP PROCEDURE [DBO].[CRMP10104]
+﻿IF EXISTS (SELECT TOP 1 1 FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[CRMP30101]') AND  OBJECTPROPERTY(ID, N'IsProcedure') = 1)			
+DROP PROCEDURE [DBO].[CRMP30101]
 GO
 SET QUOTED_IDENTIFIER ON
 GO
@@ -17,7 +17,7 @@ GO
 -- <Example>
 ----    EXEC CRMP10104 'AS','AS','','','','','','','', 'NV01'
 
-CREATE PROCEDURE [dbo].[CRMP10104] ( 
+CREATE PROCEDURE [dbo].[CRMP30101] ( 
         @DivisionID       VARCHAR(50),  --Biến môi trường
 		@DivisionIDList    NVARCHAR(2000),  --Chọn trong DropdownChecklist DivisionID
 		@FromDate         DATETIME,
@@ -34,13 +34,9 @@ CREATE PROCEDURE [dbo].[CRMP10104] (
 AS
 DECLARE
 		@sSQL NVARCHAR (MAX),
-		@sWhere NVARCHAR(MAX),
-        @OrderBy NVARCHAR(500),
-        @TotalRow NVARCHAR(50)
+		@sWhere NVARCHAR(MAX)
 
 SET @sWhere = ''
-SET @TotalRow = ''
-SET @OrderBy = 'b.DivisionID, b.SaleManID'
 
 --Check Para DivisionIDList null then get DivisionID 
 	IF @DivisionIDList IS NULL or @DivisionIDList = ''
@@ -85,19 +81,24 @@ SET @sSQL =
 								(
 									Select M.DivisionID, M.ObjectID, D.InventoryID , Max(D.OrderQuantity) as OrderQuantity 
 									from OT2001 M Left join OT2002 D On M.DivisionID = D.DivisionID and M.SOrderID = D.SOrderID
-									Group by M.DivisionID,M.ObjectID, D.InventoryID
+									Group by M.DivisionID,M.ObjectID, D.InventoryID 
+									--Tìm Số lượng max theo mã vật tư và đối tượng
 								) x
 					Group By x.DivisionID, x.ObjectID
+					-- Tìm số lượng max theo đối tượng
 		) A left join (
 							Select M.DivisionID, M.ObjectID, D.InventoryID , H.InventoryName , MAx(D.OrderQuantity) as  MOrderQuantity 
 							from OT2001 M Left join OT2002 D On M.DivisionID = D.DivisionID and M.SOrderID = D.SOrderID
 							Left join AT1302 H On M.DivisionID = H.DivisionID and H.InventoryID = D.InventoryID
 							Group by M.DivisionID,M.ObjectID, D.InventoryID , H.InventoryName
+							--Tìm số lượng max theo mã vật tư và số lượng
 						) y on A.DivisionID = y.DivisionID and A.ObjectID = y.ObjectID
-		Where A.OrderQuantity = y.MOrderQuantity)c ON b.AccountID = c.ObjectID And b.DivisionID = c.DivisionID	
+		Where A.OrderQuantity = y.MOrderQuantity
+		--Tìm danh sách đối tượng có số lượng max 
+		)c ON b.AccountID = c.ObjectID And b.DivisionID = c.DivisionID	
 		Group by b.AccountID, b.DivisionID,  b.CreateDate, b.AccountName, b.Address ,b.Tel, 
 		c.InventoryID, c.InventoryName ,c.OrderQuantity, b.SalesManID, b.SalesManID
 		'
-Print @sSQL
+
 EXEC (@sSQL)
 GO
