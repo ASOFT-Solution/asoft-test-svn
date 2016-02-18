@@ -111,9 +111,10 @@ SET @sSQL = N'
 	---Danh sách khách hàng + số ngày kể từ đơn hàng sau cùng đến hiện tại
 	)A 
 	where A.TimeDate >=15
-	Order by A.GroupTime
+	Order by GroupTime
 
 '
+
 EXEC (@sSQL )
 
 GO
