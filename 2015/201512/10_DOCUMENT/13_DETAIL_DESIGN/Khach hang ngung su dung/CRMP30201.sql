@@ -121,7 +121,6 @@ Set @sSQL = N'
 		---Tìm ra số mặt hàng chứa có số lượng trung bình lớn nhất
 	) c ON b.ObjectID = c.ObjectID And b.DivisionID = c.DivisionID
 '
-	Print @sSQL
 
  EXEC (@sSQL)
 GO
