@@ -69,14 +69,10 @@ SET @sSQL = N'
 			Select y.DivisionID, y.OrderDate, y.ObjectID, y.ObjectName, z.SumAmount
 			From
 			(
-				Select c.DivisionID, Max(c.OrderDate) as OrderDate, c.ObjectID, c.ObjectName
-				From 
-				(
-					Select F.DivisionID, F.ObjectID, F.ObjectName, 
-					case when F.OrderDate > F.CreateDate then F.OrderDate else F.CreateDate end as OrderDate
-					from OT2001 F
-				)c
-				Group by c.ObjectID, c.DivisionID, c.ObjectName
+				
+				Select F.DivisionID, F.ObjectID, F.ObjectName, Max(F.OrderDate ) OrderDate
+				from OT2001 F
+				Group by F.DivisionID, F.ObjectID, F.ObjectName
 				--Tìm thời gian lớn nhất của đơn hàng theo đối tượng
 			)y Inner Join
 			(
@@ -94,8 +90,7 @@ SET @sSQL = N'
 				D.Notes, D.Notes01, D.Notes02, Datediff(DAY,H.OrderDate, GetDate()) as DayTime 
 			From 
 			(
-				Select F.DivisionID, F.ObjectID, F.ObjectName,F.SOrderID, 
-					case when F.OrderDate > F.CreateDate then F.OrderDate else F.CreateDate end as OrderDate
+				Select F.DivisionID, F.ObjectID, F.ObjectName, F.OrderDate
 				from OT2001 F
 			) H
 			Inner Join AT1202 B On B.DivisionID = H.DivisionID And B.ObjectID = H.ObjectID 
@@ -114,7 +109,7 @@ SET @sSQL = N'
 	Order by GroupTime
 
 '
-
+print @sSQL
 EXEC (@sSQL )
 
 GO
