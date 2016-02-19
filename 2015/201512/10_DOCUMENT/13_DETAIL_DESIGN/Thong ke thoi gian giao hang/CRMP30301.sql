@@ -43,7 +43,7 @@ SET @sWhere = ''
 		SET @sWhere = @sWhere + '  A.DivisionID = '''+ @DivisionID+''''
 	Else 
 		SET @sWhere = @sWhere + ' A.DivisionID IN ('''+@DivisionIDList+''')'
-	IF (@FromAccountID is not null and @ToAccountID is not null)
+	IF (@FromAccountID is not null and @FromAccountID not like '')
 		SET @sWhere = @sWhere +' AND (A.ObjectID between N'''+@FromAccountID+N''' and N'''+@ToAccountID+N''')'
 	
 IF @IsDate = 1 
@@ -53,7 +53,7 @@ IF @IsDate = 1
   ELSE rtrim(ltrim(str(A.TranMonth)))+''/''+ltrim(Rtrim(str(A.TranYear))) END) in ('''+@Period+''')'
  SET @sSQL = N'
 	 Select x.TDate, 
-		 Sum(x.CTime1) as CTime1, Sum(x.CTime1) As CTime2, Sum(x.CTime3) as CTime3, Sum(x.CTime4) as CTime4, Sum(x.CTime5) as CTime5,
+		 Sum(x.CTime1) as CTime1, Sum(x.CTime2) As CTime2, Sum(x.CTime3) as CTime3, Sum(x.CTime4) as CTime4, Sum(x.CTime5) as CTime5,
 		 Sum(x.DTime1) as DTime1, Sum(x.DTime2) as DTime2, Sum(x.DTime3) as DTime3, Sum(x.DTime4) as DTime4, Sum(x.DTime5) as DTime5, Sum(x.DTime6) as DTime6,
 		 Sum(x.RTime1) as RTime1, Sum(x.RTime2) as RTime2, Sum(x.RTime3) as RTime3, Sum(x.RTime4) as RTime4, Sum(x.RTime5) as RTime5, Sum(x.RTime6) as RTime6,
 		 Sum(x.STime1) as STime1, Sum(x.STime2) as STime2, Sum(x.STime3) as STime3, Sum(x.STime4) as STime4, Sum(x.STime5) as STime5, Sum(x.STime6) as STime6
@@ -163,6 +163,7 @@ IF @IsDate = 1
 	--Xác định số lượng giao hàng theo ngày
 
  ' 
+
  EXEC (@sSQL)
 
 GO
