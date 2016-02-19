@@ -108,6 +108,6 @@ SET @sSQL =
 		Group by b.AccountID, b.DivisionID, b.AccountName, b.Address ,b.Tel, 
 		c.InventoryID, c.InventoryName ,c.OrderQuantity, b.SalesManID, b.FullName
 		'
-Print @sSQL
+
 EXEC (@sSQL)
 GO
