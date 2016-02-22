@@ -22,8 +22,6 @@ CREATE PROCEDURE [dbo].[CRMP30101] (
 		@DivisionIDList    NVARCHAR(2000),  --Chọn trong DropdownChecklist DivisionID
 		@FromDate         DATETIME,
 		@ToDate           DATETIME,
-		@IsDate           TINYINT,--- =1 theo ngày , = 0 Theo kỳ
-		@Period nvarchar(max),
 		@FromAccountID    NVarchar(50),
 		@ToAccountID         NVarchar(50),
 		@FromEmployeeID      NVarchar(50),
@@ -39,6 +37,9 @@ DECLARE
 		@sWhere2 Nvarchar(Max)
 
 SET @sWhere = ''
+SET @sWhere = @sWhere + ' AND (CONVERT(VARCHAR(10),OT01.OrderDate,112) BETWEEN'''+ CONVERT(VARCHAR(20),@FromDate,112)+''' AND''' + CONVERT(VARCHAR(20),@ToDate,112) +''')'
+Set @sWhere1 =	' AND (CONVERT(VARCHAR(10),OT01.OrderDate,112) < '''+ CONVERT(VARCHAR(20),@FromDate,112)+ ''' )'
+
 
 --Check Para DivisionIDList null then get DivisionID 
 	IF @DivisionIDList IS NULL or @DivisionIDList = ''
@@ -49,17 +50,9 @@ SET @sWhere = ''
 		SET @sWhere = @sWhere +' AND (CR01.AccountID between N'''+@FromAccountID+''' and N'''+@ToAccountID+''')'
 	IF @FromEmployeeID IS NOT NULL And (@FromEmployeeID not like '')
 		SET @sWhere = @sWhere +' AND (OT01.SalesManID between N'''+@FromEmployeeID+''' and N'''+@ToEmployeeID+''')'
-IF @IsDate = 1 ---Kiểm tra theo ngày hay theo kỳ
-		SET @sWhere = @sWhere + ' AND (CONVERT(VARCHAR(10),OT01.OrderDate,112) BETWEEN'''+ CONVERT(VARCHAR(20),@FromDate,112)+''' AND''' + CONVERT(VARCHAR(20),@ToDate,112) +''')'
 		 
-	Else
-		SET @sWhere = @sWhere + ' AND (CASE WHEN OT01.TranMonth <10 THEN ''0''+rtrim(ltrim(str(OT01.TranMonth)))+''/''+ltrim(Rtrim(str(OT01.TranYear))) 
-  ELSE rtrim(ltrim(str(OT01.TranMonth)))+''/''+ltrim(Rtrim(str(OT01.TranYear))) END) in ('''+@Period+''')'
-IF @IsDate = 1 ---Kiểm tra theo ngày hay theo kỳ
-	Set @sWhere1 =	' AND (CONVERT(VARCHAR(10),OT01.OrderDate,112) < '''+ CONVERT(VARCHAR(20),@FromDate,112)+ ''' )'
-else 
-	Set @sWhere1 =  'AND (CASE WHEN OT01.TranMonth <10 THEN ''0''+rtrim(ltrim(str(OT01.TranMonth)))+''/''+ltrim(Rtrim(str(OT01.TranYear))) 
-  ELSE rtrim(ltrim(str(OT01.TranMonth)))+''/''+ltrim(Rtrim(str(OT01.TranYear))) END) < '''+@Period+''''
+
+
 ---Load danh sách khách hàng mới theo nhân viên
 SET @sSQL =
 	' Select b.DivisionID,  Max(b.OrderDate) as OrderDate  , b.AccountID, b.AccountName, b.Address ,b.Tel, 
