@@ -40,7 +40,7 @@ SET @sWhere = ''
 		SET @sWhere = @sWhere + ' H.DivisionID = '''+ @DivisionID+''''
 	Else 
 		SET @sWhere = @sWhere + ' H.DivisionID IN ('''+@DivisionIDList+''')'
-	IF @FromAccountID is not null and @ToAccountID is not null
+	IF (@FromAccountID is not null and @FromAccountID not like '')
 		SET @sWhere = @sWhere +' AND (H.ObjectID between N'''+@FromAccountID+N''' and N'''+@ToAccountID+N''')'
 IF @IsDate = 1 
 		SET @sWhere = @sWhere + ' AND (CONVERT(VARCHAR(10),H.OrderDate,112) BETWEEN'''+ CONVERT(VARCHAR(20),@FromDate,112)+''' AND''' + CONVERT(VARCHAR(20),@ToDate,112) +''')'
@@ -90,26 +90,25 @@ SET @sSQL = N'
 				D.Notes, D.Notes01, D.Notes02, Datediff(DAY,H.OrderDate, GetDate()) as DayTime 
 			From 
 			(
-				Select F.DivisionID, F.ObjectID, F.ObjectName, F.OrderDate
+				Select F.DivisionID, F.ObjectID, F.ObjectName, F.OrderDate, F.SOrderID, F.TranMonth, F.TranYear
 				from OT2001 F
 			) H
 			Inner Join AT1202 B On B.DivisionID = H.DivisionID And B.ObjectID = H.ObjectID 
 			Inner Join OT2002 D On D.DivisionID = H.DivisionID And H.SOrderID = D.SOrderID
 			Inner Join AT1302 C On C.DivisionID = H.DivisionID And C.InventoryID = D.InventoryID
-			where   '+@sWhere+' 
-			--Xác định số ngày kể từ đơn hàng sau cùng đến hiện tại
+			where    '+@sWhere+'
+			--Xác định số ngày của đơn hàng đến ngày hiện tại
 		)x
 		On x.DivisionID = t.DivisionID And x.ObjectID = t.ObjectID And x.OrderDate = t.OrderDate
 		Group by t.DivisionID, t.OrderDate, t.ObjectID, t.ObjectName, x.Address, x.Tel, x.Contactor,
 				x.InventoryID, x.InventoryName, x.OrderQuantity, x.SalePrice, x.OriginalAmount,
 				x.Notes, x.Notes01, x.Notes02, t.SumAmount
-	---Danh sách khách hàng + số ngày kể từ đơn hàng sau cùng đến hiện tại
+	---Danh sách khách hàng + s? ngày k? t? don hàng sau cùng d?n hi?n t?i
 	)A 
 	where A.TimeDate >=15
 	Order by GroupTime
-
 '
-print @sSQL
+
 EXEC (@sSQL )
 
 GO
