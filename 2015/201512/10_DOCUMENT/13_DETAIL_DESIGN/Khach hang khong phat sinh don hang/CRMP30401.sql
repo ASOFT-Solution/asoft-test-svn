@@ -23,8 +23,6 @@ CREATE PROCEDURE [dbo].[CRMP30401] (
 		@DivisionIDList    NVARCHAR(2000),  --Chọn trong DropdownChecklist DivisionID
 		@FromDate         DATETIME,
 		@ToDate           DATETIME,
-		@IsDate           TINYINT,--- =1 theo ngày , = 0 Theo kỳ
-		@Period nvarchar(max),
 		@FromAccountID       Varchar(50),
 		@ToAccountID         Varchar(50),
 		@UserID  VARCHAR(50)
@@ -42,11 +40,9 @@ SET @sWhere = ''
 		SET @sWhere = @sWhere + ' H.DivisionID IN ('''+@DivisionIDList+''')'
 	IF (@FromAccountID is not null and @FromAccountID not like '')
 		SET @sWhere = @sWhere +' AND (H.ObjectID between N'''+@FromAccountID+N''' and N'''+@ToAccountID+N''')'
-IF @IsDate = 1 
-		SET @sWhere = @sWhere + ' AND (CONVERT(VARCHAR(10),H.OrderDate,112) BETWEEN'''+ CONVERT(VARCHAR(20),@FromDate,112)+''' AND''' + CONVERT(VARCHAR(20),@ToDate,112) +''')'
-	Else
-		SET @sWhere = @sWhere + ' AND (CASE WHEN H.TranMonth <10 THEN ''0''+rtrim(ltrim(str(H.TranMonth)))+''/''+ltrim(Rtrim(str(H.TranYear))) 
-  ELSE rtrim(ltrim(str(H.TranMonth)))+''/''+ltrim(Rtrim(str(H.TranYear))) END) in ('''+@Period+''')'
+
+SET @sWhere = @sWhere + ' AND (CONVERT(VARCHAR(10),H.OrderDate,112) BETWEEN'''+ CONVERT(VARCHAR(20),@FromDate,112)+''' AND''' + CONVERT(VARCHAR(20),@ToDate,112) +''')'
+
 SET @sSQL = N'
 	Select 
 		A.DivisionID,A.ObjectID, A.ObjectName, A.Address, A.Tel, A.Contactor,
