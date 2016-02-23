@@ -15,7 +15,7 @@ GO
 -- <History>
 ----Created by: Thị Phượng on 27/01/2016
 -- <Example>
-----    EXEC CRMP10104 'AS','AS','','','','','','','', 'NV01'
+----    EXEC CRMP30101 'AS','AS','','','','','','', 'NV01'
 
 CREATE PROCEDURE [dbo].[CRMP30101] ( 
         @DivisionID       VARCHAR(50),  --Biến môi trường
