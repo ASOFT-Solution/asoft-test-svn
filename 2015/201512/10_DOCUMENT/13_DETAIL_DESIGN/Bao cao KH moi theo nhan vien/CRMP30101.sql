@@ -36,26 +36,26 @@ DECLARE
 		@sWhere1 Nvarchar(Max),
 		@sWhere2 Nvarchar(Max)
 
-SET @sWhere = ''
-SET @sWhere = @sWhere + ' AND (CONVERT(VARCHAR(10),OT01.OrderDate,112) BETWEEN'''+ CONVERT(VARCHAR(20),@FromDate,112)+''' AND''' + CONVERT(VARCHAR(20),@ToDate,112) +''')'
+SET @sWhere2 = ''
+SET @sWhere =  ' AND (CONVERT(VARCHAR(10),OT01.OrderDate,112) BETWEEN'''+ CONVERT(VARCHAR(20),@FromDate,112)+''' AND''' + CONVERT(VARCHAR(20),@ToDate,112) +''')'
 Set @sWhere1 =	' AND (CONVERT(VARCHAR(10),OT01.OrderDate,112) < '''+ CONVERT(VARCHAR(20),@FromDate,112)+ ''' )'
 
 
 --Check Para DivisionIDList null then get DivisionID 
 	IF @DivisionIDList IS NULL or @DivisionIDList = ''
-		SET @sWhere2 = ' OT01.DivisionID = '''+ @DivisionID+''''
+		SET @sWhere2 =@sWhere2+ ' OT01.DivisionID = '''+ @DivisionID+''''
 	Else 
-		SET @sWhere2 =  ' OT01.DivisionID IN ('''+@DivisionIDList+''')'
+		SET @sWhere2 = @sWhere2+ ' OT01.DivisionID IN ('''+@DivisionIDList+''')'
 	IF (@FromAccountID IS NOT NULL )  And ( @FromAccountID not like '')
-		SET @sWhere = @sWhere +' AND (CR01.AccountID between N'''+@FromAccountID+''' and N'''+@ToAccountID+''')'
+		SET @sWhere2 = @sWhere2 +' AND (CR01.AccountID between N'''+@FromAccountID+''' and N'''+@ToAccountID+''')'
 	IF @FromEmployeeID IS NOT NULL And (@FromEmployeeID not like '')
-		SET @sWhere = @sWhere +' AND (OT01.SalesManID between N'''+@FromEmployeeID+''' and N'''+@ToEmployeeID+''')'
+		SET @sWhere2 = @sWhere2 +' AND (OT01.SalesManID between N'''+@FromEmployeeID+''' and N'''+@ToEmployeeID+''')'
 		 
 
 
 ---Load danh sách khách hàng mới theo nhân viên
 SET @sSQL =
-	' Select b.DivisionID,  Max(b.OrderDate) as OrderDate  , b.AccountID, b.AccountName, b.Address ,b.Tel, 
+	' Select b.DivisionID,  Convert(Nvarchar(10),b.OrderDate,103) as OrderDate  , b.AccountID, b.AccountName, b.Address ,b.Tel, 
 		c.InventoryID, c.InventoryName ,c.OrderQuantity, b.SalesManID, b.FullName, b.Notes
 		From 
 		(
@@ -75,31 +75,31 @@ SET @sSQL =
 			Group by OT01.SalesManID, CR01.DivisionID, CR01.AccountID, CR01.AccountName, 
 			CR01.Address, CR01.Tel, CR01.CreateUserID, AT02.InventoryID,AT02.InventoryName, OT01.Notes,AT03.FullName
 		)b INNER join 
-		(Select A.DivisionID, A.ObjectID, y.InventoryID, A.OrderQuantity, y.InventoryName
+		(Select A.DivisionID, A.ObjectID, y.InventoryID, A.OrderQuantity, y.InventoryName, A.SalesManID
 		From
 		(
-					Select x.DivisionID, x.ObjectID, Max(x.OrderQuantity) as OrderQuantity
+					Select x.DivisionID, x.ObjectID, Max(x.OrderQuantity) as OrderQuantity,x.SalesManID
 					from 
 								(
-									Select M.DivisionID, M.ObjectID, D.InventoryID , Max(D.OrderQuantity) as OrderQuantity 
+									Select M.DivisionID, M.ObjectID, D.InventoryID , Max(D.OrderQuantity) as OrderQuantity , M.SalesManID
 									from OT2001 M Left join OT2002 D On M.DivisionID = D.DivisionID and M.SOrderID = D.SOrderID
-									Group by M.DivisionID,M.ObjectID, D.InventoryID 
+									Group by M.DivisionID,M.ObjectID, D.InventoryID , M.SalesManID
 									--Tìm S? lu?ng max theo mã v?t tu và d?i tu?ng
 								) x
-					Group By x.DivisionID, x.ObjectID
+					Group By x.DivisionID, x.ObjectID,x.SalesManID
 					-- Tìm s? lu?ng max theo d?i tu?ng
 		) A left join (
 							Select M.DivisionID, M.ObjectID, D.InventoryID , H.InventoryName , MAx(D.OrderQuantity) as  MOrderQuantity 
 							from OT2001 M Left join OT2002 D On M.DivisionID = D.DivisionID and M.SOrderID = D.SOrderID
 							Left join AT1302 H On M.DivisionID = H.DivisionID and H.InventoryID = D.InventoryID
-							Group by M.DivisionID,M.ObjectID, D.InventoryID , H.InventoryName
+							Group by M.DivisionID,M.ObjectID, D.InventoryID , H.InventoryName, M.SalesManID
 							--Tìm s? lu?ng max theo mã v?t tu và s? lu?ng
 						) y on A.DivisionID = y.DivisionID and A.ObjectID = y.ObjectID
 		Where A.OrderQuantity = y.MOrderQuantity
 		--Tìm danh sách d?i tu?ng có s? lu?ng max 
-		)c ON b.AccountID = c.ObjectID And b.DivisionID = c.DivisionID	
+		)c ON b.AccountID = c.ObjectID And b.DivisionID = c.DivisionID	AND b.InventoryID = c.InventoryID AND b.SalesManID=	c.SalesManID
 		Group by b.AccountID, b.DivisionID, b.AccountName, b.Address ,b.Tel, 
-		c.InventoryID, c.InventoryName ,c.OrderQuantity, b.SalesManID, b.FullName, b.Notes
+		c.InventoryID, c.InventoryName ,c.OrderQuantity, b.SalesManID, b.FullName, b.Notes, b.OrderDate
 		'
 
 EXEC (@sSQL)
