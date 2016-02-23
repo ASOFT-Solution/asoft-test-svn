@@ -56,7 +56,7 @@ Set @sWhere1 =	' AND (CONVERT(VARCHAR(10),OT01.OrderDate,112) < '''+ CONVERT(VAR
 ---Load danh sách khách hàng mới theo nhân viên
 SET @sSQL =
 	' Select b.DivisionID,  Max(b.OrderDate) as OrderDate  , b.AccountID, b.AccountName, b.Address ,b.Tel, 
-		c.InventoryID, c.InventoryName ,c.OrderQuantity, b.SalesManID, b.FullName
+		c.InventoryID, c.InventoryName ,c.OrderQuantity, b.SalesManID, b.FullName, b.Notes
 		From 
 		(
 			SELECT CR01.DivisionID, Max(OT01.OrderDate) as OrderDate , CR01.AccountID, CR01.AccountName, 
@@ -99,7 +99,7 @@ SET @sSQL =
 		--Tìm danh sách d?i tu?ng có s? lu?ng max 
 		)c ON b.AccountID = c.ObjectID And b.DivisionID = c.DivisionID	
 		Group by b.AccountID, b.DivisionID, b.AccountName, b.Address ,b.Tel, 
-		c.InventoryID, c.InventoryName ,c.OrderQuantity, b.SalesManID, b.FullName
+		c.InventoryID, c.InventoryName ,c.OrderQuantity, b.SalesManID, b.FullName, b.Notes
 		'
 
 EXEC (@sSQL)
