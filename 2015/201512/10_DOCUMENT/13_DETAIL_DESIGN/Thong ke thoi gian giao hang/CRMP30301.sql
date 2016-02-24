@@ -46,13 +46,13 @@ SET @sWhere = ''
 	
 SET @sWhere = @sWhere + ' AND (CONVERT(VARCHAR(10),A.CreateDate,112) BETWEEN'''+ CONVERT(VARCHAR(20),@FromDate,112)+''' AND''' + CONVERT(VARCHAR(20),@ToDate,112) +''')'
  SET @sSQL = N'
-	 Select x.TDate, 
+	 Select x.Division, x.DivisionName, x.TDate, 
 		 Sum(x.CTime1) as CTime1, Sum(x.CTime2) As CTime2, Sum(x.CTime3) as CTime3, Sum(x.CTime4) as CTime4, Sum(x.CTime5) as CTime5,
 		 Sum(x.DTime1) as DTime1, Sum(x.DTime2) as DTime2, Sum(x.DTime3) as DTime3, Sum(x.DTime4) as DTime4, Sum(x.DTime5) as DTime5, Sum(x.DTime6) as DTime6,
 		 Sum(x.RTime1) as RTime1, Sum(x.RTime2) as RTime2, Sum(x.RTime3) as RTime3, Sum(x.RTime4) as RTime4, Sum(x.RTime5) as RTime5, Sum(x.RTime6) as RTime6,
 		 Sum(x.STime1) as STime1, Sum(x.STime2) as STime2, Sum(x.STime3) as STime3, Sum(x.STime4) as STime4, Sum(x.STime5) as STime5, Sum(x.STime6) as STime6
 	From
-	(Select Day(A.OrderDate) As TDate, Month(A.OrderDate)As TMonth, YEAR(A.OrderDate) As TYear, A.CreateDate, A.ConfirmDate, B.OutTime, B.CashierTime,
+	(Select A.DivisionID as Division, C.DivisionName,Day(A.OrderDate) As TDate, Month(A.OrderDate)As TMonth, YEAR(A.OrderDate) As TYear, A.CreateDate, A.ConfirmDate, B.OutTime, B.CashierTime,
 		Case 
 			When ((Datediff(MINUTE,A.CreateDate, A.ConfirmDate) ) >=0 And (Datediff(MINUTE,A.CreateDate, A.ConfirmDate) )<=15 ) then 1 
 			Else 0
@@ -150,10 +150,12 @@ SET @sWhere = @sWhere + ' AND (CONVERT(VARCHAR(10),A.CreateDate,112) BETWEEN'''+
 		end As STime6
 	From OT2001 A
 	Inner Join AT2006 B On A.DivisionID = B.DivisionID And A.SOrderID =B.OrderID
+	Inner Join AT1101 C On C.DivisionID = A.DivisionID
 	where '+@sWhere+'
+	AND B.KindVoucherID =3 and B.IsWeb=1
 	--Xác định thời gian giao hàng của nhân viên
 	)x
-	Group by x.TDate, x.TMonth, x.TYear
+	Group by x.TDate, x.TMonth, x.TYear, x.Division, x.DivisionName
 	--Xác định số lượng giao hàng theo ngày
 
  ' 
