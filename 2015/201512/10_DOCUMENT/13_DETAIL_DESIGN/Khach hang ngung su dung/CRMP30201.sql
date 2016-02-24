@@ -47,19 +47,21 @@ SET @sWhere = ''
 	
 
 Set @sSQL = N'
-	Select b.DivisionID,  Convert(Nvarchar(10),b.OrderDate,103) as OrderDate , b.ObjectID, b.ObjectName, b.Address ,b.Tel, c.InventoryID, c.InventoryName ,c.AvgQuantity
+	Select b.DivisionID as Division,  b.DivisionName, Convert(Nvarchar(10),b.OrderDate,103) as OrderDate , b.AccountID, b.AccountName, b.Address ,b.Tel, c.InventoryID, c.InventoryName ,c.AvgQuantity
 	From 
 	(
 		
-			Select M.DivisionID, M.ObjectID, M.ObjectName, 
+			Select M.DivisionID, AT.DivisionName, CR.AccountID, CR.AccountName, 
 			Max(M.OrderDate ) as OrderDate,T.Address, T.Tel
 			from OT2001 M 
+			Inner join CRMT10101 CR On CR.DivisionID= M.DivisionID and CR.AccountID=M.ObjectID
 			Left join OT2002 D On M.DivisionID = D.DivisionID and M.SOrderID = D.SOrderID
 			Inner join AT1202 T On T.DivisionID =M.DivisionID AND T.ObjectID = M.ObjectID
+			Inner Join AT1101 AT On AT.DivisionID = M.DivisionID
 			where  '+@sWhere+'
 			AND T.IsUsing = 1
 			---Tìm khách hàng ngung s? d?ng v?i don hàng cu?i cùng
-		Group by M.ObjectID, M.DivisionID, M.ObjectName, T.Address, T.Tel
+		Group by AT.DivisionName, CR.AccountID, CR.AccountName, M.DivisionID, T.Address, T.Tel
 	)b Inner Join 
 	(
 		Select A.DivisionID, A.ObjectID, y.InventoryID, A.AvgQuantity, y.InventoryName
@@ -107,7 +109,7 @@ Set @sSQL = N'
 		) y on A.DivisionID = y.DivisionID and A.ObjectID = y.ObjectID
 		Where A.AvgQuantity = y.AVGOrderQuantity
 		---Tìm ra s? m?t hàng ch?a có s? lu?ng trung bình l?n nh?t
-	) c ON b.ObjectID = c.ObjectID And b.DivisionID = c.DivisionID
+	) c ON b.AccountID = c.ObjectID And b.DivisionID = c.DivisionID
 '
  EXEC (@sSQL)
 GO
