@@ -45,7 +45,7 @@ SET @sWhere = @sWhere + ' AND (CONVERT(VARCHAR(10),H.OrderDate,112) BETWEEN'''+ 
 
 SET @sSQL = N'
 	Select 
-		A.DivisionID,A.ObjectID, A.ObjectName, A.Address, A.Tel, A.Contactor,
+		A.DivisionID as Division,A.DivisionName, A.AccountID, A.AccountName, A.Address, A.Tel, A.Contactor,
 		A.InventoryID, A.InventoryName, A.OrderQuantity, A.SalePrice, A.OriginalAmount ,
 		A.SumAmount, A.Notes, A.Notes01, A.Notes02, 
 		Case 
@@ -57,36 +57,38 @@ SET @sSQL = N'
 	From 
 	(
 		Select 
-			t.DivisionID, t.OrderDate, t.ObjectID, t.ObjectName, x.Address, x.Tel, x.Contactor,
+			t.DivisionID, t.DivisionName, t.OrderDate, t.AccountID, t.AccountName, x.Address, x.Tel, x.Contactor,
 			x.InventoryID, x.InventoryName, x.OrderQuantity, x.SalePrice, x.OriginalAmount,
 			t.SumAmount, x.Notes, x.Notes01, x.Notes02, Max(x.DayTime)as TimeDate
 		From 
 		(
-			Select y.DivisionID, y.OrderDate, y.ObjectID, y.ObjectName, z.SumAmount
+			Select y.DivisionID,y.DivisionName, y.OrderDate, y.AccountID, y.AccountName, z.SumAmount
 			From
 			(
 				
-				Select F.DivisionID, F.ObjectID, F.ObjectName, Max(F.OrderDate ) OrderDate
+				Select F.DivisionID,D.DivisionName, C.AccountID, C.AccountName, Max(F.OrderDate ) OrderDate
 				from OT2001 F
-				Group by F.DivisionID, F.ObjectID, F.ObjectName
-				--Tìm thời gian lớn nhất của đơn hàng theo đối tượng
+				Inner Join CRMT10101 C On C.DivisionID= F.DivisionID AND C.AccountID = F.ObjectID
+				Inner Join AT1101 D ON D.DivisionID = F.DivisionID
+				Group by F.DivisionID,D.DivisionName, C.AccountID, C.AccountName
+				--Tìm đơn hàng cuối cùng đối tượng
 			)y Inner Join
 			(
 				Select M.DivisionID, M.ObjectID, Sum(O.OriginalAmount ) as SumAmount 
 				From OT2002 O
 				Inner Join OT2001 M On O.DivisionID =M.DivisionID And O.SOrderID = M.SOrderID
 				Group by M.ObjectID, M.DivisionID
-		        --Tổng số lượng theo sản phẩm của đối tượng
-			)z On z.DivisionID=y.DivisionID And z.ObjectID = y.ObjectID
+		        --Tổng số nợ  của đối tượng
+			)z On z.DivisionID=y.DivisionID And z.ObjectID = y.AccountID
 		)t Inner Join
 		(
 			Select 
-				H.DivisionID, H.ObjectID,B.Address, H.OrderDate ,B.Tel, B.Contactor, 
+				H.DivisionID, H.ObjectID,B.Address, H.OrderDate ,B.Tel, H.Contactor, 
 				C.InventoryID, C.InventoryName ,D.OrderQuantity, D.SalePrice, D.OriginalAmount, 
 				D.Notes, D.Notes01, D.Notes02, Datediff(DAY,H.OrderDate, GetDate()) as DayTime 
 			From 
 			(
-				Select F.DivisionID, F.ObjectID, F.ObjectName, F.OrderDate, F.SOrderID, F.TranMonth, F.TranYear
+				Select F.DivisionID, F.ObjectID, F.ObjectName, F.OrderDate, F.SOrderID, F.TranMonth, F.TranYear,  F.Contact as Contactor
 				from OT2001 F
 			) H
 			Inner Join AT1202 B On B.DivisionID = H.DivisionID And B.ObjectID = H.ObjectID 
@@ -95,10 +97,10 @@ SET @sSQL = N'
 			where    '+@sWhere+'
 			--Xác định số ngày của đơn hàng đến ngày hiện tại
 		)x
-		On x.DivisionID = t.DivisionID And x.ObjectID = t.ObjectID And x.OrderDate = t.OrderDate
-		Group by t.DivisionID, t.OrderDate, t.ObjectID, t.ObjectName, x.Address, x.Tel, x.Contactor,
-				x.InventoryID, x.InventoryName, x.OrderQuantity, x.SalePrice, x.OriginalAmount,
-				x.Notes, x.Notes01, x.Notes02, t.SumAmount
+		On x.DivisionID = t.DivisionID And x.ObjectID = t.AccountID And x.OrderDate = t.OrderDate
+		Group by t.DivisionID, t.DivisionName, t.OrderDate, t.AccountID, t.AccountName, x.Address, x.Tel, x.Contactor,
+			x.InventoryID, x.InventoryName, x.OrderQuantity, x.SalePrice, x.OriginalAmount,
+			t.SumAmount, x.Notes, x.Notes01, x.Notes02
 	---Danh sách khách hàng + s? ngày k? t? don hàng sau cùng d?n hi?n t?i
 	)A 
 	where A.TimeDate >=15
