@@ -55,11 +55,11 @@ Set @sWhere1 =	' AND (CONVERT(VARCHAR(10),OT01.OrderDate,112) < '''+ CONVERT(VAR
 
 ---Load danh sách khách hàng mới theo nhân viên
 SET @sSQL =
-	' Select b.DivisionID,  Convert(Nvarchar(10),b.OrderDate,103) as OrderDate  , b.AccountID, b.AccountName, b.Address ,b.Tel, 
+	' Select b.DivisionID as Division, b.DivisionName,  Convert(Nvarchar(10),b.OrderDate,103) as OrderDate  , b.AccountID, b.AccountName, b.Address ,b.Tel, 
 		c.InventoryID, c.InventoryName ,c.OrderQuantity, b.SalesManID, b.FullName, b.Notes
 		From 
 		(
-			SELECT CR01.DivisionID, Max(OT01.OrderDate) as OrderDate , CR01.AccountID, CR01.AccountName, 
+			SELECT CR01.DivisionID, AT01.DivisionName, Max(OT01.OrderDate) as OrderDate , CR01.AccountID, CR01.AccountName, 
 			CR01.Address, CR01.Tel, CR01.CreateUserID,
 			AT02.InventoryID,AT02.InventoryName, OT01.Notes, OT01.SalesManID, AT03.FullName
 			FROM CRMT10101 CR01
@@ -67,12 +67,13 @@ SET @sSQL =
 			Left JOIN OT2002 OT02 ON OT02.DivisionID = CR01.DivisionID AND OT01.SOrderID = OT02.SOrderID
 			Left JOIN AT1302 AT02 ON AT02.DivisionID = CR01.DivisionID AND AT02.InventoryID = OT02.InventoryID
 			Left JOIN AT1103 AT03 ON AT03.DivisionID = CR01.DivisionID AND AT03.EmployeeID = OT01.SalesManID
+			Left Join AT1101 AT01 ON AT01.DivisionID= CR01.DivisionID
 			Where  '+@sWhere2+ @sWhere+'
 			And CR01.AccountID not in (SELECT CR01.AccountID FROM CRMT10101 CR01
 				Inner JOIN OT2001 OT01 ON OT01.DivisionID = CR01.DivisionID AND OT01.ObjectID = CR01.AccountID
 				Inner JOIN OT2002 OT02 ON OT02.DivisionID = CR01.DivisionID AND OT01.SOrderID = OT02.SOrderID
 				Where  '+@sWhere2+ @sWhere1+')
-			Group by OT01.SalesManID, CR01.DivisionID, CR01.AccountID, CR01.AccountName, 
+			Group by OT01.SalesManID, CR01.DivisionID, CR01.AccountID, CR01.AccountName, AT01.DivisionName,
 			CR01.Address, CR01.Tel, CR01.CreateUserID, AT02.InventoryID,AT02.InventoryName, OT01.Notes,AT03.FullName
 		)b INNER join 
 		(Select A.DivisionID, A.ObjectID, y.InventoryID, A.OrderQuantity, y.InventoryName, A.SalesManID
@@ -98,7 +99,7 @@ SET @sSQL =
 		Where A.OrderQuantity = y.MOrderQuantity
 		--Tìm danh sách d?i tu?ng có s? lu?ng max 
 		)c ON b.AccountID = c.ObjectID And b.DivisionID = c.DivisionID	AND b.InventoryID = c.InventoryID AND b.SalesManID=	c.SalesManID
-		Group by b.AccountID, b.DivisionID, b.AccountName, b.Address ,b.Tel, 
+		Group by b.AccountID, b.DivisionID, b.AccountName, b.Address ,b.Tel, b.DivisionName,
 		c.InventoryID, c.InventoryName ,c.OrderQuantity, b.SalesManID, b.FullName, b.Notes, b.OrderDate
 		'
 
