@@ -83,12 +83,12 @@ SET @sSQL = N'
 		)t Inner Join
 		(
 			Select 
-				H.DivisionID, H.ObjectID,B.Address, H.OrderDate ,B.Tel, H.Contactor, 
+				H.DivisionID, H.ObjectID,B.Address, H.OrderDate ,B.Tel, B.Contactor, 
 				C.InventoryID, C.InventoryName ,D.OrderQuantity, D.SalePrice, D.OriginalAmount, 
 				D.Notes, D.Notes01, D.Notes02, Datediff(DAY,H.OrderDate, GetDate()) as DayTime 
 			From 
 			(
-				Select F.DivisionID, F.ObjectID, F.ObjectName, F.OrderDate, F.SOrderID, F.TranMonth, F.TranYear,  F.Contact as Contactor
+				Select F.DivisionID, F.ObjectID, F.ObjectName, F.OrderDate, F.SOrderID, F.TranMonth, F.TranYear
 				from OT2001 F
 			) H
 			Inner Join AT1202 B On B.DivisionID = H.DivisionID And B.ObjectID = H.ObjectID 
