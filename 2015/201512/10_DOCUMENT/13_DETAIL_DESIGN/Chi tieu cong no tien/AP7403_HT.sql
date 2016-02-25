@@ -53,9 +53,7 @@ CREATE PROCEDURE [dbo].[AP7403_HT]
 					@ToAccountID AS nvarchar(50),
 					@FromO05ID As Varchar (50),
 					@ToO05ID as Varchar (50),
-					@Groupby AS TINYINT,
-					@StrDivisionID AS NVARCHAR(4000) = '',
-					@DatabaseName as nvarchar(250) =''
+					@Groupby AS TINYINT
 					
 
 
@@ -71,8 +69,7 @@ DECLARE
 	@TypeDate AS nvarchar(50),
     @TableName AS nvarchar(50),
     @SqlObject AS nvarchar(4000),
-    @SqlGroupBy AS nvarchar(4000),
-    @StrDivisionID_New AS NVARCHAR(4000)
+    @SqlGroupBy AS nvarchar(4000)
     
 Declare @CustomerName INT
 --Tao bang tam de kiem tra day co phai la khach hang Hoang Tran khong (CustomerName = 51)
@@ -85,12 +82,12 @@ SET @CustomerName = (SELECT TOP 1 CustomerName FROM #CustomerName)
 Set @GroupTypeID ='O05'
 
 Set @GroupID  = (Case  @GroupTypeID 
-				When 'O05'  Then 'Object.O05ID' ---- Nhom theo ma phan tich doi tuong
+				When 'O05'  Then 'A.O05ID' ---- Nhom theo ma phan tich doi tuong
 				End)
 
 If @GroupBy = 0    ---- Nhom theo doi tuong truoc , tai khoan sau
 	set @SqlGroupBy = '  
-		Object.O05ID AS GroupID,
+		A.O05ID AS GroupID,
 		O5.AnaName AS  GroupName,
 		D3.AccountID AS GroupID2,
 		AccountName AS GroupName2 '
@@ -98,27 +95,25 @@ else   		----- Nhom theo tai khoan truoc, doi tuong sau
 	set @SqlGroupBy = ' 
 		D3.AccountID AS GroupID1,
 		AccountName AS GroupName1,
-		Object.O05ID AS GroupID,
+		A.O05ID AS GroupID,
 		O5.AnaName AS  GroupName
 		'
 
 
-Exec AP7402_HT  @DivisionID, @CurrencyID, @FromAccountID, @ToAccountID, @FromO05ID,  @ToO05ID, @StrDivisionID 
+Exec AP7402_HT  @DivisionID, @CurrencyID, @FromAccountID, @ToAccountID, @FromO05ID,  @ToO05ID
 
 IF @TypeD = 1	---- Theo ngay Hoa don
-	SET @TypeDate = 'InvoiceDate'
+	SET @TypeDate = 'D3.InvoiceDate'
 ELSE IF @TypeD = 2 	---- Theo ngay hach toan
-	SET @TypeDate = 'VoucherDate'
+	SET @TypeDate = 'D3.VoucherDate'
 
 if @TypeD <> 0   ----- In theo ngay
 Begin
 SET @sSQL = ' 
 SELECT	D3.DivisionID, ' + @SqlGroupBy + ',	
-		Object.VATNo, 
-		D3.AccountID, AccountName, AccountNameE, D3.CurrencyID,
-		Object.S1, Object.S2,  Object.S3, 
-		OS1.SName AS S1Name, OS2.SName AS S2Name, OS3.SName AS S3Name, 
-		Object.O05ID,
+		A.VATNo, 
+		D3.AccountID, B.AccountName, B.AccountNameE, D3.CurrencyID,
+		A.O05ID,
 		O5.AnaName AS O05Name, 
 		SUM (CASE WHEN (CONVERT(DATETIME,CONVERT(varchar(10),' + LTRIM(RTRIM(@TypeDate)) + ',101),101) <  ''' + convert(nvarchar(10), @FromDate, 101) + ''' OR TransactiontypeID = ''T00'') AND RPTransactionType = ''00'' THEN SignOriginalAmount ELSE 0 END)  AS DebitOriginalOpening,
 		SUM (CASE WHEN (CONVERT(DATETIME,CONVERT(varchar(10),' + LTRIM(RTRIM(@TypeDate)) + ',101),101) <  ''' + convert(nvarchar(10), @FromDate, 101) + ''' OR TransactiontypeID = ''T00'') AND RPTransactionType = ''00'' THEN SignConvertedAmount ELSE 0 END) AS DebitConvertedOpening,
@@ -131,7 +126,8 @@ SELECT	D3.DivisionID, ' + @SqlGroupBy + ',
         SUM (CASE WHEN CONVERT(DATETIME,CONVERT(varchar(10),' + LTRIM(RTRIM(@TypeDate)) + ',101),101) >= ''' + convert(nvarchar(10), @FromDate, 101) + '''  AND
 					   CONVERT(DATETIME,CONVERT(varchar(10),' + LTRIM(RTRIM(@TypeDate)) + ',101),101) <= ''' + convert(nvarchar(10), @ToDate, 101) + ''' AND (IsNull(TransactiontypeID, '''') <> ''T00'') AND RPTransactionType = ''01'' THEN -SignOriginalAmount ELSE 0 END) AS OriginalCredit,
 		SUM (CASE WHEN CONVERT(DATETIME,CONVERT(varchar(10),' + LTRIM(RTRIM(@TypeDate)) + ',101),101) >= ''' + convert(nvarchar(10), @FromDate, 101) + '''  AND
-					   CONVERT(DATETIME,CONVERT(varchar(10),' + LTRIM(RTRIM(@TypeDate)) + ',101),101) <= ''' + convert(nvarchar(10), @ToDate, 101) + ''' AND (IsNull(TransactiontypeID, '''') <> ''T00'') AND  RPTransactionType = ''01'' THEN -SignConvertedAmount ELSE 0 END) AS ConvertedCredit,'
+					   CONVERT(DATETIME,CONVERT(varchar(10),' + LTRIM(RTRIM(@TypeDate)) + ',101),101) <= ''' + convert(nvarchar(10), @ToDate, 101) + ''' AND (IsNull(TransactiontypeID, '''') <> ''T00'') AND  RPTransactionType = ''01'' THEN -SignConvertedAmount ELSE 0 END) AS ConvertedCredit,
+		SUM (CASE WHEN  RPTransactionType = ''00'' AND CreditAccountID = ''5111'' THEN ConvertedAmount ELSE 0 END)  AS ConvertIncome,  '
 SET @sSQL1 = '					   
 		SUM (CASE WHEN (CONVERT(DATETIME,CONVERT(varchar(10),' + LTRIM(RTRIM(@TypeDate)) + ',101),101) <= ''' + convert(nvarchar(10), @ToDate, 101) + ''' OR TransactiontypeID = ''T00'') AND RPTransactionType = ''00'' THEN SignOriginalAmount ELSE 0 END) AS DebitOriginalClosing,
 		SUM (CASE WHEN (CONVERT(DATETIME,CONVERT(varchar(10),' + LTRIM(RTRIM(@TypeDate)) + ',101),101) <= ''' + convert(nvarchar(10), @ToDate, 101) + ''' OR TransactiontypeID = ''T00'') AND RPTransactionType = ''00'' THEN SignConvertedAmount ELSE 0 END) AS DebitConvertedClosing,
@@ -143,29 +139,24 @@ SET @sSQL1 = '
 		SUM (CASE WHEN (TranMonth + TranYear * 100 > ' + str(@FromYear) + '*100) AND CONVERT(DATETIME,CONVERT(varchar(10),' + LTRIM(RTRIM(@TypeDate)) + ',101),101) <= ''' + convert(nvarchar(10), @ToDate, 101) + ''' AND (IsNull(TransactiontypeID, '''') <> ''T00'') AND RPTransactionType = ''01'' THEN -SignConvertedAmount ELSE 0 END) AS ConvertedCreditYTD '
 SET @sSQL2 = ' 		
 	FROM AV7402_HT D3 
-		INNER JOIN AT1202 Object  on  Object.ObjectID = D3.ObjectID AND Object.DivisionID = D3.DivisionID
-		LEFT JOIN AT1015 O5 on O5.AnaID = Object.O05ID AND O5.DivisionID = Object.DivisionID AND O5.AnaTypeID = ''O05''
-		LEFT JOIN AT1207 OS1 on OS1.S = Object.S1 AND OS1.DivisionID = Object.DivisionID AND OS1.STypeID = ''O01''
-		LEFT JOIN AT1207 OS2 on OS2.S = Object.S2 AND OS2.DivisionID = Object.DivisionID AND OS2.STypeID = ''O02''
-		LEFT JOIN AT1207 OS3 on OS3.S = Object.S3 AND OS3.DivisionID = Object.DivisionID AND OS3.STypeID = ''O03''
-		INNER JOIN AT1005 AS Account on Account.AccountID = D3.AccountID AND Account.DivisionID = D3.DivisionID
-	GROUP BY	D3.DivisionID,  D3.AccountID, Object.VATNo, 
-				AccountName, AccountNameE, D3.CurrencyID, 
-				Object.S1, Object.S2,  Object.S3, 
-				OS1.SName, OS2.SName, OS3.SName,  
-				Object.O05ID, O5.AnaName '
+		INNER JOIN AT1202 A  on  A.ObjectID = D3.ObjectID AND A.DivisionID = D3.DivisionID
+		LEFT JOIN AT1015 O5 on O5.AnaID = A.O05ID AND O5.DivisionID = D3.DivisionID AND O5.AnaTypeID = ''O05''
+		INNER JOIN AT1005 AS B on B.AccountID = D3.AccountID AND B.DivisionID = D3.DivisionID
+	GROUP BY	D3.DivisionID,  D3.AccountID, A.VATNo, 
+				B.AccountName, B.AccountNameE, D3.CurrencyID, 
+				A.O05ID, O5.AnaName '
+
 END
+
 ELSE
 BEGIN
 	SET @sSQL = '
-SELECT	D3.DivisionID, ' + @SqlGroupBy + '	
-		Object.VATNo, 
+SELECT	D3.DivisionID, ' + @SqlGroupBy + ',	
+		A.VATNo, 
 		D3.AccountID,
-		AccountName, AccountNameE,
+		B.AccountName, B.AccountNameE,
 		D3.CurrencyID,
-		Object.S1, Object.S2, Object.S3, 
-		OS1.SName AS S1Name, OS2.SName AS S2Name, OS3.SName AS S3Name, 
-		Object.O05ID, 
+		A.O05ID, 
 		O5.AnaName AS O05Name, 
 		SUM (CASE WHEN ((TranMonth + 100 * TranYear < ' + str(@FromMonth) + ' + 100 * ' + str(@FromYear) + ') OR TransactiontypeID = ''T00'') AND RPTransactionType = ''00'' THEN SignOriginalAmount ELSE 0 END)  AS DebitOriginalOpening,
 		SUM (CASE WHEN ((TranMonth + 100 * TranYear < ' + str(@FromMonth) + ' + 100 * ' + str(@FromYear) + ') OR TransactiontypeID = ''T00'') AND RPTransactionType = ''00'' THEN SignConvertedAmount ELSE 0 END) AS DebitConvertedOpening,
@@ -174,7 +165,8 @@ SELECT	D3.DivisionID, ' + @SqlGroupBy + '
 		SUM (CASE WHEN (TranMonth + 100 * TranYear >= ' + str(@FromMonth) + ' + 100 * ' + str(@FromYear) + ') AND (TranMonth + 100 * TranYear <= ' + str(@ToMonth) + ' + 100 * ' + str(@ToYear) + ') AND (IsNull(TransactiontypeID, '''') <> ''T00'') AND  RPTransactionType = ''00'' THEN SignOriginalAmount ELSE 0 END) AS OriginalDebit,
 		SUM (CASE WHEN (TranMonth + 100 * TranYear >= ' + str(@FromMonth) + ' + 100 * ' + str(@FromYear) + ') AND (TranMonth + 100 * TranYear <= ' + str(@ToMonth) + ' + 100 * ' + str(@ToYear) + ') AND (IsNull(TransactiontypeID, '''') <> ''T00'') AND  RPTransactionType = ''00'' THEN SignConvertedAmount ELSE 0 END) AS ConvertedDebit,
 		SUM (CASE WHEN (TranMonth + 100 * TranYear >= ' + str(@FromMonth) + ' + 100 * ' + str(@FromYear) + ') AND (TranMonth + 100 * TranYear <= ' + str(@ToMonth) + ' + 100 * ' + str(@ToYear) + ') AND (IsNull(TransactiontypeID, '''') <> ''T00'') AND  RPTransactionType = ''01'' THEN - SignOriginalAmount ELSE 0 END) AS OriginalCredit,
-		SUM (CASE WHEN (TranMonth + 100 * TranYear >= ' + str(@FromMonth) + ' + 100 * ' + str(@FromYear) + ') AND (TranMonth + 100 * TranYear <= ' + str(@ToMonth) + ' + 100 * ' + str(@ToYear) + ') AND (IsNull(TransactiontypeID, '''') <> ''T00'') AND  RPTransactionType = ''01'' THEN - SignConvertedAmount ELSE 0 END) AS ConvertedCredit,'
+		SUM (CASE WHEN (TranMonth + 100 * TranYear >= ' + str(@FromMonth) + ' + 100 * ' + str(@FromYear) + ') AND (TranMonth + 100 * TranYear <= ' + str(@ToMonth) + ' + 100 * ' + str(@ToYear) + ') AND (IsNull(TransactiontypeID, '''') <> ''T00'') AND  RPTransactionType = ''01'' THEN - SignConvertedAmount ELSE 0 END) AS ConvertedCredit,
+		SUM (CASE WHEN  RPTransactionType = ''00'' AND CreditAccountID = ''5111'' THEN ConvertedAmount ELSE 0 END) AS ConvertIncome,  '
 SET @sSQL1 = '
 		SUM (CASE WHEN ((TranMonth + 100 * TranYear <= ' + str(@ToMonth) + ' + 100 * ' + str(@ToYear) + ') OR TransactiontypeID = ''T00'') AND RPTransactionType = ''00'' THEN SignOriginalAmount ELSE 0 END) AS DebitOriginalClosing,
 		SUM (CASE WHEN ((TranMonth + 100 * TranYear <= ' + str(@ToMonth) + ' + 100 * ' + str(@ToYear) + ') OR TransactiontypeID = ''T00'') AND RPTransactionType = ''00'' THEN SignConvertedAmount ELSE 0 END) AS DebitConvertedClosing,
@@ -186,24 +178,17 @@ SET @sSQL1 = '
 		SUM (CASE WHEN (TranMonth + TranYear * 100 > ' + str(@FromYear) + ' * 100) AND (TranMonth + TranYear * 100 <= ' + str(@ToMonth) + ' + ' + str(@ToYear) + '*100) AND (IsNull(TransactiontypeID, '''') <> ''T00'') AND  RPTransactionType = ''01'' THEN -SignConvertedAmount ELSE 0 END) AS ConvertedCreditYTD '
 SET @sSQL2 = ' 	
 	FROM AV7402_HT D3 	
-		INNER JOIN AT1202 Object  on  Object.ObjectID = D3.ObjectID AND Object.DivisionID = D3.DivisionID
-		LEFT JOIN AT1015 O5 on O5.AnaID = Object.O05ID AND O5.DivisionID = Object.DivisionID AND O5.AnaTypeID = ''O05''
-		LEFT JOIN AT1207 OS1 on OS1.S = Object.S1 AND OS1.DivisionID = Object.DivisionID AND OS1.STypeID = ''O01''
-		LEFT JOIN AT1207 OS2 on OS2.S = Object.S2 AND OS2.DivisionID = Object.DivisionID AND OS2.STypeID = ''O02''
-		LEFT JOIN AT1207 OS3 on OS3.S = Object.S3 AND OS3.DivisionID = Object.DivisionID AND OS3.STypeID = ''O03''
-		INNER JOIN AT1005 Account on Account.AccountID = D3.AccountID AND Account.DivisionID = D3.DivisionID
+		INNER JOIN AT1202 A  on  A.ObjectID = D3.ObjectID AND A.DivisionID = D3.DivisionID
+		LEFT JOIN AT1015 O5 on O5.AnaID = A.O05ID AND O5.DivisionID = D3.DivisionID AND O5.AnaTypeID = ''O05''
+		INNER JOIN AT1005 B on B.AccountID = D3.AccountID AND B.DivisionID = D3.DivisionID
 	
-GROUP BY  D3.DivisionID, D3.AccountID, Object.VATNo, 
-		AccountName, AccountNameE, D3.CurrencyID, 
-		Object.S1, Object.S2,  Object.S3, 
-		OS1.SName, OS2.SName, OS3.SName, 
-		Object.O05ID,  
+GROUP BY  D3.DivisionID, D3.AccountID, A.VATNo, 
+		B.AccountName, B.AccountNameE, D3.CurrencyID, 
+		A.O05ID,  
 		O5.AnaName '
 End
 
---PRINT(@sSQL)
---PRINT(@sSQL1)
---PRINT(@sSQL2)
+
 IF NOT EXISTS (SELECT NAME FROM SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[AV7413_HT]') AND OBJECTPROPERTY(ID, N'ISVIEW') = 1)
      EXEC ('  CREATE VIEW AV7413_HT AS ' + @sSQL + @sSQL1 + @sSQL2)
 ELSE
@@ -218,16 +203,18 @@ ELSE
 	
 ---- Bo phan so 0 	
 IF @CurrencyID <> '%'
-	Set @sSQL =  ' 
-		SELECT DivisionID, 
+	Set @sSQLUnion =  ' 
+		Select x.DivisionID, x.O05ID, x.O05Name, x.AccountID, x.AccountName, x.CurrencyID, Sum(x.ConvertIncome) as ConvertIncome,
+		Sum(x.ConvertedOpening) as ConvertedOpening, Sum(x.ConvertedDebit) as ConvertedDebit, sum(x.ConvertedCredit) as ConvertedCredit,
+		(Sum(x.ConvertedOpening)+Sum(x.ConvertedDebit)-sum(x.ConvertedCredit)) as ConvertedClosing
+		From 
+		(SELECT DivisionID, 
 		VATNo,
 		AccountID,
 		AccountName, AccountNameE,
 		CurrencyID,		 
-		S1, S2, S3, 
-		S1Name, S2Name, S3Name, 
 		O05ID,
-		O05Name, 
+		O05Name, ConvertIncome,
 		CASE WHEN DebitOriginalOpening - CreditOriginalOpening < 0 THEN CreditOriginalOpening - DebitOriginalOpening ELSE 0 END AS CreditOriginalOpening,
 		CASE WHEN DebitOriginalOpening - CreditOriginalOpening > 0 THEN DebitOriginalOpening - CreditOriginalOpening ELSE 0 END AS DebitOriginalOpening,
 		DebitOriginalOpening - CreditOriginalOpening AS OriginalOpening,
@@ -253,20 +240,26 @@ IF @CurrencyID <> '%'
 		OR DebitConvertedOpening - CreditConvertedOpening <> 0 OR OriginalDebit <> 0 
 		OR ConvertedDebit <> 0 OR OriginalCredit <> 0 OR ConvertedCredit <> 0 
 		OR DebitOriginalClosing - CreditOriginalClosing <> 0 
-		OR DebitConvertedClosing - CreditConvertedClosing <> 0 '
+		OR DebitConvertedClosing - CreditConvertedClosing <> 0 
+	)x
+	Group by x.DivisionID, x.O05ID, x.O05Name, x.AccountID, x.AccountName, x.CurrencyID
+		'
 	
 Else
 	
-	Set @sSQL =  ' 
+	Set @sSQLUnion =  ' 
+	Select x.DivisionID, x.O05ID, x.O05Name, x.AccountID, x.AccountName, x.CurrencyID, Sum(x.ConvertIncome) as ConvertIncome,
+	Sum(x.ConvertedOpening) as ConvertedOpening, Sum(x.ConvertedDebit) as ConvertedDebit, sum(x.ConvertedCredit) as ConvertedCredit,
+	(Sum(x.ConvertedOpening)+Sum(x.ConvertedDebit)-sum(x.ConvertedCredit)) as ConvertedClosing
+	From 
+	(	
 		SELECT DivisionID, 
 		VATNo,
 		AccountID,
 		AccountName, AccountNameE,
 		''%'' AS CurrencyID,  	
-		S1, S2, S3, 
-		S1Name, S2Name, S3Name, 
 		O05ID,
-		O05Name, 
+		O05Name, ConvertIncome,
 		0 AS CreditOriginalOpening,
  		0 AS DebitOriginalOpening,
 		0 AS OriginalOpening,
@@ -294,98 +287,13 @@ Else
 		OR DebitOriginalClosing - CreditOriginalClosing <> 0 
 		OR DebitConvertedClosing - CreditConvertedClosing <> 0
 	GROUP BY DivisionID, GroupID, GroupName, GroupID1, GroupName1, GroupID2, GroupName2,
-		Address, VATNo, AccountID, AccountName, AccountNameE,
-		S1, S2, S3, 
-		S1Name, S2Name, S3Name, 
+	 VATNo, AccountID, AccountName, AccountNameE,
 		O05ID,
-		O05Name'
+		O05Name, ConvertIncome
 
---print @sSQL
+	)x
+	Group by x.DivisionID, x.O05ID, x.O05Name, x.AccountID, x.AccountName, x.CurrencyID'
 
---IF NOT EXISTS (SELECT NAME FROM SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[AV7403]') AND OBJECTPROPERTY(ID, N'ISVIEW') = 1)
---    EXEC ('  CREATE VIEW AV7403 AS ' + @sSQL)
---ELSE
---    EXEC ('  ALTER VIEW AV7403  AS ' + @sSQL)
-
---	IF @CustomerName = 16 AND @DatabaseName <>''  --- Customize Sieu Thanh in du lieu 2 database
---		BEGIN
---			EXEC AP7403_ST  @DivisionID,@FromMonth,@FromYear,@ToMonth,@ToYear,@TypeD, @FromDate,@ToDate,@CurrencyID,@FromAccountID,@ToAccountID,@FromObjectID,@ToObjectID,@Groupby,@StrDivisionID,@DatabaseName 
-			
---			SET @sSQLUnion  = '
---				UNION ALL
---				SELECT  DivisionID,GroupID,GroupName,GroupID1,GroupName1,GroupID2,GroupName2,ObjectID,ObjectName,Address,VATNo,AccountID,AccountName, AccountNameE, CurrencyID,	
---				S1, S2, S3, S1Name, S2Name, S3Name,O05ID,O05Name, Tel, Fax, Email,
---				CreditOriginalOpening,DebitOriginalOpening,OriginalOpening,CreditConvertedOpening,DebitConvertedOpening,ConvertedOpening,OriginalDebit,
---				ConvertedDebit,OriginalCredit,ConvertedCredit,CreditOriginalClosing,DebitOriginalClosing,OriginalClosing,CreditConvertedClosing,
---				DebitConvertedClosing,ConvertedClosing,OriginalDebitYTD,ConvertedDebitYTD,OriginalCreditYTD,ConvertedCreditYTD
---				FROM AV7403_ST '
-
---			--Print @sSQL
---			--Print @sSQLUnion
-
---			IF NOT EXISTS (SELECT NAME FROM SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[AV7403a]') AND OBJECTPROPERTY(ID, N'ISVIEW') = 1)
---				EXEC ('  CREATE VIEW AV7403a AS ' + @sSQL + @sSQLUnion )
---			ELSE
---				EXEC ('  ALTER VIEW AV7403a  AS ' + @sSQL + @sSQLUnion )
-						
-	
---			SET @sSQL = 'SELECT  DivisionID, GroupID, Max(Isnull(GroupName,'''') )as GroupName,
---						GroupID1,  Max(Isnull(GroupName1,'''')) as GroupName1,
---						GroupID2,Max(Isnull(GroupName2,'''')) as GroupName2,
---						ObjectID,Max(Isnull(ObjectName,'''')) as ObjectName,
---						Address, VATNo,
---						AccountID, Max(Isnull(AccountName,'''')) as AccountName, 
---						CurrencyID, S1, S2, S3, S1Name, S2Name, S3Name, 
---						O05ID,O05Name, 
---						Tel, Fax, Email,
---						Case When ( Sum(DebitOriginalOpening) - SUM(CreditOriginalOpening) ) < 0 then   SUM(CreditOriginalOpening) - Sum(DebitOriginalOpening) Else 0  end as CreditOriginalOpening ,
---						Case When ( Sum(DebitOriginalOpening) - SUM(CreditOriginalOpening) ) > 0 then Sum(DebitOriginalOpening) - SUM(CreditOriginalOpening) Else 0  end as DebitOriginalOpening ,
---						Sum(OriginalOpening) as  OriginalOpening,
-						
---						Case When ( Sum(DebitConvertedOpening) - SUM(CreditConvertedOpening) ) < 0 then   SUM(CreditConvertedOpening) - Sum(DebitConvertedOpening) Else 0  end as CreditConvertedOpening ,
---						Case When ( Sum(DebitConvertedOpening) - SUM(CreditConvertedOpening) ) > 0 then Sum(DebitConvertedOpening) - SUM(CreditConvertedOpening) Else 0  end as DebitConvertedOpening ,
---						Sum(ConvertedOpening) as  ConvertedOpening,
-						
---						--Case When ( Sum(OriginalDebit) - SUM(OriginalCredit) ) < 0 then    SUM(Originalcredit) - Sum(OriginalDebit) Else 0  end as OriginalCredit ,
---						--Case When ( Sum(OriginalDebit) - SUM(OriginalCredit) ) > 0 then Sum(OriginalDebit) - SUM(OriginalCredit) Else 0  end as OriginalDebit ,
---						--Case When ( Sum(ConvertedDebit) - SUM(ConvertedCredit) ) < 0 then    SUM(ConvertedCredit) - Sum(ConvertedDebit) Else 0  end as ConvertedCredit ,
---						--Case When ( Sum(ConvertedDebit) - SUM(ConvertedCredit) ) > 0 then Sum(ConvertedDebit) - SUM(ConvertedCredit) Else 0  end as ConvertedDebit ,
-						
---						 SUM(OriginalCredit) as OriginalCredit ,
---						 SUM(OriginalDebit) as OriginalDebit ,
---						 SUM(ConvertedCredit) as ConvertedCredit ,
---						 SUM(ConvertedDebit) as ConvertedDebit ,
-										
---						Case When ( Sum(DebitOriginalClosing) - SUM(CreditOriginalClosing) ) < 0 then   SUM(CreditOriginalClosing) - Sum(DebitOriginalClosing)  ELSe 0  end as CreditOriginalClosing ,
---						Case When ( Sum(DebitOriginalClosing) - SUM(CreditOriginalClosing) ) > 0 then Sum(DebitOriginalClosing) - SUM(CreditOriginalClosing) Else 0  end as DebitOriginalClosing ,
---						Sum(OriginalClosing) as  OriginalClosing,
---						Case When ( Sum(DebitConvertedClosing) - SUM(CreditConvertedClosing) ) < 0 then   SUM(CreditConvertedClosing) - Sum(DebitConvertedClosing)  ELSe 0  end as CreditConvertedClosing ,
---						Case When ( Sum(DebitConvertedClosing) - SUM(CreditConvertedClosing) ) > 0 then Sum(DebitConvertedClosing) - SUM(CreditConvertedClosing) Else 0  end as DebitConvertedClosing ,
---						Sum(ConvertedClosing) as  ConvertedClosing,
-						
---						Sum(OriginalDebitYTD) AS OriginalDebitYTD,
---						Sum(ConvertedDebitYTD) AS ConvertedDebitYTD,
---						Sum(OriginalCreditYTD) AS OriginalCreditYTD,
---						Sum(ConvertedCreditYTD) AS ConvertedCreditYTD
-		
---						From AV7403a
---						Group by DivisionID, GroupID,  GroupID1,GroupID2,ObjectID,  Address, VATNo,
---						AccountID, CurrencyID, 
---						S1, S2, S3, 
---						S1Name, S2Name, S3Name, 
---						O05ID,
---						O05Name, 
---						Tel, Fax, Email '
-		
---		END
-	--Print @sSQL	
-	
-	
---IF NOT EXISTS (SELECT NAME FROM SYSOBJECTS WHERE ID = OBJECT_ID(N'[DBO].[AV7403_HT]') AND OBJECTPROPERTY(ID, N'ISVIEW') = 1)
---	EXEC ('  CREATE VIEW AV7403_HT AS ' + @sSQL )
---ELSE
---	EXEC ('  ALTER VIEW AV7403_HT  AS ' + @sSQL )		
-
-exec (@sSQL)
+exec (@sSQLUnion)
 GO
 

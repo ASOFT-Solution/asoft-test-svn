@@ -3,6 +3,7 @@ DROP PROCEDURE [DBO].[AP7402_HT]
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+
 SET ANSI_NULLS ON
 GO
 
@@ -19,20 +20,10 @@ CREATE PROCEDURE [dbo].[AP7402_HT]
     @FromAccountID AS VARCHAR(50), 
     @ToAccountID AS VARCHAR(50), 
     @FromO05ID AS VARCHAR(50), 
-    @ToO05ID AS VARCHAR(50),
-    @StrDivisionID AS VARCHAR(4000) = ''
+    @ToO05ID AS VARCHAR(50)
 AS
 
-DECLARE @sql AS NVARCHAR(4000),
-		@StrDivisionID_New AS NVARCHAR(4000)
-SET @StrDivisionID_New = ''		
-
-IF ISNULL(@StrDivisionID,'') <> ''
-	SELECT @StrDivisionID_New = CASE WHEN @StrDivisionID = '%' THEN ' LIKE ''' + 
-	@StrDivisionID + '''' ELSE ' IN (''' + replace(@StrDivisionID, ',',''',''') + ''')' END
-ELSE
-	SELECT @StrDivisionID_New = CASE WHEN @DivisionID = '%' THEN ' LIKE ''' + 
-	@DivisionID + '''' ELSE ' IN (''' + replace(@DivisionID, ',',''',''')+ ''')' END
+DECLARE @sql AS NVARCHAR(4000)
 	
 	
 -------------------- Phat sinh No.
@@ -57,7 +48,7 @@ SET @sql = '
 	INNER JOIN AT1005 ON AT1005.AccountID = D3.DebitAccountID and AT1005.DivisionID = D3.DivisionID
 	INNER JOIN AT1202 AT02 ON AT02.DivisionID = D3. DivisionID and AT02.ObjectID = D3.ObjectID
     WHERE AT1005.GroupID = ''G03'' 
-        AND D3.DivisionID ' + @StrDivisionID_New + ' 
+        AND D3.DivisionID like ''' + @DivisionID + ''' 
         AND (AT02.O05ID BETWEEN ''' + @FromO05ID + ''' AND ''' + @ToO05ID + ''') 
         AND D3.CurrencyIDCN LIKE ''' + @CurrencyID + '''
 '
@@ -89,7 +80,7 @@ Status
 FROM AT9000 D3 INNER JOIN AT1005 ON AT1005.AccountID = D3.CreditAccountID and AT1005.DivisionID = D3.DivisionID
 INNER JOIN AT1202 AT02 ON AT02.DivisionID =D3.DivisionID and AT02.ObjectID= D3.ObjectID
 WHERE AT1005.GroupID = ''G03'' AND
-D3.DivisionID ' + @StrDivisionID_New + '  AND 
+D3.DivisionID like ''' + @DivisionID + '''  AND 
 (CASE WHEN TransactionTypeID = ''T99'' THEN D3.CreditObjectID ELSE AT02.O05ID END BETWEEN N''' + @FromO05ID + ''' AND N''' + @ToO05ID + ''') AND 
 D3.CurrencyIDCN LIKE ''' + @CurrencyID + ''' '
 
