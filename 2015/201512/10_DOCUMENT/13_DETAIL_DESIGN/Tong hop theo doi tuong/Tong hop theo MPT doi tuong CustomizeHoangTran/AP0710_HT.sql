@@ -38,11 +38,10 @@ CREATE PROCEDURE [dbo].[AP0710_HT]
 AS
 DECLARE @sSQL           AS NVARCHAR(4000),
         @sWhere        AS NVARCHAR(4000),
-        @OWhere         AS NVARCHAR (4000),
-    @FromMonthYearText NVARCHAR(20), 
-    @ToMonthYearText NVARCHAR(20), 
-    @FromDateText NVARCHAR(20), 
-    @ToDateText NVARCHAR(20)
+        @FromMonthYearText NVARCHAR(20), 
+		@ToMonthYearText NVARCHAR(20), 
+		@FromDateText NVARCHAR(20), 
+		@ToDateText NVARCHAR(20)
     
 SET @FromMonthYearText = STR(@FromMonth + @FromYear * 100)
 SET @ToMonthYearText = STR(@ToMonth + @ToYear * 100)
@@ -51,20 +50,20 @@ SET @ToDateText = CONVERT(NVARCHAR(20), @ToDate, 101) + ' 23:59:59'
 SET @sWhere=''
 
 IF @IsBottle = 1
-   SET @OWhere = ''
+   
 	IF PATINDEX('[%]', @FromO05ID) > 0
 		BEGIN
-			SET @OWhere = @OWhere + ' And x.O05ID Like N''' + @FromO05ID + ''''
+			SET @sWhere = @sWhere + ' And x.O05ID Like N''' + @FromO05ID + ''''
 		END
 	ELSE
 		IF @FromO05ID IS NOT NULL AND @FromO05ID <> ''
 		BEGIN
-			SET @OWhere = @OWhere + ' And Isnull(x.O05ID,'''') >= N''' + REPLACE(@FromO05ID, '[]', '') + 
+			SET @sWhere = @sWhere + ' And Isnull(x.O05ID,'''') >= N''' + REPLACE(@FromO05ID, '[]', '') + 
 										''' And Isnull(x.O05ID,'''') <= N''' + REPLACE(@ToO05ID, '[]', '') + ''''
 		END 
-IF (@FromObjectID is not null and @FromObjectID not like '')
+IF Isnull(@FromObjectID, '') != ''
 	Set @sWhere = @sWhere+ 'and (x.ObjectID between  N''' + @FromObjectID + ''' and  N''' + @ToObjectID+ ''')'
-IF (@FromInventoryID is not null and @FromInventoryID not like '')
+IF Isnull(@FromInventoryID, '' ) !=''
 	Set @sWhere = @sWhere+'and (x.InventoryID between N''' + @FromInventoryID + ''' and N''' + @ToInventoryID+ ''')'
 IF @IsDate = 1
     ---- xac dinh so lieu theo ngay
@@ -103,7 +102,6 @@ Select y.DivisionID,y.O05ID, y.ObjectAnaName5,
 		AND  x.DivisionID like N'''+ @DivisionID  + 
 		''' and
 		x.D_C in (''D'',''C'', ''BD'' )'
-		+ @OWhere 
 		+ @sWhere +'
 		Group by x.DivisionID, x.D_C, x.O05ID, x.ObjectAnaName5
 )y'
