@@ -62,6 +62,10 @@ IF @IsBottle = 1
 			SET @OWhere = @OWhere + ' And Isnull(x.O05ID,'''') >= N''' + REPLACE(@FromO05ID, '[]', '') + 
 										''' And Isnull(x.O05ID,'''') <= N''' + REPLACE(@ToO05ID, '[]', '') + ''''
 		END 
+IF (@FromObjectID is not null and @FromObjectID not like '')
+	Set @sWhere = @sWhere+ 'and (x.ObjectID between  N''' + @FromObjectID + ''' and  N''' + @ToObjectID+ ''')'
+IF (@FromInventoryID is not null and @FromInventoryID not like '')
+	Set @sWhere = @sWhere+'and (x.InventoryID between N''' + @FromInventoryID + ''' and N''' + @ToInventoryID+ ''')'
 IF @IsDate = 1
     ---- xac dinh so lieu theo ngay
     SET @sWhere = @sWhere+' and (x.VoucherDate  Between  ''' + @FromDateText + '''  and ''' + @ToDateText + '''  ) '
@@ -98,11 +102,8 @@ Select y.DivisionID,y.O05ID, y.ObjectAnaName5,y.InventoryID, y.InventoryName,
 		Where x.IsBottle =1
 		AND  x.DivisionID like N'''+ @DivisionID  + 
 		''' and
-		x.D_C in (''D'',''C'', ''BD'' ) and
-		(x.InventoryID between N''' + @FromInventoryID + ''' and N''' + @ToInventoryID
-			+ ''') and
-		(x.ObjectID between  N''' + @FromObjectID + ''' and  N''' + @ToObjectID
-			+ ''')'+ @OWhere + @sWhere +'
+		x.D_C in (''D'',''C'', ''BD'' )'+ @OWhere 
+		+ @sWhere +'
 		Group by x.DivisionID, x.D_C, x.O05ID, x.ObjectAnaName5, x.InventoryID, x.InventoryName
 )y'
 
