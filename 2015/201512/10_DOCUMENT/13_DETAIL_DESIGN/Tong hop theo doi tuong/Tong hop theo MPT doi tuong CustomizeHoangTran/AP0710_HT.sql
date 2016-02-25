@@ -31,8 +31,7 @@ CREATE PROCEDURE [dbo].[AP0710_HT]
     @FromDate         AS DATETIME,
     @ToDate           AS DATETIME,
     @IsDate           AS TINYINT,
-    @Isbottle         AS TINYINT,
-	@FromO05ID        AS NVarchar(250),
+    @FromO05ID        AS NVarchar(250),
 	@ToO05ID		  AS NVarchar(250)
 )
 AS
@@ -49,18 +48,17 @@ SET @FromDateText = CONVERT(NVARCHAR(20), @FromDate, 101)
 SET @ToDateText = CONVERT(NVARCHAR(20), @ToDate, 101) + ' 23:59:59'
 SET @sWhere=''
 
-IF @IsBottle = 1
    
-	IF PATINDEX('[%]', @FromO05ID) > 0
-		BEGIN
-			SET @sWhere = @sWhere + ' And x.O05ID Like N''' + @FromO05ID + ''''
-		END
-	ELSE
-		IF @FromO05ID IS NOT NULL AND @FromO05ID <> ''
-		BEGIN
-			SET @sWhere = @sWhere + ' And Isnull(x.O05ID,'''') >= N''' + REPLACE(@FromO05ID, '[]', '') + 
-										''' And Isnull(x.O05ID,'''') <= N''' + REPLACE(@ToO05ID, '[]', '') + ''''
-		END 
+IF PATINDEX('[%]', @FromO05ID) > 0
+	BEGIN
+		SET @sWhere = @sWhere + ' And x.O05ID Like N''' + @FromO05ID + ''''
+	END
+ELSE
+	IF @FromO05ID IS NOT NULL AND @FromO05ID <> ''
+	BEGIN
+		SET @sWhere = @sWhere + ' And Isnull(x.O05ID,'''') >= N''' + REPLACE(@FromO05ID, '[]', '') + 
+									''' And Isnull(x.O05ID,'''') <= N''' + REPLACE(@ToO05ID, '[]', '') + ''''
+	END 
 IF Isnull(@FromObjectID, '') != ''
 	Set @sWhere = @sWhere+ 'and (x.ObjectID between  N''' + @FromObjectID + ''' and  N''' + @ToObjectID+ ''')'
 IF Isnull(@FromInventoryID, '' ) !=''
