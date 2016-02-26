@@ -40,8 +40,13 @@ SET @sWhere = ''
 		SET @sWhere = @sWhere + '  M.DivisionID = '''+ @DivisionID+''''
 	Else 
 		SET @sWhere = @sWhere + '  M.DivisionID IN ('''+@DivisionIDList+''')'
-	IF (@FromAccountID IS NOT NULL )  And ( @FromAccountID not like '')
-		SET @sWhere = @sWhere +' AND (M.ObjectID between N'''+@FromAccountID+N''' and N'''+@ToAccountID+N''')'
+	IF ((Isnull(@FromAccountID, '') !='')and (Isnull(@ToAccountID, '') !=''))
+		SET @sWhere = @sWhere +' AND (M.ObjectID between N'''+@FromAccountID+''' and N'''+@ToAccountID+''')'
+	IF ((Isnull(@FromAccountID, '') !='')and (Isnull(@ToAccountID, '') =''))
+		SET @sWhere = @sWhere +'AND cast(M.ObjectID as Nvarchar(50)) >= N'''+cast(@FromAccountID as Nvarchar(50))+''''
+	IF ((Isnull(@FromAccountID, '') ='')and (Isnull(@ToAccountID, '') !=''))
+		SET @sWhere = @sWhere +'AND cast(M.ObjectID as Nvarchar(50)) <= N'''+cast(@ToAccountID as Nvarchar(50))+''''
+	
 	
 	SET @sWhere = @sWhere + ' AND (CONVERT(VARCHAR(10),M.OrderDate,112) BETWEEN'''+ CONVERT(VARCHAR(20),@FromDate,112)+''' AND''' + CONVERT(VARCHAR(20),@ToDate,112) +''')'
 	
@@ -111,5 +116,6 @@ Set @sSQL = N'
 		---Tìm ra s? m?t hàng ch?a có s? lu?ng trung bình l?n nh?t
 	) c ON b.AccountID = c.ObjectID And b.DivisionID = c.DivisionID
 '
+
  EXEC (@sSQL)
 GO
