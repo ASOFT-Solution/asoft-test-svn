@@ -46,12 +46,20 @@ Set @sWhere1 =	' AND (CONVERT(VARCHAR(10),OT01.OrderDate,112) < '''+ CONVERT(VAR
 		SET @sWhere2 =@sWhere2+ ' OT01.DivisionID = '''+ @DivisionID+''''
 	Else 
 		SET @sWhere2 = @sWhere2+ ' OT01.DivisionID IN ('''+@DivisionIDList+''')'
-	IF (@FromAccountID IS NOT NULL )  And ( @FromAccountID not like '')
-		SET @sWhere2 = @sWhere2 +' AND (CR01.AccountID between N'''+@FromAccountID+''' and N'''+@ToAccountID+''')'
-	IF @FromEmployeeID IS NOT NULL And (@FromEmployeeID not like '')
-		SET @sWhere2 = @sWhere2 +' AND (OT01.SalesManID between N'''+@FromEmployeeID+''' and N'''+@ToEmployeeID+''')'
-		 
 
+	IF ((Isnull(@FromAccountID, '') !='')and (Isnull(@ToAccountID, '') !=''))
+		SET @sWhere2 = @sWhere2 +' AND (CR01.AccountID between N'''+@FromAccountID+''' and N'''+@ToAccountID+''')'
+	IF ((Isnull(@FromAccountID, '') !='')and (Isnull(@ToAccountID, '') =''))
+		SET @sWhere2 = @sWhere2 +'AND cast(CR01.AccountID as Nvarchar(50)) >= N'''+cast(@FromAccountID as Nvarchar(50))+''''
+	IF ((Isnull(@FromAccountID, '') ='')and (Isnull(@ToAccountID, '') !=''))
+		SET @sWhere2 = @sWhere2 +'AND cast(CR01.AccountID as Nvarchar(50)) <= N'''+cast(@ToAccountID as Nvarchar(50))+'''' 
+	
+	IF ((Isnull(@FromEmployeeID, '') !='')and (Isnull(@ToEmployeeID, '') !=''))
+		SET @sWhere2 = @sWhere2 +' AND (OT01.SalesManID between N'''+@FromEmployeeID+''' and N'''+@ToEmployeeID+''')'
+	IF ((Isnull(@FromEmployeeID, '') !='')and (Isnull(@ToEmployeeID, '') =''))
+		SET @sWhere2 = @sWhere2 +'AND cast(OT01.SalesManID as Nvarchar(50)) >= N'''+cast(@FromEmployeeID as Nvarchar(50))+''''
+	IF ((Isnull(@FromEmployeeID, '') ='')and (Isnull(@ToEmployeeID, '') !=''))
+		SET @sWhere2 = @sWhere2 +' AND cast(OT01.SalesManID as Nvarchar(50)) <= N'''+cast(@ToEmployeeID as Nvarchar(50))+''''
 
 ---Load danh sách khách hàng mới theo nhân viên
 SET @sSQL =
