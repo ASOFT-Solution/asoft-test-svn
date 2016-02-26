@@ -43,15 +43,25 @@ SET @sWhere1 = ''
 		SET @sWhere = @sWhere + '  A.DivisionID = '''+ @DivisionID+''''
 	Else 
 		SET @sWhere = @sWhere + ' A.DivisionID IN ('''+@DivisionIDList+''')'
-	IF (@FromAccountID is not null and @FromAccountID not like '')
-		SET @sWhere = @sWhere +' AND (A.ObjectID between N'''+@FromAccountID+N''' and N'''+@ToAccountID+N''')'
+	IF ((Isnull(@FromAccountID, '') !='')and (Isnull(@ToAccountID, '') !=''))
+		SET @sWhere = @sWhere +' AND (A.ObjectID between N'''+@FromAccountID+''' and N'''+@ToAccountID+''')'
+	IF ((Isnull(@FromAccountID, '') !='')and (Isnull(@ToAccountID, '') =''))
+		SET @sWhere = @sWhere +'AND cast(A.ObjectID as Nvarchar(50)) >= N'''+cast(@FromAccountID as Nvarchar(50))+''''
+	IF ((Isnull(@FromAccountID, '') ='')and (Isnull(@ToAccountID, '') !=''))
+		SET @sWhere = @sWhere +'AND cast(A.ObjectID as Nvarchar(50)) <= N'''+cast(@ToAccountID as Nvarchar(50))+''''
 	SET @sWhere = @sWhere + ' AND (CONVERT(VARCHAR(10),A.CreateDate,112) BETWEEN'''+ CONVERT(VARCHAR(20),@FromDate,112)+''' AND''' + CONVERT(VARCHAR(20),@ToDate,112) +''')'
+	--CHECK DIEU KIEN DEM SO PHIEU PHAT SINH
 	IF @DivisionIDList IS NULL or @DivisionIDList = ''
 		SET @sWhere1 = @sWhere1 + '  B.DivisionID = '''+ @DivisionID+''''
 	Else 
 		SET @sWhere1 = @sWhere1 + ' B.DivisionID IN ('''+@DivisionIDList+''')'
-	IF (@FromAccountID is not null and @FromAccountID not like '')
-		SET @sWhere1 = @sWhere1 +' AND (B.ObjectID between N'''+@FromAccountID+N''' and N'''+@ToAccountID+N''')'	
+	IF ((Isnull(@FromAccountID, '') !='')and (Isnull(@ToAccountID, '') !=''))
+		SET @sWhere1 = @sWhere1 +' AND (B.ObjectID between N'''+@FromAccountID+''' and N'''+@ToAccountID+''')'
+	IF ((Isnull(@FromAccountID, '') !='')and (Isnull(@ToAccountID, '') =''))
+		SET @sWhere1 = @sWhere1 +'AND cast(B.ObjectID as Nvarchar(50)) >= N'''+cast(@FromAccountID as Nvarchar(50))+''''
+	IF ((Isnull(@FromAccountID, '') ='')and (Isnull(@ToAccountID, '') !=''))
+		SET @sWhere1 = @sWhere1 +'AND cast(B.ObjectID as Nvarchar(50)) <= N'''+cast(@ToAccountID as Nvarchar(50))+''''
+
 	SET @sWhere1 = @sWhere1 + ' AND (CONVERT(VARCHAR(10),B.VoucherDate,112) BETWEEN'''+ CONVERT(VARCHAR(20),@FromDate,112)+''' AND''' + CONVERT(VARCHAR(20),@ToDate,112) +''')'
 
 
