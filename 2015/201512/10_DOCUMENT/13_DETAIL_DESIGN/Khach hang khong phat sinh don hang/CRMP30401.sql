@@ -38,8 +38,12 @@ SET @sWhere = ''
 		SET @sWhere = @sWhere + ' H.DivisionID = '''+ @DivisionID+''''
 	Else 
 		SET @sWhere = @sWhere + ' H.DivisionID IN ('''+@DivisionIDList+''')'
-	IF (@FromAccountID is not null and @FromAccountID not like '')
-		SET @sWhere = @sWhere +' AND (H.ObjectID between N'''+@FromAccountID+N''' and N'''+@ToAccountID+N''')'
+	IF ((Isnull(@FromAccountID, '') !='')and (Isnull(@ToAccountID, '') !=''))
+		SET @sWhere = @sWhere +' AND (H.ObjectID between N'''+@FromAccountID+''' and N'''+@ToAccountID+''')'
+	IF ((Isnull(@FromAccountID, '') !='')and (Isnull(@ToAccountID, '') =''))
+		SET @sWhere = @sWhere +'AND cast(H.ObjectID as Nvarchar(50)) >= N'''+cast(@FromAccountID as Nvarchar(50))+''''
+	IF ((Isnull(@FromAccountID, '') ='')and (Isnull(@ToAccountID, '') !=''))
+		SET @sWhere = @sWhere +'AND cast(H.ObjectID as Nvarchar(50)) <= N'''+cast(@ToAccountID as Nvarchar(50))+''''
 
 SET @sWhere = @sWhere + ' AND (CONVERT(VARCHAR(10),H.OrderDate,112) BETWEEN'''+ CONVERT(VARCHAR(20),@FromDate,112)+''' AND''' + CONVERT(VARCHAR(20),@ToDate,112) +''')'
 
