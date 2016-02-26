@@ -57,16 +57,15 @@ Set @sSQL = N'
 	(
 		
 			Select M.DivisionID, AT.DivisionName, CR.AccountID, CR.AccountName, 
-			Max(M.OrderDate ) as OrderDate,T.Address, T.Tel
+			Max(M.OrderDate ) as OrderDate,CR.Address, CR.Tel
 			from OT2001 M 
 			Inner join CRMT10101 CR On CR.DivisionID= M.DivisionID and CR.AccountID=M.ObjectID
 			Left join OT2002 D On M.DivisionID = D.DivisionID and M.SOrderID = D.SOrderID
-			Inner join AT1202 T On T.DivisionID =M.DivisionID AND T.ObjectID = M.ObjectID
 			Inner Join AT1101 AT On AT.DivisionID = M.DivisionID
 			where  '+@sWhere+'
-			AND T.IsUsing = 1
+			AND CR.IsUsing = 1
 			---Tìm khách hàng ngung s? d?ng v?i don hàng cu?i cùng
-		Group by AT.DivisionName, CR.AccountID, CR.AccountName, M.DivisionID, T.Address, T.Tel
+		Group by AT.DivisionName, CR.AccountID, CR.AccountName, M.DivisionID, CR.Address, CR.Tel
 	)b Inner Join 
 	(
 		Select A.DivisionID, A.ObjectID, y.InventoryID, A.AvgQuantity, y.InventoryName
