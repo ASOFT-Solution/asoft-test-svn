@@ -92,13 +92,16 @@ SET @sSQL = N'
 				D.Notes, D.Notes01, D.Notes02, Datediff(DAY,H.OrderDate, GetDate()) as DayTime 
 			From 
 			(
-				Select F.DivisionID, F.ObjectID, F.ObjectName, F.OrderDate, F.SOrderID, F.TranMonth, F.TranYear
+				Select F.DivisionID, F.ObjectID, F.ObjectName, F.OrderDate, F.SOrderID, F.TranMonth, F.TranYear, Max(D.OriginalAmount) as OriginalAmount
 				from OT2001 F
+				Inner Join OT2002 D On D.DivisionID = F.DivisionID And F.SOrderID = D.SOrderID
+				Group by F.DivisionID, F.ObjectID, F.ObjectName, F.OrderDate, F.SOrderID, F.TranMonth, F.TranYear
 			) H
 			Inner Join AT1202 B On B.DivisionID = H.DivisionID And B.ObjectID = H.ObjectID 
 			Inner Join OT2002 D On D.DivisionID = H.DivisionID And H.SOrderID = D.SOrderID
 			Inner Join AT1302 C On C.DivisionID = H.DivisionID And C.InventoryID = D.InventoryID
-			where    '+@sWhere+'
+			where '+@sWhere+'
+			and H.OriginalAmount= D.OriginalAmount
 			--Xác định số ngày của đơn hàng đến ngày hiện tại
 		)x
 		On x.DivisionID = t.DivisionID And x.ObjectID = t.AccountID And x.OrderDate = t.OrderDate
