@@ -196,8 +196,9 @@ ELSE
 
 ---- Bo phan so 0 	
 IF @CurrencyID <> '%'
+Begin
 	Set @sSQLUnion =  ' 
-		Select x.DivisionID, x.O05ID, x.O05Name, x.ObjectID, x.ObjectName, x.AccountID, x.AccountName, x.CurrencyID, Sum(x.ConvertIncome) as ConvertIncome,
+		Select x.DivisionID, x.O05ID, x.O05Name, x.CurrencyID, Sum(x.ConvertIncome) as ConvertIncome,
 		Sum(x.ConvertedOpening) as ConvertedOpening, Sum(x.ConvertedDebit) as ConvertedDebit, sum(x.ConvertedCredit) as ConvertedCredit,
 		(Sum(x.ConvertedOpening)+Sum(x.ConvertedDebit)-sum(x.ConvertedCredit)) as ConvertedClosing
 		From 
@@ -235,13 +236,60 @@ IF @CurrencyID <> '%'
 		OR DebitOriginalClosing - CreditOriginalClosing <> 0 
 		OR DebitConvertedClosing - CreditConvertedClosing <> 0 
 	)x
-	Group by x.DivisionID, x.O05ID, x.O05Name, x.AccountID, x.AccountName, x.CurrencyID,x.ObjectID, x.ObjectName
-		'
-	
+	Group by x.DivisionID, x.O05ID, x.O05Name, x.AccountID, x.AccountName, x.CurrencyID
+	'
+	Set @sSQLUnion= @sSQLUnion+ 'UNION ALL
+	Select y.DivisionID, ''T01'' as O05ID, ''Tong cong no'' as O05Name, y.CurrencyID, 0 as ConvertIncome,
+	sum(y.ConvertedOpening) as ConvertedOpening, sum(y.ConvertedDebit) as ConvertedDebit, sum(y.ConvertedCredit) as ConvertedCredit,
+	sum(y.ConvertedClosing) as ConvertedClosing
+	From
+	(Select x.DivisionID, x.O05ID, x.O05Name,x.CurrencyID, Sum(x.ConvertIncome) as ConvertIncome,
+		Sum(x.ConvertedOpening) as ConvertedOpening, Sum(x.ConvertedDebit) as ConvertedDebit, sum(x.ConvertedCredit) as ConvertedCredit,
+		(Sum(x.ConvertedOpening)+Sum(x.ConvertedDebit)-sum(x.ConvertedCredit)) as ConvertedClosing
+		From 
+		(SELECT DivisionID, 
+		ObjectID, ObjectName,
+		AccountID,
+		AccountName, AccountNameE,
+		CurrencyID,		 
+		O05ID,
+		O05Name, ConvertIncome,
+		CASE WHEN DebitOriginalOpening - CreditOriginalOpening < 0 THEN CreditOriginalOpening - DebitOriginalOpening ELSE 0 END AS CreditOriginalOpening,
+		CASE WHEN DebitOriginalOpening - CreditOriginalOpening > 0 THEN DebitOriginalOpening - CreditOriginalOpening ELSE 0 END AS DebitOriginalOpening,
+		DebitOriginalOpening - CreditOriginalOpening AS OriginalOpening,
+		CASE WHEN DebitConvertedOpening - CreditConvertedOpening < 0 THEN CreditConvertedOpening - DebitConvertedOpening ELSE 0 END AS CreditConvertedOpening,
+		CASE WHEN DebitConvertedOpening - CreditConvertedOpening > 0 THEN DebitConvertedOpening - CreditConvertedOpening ELSE 0 END AS DebitConvertedOpening,
+ 		DebitConvertedOpening - CreditConvertedOpening AS ConvertedOpening,
+		OriginalDebit,
+		ConvertedDebit,
+		OriginalCredit,
+		ConvertedCredit,
+		CASE WHEN DebitOriginalClosing - CreditOriginalClosing < 0 THEN CreditOriginalClosing - DebitOriginalClosing ELSE 0 END AS CreditOriginalClosing,
+		CASE WHEN DebitOriginalClosing - CreditOriginalClosing > 0 THEN DebitOriginalClosing - CreditOriginalClosing ELSE 0 END AS DebitOriginalClosing,
+		DebitOriginalClosing - CreditOriginalClosing AS OriginalClosing,   
+		CASE WHEN DebitConvertedClosing - CreditConvertedClosing < 0 THEN CreditConvertedClosing - DebitConvertedClosing ELSE 0 END AS CreditConvertedClosing,
+		CASE WHEN DebitConvertedClosing - CreditConvertedClosing > 0 THEN DebitConvertedClosing - CreditConvertedClosing ELSE 0 END AS DebitConvertedClosing,
+		DebitConvertedClosing - CreditConvertedClosing AS ConvertedClosing,
+		OriginalDebitYTD,
+		ConvertedDebitYTD,
+		OriginalCreditYTD,
+		ConvertedCreditYTD   
+	FROM AV7413_HT
+	WHERE DebitOriginalOpening - CreditOriginalOpening <> 0 
+		OR DebitConvertedOpening - CreditConvertedOpening <> 0 OR OriginalDebit <> 0 
+		OR ConvertedDebit <> 0 OR OriginalCredit <> 0 OR ConvertedCredit <> 0 
+		OR DebitOriginalClosing - CreditOriginalClosing <> 0 
+		OR DebitConvertedClosing - CreditConvertedClosing <> 0 
+	)x
+	Group by x.DivisionID, x.O05ID, x.O05Name, x.AccountID, x.AccountName, x.CurrencyID
+	)y group by y.DivisionID, y.CurrencyID
+
+	'
+	end
 Else
-	
+Begin	
 	Set @sSQLUnion =  ' 
-	Select x.DivisionID, x.O05ID, x.O05Name,x.ObjectID, x.ObjectName, x.AccountID, x.AccountName, x.CurrencyID, Sum(x.ConvertIncome) as ConvertIncome,
+	Select x.DivisionID, x.O05ID, x.O05Name,x.CurrencyID, Sum(x.ConvertIncome) as ConvertIncome,
 	Sum(x.ConvertedOpening) as ConvertedOpening, Sum(x.ConvertedDebit) as ConvertedDebit, sum(x.ConvertedCredit) as ConvertedCredit,
 	(Sum(x.ConvertedOpening)+Sum(x.ConvertedDebit)-sum(x.ConvertedCredit)) as ConvertedClosing
 	From 
@@ -285,8 +333,60 @@ Else
 		O05Name, ConvertIncome
 
 	)x
-	Group by x.DivisionID, x.O05ID, x.O05Name, x.AccountID, x.AccountName, x.CurrencyID, x.ObjectID, x.ObjectName'
+	Group by x.DivisionID, x.O05ID, x.O05Name, x.AccountID, x.AccountName, x.CurrencyID'
+	Set @sSQLUnion= @sSQLUnion+ 'UNION ALL
+	Select y.DivisionID, ''T01'' as O05ID, ''Tong cong no'' as O05Name, y.CurrencyID, 0 as ConvertIncome,
+	sum(y.ConvertedOpening) as ConvertedOpening, sum(y.ConvertedDebit) as ConvertedDebit, sum(y.ConvertedCredit) as ConvertedCredit,
+	sum(y.ConvertedClosing) as ConvertedClosing
+	From 
+	(Select x.DivisionID, x.O05ID, x.O05Name, x.CurrencyID, Sum(x.ConvertIncome) as ConvertIncome,
+	Sum(x.ConvertedOpening) as ConvertedOpening, Sum(x.ConvertedDebit) as ConvertedDebit, sum(x.ConvertedCredit) as ConvertedCredit,
+	(Sum(x.ConvertedOpening)+Sum(x.ConvertedDebit)-sum(x.ConvertedCredit)) as ConvertedClosing
+	From 
+	(	
+		SELECT DivisionID, 
+		ObjectID, ObjectName,
+		AccountID,
+		AccountName, AccountNameE,
+		''%'' AS CurrencyID,  	
+		O05ID,
+		O05Name, ConvertIncome,
+		0 AS CreditOriginalOpening,
+ 		0 AS DebitOriginalOpening,
+		0 AS OriginalOpening,
+ 		Case when Sum(DebitConvertedOpening)-SUM(CreditConvertedOpening) < 0 then  - Sum(DebitConvertedOpening) + SUM(CreditConvertedOpening) else 0 end AS CreditConvertedOpening,
+		Case when Sum(DebitConvertedOpening)-SUM(CreditConvertedOpening) > 0 then  Sum(DebitConvertedOpening)-SUM(CreditConvertedOpening) else 0 end AS DebitConvertedOpening,
+		Sum(DebitConvertedOpening)-SUM(CreditConvertedOpening) AS ConvertedOpening,
+		sum(OriginalDebit) AS OriginalDebit,
+		sum(ConvertedDebit) AS ConvertedDebit,
+		sum(OriginalCredit) AS OriginalCredit,
+		Sum(ConvertedCredit) AS ConvertedCredit,
+		0 AS CreditOriginalClosing,
+		0 AS DebitOriginalClosing,
+		sum(DebitOriginalClosing - CreditOriginalClosing) AS OriginalClosing,
+		Case when Sum(DebitConvertedClosing)-SUM(CreditConvertedClosing) < 0 then  - Sum(DebitConvertedClosing) + SUM(CreditConvertedClosing) else 0 end AS CreditConvertedClosing,
+		Case when Sum(DebitConvertedClosing)-SUM(CreditConvertedClosing) > 0 then  Sum(DebitConvertedClosing)-SUM(CreditConvertedClosing) else 0 end AS DebitConvertedClosing,
+		Sum(DebitConvertedClosing)-SUM(CreditConvertedClosing) AS ConvertedClosing,
+		0 AS OriginalDebitYTD,
+		0 AS ConvertedDebitYTD,
+		0 AS OriginalCreditYTD,
+		0 AS ConvertedCreditYTD
+	FROM AV7413_HT
+	WHERE DebitOriginalOpening - CreditOriginalOpening <> 0  
+		OR DebitConvertedOpening - CreditConvertedOpening <> 0 OR OriginalDebit <> 0 
+		OR ConvertedDebit <> 0 OR OriginalCredit <> 0 OR ConvertedCredit <> 0 
+		OR DebitOriginalClosing - CreditOriginalClosing <> 0 
+		OR DebitConvertedClosing - CreditConvertedClosing <> 0
+	GROUP BY DivisionID, GroupID, GroupName, GroupID1, GroupName1, GroupID2, GroupName2,
+	 ObjectID, ObjectName, AccountID, AccountName, AccountNameE,
+		O05ID,
+		O05Name, ConvertIncome
 
+	)x
+	Group by x.DivisionID, x.O05ID, x.O05Name, x.AccountID, x.AccountName, x.CurrencyID
+	)y group by y.DivisionID, y.CurrencyID'
+	
+	end
 exec (@sSQLUnion)
 
 GO
