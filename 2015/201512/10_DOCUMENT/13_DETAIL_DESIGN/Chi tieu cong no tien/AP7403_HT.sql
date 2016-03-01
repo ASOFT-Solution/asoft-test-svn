@@ -52,9 +52,7 @@ CREATE PROCEDURE [dbo].[AP7403_HT]
 					@FromO05ID As Varchar (50),
 					@ToO05ID as Varchar (50),
 					@Groupby AS TINYINT
-					
-
-
+		
  AS
 
 DECLARE 
@@ -76,7 +74,6 @@ INSERT #CustomerName EXEC AP4444
 SET @CustomerName = (SELECT TOP 1 CustomerName FROM #CustomerName)
 
 
-	
 Set @GroupTypeID ='O05'
 
 Set @GroupID  = (Case  @GroupTypeID 
@@ -127,7 +124,8 @@ SELECT	D3.DivisionID, ' + @SqlGroupBy + ',
 					   CONVERT(DATETIME,CONVERT(varchar(10),' + LTRIM(RTRIM(@TypeDate)) + ',101),101) <= ''' + convert(nvarchar(10), @ToDate, 101) + ''' AND (IsNull(TransactiontypeID, '''') <> ''T00'') AND RPTransactionType = ''01'' THEN -SignOriginalAmount ELSE 0 END) AS OriginalCredit,
 		SUM (CASE WHEN CONVERT(DATETIME,CONVERT(varchar(10),' + LTRIM(RTRIM(@TypeDate)) + ',101),101) >= ''' + convert(nvarchar(10), @FromDate, 101) + '''  AND
 					   CONVERT(DATETIME,CONVERT(varchar(10),' + LTRIM(RTRIM(@TypeDate)) + ',101),101) <= ''' + convert(nvarchar(10), @ToDate, 101) + ''' AND (IsNull(TransactiontypeID, '''') <> ''T00'') AND  RPTransactionType = ''01'' THEN -SignConvertedAmount ELSE 0 END) AS ConvertedCredit,
-		SUM (CASE WHEN  RPTransactionType = ''00'' AND CreditAccountID = ''5111'' THEN ConvertedAmount ELSE 0 END)  AS ConvertIncome,  '
+		SUM (CASE WHEN  RPTransactionType = ''00'' AND CreditAccountID = ''5111'' THEN ConvertedAmount  
+				When  RPTransactionType = ''01'' AND DebitAccountID = ''5111''then -ConvertedAmount else 0 END)  AS ConvertIncome,  '
 SET @sSQL1 = '					   
 		SUM (CASE WHEN (CONVERT(DATETIME,CONVERT(varchar(10),' + LTRIM(RTRIM(@TypeDate)) + ',101),101) <= ''' + convert(nvarchar(10), @ToDate, 101) + ''' OR TransactiontypeID = ''T00'') AND RPTransactionType = ''00'' THEN SignOriginalAmount ELSE 0 END) AS DebitOriginalClosing,
 		SUM (CASE WHEN (CONVERT(DATETIME,CONVERT(varchar(10),' + LTRIM(RTRIM(@TypeDate)) + ',101),101) <= ''' + convert(nvarchar(10), @ToDate, 101) + ''' OR TransactiontypeID = ''T00'') AND RPTransactionType = ''00'' THEN SignConvertedAmount ELSE 0 END) AS DebitConvertedClosing,
@@ -166,7 +164,8 @@ SELECT	D3.DivisionID, ' + @SqlGroupBy + ',
 		SUM (CASE WHEN (TranMonth + 100 * TranYear >= ' + str(@FromMonth) + ' + 100 * ' + str(@FromYear) + ') AND (TranMonth + 100 * TranYear <= ' + str(@ToMonth) + ' + 100 * ' + str(@ToYear) + ') AND (IsNull(TransactiontypeID, '''') <> ''T00'') AND  RPTransactionType = ''00'' THEN SignConvertedAmount ELSE 0 END) AS ConvertedDebit,
 		SUM (CASE WHEN (TranMonth + 100 * TranYear >= ' + str(@FromMonth) + ' + 100 * ' + str(@FromYear) + ') AND (TranMonth + 100 * TranYear <= ' + str(@ToMonth) + ' + 100 * ' + str(@ToYear) + ') AND (IsNull(TransactiontypeID, '''') <> ''T00'') AND  RPTransactionType = ''01'' THEN - SignOriginalAmount ELSE 0 END) AS OriginalCredit,
 		SUM (CASE WHEN (TranMonth + 100 * TranYear >= ' + str(@FromMonth) + ' + 100 * ' + str(@FromYear) + ') AND (TranMonth + 100 * TranYear <= ' + str(@ToMonth) + ' + 100 * ' + str(@ToYear) + ') AND (IsNull(TransactiontypeID, '''') <> ''T00'') AND  RPTransactionType = ''01'' THEN - SignConvertedAmount ELSE 0 END) AS ConvertedCredit,
-		SUM (CASE WHEN  RPTransactionType = ''00'' AND CreditAccountID = ''5111'' THEN ConvertedAmount ELSE 0 END) AS ConvertIncome,  '
+		SUM (CASE WHEN  RPTransactionType = ''00'' AND CreditAccountID = ''5111'' THEN ConvertedAmount 
+				When  RPTransactionType = ''01'' AND DebitAccountID = ''5111''then -ConvertedAmount else 0 END)  AS ConvertIncome,  '
 SET @sSQL1 = '
 		SUM (CASE WHEN ((TranMonth + 100 * TranYear <= ' + str(@ToMonth) + ' + 100 * ' + str(@ToYear) + ') OR TransactiontypeID = ''T00'') AND RPTransactionType = ''00'' THEN SignOriginalAmount ELSE 0 END) AS DebitOriginalClosing,
 		SUM (CASE WHEN ((TranMonth + 100 * TranYear <= ' + str(@ToMonth) + ' + 100 * ' + str(@ToYear) + ') OR TransactiontypeID = ''T00'') AND RPTransactionType = ''00'' THEN SignConvertedAmount ELSE 0 END) AS DebitConvertedClosing,
@@ -239,7 +238,7 @@ Begin
 	Group by x.DivisionID, x.O05ID, x.O05Name, x.AccountID, x.AccountName, x.CurrencyID
 	'
 	Set @sSQLUnion= @sSQLUnion+ 'UNION ALL
-	Select y.DivisionID, ''T01'' as O05ID, ''Tong cong no'' as O05Name, y.CurrencyID, 0 as ConvertIncome,
+	Select y.DivisionID, ''T01'' as O05ID, ''Tong cong no'' as O05Name, y.CurrencyID, Sum(y.ConvertIncome) as ConvertIncome,
 	sum(y.ConvertedOpening) as ConvertedOpening, sum(y.ConvertedDebit) as ConvertedDebit, sum(y.ConvertedCredit) as ConvertedCredit,
 	sum(y.ConvertedClosing) as ConvertedClosing
 	From
@@ -335,7 +334,7 @@ Begin
 	)x
 	Group by x.DivisionID, x.O05ID, x.O05Name, x.AccountID, x.AccountName, x.CurrencyID'
 	Set @sSQLUnion= @sSQLUnion+ 'UNION ALL
-	Select y.DivisionID, ''T01'' as O05ID, ''Tong cong no'' as O05Name, y.CurrencyID, 0 as ConvertIncome,
+	Select y.DivisionID, ''T01'' as O05ID, ''Tong cong no'' as O05Name, y.CurrencyID, Sum(y.ConvertIncome) as ConvertIncome,
 	sum(y.ConvertedOpening) as ConvertedOpening, sum(y.ConvertedDebit) as ConvertedDebit, sum(y.ConvertedCredit) as ConvertedCredit,
 	sum(y.ConvertedClosing) as ConvertedClosing
 	From 

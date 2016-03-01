@@ -84,7 +84,7 @@ INNER JOIN AT1202 AT02 ON AT02.DivisionID =D3.DivisionID and AT02.ObjectID= D3.O
 Left join AT0000 A00 on D3.DivisionID = A00.DefDivisionID
 WHERE AT1005.GroupID = ''G03'' AND
 D3.DivisionID like ''' + @DivisionID + '''  AND 
-(CASE WHEN TransactionTypeID = ''T99'' THEN D3.CreditObjectID ELSE AT02.O05ID END BETWEEN N''' + @FromO05ID + ''' AND N''' + @ToO05ID + ''') AND 
+ (AT02.O05ID BETWEEN ''' + @FromO05ID + ''' AND ''' + @ToO05ID + ''') AND 
 (CASE WHEN TransactionTypeID = ''T99'' THEN D3.CreditObjectID ELSE D3.ObjectID END BETWEEN N''' + @FromObjectID + ''' AND N''' + @ToObjectID + ''')AND
 (Case when D3.CurrencyIDCN is null then A00.CurrencyID else D3.CurrencyIDCN end ) LIKE ''' + @CurrencyID + ''' '
 
