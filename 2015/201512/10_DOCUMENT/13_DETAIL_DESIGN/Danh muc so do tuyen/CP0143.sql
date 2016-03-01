@@ -34,6 +34,6 @@ WHERE CT43.DivisionID = '''+@DivisionID+''' AND CT43.RouteID IN ('''+@RouteID+''
 
 	'
 EXEC (@sSQL1)
-PRINT (@sSQL1)
+
 GO
 
