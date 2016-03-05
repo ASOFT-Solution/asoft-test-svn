@@ -92,7 +92,13 @@ SET @sSQL =
 								(
 									Select M.DivisionID, M.ObjectID, D.InventoryID , Max(D.OrderQuantity) as OrderQuantity , M.SalesManID
 									from OT2001 M Left join OT2002 D On M.DivisionID = D.DivisionID and M.SOrderID = D.SOrderID
+									where (Select Top 1  M.DivisionID, M.ObjectID,  Max(D.OrderQuantity) as OrderQuantity , M.SalesManID
+											 From OT2001 M Left join OT2002 D On M.DivisionID = D.DivisionID and M.SOrderID = D.SOrderID
+											Group by M.DivisionID, M.ObjectID,  Max(D.OrderQuantity) as OrderQuantity , M.SalesManID
+											having Count(M.ObjectID) >2)
 									Group by M.DivisionID,M.ObjectID, D.InventoryID , M.SalesManID
+								
+			
 									--Tìm S? lu?ng max theo mã v?t tu và d?i tu?ng
 								) x
 					Group By x.DivisionID, x.ObjectID,x.SalesManID
@@ -109,6 +115,7 @@ SET @sSQL =
 		)c ON b.AccountID = c.ObjectID And b.DivisionID = c.DivisionID	AND b.InventoryID = c.InventoryID AND b.SalesManID=	c.SalesManID
 		Group by b.AccountID, b.DivisionID, b.AccountName, b.Address ,b.Tel, b.DivisionName,
 		c.InventoryID, c.InventoryName ,c.OrderQuantity, b.SalesManID, b.FullName, b.Notes, b.OrderDate
+	
 		'
 
 EXEC (@sSQL)
