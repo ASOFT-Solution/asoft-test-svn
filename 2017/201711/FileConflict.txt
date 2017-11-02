@@ -1,2 +1,2 @@
-User 1 add - edit content - user 2 update content 
-User 2 add , update content 2
+User 1 add - edit content - xxxxxx - user 2 update content 
+User 2 add - xxxxxx, update content 2
