@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BaiTapKendoModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="BaiTapKendoModelStoreContainer">
+    <EntitySet Name="HoiVien" EntityType="BaiTapKendoModel.Store.HoiVien" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Menu1" EntityType="BaiTapKendoModel.Store.Menu1" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MenuChild1" EntityType="BaiTapKendoModel.Store.MenuChild1" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MenuChild2" EntityType="BaiTapKendoModel.Store.MenuChild2" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="HoiVien">
+    <Key>
+      <PropertyRef Name="DivisionID" />
+      <PropertyRef Name="MemberID" />
+    </Key>
+    <Property Name="APK" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="DivisionID" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="MemberID" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="MemberName" Type="nvarchar" Nullable="false" MaxLength="250" />
+    <Property Name="ShortName" Type="nvarchar" MaxLength="250" />
+    <Property Name="Address" Type="nvarchar" MaxLength="250" />
+    <Property Name="Identify" Type="nvarchar" MaxLength="250" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="250" />
+    <Property Name="Tel" Type="nvarchar" MaxLength="250" />
+    <Property Name="Fax" Type="nvarchar" MaxLength="250" />
+    <Property Name="Email" Type="nvarchar" MaxLength="250" />
+    <Property Name="Birthday" Type="smalldatetime" />
+    <Property Name="Website" Type="nvarchar" MaxLength="50" />
+    <Property Name="Mailbox" Type="nvarchar" MaxLength="250" />
+    <Property Name="AreaName" Type="nvarchar" MaxLength="250" />
+    <Property Name="CityName" Type="nvarchar" MaxLength="250" />
+    <Property Name="CountryName" Type="nvarchar" MaxLength="250" />
+    <Property Name="WardName" Type="nvarchar" MaxLength="250" />
+    <Property Name="CreatDate" Type="datetime" />
+    <Property Name="CreateUserID" Type="varchar" MaxLength="50" />
+    <Property Name="LastModifyDate" Type="datetime" />
+    <Property Name="LastModifyUserID" Type="varchar" MaxLength="50" />
+    <Property Name="Disabled" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Menu1">
+    <Key>
+      <PropertyRef Name="MenuID" />
+    </Key>
+    <Property Name="MenuID" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Menu_Title" Type="nvarchar" MaxLength="50" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="MenuChild1">
+    <Key>
+      <PropertyRef Name="Child1_id" />
+    </Key>
+    <Property Name="Child1_id" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="MenuID" Type="nvarchar" MaxLength="50" />
+    <Property Name="Child1_Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Action" Type="bit" />
+  </EntityType>
+  <EntityType Name="MenuChild2">
+    <Key>
+      <PropertyRef Name="Child2_id" />
+    </Key>
+    <Property Name="Child2_id" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Child1_id" Type="nvarchar" MaxLength="50" />
+    <Property Name="Child2_Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Action" Type="bit" />
+  </EntityType>
+</Schema>

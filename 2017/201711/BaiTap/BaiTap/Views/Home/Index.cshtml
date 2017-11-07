@@ -1,0 +1,460 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+<form class="box-search" style="margin: 10px">
+    <div id="post1">
+    <div class="input_search"> 
+        <label >Mã đơn vị</label><br />
+        <input type="text" id="txtMaDonVi"/ value=""  class="text_search">
+    </div>
+    <div class="input_search">   
+        <label>Mã hội viên</label><br />
+        <input type="text" id="txtMaHoiVien" value="" class="text_search" />
+    </div>
+    <div class="input_search"> 
+        <label>Tên hội viên</label><br />
+        <input type="text" id="txtTenHoiVien" value="" class="text_search" />
+    </div>
+    <div class="input_search"> 
+        <label>Địa chỉ</label><br />
+        <input type="text" id="txtDiaChi" value="" class="text_search"/>
+    </div>
+    <div class="input_search"> 
+        <label>Số CMND</label><br />
+        <input type="text" id="txtUserID" value="" class="text_search" />
+    </div>
+    </div>
+    <div id="post2">
+    <div class="input_search"> 
+        <label>Điện thoại di động</label><br />
+        <input type="text" id="txtTel" value="" class="text_search"/>
+    </div>
+    <div class="input_search"> 
+        <label>Điện thoại</label><br />
+        <input type="text" id="txtPhone" value="" class="text_search"/>
+    </div>
+    <div class="input_search"> 
+        <label>Fax</label><br />
+        <input type="text" id="txtFax" value="" class="text_search"/>
+    </div>
+    <div class="input_search"> 
+        <label>Email</label><br />
+        <input type="text" id="txtEmail" value="" class="text_search" />
+    </div>
+    <div class="btn_S"> 
+        <button type="button" id="btnSearch" >Lọc dữ liệu</button>
+        <button type="reset" id ="btnReset">Làm mới</button>
+    </div>
+    </div>
+</form>
+@*<p>
+    <a href="@Html.ActionLink("Add", "Add")"></a>
+</p>*@
+<button id="btnAdd">Create</button>
+@*<button id="btnUpdate">Update</button>*@
+@*<button type="button" id="btnUp" class="btn btn-primary" data-toggle="modal" data-target="#update_win">Up</button>*@
+<button id="btnDel">Delete</button>
+<button id="btnDisable">Disable</button>
+<button id="btnEnable">Enable</button>
+@(Html.Kendo().Window()
+                      .Name("add_win")
+                      .Title("Thêm Hội Viên")
+                      .LoadContentFrom("Update", "Home")
+                      .Width(700)
+                      .Height(550)
+                      .Draggable()
+                      .Visible(false)
+                      
+    )
+
+@*@(Html.Kendo().Window()
+                      .Name("update_win")
+                      .Title("Danh mục hội viên")
+                      .LoadContentFrom("Add", "Home")
+                      .Width(700)
+                      .Height(550)
+                      .Draggable()
+                      .Visible(false)
+                      .Modal(true)
+                      
+)*@
+
+
+@(Html.Kendo().Grid<BaiTap.Models.HoiVien>()
+    .Name("Grid")
+    .Columns(columns => {
+       
+        columns.Bound(p => p.Discontinued).ClientTemplate("<input type='checkbox' #= Discontinued ? checked='checked' :'' # />").Width(100);
+        //columns.Bound(p => p.b_Update).ClientTemplate("<button type='button', #=btnUpd>Update<button>");
+       
+        columns.Bound(h =>h.DivisionID).Groupable(false).Title("Mã đơn vị").Width(150);
+        columns.Bound(h => h.MemberID).Title("Mã hội viên").Width(150);
+        columns.Bound(h =>h.MemberName).Title("Tên hội viên").Width(200);
+        columns.Bound(h =>h.ShortName).Title("Tên").Width(100);
+        columns.Bound(h => h.Address).Title("Địa chỉ").Width(150);
+        columns.Bound(h => h.CreateUserID).Title("Số CMND/Mã số thuế").Width(200);
+        columns.Bound(h => h.Phone).Title("Số điện thoại").Width(150);
+        columns.Bound(h => h.Email).Width(150);
+        columns.Bound(h => h.Disabled).EditorViewData("<input type='checkbox' #= Discontinued ? checked='checked' :'' # />").Width(150);
+        columns.Bound(h => h.Tel).Title("Điện thoại").Width(150);
+        columns.Bound(h => h.Website).Width(150);
+        columns.Bound(h => h.Mailbox).Width(150);
+        columns.Bound(h => h.CityName).Width(150);
+        columns.Bound(h => h.WardName).Width(150);
+        columns.Bound(h => h.Identify).Width(150);
+        columns.Bound(h => h.LastModifyUserID).Width(150);
+        columns.Bound(h => h.LastModifyDate).Width(150);       
+        columns.Command(command => command.Custom("Update").Click("customUpdate")).Width(150);
+        
+        
+        
+    })
+    .Pageable()
+    .Sortable()
+    .Scrollable()
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Model(model => model.Id(h => h.MemberID))
+        .Read(read => read.Action("Read_Hv", "Home").Data("readDataSearch"))
+     
+    )
+)
+
+<script type="text/javascript">
+    var grid = null;
+    $(document).ready(function () {
+      
+
+        $("#btnAdd").click(function (e) {
+            var window = $("#add_win").data("kendoWindow");
+           
+            //jQuery.validator.setDefaults({
+            //    debug: false,
+            //    success: "valid"
+            //});
+            //var window = $("#add_win");
+            //window.validate();
+            //$("#btnSave").click(function () {
+            //    alert("Valid: " + window.valid());
+            //})
+            //jQuery.validator.setDefaults({
+            //    debug: true,
+            //    success: "valid"
+            //});
+            //var form = $("#form_add");
+            //form.validate();
+            //$("#btnSave").click(function () {
+            //    alert("Valid: " + form.valid());
+            //})
+
+            window.refresh({
+                url: "/Home/Update",
+                data: { },
+                type: 'POST',
+            });
+
+            window.center();
+            window.open();
+
+            
+        });
+        //$(function () {
+
+        //    jQuery.validator.unobtrusive.parse();
+
+        //    jQuery.validator.unobtrusive.parse("#add_win").element("#DivisionID");
+
+
+        //});
+        //$("#add_win").on('input', function () {
+
+
+        //    var window = $("#add_win").validate();
+
+        //    alert("va   " + v);
+        //});
+
+        //$(function () {
+        //    $("#add_win").validate({
+                
+        //        errorElement: "span",
+        //        rules: {
+        //            "DivisionID": "required",
+        //            "MemberID": "required",
+        //            "Email": {
+        //                Email: true,
+        //                Phone: true,
+        //            }
+        //        },
+        //        messages: {
+        //            "DivisionID": "bạn phải nhập mã đơn vị",
+        //            "MemberID": "bạn phải nhập mã sinh viên",
+        //            "Email": "Email chưa đúng định dạng",
+        //            "Phone": "Bạn phải nhập đúng số điện thoại",
+        //        }
+
+
+        //    });
+        //})
+        //function customUpdate(e) {
+        //    e.preventDefault();
+        //    var uw = $("#update_win").data("kendoWindow");
+        //    uw.center();
+        //    uw.open();
+        //}
+
+        //$("#btnUpdate").click(function(){
+        //    var checkbox = $("input[type='checkbox']");
+        //    var list_memberID = [];
+            
+        //    else {
+        //        var update_win = $("#update_win").data("kendoWindow");
+        //        update_win.center();
+        //        update_win.open();
+        //    }
+        //$(checkbox).each(function(){
+        //    if($(this).prop('checked'))
+        //    {
+        //        row =$(this).closest("tr"),
+        //        dataItem = grid.dataItem(row);
+        //        listMemberID.push(dataItem.MemberID);
+        //        var update_win = $("#update_win").data("kendoWindow");
+        //        update_win.center();
+        //        update_win.open();
+        //    }
+        //});
+        //if(listMemberID.length != 1)
+        //{
+        //    alert("Bạn chọn 1 dòng để xóa");
+        //    return false;
+        //}
+        //var data = JSON.getElementByID(listMemberID)
+        //})
+
+        //var grid = $("#Grid").data("kendoGrid"); viết sự kiện cho checkbox để lấy dữ liệu của hàng được chọn
+        //grid.bind("dataBound", function () {
+        //    $("input[type='checkbox']").bind("click", function (selectRow) {
+        //        var checkedIds = {};
+        //        var checked = this.checked,
+        //        row = $(this).closest("tr"),
+              
+        //        dataItem = grid.dataItem(row);
+        //        checkedIds[dataItem.id] = checked;
+        //    })
+       
+        grid = $("#Grid").data("kendoGrid");
+        $("#btnDel").click(function () {
+            var checkbox = $("input[type='checkbox']");
+            var lMemberID = [];
+            $(checkbox).each(function () {
+                if ($(this).prop('checked')) {
+                    row = $(this).closest("tr"),
+                    dataItem = grid.dataItem(row);
+                    lMemberID.push(dataItem.MemberID);
+                }
+            });
+
+            if (lMemberID.length == 0)
+            {
+                alert("Bạn phải chọn dữ liệu xóa");
+                return false;
+            }
+            var data = JSON.stringify(lMemberID);
+
+            $.ajax({
+                type: "POST",
+                url: "/Home/Delete",
+                contentType: 'application/json; charset=utf-8',
+                data: data,
+                async: false,
+                success: function (result) {
+                    grid.dataSource.read();
+                    alert("Xóa thành công!");
+
+                },
+                error: function (xhr, status, exception) {
+                }
+            });        
+        });
+
+        $("#btnSearch").click(function () {
+            grid.dataSource.read();
+            
+        });
+        
+        $("#btnDisable").click(function () {
+            var checkbox = $("input[type='checkbox']");
+            var list_MemberID = [];
+            $(checkbox).each(function () {
+                if ($(this).prop('checked')) {
+                    row = $(this).closest("tr"),
+                    dataItem = grid.dataItem(row);
+                    list_MemberID.push(dataItem.MemberID);
+                }
+            });
+            if (list_MemberID.length == 0) {
+                alert("Bạn chưa chọn dữ liệu");
+                return false;
+            }
+            var data = JSON.stringify(list_MemberID);
+
+            $.ajax({
+                type: "POST",
+                url: "/Home/Disable_Update",
+                contentType: 'application/json; charset=utf-8',
+                data: data,
+                async: false,
+                success: function (result) {
+                    grid.dataSource.read();
+
+                },
+                error: function (xhr, status, exception) {
+                }
+               
+            });
+
+        });
+        $("#btnEnable").click(function () {
+            var checkbox = $("input[type='checkbox']");
+            var list_ID = [];
+            $(checkbox).each(function () {
+                if ($(this).prop('checked')) {
+                    row = $(this).closest("tr"),
+                    dataItem = grid.dataItem(row);
+                    list_ID.push(dataItem.MemberID);
+                }
+            });
+            if (list_ID == null) {
+                alert("Bạn chưa chọn dữ liệu");
+                return false;
+            }
+            var data = JSON.stringify(list_ID);
+            $.ajax({
+                type: "POST",
+                url: "/Home/Enable_Update",
+                contentType: 'application/json; charset=utf-8',
+                data: data,
+                asyn: false,
+                success: function (result) {
+                    grid.dataSource.read();
+                },
+                error: function (xhr, status, exception) {
+                }
+            });
+        });
+        //$("#btnSave").click(function (e) {
+        //var da = {
+        //    DivisionID: $("#DivisionID").val(),
+        //    MemberID: $("#MemberID").val(),
+        //    MemberName: $("#MemberName").val(),
+        //    ShortName: $("#ShortName").val(),
+        //    Address: $("#Address").val(),
+        //    Identify: $("#Indetify").val(),
+        //    Phone: $("#Phone").val(),
+        //    Tel: $("#Tel").val(),
+        //    Fax: $("#Fax").val,
+        //    Email: $("#Email").val(),
+        //    Birthday: $("#Birthday").val(),
+        //    Website: $("#Website").val(),
+        //    Mailbox: $("#Mailbox").val(),
+        //    AreaName: $("#AreaName").val(),
+        //    CityName: $("#CityName").val(),
+        //    CountryName: $("#CountryName").val(),
+        //    WardName: $("#WardName").val(),
+        //    CreateDate: $("#CreateDate").val(),
+        //    CreateUserID: $("#CreateUserID").val(),
+        //    LastModifyDate: $("#LastModifyDate").val(),
+        //    Disabled: $("#Disabled").val()
+        //}
+        //$.ajax({
+        //    type: "POST",
+        //    url: "/Home/Update",
+        //    contentType: 'application/json; charset=utf-8',
+        //    data: data,
+        //    asyn: false,
+        //    success: function (da) {
+        //        grid.dataSource.read();
+        //        //Read_Hv();
+        //        $("#update_win").modal(uw);
+        //        clear();
+        //    },
+        //    error: function (err) {
+        //        alert("Error: " + err.responseText);
+        //    }
+        //});
+        //});
+    
+    })
+    function readDataSearch()
+    {
+        var dtSeacrh = {
+            DivisionID: $("#txtMaDonVi").val(),
+            MemberID: $("#txtMaHoiVien").val(),
+            MemberName: $("#txtTenHoiVien").val(),
+            Address: $("#txtDiaChi").val(),
+            CreateUserID: $("#txtUserID").val(),
+            Phone: $("#txtPhone").val(),
+            Tel: $("#txtTel").val(),
+            Fax: $("#txtFax").val(),
+            Email: $("#txtEmail").val()
+        };
+       
+        
+        return dtSeacrh;
+    }
+    function u_data() {
+        var da = {
+            DivisionID: $("#DivisionID").val(),
+            MemberID: $("#MemberID").val(),
+            MemberName: $("#MemberName").val(),
+            ShortName: $("#ShortName").val(),
+            Address: $("#Address").val(),
+            Identify: $("#Indetify").val(),
+            Phone: $("#Phone").val(),
+            Tel: $("#Tel").val(),
+            Fax: $("#Fax").val,
+            Email: $("#Email").val(),
+            Birthday: $("#Birthday").val(),
+            Website: $("#Website").val(),
+            Mailbox: $("#Mailbox").val(),
+            AreaName: $("#AreaName").val(),
+            CityName: $("#CityName").val(),
+            CountryName: $("#CountryName").val(),
+            WardName: $("#WardName").val(),
+            CreateDate: $("#CreateDate").val(),
+            CreateUserID: $("#CreateUserID").val(),
+            LastModifyDate: $("#LastModifyDate").val(),
+            Disabled: $("#Disabled").val()
+            };
+        return da;
+    }
+    
+    function customUpdate(e) {
+        //e.preventDefault();
+        //var uw = $("#update_win").data("kendoWindow");
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        var uw = $("#add_win").data("kendoWindow");
+
+        uw.refresh({
+            url: "/Home/Update",
+            data: { ID: dataItem.MemberID},
+            type: 'POST',
+        });
+
+        uw.center();
+        uw.open();
+        
+
+    }
+
+    function refresh()
+    {
+        grid.dataSource.read();
+    }
+
+   
+   
+</script>

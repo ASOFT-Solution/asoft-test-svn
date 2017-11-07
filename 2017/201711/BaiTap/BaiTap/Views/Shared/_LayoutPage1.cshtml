@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="https://kendo.cdn.telerik.com/2017.3.913/styles/kendo.common-material.min.css" rel="stylesheet" type="text/css" />
+	<link href="https://kendo.cdn.telerik.com/2017.3.913/styles/kendo.mobile.all.min.css" rel="stylesheet" type="text/css" />
+	<link href="https://kendo.cdn.telerik.com/2017.3.913/styles/kendo.material.min.css" rel="stylesheet" type="text/css" />
+	<script src="https://kendo.cdn.telerik.com/2017.3.913/js/jquery.min.js"></script>
+	<script src="https://kendo.cdn.telerik.com/2017.3.913/js/jszip.min.js"></script>
+	<script src="https://kendo.cdn.telerik.com/2017.3.913/js/kendo.all.min.js"></script>
+	<script src="https://kendo.cdn.telerik.com/2017.3.913/js/kendo.aspnetmvc.min.js"></script>
+    
+    <script src="~/Script/Library/kendo.modernizr.custom.js"></script>
+@*	<script src="@Url.Content("~/Scripts/kendo.modernizr.custom.js")"></script>*@
+    <script src="~/Script/Library/jquery.validate.min.js"></script>
+    <link href="~/Content/css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="header">
+    <div class="container-fluid">
+        <div class="row k-header">
+            
+            <h1 id="h1">ASOFT-EPR 9.0 | HỆ THỐNG QUẢN TRỊ NGUỒN LỰC DOANH NGHIỆP</h1> 
+            </div>
+            <div id="responsive-panel">
+                                
+                @(Html.Kendo().Menu()
+                  .Name("Menu")
+                  .Items(items =>
+                  {
+
+                      items.Add().Text("THÔNG TIN ĐIỀU HÀNH");
+                      items.Add().Text("POS")
+                                 .Items(children =>
+                                 {
+                                     children.Add().Text("Thiết lập");
+
+                                     children.Add().Text("Danh Mục")
+                                     .Items(innerchildren =>
+                                     {
+                                         innerchildren.Add().Text("Danh mục cửa hàng").Enabled(false);
+                                         innerchildren.Add().Text("Danh mục hàng hóa").Enabled(false);
+                                         innerchildren.Add().Text("Danh mục hội viên").Selected(true);
+                                         innerchildren.Add().Text("Danh mục hình thức thanh toán").Enabled(false);
+                                     });
+                                     children.Add().Text("Nghiệp vụ");
+                                     children.Add().Text("Báo cáo");
+
+                                 });
+
+
+                      items.Add().Text("CRM");
+                      items.Add().Text("QLHV");
+
+                  })
+                  .Orientation(Kendo.Mvc.UI.MenuOrientation.Horizontal)
+                  //.HtmlAttributes()
+                )
+            </div>
+           @*</div> *@
+            <!--<button id="configure" class="k-rpanel-toggle k-button k-primary btn-toggle"><span class="k-icon k-i-hbars"></span></button>-->
+        
+        </div>
+    </div>
+
+    @RenderBody()
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-18 col-md-12">
+                <div id="grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container-fluid">
+            <p class="text-muted">Copyright © 2002-2015 Telerik. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        $(document).ready(function () {
+            $("#responsive-panel").kendoResponsivePanel({
+                breakpoint: 768,
+                autoClose: false,
+                orientation: "top"
+            });
+
+        });
+
+        function onclick(e) {
+            $("#responsive-panel").getKendoResponsivePanel().toggle();
+        }
+        $("header").css("font-size", "150%");
+    </script>
+
+</body>
+</html>
+<style>
+    .header
+    {
+        /*background-color: #f1f1f1;*/
+        padding: 20px;
+        text-align: center;
+        background-color: #edecec;
+    }
+    .k-widget k-reset k-header k-menu k-menu-horizontal
+    {
+        background-color: #f1f1f1;
+        /*scrollbar-base-color:#f1f1f1;*/
+    }
+    .container-fluid
+    {
+        background-color: #edecec;
+    }
+    
+    
+</style>

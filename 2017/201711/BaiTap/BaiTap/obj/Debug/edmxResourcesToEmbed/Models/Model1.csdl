@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BaiTapKendoModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="BaiTapKendoEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="HoiVien" EntityType="BaiTapKendoModel.HoiVien" />
+    <EntitySet Name="Menu1" EntityType="BaiTapKendoModel.Menu1" />
+    <EntitySet Name="MenuChild1" EntityType="BaiTapKendoModel.MenuChild1" />
+    <EntitySet Name="MenuChild2" EntityType="BaiTapKendoModel.MenuChild2" />
+  </EntityContainer>
+  <EntityType Name="HoiVien">
+    <Key>
+      <PropertyRef Name="DivisionID" />
+      <PropertyRef Name="MemberID" />
+    </Key>
+    <Property Name="APK" Type="Guid" Nullable="false" />
+    <Property Name="DivisionID" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="MemberID" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="MemberName" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+    <Property Name="ShortName" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+    <Property Name="Address" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+    <Property Name="Identify" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+    <Property Name="Phone" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+    <Property Name="Tel" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+    <Property Name="Fax" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+    <Property Name="Email" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+    <Property Name="Birthday" Type="DateTime" Precision="0" />
+    <Property Name="Website" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Mailbox" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+    <Property Name="AreaName" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+    <Property Name="CityName" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+    <Property Name="CountryName" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+    <Property Name="WardName" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+    <Property Name="CreatDate" Type="DateTime" Precision="3" />
+    <Property Name="CreateUserID" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="LastModifyDate" Type="DateTime" Precision="3" />
+    <Property Name="LastModifyUserID" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Disabled" Type="Byte" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Menu1">
+    <Key>
+      <PropertyRef Name="MenuID" />
+    </Key>
+    <Property Name="MenuID" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Menu_Title" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Active" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="MenuChild1">
+    <Key>
+      <PropertyRef Name="Child1_id" />
+    </Key>
+    <Property Name="Child1_id" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="MenuID" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Child1_Name" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Action" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="MenuChild2">
+    <Key>
+      <PropertyRef Name="Child2_id" />
+    </Key>
+    <Property Name="Child2_id" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Child1_id" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Child2_Name" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Action" Type="Boolean" />
+  </EntityType>
+</Schema>
