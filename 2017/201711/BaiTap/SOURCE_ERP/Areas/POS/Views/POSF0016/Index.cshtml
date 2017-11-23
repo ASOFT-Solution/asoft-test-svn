@@ -1,0 +1,241 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     18/03/2014      Minh Lâm      Tạo mới
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core
+
+@model ASOFT.ERP.ViewModel.POS.POSF0016ViewModel
+
+@{
+    ViewBag.Title = @Html.ASOFTPageTitle(m => m.Title, "POSF0016");
+}
+
+<div id="contentMaster">
+    <div class="asf-panel-filter container_12">
+        @Html.ASOFTHeader(new HeaderModel
+        {
+            Title = Html.ASOFTPageTitle(model => model.Title, "POSF0016").ToHtmlString(), 
+            Breakcrumb = true
+        })
+    </div>
+    <div class="clearfix"></div>
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "FormFilter" }))
+    {
+        @Html.ASOFTHidden(model => model.PVoucherType)
+        @Html.ASOFTHidden(model => model.CVoucherType);
+        <div class="asf-panel-filter container_12">
+
+            <div class="grid_4 alpha line_right">
+                <table class="asf-table-view">
+                     <tr>
+                        <td class="container_period_label">@Html.ASOFTRadioButton(model => model.IsDate, 0, htmlAttributes: new { id = "rdbIsDate0" }) @Html.ASOFTLabel(model => model.FromDateFilter)</td>
+                        <td class="container_period_control">
+                            @(Html.ASOFTDateEdit(model => model.FromDateFilter,
+                             htmlAttributes: new Dictionary<string, object> {
+                                                    {"data-bind","value:FromDateFilter"}}
+                                                )
+                                  .Value(ASOFTEnvironment.WorkingDate)
+                            )
+                        </td>
+
+                        <td class="container_period_space"></td>
+                        <td class="container_period_label">@Html.ASOFTLabel(model => model.ToDateFilter)</td>
+                        <td class="container_period_control">
+                            @(Html.ASOFTDateEdit(model => model.ToDateFilter,
+                             htmlAttributes: new Dictionary<string, object> {
+                                                    {"data-bind","value:ToDateFilter"}}
+                                                )
+                            .Value(ASOFTEnvironment.WorkingDate)
+                            )
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@Html.ASOFTRadioButton(model => model.IsDate, 1, htmlAttributes: new { id = "rdbIsDate1" }) @Html.ASOFTLabel(model => model.FromPeriodFilter)</td>
+                        <td colspan="4">
+            @Html.ASOFTBussinessComboBox().ASOFTCheckListPeriod(model => model.FromPeriodFilter).Enable(false)
+                        </td>
+                        @*<td>
+                            @(Html.ASOFTBussinessComboBox()
+                                  .ASOFTPeriod(model => model.FromPeriodFilter,
+                                                htmlAttributes: new Dictionary<string, object> {
+                                                    {"data-bind","value:FromPeriodFilter"}}
+                                                )
+                                  .Value(ASOFTEnvironment.Period)
+                                  .Events(e => e.Cascade("fromPeriod_Cascade"))
+                                  .Enable(false))
+                        </td>
+                        <td class="container_period_space"></td>
+                        <td>@Html.ASOFTLabel(model => model.ToPeriodFilter)</td>
+                        <td>@(Html.ASOFTBussinessComboBox()
+                            .ASOFTPeriod(model => model.ToPeriodFilter,
+                            htmlAttributes: new Dictionary<string, object> {
+                                                    {"data-bind","value:ToPeriodFilter"}}
+                                                )
+                            .Value(ASOFTEnvironment.Period)
+                            .Events(e => e.Cascade("toPeriod_Cascade"))
+                            .Enable(false))</td>*@
+                    </tr>
+                    <tr>
+                        <td colspan="2">@Html.ASOFTLabel(model => model.DivisionIDFilter)</td>
+                        <td colspan="3">@(Html.ASOFTBussinessComboBox()
+                                              .ASOFTDivisionIDList(model => model.DivisionIDFilter, htmlAttributes: new Dictionary<string, object> {
+                                                  {"data-bind","value:DivisionIDFilter"}}
+                                              ))</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">@Html.ASOFTLabel(model => model.ShopIDFilter)</td>
+                        <td colspan="3">
+                            @Html.ASOFTTextBox(model => model.ShopIDFilter,
+                            htmlStyle: new { width = Unit.Percentage(100) },
+                            htmlAttribute: new Dictionary<string, object> {
+                                                    {"data-bind","value:ShopIDFilter"}}
+                             )
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+            <div class="grid_4_1 line_right">
+                <table class="asf-table-view">
+                    <tr>
+                        <td class="container_label">@Html.ASOFTLabel(model => model.VoucherTypeIDFilter)</td>
+                        <td class="container_control">
+                            @Html.ASOFTTextBox(model => model.VoucherTypeIDFilter,
+                            htmlStyle: new { width = Unit.Percentage(100) },
+                            htmlAttribute: new Dictionary<string, object> {
+                                                    {"data-bind","value:VoucherTypeIDFilter"}}
+                             )
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@Html.ASOFTLabel(model => model.VoucherNoFilter)</td>
+                        <td>
+                            @Html.ASOFTTextBox(model => model.VoucherNoFilter,
+                                htmlStyle: new { width = Unit.Percentage(100) },
+                                htmlAttribute: new Dictionary<string, object> {
+                                    {"data-bind","value:VoucherNoFilter"}}
+                                )
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@Html.ASOFTLabel(model => model.MemberIDFilter)</td>
+                        <td>
+                            @Html.ASOFTTextBox(model => model.MemberIDFilter,
+                                htmlStyle: new { width = Unit.Percentage(100) },
+                                htmlAttribute: new Dictionary<string, object> {
+                                    {"data-bind","value:MemberIDFilter"}}
+                                )
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@Html.ASOFTLabel(model => model.MemberNameFilter)</td>
+                        <td>
+                            @Html.ASOFTTextBox(model => model.MemberNameFilter,
+                                htmlAttribute: new Dictionary<string, object> {
+                                    {"data-bind","value:MemberNameFilter"}},
+                                htmlStyle: new { width = Unit.Percentage(100) })
+                        </td>
+                    </tr>
+                   
+                </table>
+            </div>
+            <div class="grid_4 omega float_right">
+                <table class="asf-table-view">
+                     <tr>
+                        <td class="container_label">@Html.ASOFTLabel(model => model.CurrencyNameFilter)</td>
+                        <td class="container_control">
+                            @Html.ASOFTTextBox(model => model.CurrencyNameFilter,
+                                htmlAttribute: new Dictionary<string, object> {
+                                    {"data-bind","value:CurrencyNameFilter"}},
+                                htmlStyle: new { width = Unit.Percentage(100) })
+                        </td>
+                    </tr>
+                    <tr class='hidden'>
+                        <td>@Html.ASOFTLabel(model => model.PaymentNameFilter)</td>
+                        <td>
+                            @Html.ASOFTTextBox(model => model.PaymentNameFilter,
+                                htmlAttribute: new Dictionary<string, object> {
+                                    {"data-bind","value:PaymentNameFilter"}},
+                                htmlStyle: new { width = Unit.Percentage(100) })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@Html.ASOFTLabel(model => model.IMEI1Filter)</td>
+                        <td>
+                            @Html.ASOFTTextBox(model => model.IMEI1Filter,
+                                htmlAttribute: new Dictionary<string, object> {
+                                    {"data-bind","value:IMEI1Filter"}},
+                                htmlStyle: new { width = Unit.Percentage(100) })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@Html.ASOFTLabel(model => model.IMEI2Filter)</td>
+                        <td>
+                            @Html.ASOFTTextBox(model => model.IMEI2Filter,
+                                htmlAttribute: new Dictionary<string, object> {
+                                    {"data-bind","value:IMEI2Filter"}},
+                                htmlStyle: new { width = Unit.Percentage(100) })
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+        <div class="clearfix"></div>
+        <div class="container_12 asf-button-filter-container">
+            <div class="grid_6 alpha float_left">
+                @if (Model.Toolbar1 != null)
+                {
+                    Model.Toolbar1.EventAdd = "btnAdd_Click";
+                    Model.Toolbar1.EventDelete = "btnDelete_Click";
+                    Model.Toolbar1.EventExport = "ExportClick";
+                    Model.Toolbar1.ScreenIDAdd = "POSF00161";
+                }
+                @Html.Partial("~/Views/Shared/EditorTemplates/Toolbar.cshtml", Model.Toolbar1 ?? new ASOFTToolBarViewModel())
+            </div>
+            <div class="grid_6 omega float_right">
+                <ul class="vertical float_right">
+                    <li>
+                        @(Html.ASOFTSearchButton()
+                                  .Name("POSF0016BtnFilter")
+                                  .HtmlAttributes(new Dictionary<string, Object> {
+                                      {"data-bind","click: search"},
+                                      {"class", "asf-button"}
+                                  }))
+
+
+                    </li>
+                    <li>
+                        @(Html.ASOFTSearchResetButton()
+                                  .Name("POSF0016BtnClearFilter")
+                                  .HtmlAttributes(new Dictionary<string, Object> {
+                                      {"data-bind","click: reset"},
+                                      {"class", "asf-button"}
+                                  }))
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        @Html.Partial("GridInventorySummary")
+    }
+</div>
+
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/POS/Content/POSF0016.css")" rel="stylesheet" type="text/css" />
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF0040/asoft-core-jquery.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF0016.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF0016.part2.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSFSearchPeriod.js")" type="text/javascript"></script>
+}

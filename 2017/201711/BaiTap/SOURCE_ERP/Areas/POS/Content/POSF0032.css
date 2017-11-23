@@ -1,0 +1,101 @@
+﻿.asf-button, .asf-button.k-state-disabled, .k-button.k-upload-button {
+    min-width: 60px;
+}
+
+#status-bar {
+    display: block;
+    float:left;
+}
+
+    #status-bar h2 {
+        float: left;
+        font-size: medium;
+        margin: 5px 0;
+    }
+
+    #status-bar ul {
+        float: left;
+        margin: 0;
+        margin-left: -60px;
+    }
+
+        #status-bar ul li {
+            float: left;
+            margin-left: 20px;
+        }
+
+li.green_square {
+    background: url('Images/green_square.png') no-repeat left top;
+    /*height: 32px;*/
+    padding-left: 60px;
+}
+
+li.orange_square {
+    background: url('Images/orange_square.png') no-repeat left top;
+    /*height: 32px;*/
+    padding-left: 60px;
+}
+
+.left-header {
+    float: left;
+}
+
+.top-div {
+    height: 85px;
+    vertical-align: bottom;
+}
+
+.middle-buttons {
+    display: table-cell;
+    height: 200px;
+    vertical-align: middle;
+}
+
+#bill-split {
+    float: left;
+    margin-top: 20px;
+}
+
+    #bill-split ul {
+        margin-bottom: 10px;
+        margin-left: -40px;
+        margin-top: -10px;
+        width: 100%;
+    }
+
+        #bill-split ul li {
+            border-collapse: collapse;
+            float: left;
+            line-height: 2em;
+            list-style: none outside none;
+            margin-right: 10px;
+        }
+
+
+#total-bill {
+float: left;
+    margin-top: 40px;
+    padding-left: 0;
+    width: 100%;
+}
+#total-bill li{
+border-collapse: collapse;
+    float: left;
+    line-height: 2em;
+    list-style: none outside none;
+    margin-right: 10px;
+}
+
+
+.container_12 .grid_5 {
+    width: 44.5%;
+}
+
+
+.container_12 .grid_2 {
+    width: 4.667%;
+}
+
+.middle-buttons ul {
+    padding-left:0;
+}

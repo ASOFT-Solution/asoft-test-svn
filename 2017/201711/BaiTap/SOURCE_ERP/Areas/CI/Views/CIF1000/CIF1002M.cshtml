@@ -1,0 +1,133 @@
+﻿@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Core;
+@using Kendo.Mvc;
+@using ASOFT.ERP.ViewModel.CI
+@model ASOFT.ERP.ViewModel.CI.CIF1002ViewModel
+@helper Group02()
+{  
+    <div class="asf-master-content">
+        <div class="asf-content-block-sys left">
+            <table class="asf-table-view">
+                <tr>
+                    <td class="content-label">@Html.DisplayName(ASOFTLanguage.FindWordA00("A00.CreateUserID"))</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.CreateUserID)</td>
+                </tr>
+                <tr>
+                    <td class="content-label">@Html.DisplayName(ASOFTLanguage.FindWordA00("A00.CreateDate"))</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.CreateDate)</td>
+                </tr>
+            </table>
+        </div>
+        <div class="asf-content-block-sys right">
+            <table class="asf-table-view">
+                <tr>
+                    <td class="content-label">@Html.DisplayName(ASOFTLanguage.FindWordA00("A00.LastModifyUserID"))</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.LastModifyUserID)</td>
+                </tr>
+                <tr>
+                    <td class="content-label">@Html.DisplayName(ASOFTLanguage.FindWordA00("A00.LastModifyDate"))</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.LastModifyDate)</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+}
+@helper Group01()
+{
+    <div class="asf-master-content">
+        <div class="asf-content-block first">
+            <table class="asf-table-view">
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.DepartmentID)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.DepartmentID)</td>
+                </tr>
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.DepartmentName)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.DepartmentName)</td>
+                </tr>
+            </table>
+        </div>
+        <div class="asf-content-block middle">
+
+            <table class="asf-table-view">
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.DivisionID)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.DivisionID)</td>
+                </tr>
+                @{
+                    if(ASOFTEnvironment.CustomerIndex != ASOFTConstants.CUSTOMERINDEX_XUONGRONG)
+                    {
+                        <tr>
+                            <td class="content-label">@Html.DisplayNameFor(model => model.AccountName)</td>
+                            <td class="dot"></td>
+                            <td class="content-text">@Html.DisplayFor(model => model.AccountName)</td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+        <div class="asf-content-block last">
+            <table class="asf-table-view">
+                <tr>
+                    <td class="content-label">@Html.DisplayNameFor(model => model.Disabled)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">
+                        @{ string disabled = Model.Disabled ? ASOFTLanguage.FindWordA00("A00.Yes") : ASOFTLanguage.FindWordA00("A00.No"); }
+                        @disabled
+                    </td>
+                </tr>
+                <tr>
+                    <td class="content-label">@Html.DisplayNameFor(model => model.IsCommon)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">
+                        @{ string iscommon = Model.IsCommon ? ASOFTLanguage.FindWordA00("A00.Yes") : ASOFTLanguage.FindWordA00("A00.No"); }
+                        @iscommon
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+}
+@helper History()
+{
+    <div class="asf-master-content">
+        @ASOFTLanguage.FindWordA00("A00.History")
+    </div>
+}
+@helper Attach()
+{
+    <div class="asf-master-content">
+        @ASOFTLanguage.FindWordA00("A00.Attach")
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        ASOFT.form.setSameWidth("asf-content-block");
+    });
+</script>
+@(Html.Kendo().PanelBar()
+      .Name("panelbar")
+      .HtmlAttributes(new { @class = "block-panel-master" })
+      .Events(m => m.Activate("ASOFT.panelFormat.fitColumnHeight"))
+      .Animation(animation => animation.Enable(true))
+      .Items(panelbar =>
+      {
+          panelbar.Add().Text(Html.ASOFTRaw(m => m.CIF1002Group01Title))
+          .HtmlAttributes(new { @class = "block-panel-master-header" })
+          .Expanded(true).Content(this.Group01().ToHtmlString());
+          panelbar.Add().Text(Html.ASOFTRaw(m => m.CIF1002Group02Title))
+           .HtmlAttributes(new { @class = "block-panel-master-header" })
+          .Expanded(true).Content(this.Group02().ToHtmlString());
+          
+          //Html.Partial("~/Views/Shared/EditorTemplates/AttachHistoryTabbar.cshtml", panelbar);
+
+      }
+))

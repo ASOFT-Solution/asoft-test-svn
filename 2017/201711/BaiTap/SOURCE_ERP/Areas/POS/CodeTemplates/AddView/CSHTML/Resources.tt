@@ -1,0 +1,311 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".resx" #>
+<#@ assembly name="System.ComponentModel.DataAnnotations" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Entity" #>
+<#@ assembly name="System.Data.Linq" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.ComponentModel.DataAnnotations" #>
+<#@ import namespace="System.Data.Linq.Mapping" #>
+<#@ import namespace="System.Data.Objects.DataClasses" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="Microsoft.VisualStudio.Web.Mvc.Scaffolding.BuiltIn" #>
+<#
+MvcTextTemplateHost mvcHost = MvcTemplateHost;
+#><?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+    <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+	<data name="ModelName" xml:space="preserve">
+		<value>[[ModelName]]</value>
+	</data>
+
+	<!-- Common properties -->
+	<data name="BackToListAction" xml:space="preserve">
+		<value>Back to List</value>
+	</data>
+		
+	<!-- Create view -->
+	<data name="CreatePageTitle" xml:space="preserve">
+	    <value>Create [[EntityName]]</value>
+	</data>
+	<data name="CreateValidationSummaryMessage" xml:space="preserve">
+	    <value>Error creating [[EntityName]]</value>
+	</data>
+	<data name="CreateAction" xml:space="preserve">
+	    <value>Create</value>
+	</data>
+	
+	<!-- Delete view -->
+	<data name="DeletePageTitle" xml:space="preserve">
+	    <value>Delete [[EntityName]]</value>
+	</data>
+	<data name="DeleteConfirmMessage" xml:space="preserve">
+	    <value>Are you sure you want to delete this?</value>
+	</data>
+	<data name="DeleteAction" xml:space="preserve">
+	    <value>Delete</value>
+	</data>
+	
+	<!-- Edit view -->
+	<data name="EditPageTitle" xml:space="preserve">
+	    <value>Edit [[EntityName]]</value>
+	</data>
+	<data name="EditValidationSummaryMessage" xml:space="preserve">
+	    <value>Error updating [[EntityName]]</value>
+	</data>
+	<data name="EditAction" xml:space="preserve">
+	    <value>Save</value>
+	</data>
+
+	<!-- Details view -->
+	<data name="DetailsPageTitle" xml:space="preserve">
+	    <value>[[EntityName]] Details</value>
+	</data>
+	
+	<!-- List view -->
+	<data name="ListPageTitle" xml:space="preserve">
+	    <value>[[EntityName]] List</value>
+	</data>
+	<data name="ListActionCreate" xml:space="preserve">
+		<value>Create New</value>
+	</data>
+	<data name="ListActionEdit" xml:space="preserve">
+		<value>Edit</value>
+	</data>
+	<data name="ListActionDetails" xml:space="preserve">
+		<value>Details</value>
+	</data>
+	<data name="ListActionDelete" xml:space="preserve">
+		<value>Delete</value>
+	</data>
+<#
+List<ModelProperty> properties = GetModelProperties(mvcHost.ViewDataType);
+foreach (ModelProperty property in properties) {
+    if (!property.IsPrimaryKey && property.Scaffold) {
+#>
+	<data name="Label<#= property.Name #>" xml:space="preserve">
+		<value>[[<#= property.Name #>]]</value>
+	</data>
+	<data name="ValidationMessage<#= property.Name #>" xml:space="preserve">
+		<value>[[<#= property.Name #>]] Required</value>
+	</data>
+<#
+	}
+}
+
+#>
+</root>
+<#+
+// Describes the information about a property on the model
+class ModelProperty {
+    public string Name { get; set; }
+    public string AssociationName { get; set; }
+    public string ValueExpression { get; set; }
+    public string ModelValueExpression { get; set; }
+    public string ItemValueExpression { get; set; }
+    public Type UnderlyingType { get; set; }
+    public bool IsPrimaryKey { get; set; }
+    public bool IsForeignKey { get; set; }
+    public bool IsReadOnly { get; set; }
+    public bool Scaffold { get; set; }
+}
+
+// Change this list to include any non-primitive types you think should be eligible for display/edit
+static Type[] bindableNonPrimitiveTypes = new[] {
+    typeof(string),
+    typeof(decimal),
+    typeof(Guid),
+    typeof(DateTime),
+    typeof(DateTimeOffset),
+    typeof(TimeSpan),
+};
+
+// Call this to get the list of properties in the model. Change this to modify or add your
+// own default formatting for display values.
+List<ModelProperty> GetModelProperties(Type type) {
+    List<ModelProperty> results = GetEligibleProperties(type);
+    
+    foreach (ModelProperty prop in results) {
+        if (prop.UnderlyingType == typeof(double) || prop.UnderlyingType == typeof(decimal)) {
+            prop.ModelValueExpression = "String.Format(\"{0:F}\", " + prop.ModelValueExpression + ")";
+        }
+        else if (prop.UnderlyingType == typeof(DateTime)) {
+            prop.ModelValueExpression = "String.Format(\"{0:g}\", " + prop.ModelValueExpression + ")";
+        }
+    }
+
+    return results;
+}
+
+// Call this to determine if property has scaffolding enabled
+bool Scaffold(PropertyInfo property) {
+    foreach (object attribute in property.GetCustomAttributes(true)) {
+        var scaffoldColumn = attribute as ScaffoldColumnAttribute;
+        if (scaffoldColumn != null && !scaffoldColumn.Scaffold) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// Call this to determine if the property represents a primary key. Change the
+// code to change the definition of primary key.
+bool IsPrimaryKey(PropertyInfo property) {
+    if (string.Equals(property.Name, "id", StringComparison.OrdinalIgnoreCase)) {  // EF Code First convention
+        return true;
+    }
+
+    if (string.Equals(property.Name, property.DeclaringType.Name + "id", StringComparison.OrdinalIgnoreCase)) {  // EF Code First convention
+        return true;
+    }
+
+    foreach (object attribute in property.GetCustomAttributes(true)) {
+        if (attribute is KeyAttribute) {  // WCF RIA Services and EF Code First explicit
+            return true;
+        }
+        
+        var edmScalar = attribute as EdmScalarPropertyAttribute;
+        if (edmScalar != null && edmScalar.EntityKeyProperty) {  // EF traditional
+            return true;
+        }
+
+        var column = attribute as ColumnAttribute;
+        if (column != null && column.IsPrimaryKey) {  // LINQ to SQL
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+// This will return the primary key property name, if and only if there is exactly
+// one primary key. Returns null if there is no PK, or the PK is composite.
+string GetPrimaryKeyName(Type type) {
+    IEnumerable<string> pkNames = GetPrimaryKeyNames(type);
+    return pkNames.Count() == 1 ? pkNames.First() : null;
+}
+
+// This will return all the primary key names. Will return an empty list if there are none.
+IEnumerable<string> GetPrimaryKeyNames(Type type) {
+    return GetEligibleProperties(type).Where(mp => mp.IsPrimaryKey).Select(mp => mp.Name);
+}
+
+// Call this to determine if the property represents a foreign key.
+bool IsForeignKey(PropertyInfo property) {
+    return MvcTemplateHost.RelatedProperties.ContainsKey(property.Name);
+}
+
+// A foreign key, e.g. CategoryID, will have a value expression of Category.CategoryID
+string GetValueExpressionSuffix(PropertyInfo property) {
+    RelatedModel propertyModel;
+    MvcTemplateHost.RelatedProperties.TryGetValue(property.Name, out propertyModel);
+
+    return propertyModel != null ? propertyModel.PropertyName + "." + propertyModel.DisplayPropertyName : property.Name;
+}
+
+// A foreign key, e.g. CategoryID, will have an association name of Category
+string GetAssociationName(PropertyInfo property) {
+    RelatedModel propertyModel;
+    MvcTemplateHost.RelatedProperties.TryGetValue(property.Name, out propertyModel);
+
+    return propertyModel != null ? propertyModel.PropertyName : property.Name;
+}
+
+// Helper
+List<ModelProperty> GetEligibleProperties(Type type) {
+    List<ModelProperty> results = new List<ModelProperty>();
+
+    foreach (PropertyInfo prop in type.GetProperties(BindingFlags.Public | BindingFlags.Instance)) {
+        Type underlyingType = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
+        if (prop.GetGetMethod() != null && prop.GetIndexParameters().Length == 0 && IsBindableType(underlyingType)) {
+            string valueExpression = GetValueExpressionSuffix(prop);
+
+            results.Add(new ModelProperty {
+                Name = prop.Name,
+                AssociationName = GetAssociationName(prop),
+                ValueExpression = valueExpression,
+                ModelValueExpression = "Model." + valueExpression,
+                ItemValueExpression = "item." + valueExpression,
+                UnderlyingType = underlyingType,
+                IsPrimaryKey = IsPrimaryKey(prop),
+                IsForeignKey = IsForeignKey(prop),
+                IsReadOnly = prop.GetSetMethod() == null,
+                Scaffold = Scaffold(prop)
+            });
+        }
+    }
+
+    return results;
+}
+
+// Helper
+bool IsBindableType(Type type) {
+    return type.IsPrimitive || bindableNonPrimitiveTypes.Contains(type);
+}
+
+MvcTextTemplateHost MvcTemplateHost {
+    get {
+        return (MvcTextTemplateHost)Host;
+    }
+}
+#>

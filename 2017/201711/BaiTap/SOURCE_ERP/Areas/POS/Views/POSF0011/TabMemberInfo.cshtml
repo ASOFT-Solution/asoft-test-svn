@@ -1,0 +1,334 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     31/03/2013      Thai Son        Tạo mới
+//####################################################################
+*@
+@model ASOFT.ERP.ViewModel.POS.POSF00111ViewModel
+
+<span class="asf-disabled-visibility">
+    @Html.ASOFTTextBox(model => model.LastModifiedDateTicks)
+    @Html.ASOFTTextBox(model => model.APK)
+    @Html.ASOFTTextBox(model => model.FormStatus)
+    @Html.ASOFTTextBox(model => model.CustomerIndex)
+</span>
+<div class="container_12">
+    <div class="grid_6 line_right">
+        <table class="asf-table-view">
+            <tr>
+                @Html.ASOFTHidden(m => m.DivisionID)
+                <td class="container_label">@Html.ASOFTLabel(model => model.MemberID)</td>
+                <td class="container_control">
+                    @if (Model.FormStatus == ASOFTFormActionType.AddNew)
+                    {
+                        <table class="asf-table-view">
+                            <tr>
+                                <td>
+                                    <span class="left00111">
+                                        @(Html.ASOFTTextBox(model => model.MemberID,
+                                            htmlStyle: new
+                                            {
+                                                width = Unit.Percentage(100),
+                                                title = "..."
+                                            }).ReadOnlyIf(true))
+                                    </span>
+
+                                </td>
+                                <td>&nbsp;</td>
+                                <td class="right00111">
+                                    <span>
+                                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnGetNewID"))
+                                          .Name("btnGetNewID")
+                                          .Events(e => e.Click("btnGetNewID_Click")))
+
+                                    </span>
+
+                                </td>
+                            </tr>
+                        </table>
+
+                    }
+                    else
+                    {
+                        @(Html.ASOFTTextBox(model => model.MemberID,
+                                            htmlStyle: new
+                                            {
+                                                width = Unit.Percentage(100),
+                                                title = "..."
+                                            }).ReadOnlyIf(true))
+                    }
+
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.MemberName)
+
+                </td>
+                <td>
+                    @Html.ASOFTTextBox(model => model.MemberName,
+                        htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        })
+                    @Html.ValidationMessageFor(model => model.MemberName)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.MemberNameE)
+
+                </td>
+                <td>
+                    @Html.ASOFTTextBox(model => model.MemberNameE,
+                        htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.ShortName)
+
+                </td>
+                <td>
+                    @Html.ASOFTTextBox(model => model.ShortName,
+                        htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.Address)
+
+                </td>
+                <td>
+                    @Html.ASOFTTextBox(model => model.Address,
+                        htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.Identify)
+
+                </td>
+                <td>
+                    @Html.ASOFTTextBox(model => model.Identify,
+                        htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.Phone)
+
+                </td>
+                <td>
+                    @Html.ASOFTTextBox(model => model.Phone,
+                        htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        })
+                    @Html.ValidationMessageFor(model => model.Phone)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.Tel)
+
+                </td>
+                <td>
+                    @Html.ASOFTTextBox(model => model.Tel,
+                        htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.Fax)
+
+                </td>
+                <td>
+                    @Html.ASOFTTextBox(model => model.Fax,
+                        htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.Email)
+
+                </td>
+                <td>
+                    @Html.ASOFTTextBox(model => model.Email,
+                        htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        })
+                </td>
+            </tr>
+            @*@if (Model.IsPHUCLONG())
+            {
+                *@<tr>
+                    <td>@Html.ASOFTLabel(model => model.AccruedScore)
+
+                    </td>
+                    <td>
+                        @Html.ASOFTTextBox(model => model.AccruedScore,
+                                     htmlStyle: new
+                                     {
+                                         width = Unit.Percentage(100)
+                                     }).ReadOnlyIf(true)
+                    </td>
+                </tr>
+            @*}*@
+        </table>
+    </div>
+    <div class="grid_6">
+        <table class="asf-table-view">
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.Gender)</td>
+                <td>
+                    @(Html.ASOFTBussinessComboBox().ASOFTPosGender(model => model.Gender, htmlStyle: new {width = Unit.Percentage(100)}))
+                </td>
+            </tr>
+            <tr>
+                <td class="container_label">@Html.ASOFTLabel(model => model.Birthday)</td>
+                <td class="container_control">
+                    @Html.ASOFTDateEdit(model => model.Birthday,
+                        htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.Website)</td>
+                <td>
+                    @Html.ASOFTTextBox(model => model.Website,
+                        htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.Mailbox)</td>
+                <td>
+                    @Html.ASOFTTextBox(model => model.Mailbox,
+                        htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.AreaID)</td>
+                <td>
+                    @(Html.ASOFTBussinessComboBox().ASOFTAreaOfVietnam(model => model.AreaID,
+                              htmlAttributes: new Dictionary<string, object> {
+                                                    {"data-bind","value:AreaID"}},
+                              htmlStyle: new
+                              {
+                                  width = Unit.Percentage(100)
+                              }))
+
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.WardName)</td>
+                <td>
+                    @Html.ASOFTTextBox(model => model.WardName,
+                        htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        })
+
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.CountyName)</td>
+                <td>
+                    @Html.ASOFTTextBox(model => model.CountyName,
+                        htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        })
+
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.CityID)</td>
+                <td>
+                    @(Html.ASOFTBussinessComboBox().ASOFTProvinceAndCityOfVietnam(model => model.CityID,
+                              htmlAttributes: new Dictionary<string, object> {
+                                                    {"data-bind","value:CityID"}},
+                              htmlStyle: new
+                              {
+                                  width = Unit.Percentage(100)
+                              }))
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.CountryID)</td>
+                <td>
+                    @(Html.ASOFTBussinessComboBox().ASOFTCountryAndRegion(model => model.CountryID,
+                              htmlAttributes: new Dictionary<string, object> {
+                                                    {"data-bind","value:CountyID"}},
+                              htmlStyle: new
+                              {
+                                  width = Unit.Percentage(100)
+                              }))
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.Description)</td>
+                <td>
+                    @Html.ASOFTTextBox(model => model.Description,
+                        htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        })
+
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.ASOFTCheckbox(model => model.Disabled)
+                </td>
+            </tr>
+            <tr></tr>
+@*            @if (Model.IsPHUCLONG())
+            {
+                *@<tr>
+                    <td></td>
+                        <td>
+                            @(Html.ASOFTCheckbox(model => model.IsMemberID)
+                            .DisabledIf(                            
+                            (Model.OddMemberExists && !Model.IsMemberID)
+                            
+                            ))
+                        </td> 
+                </tr>
+                <tr>
+                    <td></td>
+                        <td>
+                            @Html.ASOFTCheckbox(model => model.IsCommon)
+                        </td> 
+                </tr>
+@*            }*@
+        </table>
+    </div>
+</div>
+<div class="clearfix"></div>

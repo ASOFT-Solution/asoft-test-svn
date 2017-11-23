@@ -1,0 +1,54 @@
+﻿
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.ViewModel;
+@model ASOFT.ERP.ViewModel.ASOFTSysFieldsViewModel
+@{
+    string ScreenID = ViewBag.ScreenID;
+    bool enable = false;
+    if (ScreenID.Equals("CRMF2006") || ScreenID.Equals("SOF2001"))
+    {
+        enable = true;
+    }
+}
+
+<tr class="VATAccountIDPartial">
+    @if (!ScreenID.Equals("CRMF2006") && !ScreenID.Equals("CRMF2005") && !ScreenID.Equals("SOF2001"))
+    {
+        @Html.ASOFTHidden("VATAccountID", "").DisabledIf(1==1);
+        @Html.ASOFTHidden("VATAccountID_Content_DataType", "7").DisabledIf(1==1);
+        @Html.ASOFTHidden("VATAccountID_Type_Fields", "1").DisabledIf(1==1);
+    }
+    <td class="asf-td-caption">@Html.Label(Model.language, htmlAttributes: new { @for = Model.ColumnName })
+    </td>
+    <td>@(Html.ASOFTTextBox(model => model.Data, htmlAttribute: new { Disabled = "Disabled", @id = "VATAccountName"}))
+
+        @(Html.ASOFTButton("...")
+        .Name("btnChooseVATAccount")
+        .HtmlAttributes(new { style = "width : 26px; height: 26px" })
+        .Enable(enable)
+        .Events(e => e.Click("btnChooseVATAccount_Click")))
+
+        @(Html.ASOFTButton("")
+        .Name("btnDeleteVATAccount")
+        .HtmlAttributes(new { style = "width : 26px; height: 26px; background-image: url(/Content/Images/icon-delete-24x24.png); background-repeat: no-repeat" })
+        .Enable(enable)
+        .Events(e => e.Click("btnDeleteVATAccount_Click")))
+    </td>
+</tr>
+
+<script>
+    $("#VATAccountName").css("width", "150px");
+    $("#VATAccountName").attr("name", "VATAccountName");
+    $(document).ready(function () {
+        if ($("#VATObjectName").val() != undefined)
+        {
+            $("#VATAccountName").val($("#VATObjectName").val());
+        }
+        if (typeof parent.GetCheckConfirm === "function") {
+            if (parent.GetCheckConfirm() == 1) {
+                $("#btnChooseVATAccount").data("kendoButton").enable(false);
+                $("#btnDeleteVATAccount").data("kendoButton").enable(false);
+            }
+        }
+    })
+</script>

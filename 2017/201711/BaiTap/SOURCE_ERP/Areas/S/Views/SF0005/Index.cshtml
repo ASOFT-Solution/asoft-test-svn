@@ -1,0 +1,61 @@
+﻿@using Kendo.Mvc;
+@using Kendo.Mvc.UI
+@model SF0005ViewModel
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.Title, "SF0005").ToHtmlString();
+    ViewBag.Width = 800;
+    //Model.IsLanguage = true;
+ }
+<div class="asf-form-container">
+    <div id="import-message"></div>
+    <div class="form-content" id="SF0005">
+        @Html.ASOFTHidden(model=>model.IsLanguage)           
+        <div id="uploader">
+                @(Html.Kendo().Upload()
+                                .Name("upload")
+                                .Messages(m => m.Select(ASOFTLanguage.FindWordA00("A00.btnChooseAttachment")))
+                                .Multiple(false)
+                                .ShowFileList(true)
+                                .Async(a => a.Save("Save", "SF0005").AutoUpload(true)
+                            ).Events(e => e.Success("SF0005.onSuccess").Upload("SF0005.onUpload")))
+        </div>
+        <div id="progressBar" style="width:99.6%"></div>
+        <div id="imported-list">
+            @Html.Partial("GridLanguage")
+        </div>
+
+    </div>
+    <div class="asf-form-button">
+        <table class="asf-table-view">
+            <tr>
+                <td align="right">
+                    <div class="asf-popup-button-container">
+                        <div>
+                            @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                                    .Name("BtnClose")
+                                    .Events(e => e.Click("SF0005.btnClose_Click")))
+                        </div>
+                        <div>
+                            @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSave"))
+                                    .Name("BtnSaveClose").Enable(true)
+                                    .Events(e => e.Click("SF0005.btnSave_Click")))
+                        </div>        
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/S/Scripts/SF0005.js?v=" + ASOFTEnvironment.Version)"></script>
+   @* @Html.RenderScripts(files: new[] { "CRMF2061" })*@
+}
+
+@section styleFeature {
+    @*<link href="@Url.Content("~/Areas/DRM/Content/DRF2003.css")" rel="stylesheet" type="text/css" />*@
+}
+
+@Html.ASOFTHidden("UrlSF0005Update", Url.Action("Update"))
+

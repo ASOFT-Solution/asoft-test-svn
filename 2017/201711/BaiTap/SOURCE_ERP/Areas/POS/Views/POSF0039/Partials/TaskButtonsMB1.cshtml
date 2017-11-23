@@ -1,0 +1,32 @@
+﻿
+@model ASOFT.ERP.ViewModel.POS.POSF0066ViewModel
+
+
+<div id="TastButton_div" style="width:180px; border-right: 0px solid #B2B2B2; display: none" class="asf-menu-sub-child-left">
+             <ul>
+                <li style="cursor:pointer" class="asf-menu-active">
+                    <a style="color:#6E6E6E" onclick="buttonTast_Click('btnChooseDish')">&nbsp&nbsp&nbsp&nbsp&nbsp<img style="zoom: 80%" alt="icon" class="k-image" src="/Content/Images/chonmonan.png">@Html.ASOFTRaw(model => model.ChooseDish)</a>
+                </li> 
+                 <li style="cursor:pointer" class="asf-menu-active">
+                    <a style="color:#6E6E6E" onclick="buttonTast_Click('btnMergeSplitTable')">&nbsp&nbsp&nbsp&nbsp&nbsp<img style="zoom: 80%" alt="icon" class="k-image" src="/Content/Images/gopban.png">@Html.ASOFTRaw(model => model.MergeSplitTable)</a>
+                </li> 
+                 <li style="cursor:pointer" class="asf-menu-active">
+                     <a style="color:#6E6E6E" onclick="buttonTast_Click('btnMergeSplitBill')">&nbsp&nbsp&nbsp&nbsp&nbsp<img style="zoom: 80%" alt="icon" class="k-image" src="/Content/Images/goptachbill.png">@Html.ASOFTRaw(model => model.MergeSplitBill)</a>
+                </li> 
+                 <li style="cursor:pointer" class="asf-menu-active">
+                     <a style="color:#6E6E6E" onclick="buttonTast_Click('btnReturnedInventory')">&nbsp&nbsp&nbsp&nbsp&nbsp<img style="zoom: 80%" alt="icon" class="k-image" src="/Content/Images/tramonan.png">@Html.ASOFTRaw(model => model.CancelledDish)</a>
+                </li> 
+                 <li style="cursor:pointer" class="asf-menu-active">
+                     <a style="color:#6E6E6E" onclick="buttonTast_Click('btnPromotion', this)">&nbsp&nbsp&nbsp&nbsp&nbsp<img style="zoom: 80%" alt="icon" class="k-image" src="/Content/Images/ctkhuyenmai.png">@Html.ASOFTRaw(model => model.Promotion)</a>
+                </li> 
+                 <li style="cursor:pointer" class="asf-menu-active">
+                     <a style="color:#6E6E6E" onclick="buttonTast_Click('btnPrintProcessDish')">&nbsp&nbsp&nbsp&nbsp&nbsp<img style="zoom: 80%" alt="icon" class="k-image" src="/Content/Images/inchebien.png">@Html.ASOFTRaw(model => model.PrintProcessDish)</a>
+                </li> 
+                 <li style="cursor:pointer" class="asf-menu-active">
+                     <a style="color:#6E6E6E" onclick="buttonTast_Click('btnPrintBill')">&nbsp&nbsp&nbsp&nbsp&nbsp<img style="zoom: 80%" alt="icon" class="k-image" src="/Content/Images/inhoadon.png">@Html.ASOFTRaw(model => model.PrintBill)</a>
+                </li> 
+                 <li style="cursor:pointer" class="asf-menu-active">
+                     <a onclick="buttonTast_Click('btnFinishShift')">&nbsp&nbsp&nbsp&nbsp&nbsp<img style="zoom: 80%" alt="icon" class="k-image" src="/Content/Images/ketca.png">@Html.ASOFTRaw(model => model.FinishShift)</a>
+                </li>  
+            </ul>
+        </div>

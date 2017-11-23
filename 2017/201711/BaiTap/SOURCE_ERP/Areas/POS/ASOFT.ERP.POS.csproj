@@ -1,0 +1,744 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B5AA5127-EC4D-4F25-820A-61F4E36771ED}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASOFT.ERP.POS</RootNamespace>
+    <AssemblyName>ASOFT.ERP.POS</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aspose.Cells, Version=8.0.2.1, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Aspose\Aspose.Cells.dll</HintPath>
+    </Reference>
+    <Reference Include="Kendo.Mvc, Version=2013.3.1127.440, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\KendoMVC\Kendo.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.SignalR.Core.2.1.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Razor.2.0.20715.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ASOFTPOSActionFilterAttribute.cs" />
+    <Compile Include="Controllers\POSF00162Controller.cs" />
+    <Compile Include="Controllers\POSF0064Controller.cs" />
+    <Compile Include="Controllers\POSF0076Controller.cs" />
+    <Compile Include="Controllers\POSF0069Controller.cs" />
+    <Compile Include="Controllers\POSF0016Controller.part2.cs" />
+    <Compile Include="Controllers\POSF0034Controller.cs" />
+    <Compile Include="Controllers\POSF0037Controller.cs" />
+    <Compile Include="Controllers\POSF0038Controller.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\POSF0050Controller.cs" />
+    <Compile Include="Controllers\POSF0052Controller.cs" />
+    <Compile Include="Controllers\POSF0054Controller.cs" />
+    <Compile Include="Controllers\POSF0043Controller.cs" />
+    <Compile Include="Controllers\POSF0048Controller.cs" />
+    <Compile Include="Controllers\POSF0045Controller.cs" />
+    <Compile Include="Controllers\POSF0047Controller.cs" />
+    <Compile Include="Controllers\POSF0046Controller.cs" />
+    <Compile Include="Controllers\POSF0042Controller.cs" />
+    <Compile Include="Controllers\POSF0041Controller.cs" />
+    <Compile Include="Controllers\POSF0039Controller.part2.cs" />
+    <Compile Include="Controllers\POSF0031Controller.cs" />
+    <Compile Include="Controllers\POSF0032Controller.cs" />
+    <Compile Include="Controllers\POSF0033Controller.cs" />
+    <Compile Include="Controllers\POSF0036Controller.cs" />
+    <Compile Include="Controllers\DashBoardController.cs" />
+    <Compile Include="Controllers\POSF0001Controller.cs" />
+    <Compile Include="Controllers\POSF0006Controller.cs" />
+    <Compile Include="Controllers\POSF0016Controller.cs" />
+    <Compile Include="Controllers\POSF0007Controller.cs" />
+    <Compile Include="Controllers\POSF0003Controller.cs" />
+    <Compile Include="Controllers\POSF0010Controller.cs" />
+    <Compile Include="Controllers\POSF0011Controller.cs" />
+    <Compile Include="Controllers\POSF0019Controller.cs" />
+    <Compile Include="Controllers\POSF0021Controller.cs" />
+    <Compile Include="Controllers\POSF0023Controller.cs" />
+    <Compile Include="Controllers\POSF0024Controller.cs" />
+    <Compile Include="Controllers\POSF0017Controller.cs" />
+    <Compile Include="Controllers\POSF00152Controller.cs" />
+    <Compile Include="Controllers\POSF0015Controller.cs" />
+    <Compile Include="Controllers\POSF0013Controller.cs" />
+    <Compile Include="Controllers\POSF0020Controller.cs" />
+    <Compile Include="Controllers\POSF0012Controller.cs" />
+    <Compile Include="Controllers\POSF0000Controller.cs" />
+    <Compile Include="Controllers\POSF002601Controller.cs" />
+    <Compile Include="Controllers\POSF0026Controller.cs" />
+    <Compile Include="Controllers\POSF0027Controller.cs" />
+    <Compile Include="Controllers\POSF0039Controller.part1.cs" />
+    <Compile Include="Controllers\POSF0049Controller.cs" />
+    <Compile Include="Controllers\POSF0060Controller.cs" />
+    <Compile Include="Controllers\POSF0066Controller.cs" />
+    <Compile Include="Controllers\POSF0070Controller.cs" />
+    <Compile Include="Controllers\POSF0071Controller.cs" />
+    <Compile Include="Controllers\POSF0075Controller.cs" />
+    <Compile Include="Controllers\POSF0080Controller.cs" />
+    <Compile Include="Controllers\POSF0083Controller.cs" />
+    <Compile Include="Controllers\POSF0090Controller.cs" />
+    <Compile Include="Controllers\POSPrintingController.cs" />
+    <Compile Include="Hub\POSClient.cs" />
+    <Compile Include="Hub\POSF0040Hub.cs" />
+    <Compile Include="POSAreaRegistration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\POSF00161RWD\POSF00161RWD.css" />
+    <Content Include="Content\POSF00221.css" />
+    <Content Include="Content\POSF0024.css" />
+    <Content Include="Content\POSF0031RWD\POSF0031RWD.css" />
+    <Content Include="Content\POSF0032RWD\POSF0032RWD.css" />
+    <Content Include="Content\POSF0036RWD\POSF0036RWD.css" />
+    <Content Include="Content\POSF0038RWD\POSF0038RWD.css" />
+    <Content Include="Content\POSF0040RWD\POSF0040RWD.css" />
+    <Content Include="Content\POSF0070.css" />
+    <Content Include="Content\POSF00761.css" />
+    <Content Include="Content\POSF00691.css" />
+    <Content Include="Content\POSF00102.css" />
+    <Content Include="Content\POSF00191.css" />
+    <Content Include="Content\POSF00035.css" />
+    <Content Include="Content\POSF00202.css" />
+    <Content Include="Content\POSF0057.css" />
+    <Content Include="Content\POSF0039.css" />
+    <Content Include="Content\POSF0016.css" />
+    <Content Include="Content\POSF0057M.css" />
+    <Content Include="Content\POSF0058.css" />
+    <Content Include="Content\POSF0059.css" />
+    <Content Include="Content\POSF0065.css" />
+    <Content Include="Content\POSF0020.css" />
+    <Content Include="Content\POSF0056.css" />
+    <Content Include="Content\POSF0060.css" />
+    <Content Include="Content\POSF0066.css" />
+    <Content Include="Content\POSFCommon.css" />
+    <Content Include="Content\POSF00151.css" />
+    <Content Include="Content\POSF0040.css" />
+    <Content Include="Content\Images\banhcoffee.jpg" />
+    <Content Include="Content\Images\banhtrungthu.jpg" />
+    <Content Include="Content\Images\bichtech.jpg" />
+    <Content Include="Content\Images\boxaosate.jpg" />
+    <Content Include="Content\Images\dish-1.jpg" />
+    <Content Include="Content\Images\greentea.jpg" />
+    <Content Include="Content\Images\green_square.png" />
+    <Content Include="Content\Images\lattee.jpg" />
+    <Content Include="Content\Images\lemoncheese.jpg" />
+    <Content Include="Content\Images\opera.jpg" />
+    <Content Include="Content\Images\orange_square.png" />
+    <Content Include="Content\POSF0003.css" />
+    <Content Include="Content\POSF0004.css" />
+    <Content Include="Content\POSF0005.css" />
+    <Content Include="Content\POSF00101.css" />
+    <Content Include="Content\POSF00111.css" />
+    <Content Include="Content\POSF0013.css" />
+    <Content Include="Content\POSF00152.css" />
+    <Content Include="Content\POSF0000.css" />
+    <Content Include="Content\POSF0001.css" />
+    <Content Include="Content\POSF0017.css" />
+    <Content Include="Content\POSF00171.css" />
+    <Content Include="Content\POSF00161.css" />
+    <Content Include="Content\POSF0022.css" />
+    <Content Include="Content\POSF0025.css" />
+    <Content Include="Content\POSF0028.css" />
+    <Content Include="Content\POSF0030.css" />
+    <Content Include="Content\POSF0031.css" />
+    <Content Include="Content\POSF0032.css" />
+    <Content Include="Content\POSF0036.css" />
+    <Content Include="Content\POSF0037.css" />
+    <Content Include="Content\POSF0041.css" />
+    <Content Include="Content\POSF0038.css" />
+    <Content Include="Scripts\ASOFTVIEW.js" />
+    <Content Include="Scripts\POSF00163.js" />
+    <Content Include="Scripts\POSF00165.js" />
+    <Content Include="Scripts\POSF00221.js" />
+    <Content Include="Scripts\POSF00281.js" />
+    <Content Include="Scripts\POSF0029.js" />
+    <Content Include="Scripts\POSF00701.js" />
+    <Content Include="Scripts\POSF0076.js" />
+    <Content Include="Scripts\POSF00761.js" />
+    <Content Include="Scripts\POSF00691.js" />
+    <Content Include="Scripts\POSF0069.js" />
+    <Content Include="Scripts\POSF00102.js" />
+    <Content Include="Scripts\POSF00161.part3.js" />
+    <Content Include="Scripts\POSF0040\jQuery.searchBarcode.js" />
+    <Content Include="Scripts\POSF0040\POSF0038.choose-dishes.js" />
+    <Content Include="Scripts\POSF0064.js" />
+    <Content Include="Scripts\POSF0066.js" />
+    <Content Include="Scripts\POSF0066.part2.js" />
+    <Content Include="Scripts\POSF0057M.js" />
+    <Content Include="Scripts\POSF0037.js" />
+    <Content Include="Scripts\POSF0039.part2.js" />
+    <Content Include="Scripts\POSF0035.js" />
+    <Content Include="Scripts\POSF0052.js" />
+    <Content Include="Scripts\POSF0053.js" />
+    <Content Include="Scripts\POSF0058.js" />
+    <Content Include="Scripts\POSF0058M.js" />
+    <Content Include="Scripts\POSF0059.js" />
+    <Content Include="Scripts\POSF0065.js" />
+    <Content Include="Scripts\POSF0016.part2.js" />
+    <Content Include="Scripts\POSF00161.part2.js" />
+    <Content Include="Scripts\POSF0050.js" />
+    <Content Include="Scripts\POSF0057.js" />
+    <Content Include="Scripts\POSF0055.js" />
+    <Content Include="Scripts\POSF0054.js" />
+    <Content Include="Scripts\POSF0056.js" />
+    <Content Include="Scripts\POSF0043.js" />
+    <Content Include="Scripts\POSF0044.js" />
+    <Content Include="Scripts\POSF0046.js" />
+    <Content Include="Scripts\POSF0048.js" />
+    <Content Include="Scripts\POSF0045.js" />
+    <Content Include="Scripts\POSF0047.js" />
+    <Content Include="Scripts\POSF0040\search-id-barcode.js" />
+    <Content Include="Scripts\POSF0040\task-buttons.js" />
+    <Content Include="Scripts\POSF0042.js" />
+    <Content Include="Scripts\POSF00151Autocomplete.js" />
+    <Content Include="Scripts\POSF00171Default.js" />
+    <Content Include="Scripts\POSF0034.js" />
+    <Content Include="Scripts\POSF0001.js" />
+    <Content Include="Scripts\POSF0006.js" />
+    <Content Include="Scripts\POSF00202.js" />
+    <Content Include="Scripts\POSF0027.js" />
+    <Content Include="Scripts\POSF0028.js" />
+    <Content Include="Scripts\POSF0030.js" />
+    <Content Include="Scripts\POSF0031.js" />
+    <Content Include="Scripts\POSF0032.js" />
+    <Content Include="Scripts\POSF0033.js" />
+    <Content Include="Scripts\POSF0036.js" />
+    <Content Include="Scripts\POSF0039.js" />
+    <Content Include="Scripts\POSF0040\asoft-sandbox.js" />
+    <Content Include="Scripts\POSF0040\master-data.js" />
+    <Content Include="Scripts\POSF0040\POSF0036.choose-tables.js" />
+    <Content Include="Scripts\POSF0040\content-master.js" />
+    <Content Include="Scripts\POSF0040\POSF0039-SignalR.js" />
+    <Content Include="Scripts\POSF0040\sever-communicator.js" />
+    <Content Include="Scripts\POSF0040\POSF0040.js" />
+    <Content Include="Scripts\POSF0040\POSF00401.js" />
+    <Content Include="Scripts\POSF0038.js" />
+    <Content Include="Scripts\POSF0049.js" />
+    <Content Include="Scripts\POSF0060.js" />
+    <Content Include="Scripts\POSF0071.js" />
+    <Content Include="Scripts\POSF0075.js" />
+    <Content Include="Scripts\POSF00164.js" />
+    <Content Include="Scripts\_POSF0039.js" />
+    <Content Include="Scripts\POSF0040\asoft-core-jquery.js" />
+    <Content Include="Scripts\POSF0040\asoft-modules-template.js" />
+    <Content Include="Scripts\POSP0026.js" />
+    <Content Include="Scripts\POSR0001.js" />
+    <Content Include="Scripts\jquery.printPage.js" />
+    <Content Include="Scripts\jquery.scannerdetection.js" />
+    <Content Include="Scripts\POSF0016.js" />
+    <Content Include="Scripts\POSF0003.js" />
+    <Content Include="Scripts\POSF00101.js" />
+    <Content Include="Scripts\POSF00121.js" />
+    <Content Include="Scripts\POSF0013.js" />
+    <Content Include="Scripts\POSF0019.js" />
+    <Content Include="Scripts\POSF00191.js" />
+    <Content Include="Scripts\POSF00201.js" />
+    <Content Include="Scripts\POSF0021.js" />
+    <Content Include="Scripts\POSF0022.js" />
+    <Content Include="Scripts\POSF0025.js" />
+    <Content Include="Scripts\POSFSearchPeriod.js" />
+    <Content Include="Scripts\POSF00171.js" />
+    <Content Include="Scripts\POSF00152.js" />
+    <Content Include="Scripts\POSF0002.js" />
+    <Content Include="Scripts\POSF0070.js" />
+    <Content Include="Scripts\POSF0020.js" />
+    <Content Include="Scripts\POSF0024.js" />
+    <Content Include="Scripts\POSF00241.js" />
+    <Content Include="Scripts\POSF00231.js" />
+    <Content Include="Scripts\POSF0023.js" />
+    <Content Include="Scripts\POSF0017.js" />
+    <Content Include="Scripts\POSF00151.js" />
+    <Content Include="Scripts\POSF0015.js" />
+    <Content Include="Scripts\POSF00111.js" />
+    <Content Include="Scripts\POSF0011.js" />
+    <Content Include="Scripts\POSF00161.js" />
+    <Content Include="Scripts\POSF0012.js" />
+    <Content Include="Scripts\POSF0010.js" />
+    <Content Include="Scripts\POSF0007.js" />
+    <Content Include="Scripts\POSF0000.js" />
+    <Content Include="Views\POSF0020\GridCard.cshtml" />
+    <Content Include="Views\POSF0020\GridMembers.cshtml" />
+    <Content Include="Views\POSF0020\Index.cshtml" />
+    <Content Include="Views\POSF0020\POSF00201.cshtml" />
+    <Content Include="Views\POSF0020\POSF00202.cshtml" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\Images\PhucLong\" />
+    <Folder Include="Views\POSF0040\" />
+    <Folder Include="Views\POSF0041\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ASOFT.ERP.A00.Business\ASOFT.ERP.A00.Business.csproj">
+      <Project>{5452ca4b-d935-413e-8a0c-2464d92ce073}</Project>
+      <Name>ASOFT.ERP.A00.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ASOFT.ERP.A00.Core\ASOFT.ERP.A00.Core.csproj">
+      <Project>{cd99f681-2234-4c9e-9456-c1e9d21824b8}</Project>
+      <Name>ASOFT.ERP.A00.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ASOFT.ERP.A00.DataAccess\ASOFT.ERP.A00.DataAccess.csproj">
+      <Project>{a730bd39-2fbd-4666-bd62-2dfd10d67804}</Project>
+      <Name>ASOFT.ERP.A00.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ASOFT.ERP.A00.Entities\ASOFT.ERP.A00.Entities.csproj">
+      <Project>{533ef2dc-bf5b-4235-a102-fb6e0e33d3a1}</Project>
+      <Name>ASOFT.ERP.A00.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ASOFT.ERP.POS.Business\ASOFT.ERP.POS.Business.csproj">
+      <Project>{c88320b9-c364-4fa9-8b64-2eaa82b3adce}</Project>
+      <Name>ASOFT.ERP.POS.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ASOFT.ERP.POS.DataAccess\ASOFT.ERP.POS.DataAccess.csproj">
+      <Project>{9fc90e29-5173-4fa6-9e92-96f2518794d3}</Project>
+      <Name>ASOFT.ERP.POS.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ASOFT.ERP.POS.Entities\ASOFT.ERP.POS.Entities.csproj">
+      <Project>{a206e0ab-809b-426b-a56a-909db106edbc}</Project>
+      <Name>ASOFT.ERP.POS.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ASOFT.ERP.ViewModel\ASOFT.ERP.ViewModel.csproj">
+      <Project>{69e8be58-de62-4c8c-b70b-70c593576091}</Project>
+      <Name>ASOFT.ERP.ViewModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ASOFT.ERP.csproj">
+      <Project>{4c04f347-6df2-4eda-b9b2-a91e378997b0}</Project>
+      <Name>ASOFT.ERP</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\POSF0000\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\POSF0007\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\POSF0002\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\POSF0004\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\POSF0005\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\POSF0010\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\POSF0010\GridShop.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\POSF0012\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\POSF0012\POSF00121.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\POSF0011\GridMember.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\POSF0011\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\POSF00152\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\POSF00152\GridVoucherDetailTemplate.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\POSF0017\GridVoucher.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\POSF0017\GridVoucherDetail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\POSF0017\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\POSF0017\POSF00171.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\POSF0023\GridVoucher.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\POSF0023\GridVoucherDetail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\POSF0023\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\POSF0023\POSF00231.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\POSF0024\GridVoucher.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\POSF0024\GridVoucherDetail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\POSF0024\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Report\POSExample.xlsx" />
+    <None Include="Content\Report\POSR0001.xls" />
+    <Content Include="Content\Report\POSR0002.xlsx" />
+    <Content Include="Content\Report\POSR00021.xls" />
+    <None Include="Content\Report\POSR0003.xls" />
+    <Content Include="Views\POSF0015\GridVoucher.cshtml" />
+    <Content Include="Views\POSF0015\GridVoucherDetail.cshtml" />
+    <Content Include="Views\POSF0015\Index.cshtml" />
+    <Content Include="Views\POSF0015\POSF00151.cshtml" />
+    <Content Include="Views\POSF00152\GridVoucherTemplate.cshtml" />
+    <Content Include="Views\POSF002601\Index.cshtml" />
+    <Content Include="Views\POSF0026\GridMemberCardList.cshtml" />
+    <Content Include="Views\POSF0026\Index.cshtml" />
+    <Content Include="Views\POSF0011\TabGridCard.cshtml" />
+    <Content Include="Views\POSF0011\POSF00111.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Shared\EditorTemplates\POSInventory.cshtml" />
+    <Content Include="Views\POSF0010\Common.cshtml" />
+    <Content Include="Views\POSF0010\Product.cshtml" />
+    <Content Include="Views\POSF0010\Voucher.cshtml" />
+    <Content Include="Views\POSF0010\POSF00101.cshtml" />
+    <Content Include="Views\POSF0003\Index.cshtml" />
+    <Content Include="Views\POSF00152\Filter.cshtml" />
+    <Content Include="Views\POSF0016\Index.cshtml" />
+    <Content Include="Views\POSF0016\POSF00161.cshtml" />
+    <Content Include="Views\POSF0016\GridInventorySummary.cshtml" />
+    <Content Include="Views\POSF0016\GridInventory.cshtml" />
+    <Content Include="Views\POSF0019\GridVoucher.cshtml" />
+    <Content Include="Views\POSF0019\GridVoucherDetail.cshtml" />
+    <Content Include="Views\POSF0019\Index.cshtml" />
+    <Content Include="Views\POSF0019\POSF00191.cshtml" />
+    <Content Include="Views\POSF0021\Index.cshtml" />
+    <Content Include="Views\POSF0021\GridVoucher.cshtml" />
+    <Content Include="Views\POSF0021\POSF0022.cshtml" />
+    <Content Include="Views\POSF0021\GridVoucherDetail.cshtml" />
+    <Content Include="Views\POSF0016\Print.cshtml" />
+    <Content Include="Views\POSF0016\GridPrint.cshtml" />
+    <Content Include="Views\POSF0006\GridPaymentDetail.cshtml" />
+    <Content Include="Views\POSF0006\Index.cshtml" />
+    <Content Include="Views\POSF0001\Index.cshtml" />
+    <Content Include="Content\Report\POSR0005.xlsx" />
+    <Content Include="Views\POSF0010\GridUserInfo.cshtml" />
+    <Content Include="Views\POSF0010\UserInfo.cshtml" />
+    <Content Include="Views\DashBoard\Index.cshtml" />
+    <Content Include="Views\POSF0027\Index.cshtml" />
+    <Content Include="Views\POSF0027\GridVoucher.cshtml" />
+    <Content Include="Views\Shared\PeriodFilter.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\POSF0027\POSF0028.cshtml" />
+    <Content Include="Views\POSF0010\BillInfo.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\POSF0024\POSF0025.cshtml" />
+    <Content Include="Views\POSF0024\POSF0026.cshtml" />
+    <Content Include="Views\POSF0031\GridTable1.cshtml" />
+    <Content Include="Views\POSF0031\GridTable2.cshtml" />
+    <Content Include="Views\POSF0031\Index.cshtml" />
+    <Content Include="Views\POSF0032\GridTable1.cshtml" />
+    <Content Include="Views\POSF0032\GridTable2.cshtml" />
+    <Content Include="Views\POSF0032\Index.cshtml" />
+    <Content Include="Views\POSF0033\Index.cshtml" />
+    <Content Include="Views\POSF0039\GridInventorySummary.cshtml" />
+    <Content Include="Views\POSF0039\GridPrint.cshtml" />
+    <Content Include="Views\POSF0039\Index.cshtml" />
+    <Content Include="Views\POSF0039\POSF0040.cshtml" />
+    <Content Include="Views\POSF0039\Print.cshtml" />
+    <Content Include="Views\POSF0017\default.cshtml" />
+    <Content Include="Views\POSPrinting\Index.cshtml" />
+    <Content Include="Views\POSF0071\GridSale.cshtml" />
+    <Content Include="Views\POSF0071\GridSurvival.cshtml" />
+    <Content Include="Views\POSF0071\Index.cshtml" />
+    <Content Include="Views\POSF0075\Index.cshtml" />
+    <Content Include="Views\POSF0075\POSF00751.cshtml" />
+    <Content Include="Content\Report\POSR0075.xlsx" />
+    <Content Include="Views\POSF0039\POSF0041.cshtml" />
+    <Content Include="Views\POSF0010\VoucherInfo.cshtml" />
+    <Content Include="Views\POSF0039\Partials\GridInventory.cshtml" />
+    <Content Include="Views\POSF0039\Partials\BarcodeSearch.cshtml" />
+    <Content Include="Views\POSF0039\Partials\FinalButtons.cshtml" />
+    <Content Include="Views\POSF0039\Partials\MemberSearch.cshtml" />
+    <Content Include="Views\POSF0039\Partials\PaymentInfo.cshtml" />
+    <Content Include="Views\POSF0039\Partials\TableAndStatus.cshtml" />
+    <Content Include="Views\POSF0039\Partials\TaskButtons.cshtml" />
+    <Content Include="Views\POSF0039\Partials\VoucherInfo.cshtml" />
+    <Content Include="Views\POSF0036\Index.cshtml" />
+    <Content Include="Views\POSF0038\Index.cshtml" />
+    <Content Include="Views\POSF0042\GridReturnedInventory.cshtml" />
+    <Content Include="Views\POSF0042\Index.cshtml" />
+    <Content Include="packages.config" />
+    <Content Include="Views\POSF0046\Index.cshtml" />
+    <Content Include="Views\POSF0047\Index.cshtml" />
+    <Content Include="Views\POSF0047\GridBH.cshtml" />
+    <Content Include="Views\POSF0047\GridCL.cshtml" />
+    <Content Include="Views\POSF0047\GridNK.cshtml" />
+    <Content Include="Views\POSF0045\Index.cshtml" />
+    <Content Include="Views\POSF0045\ReportViewer.cshtml" />
+    <Content Include="Views\POSF0048\Index.cshtml" />
+    <Content Include="Views\POSF0048\ReportViewer.cshtml" />
+    <Content Include="Views\POSF0011\TabMemberInfo.cshtml" />
+    <Content Include="Views\POSF0043\GridCardType.cshtml" />
+    <Content Include="Views\POSF0043\Index.cshtml" />
+    <Content Include="Views\POSF0043\POSF0044.cshtml" />
+    <Content Include="Views\POSF0011\POSF00111A.cshtml" />
+    <Content Include="Views\POSF0049\Index.cshtml" />
+    <Content Include="Views\POSF0049\ReportViewer.cshtml" />
+    <Content Include="Views\POSF0054\GridVoucher.cshtml" />
+    <Content Include="Views\POSF0054\GridVoucherDetail.cshtml" />
+    <Content Include="Views\POSF0054\Index.cshtml" />
+    <Content Include="Views\POSF0054\POSF0056.cshtml" />
+    <Content Include="Views\POSF0054\POSF0055.cshtml" />
+    <Content Include="Views\POSF0054\POSF0057.cshtml" />
+    <Content Include="Views\POSF0050\Index.cshtml" />
+    <Content Include="Views\POSF0012\GridInventories.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\POSF0012\GridSelectInventories.cshtml" />
+    <Content Include="Views\POSF0012\POSF0030.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\POSF0050\POSF0050GridView.cshtml" />
+    <Content Include="Views\POSF0070\GridSale.cshtml" />
+    <Content Include="Views\POSF0070\GridSurvival.cshtml" />
+    <Content Include="Views\POSF0070\Index.cshtml" />
+    <Content Include="Views\POSF0070\POSF0071.cshtml" />
+    <Content Include="Views\POSF0070\POSF0072.cshtml" />
+    <Content Include="Views\POSF0070\POSF0073.cshtml" />
+    <Content Include="Views\POSF0070\POSF0074.cshtml" />
+    <Content Include="Views\POSF0070\ViewReport.cshtml" />
+    <Content Include="Views\POSF0060\GridTime.cshtml" />
+    <Content Include="Views\POSF0060\Index.cshtml" />
+    <Content Include="Views\POSF0060\POSF0061.cshtml" />
+    <Content Include="Views\POSF0060\POSF0062.cshtml" />
+    <Content Include="Views\POSF0060\POSF0062M.cshtml" />
+    <Content Include="Views\POSF0016\POSF0065.cshtml" />
+    <Content Include="Views\POSF0016\GridInventorySearch.cshtml" />
+    <Content Include="Views\POSF0013\GridPayment.cshtml" />
+    <Content Include="Views\POSF0013\Index.cshtml" />
+    <Content Include="Views\POSF0012\GridPromotionInventories.cshtml" />
+    <Content Include="Views\POSF0038\Default.cshtml" />
+    <Content Include="Views\POSF0036\Default.cshtml" />
+    <Content Include="Views\POSF0031\Default.cshtml" />
+    <Content Include="Views\POSF0034\GridAreaCategory.cshtml" />
+    <Content Include="Views\POSF0034\Index.cshtml" />
+    <Content Include="Views\POSF0034\POSF0035.cshtml" />
+    <Content Include="Views\POSF0034\POSF0058.cshtml" />
+    <Content Include="Views\POSF0034\POSF0058M.cshtml" />
+    <Content Include="Views\POSF0052\GridTableCategory.cshtml" />
+    <Content Include="Views\POSF0052\Index.cshtml" />
+    <Content Include="Views\POSF0052\POSF0053.cshtml" />
+    <Content Include="Views\POSF0052\POSF0059.cshtml" />
+    <Content Include="Views\POSF0052\POSF0059M.cshtml" />
+    <Content Include="Content\Report\POSR0007.xlsx" />
+    <Content Include="Views\POSF0037\Index.cshtml" />
+    <Content Include="Views\POSF0010\GridObjects.cshtml" />
+    <Content Include="Views\POSF0054\POSF0057M_.cshtml" />
+    <Content Include="Views\POSF0054\GridInventoryID_.cshtml" />
+    <Content Include="Views\POSF0054\POSF0057M.cshtml" />
+    <Content Include="Views\POSF0054\GridInventoryID.cshtml" />
+    <Content Include="Views\POSF0064\Index.cshtml" />
+    <Content Include="Views\POSF0066\GridInventory.cshtml" />
+    <Content Include="Views\POSF0066\PaymentInfo.cshtml" />
+    <Content Include="Views\POSF0066\VoucherInfo.cshtml" />
+    <Content Include="Views\POSF0016\BarcodeSearch.cshtml" />
+    <Content Include="Views\POSF0039\POSF0066.cshtml" />
+    <Content Include="Views\POSF0010\POSF00102.cshtml" />
+    <Content Include="Views\POSF0027\GridVoucherDetail_KINGCOM.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\BarcodeSearch.cshtml" />
+    <Content Include="Views\POSF0010\POSF0068.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\POSF0010\ProductPriceTable.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\POSF0037\ReportViewer.cshtml" />
+    <Content Include="Views\POSF0069\Index.cshtml" />
+    <Content Include="Views\POSF0069\ReportViewer.cshtml" />
+    <Content Include="Views\POSF0069\POSF00691.cshtml" />
+    <Content Include="Views\POSF0069\GridMember.cshtml" />
+    <Content Include="Views\POSF0076\GridMember.cshtml" />
+    <Content Include="Views\POSF0076\Index.cshtml" />
+    <Content Include="Views\POSF0076\POSF00761.cshtml" />
+    <Content Include="Views\POSF0076\ReportViewer.cshtml" />
+    <Content Include="Views\POSF0064\ReportViewer.cshtml" />
+    <Content Include="Views\POSF0027\POSF00281.cshtml" />
+    <Content Include="Views\POSF0027\POSF0029.cshtml" />
+    <Content Include="Views\POSF0016\GridPrintTMQ3.cshtml" />
+    <Content Include="Views\POSF0016\PrintCustomTMQ3.cshtml" />
+    <Content Include="Views\POSF0054\POSF00551.cshtml" />
+    <Content Include="Views\POSF0054\GridVoucherDetailEdit.cshtml" />
+    <Content Include="Views\POSF0027\POSF00282.cshtml" />
+    <Content Include="Views\POSF0027\GridVoucherDetail.cshtml" />
+    <Content Include="Views\POSF0010\POSF0070.cshtml" />
+    <Content Include="Views\POSF0043\ReportViewer.cshtml" />
+    <Content Include="Views\POSF0034\ReportViewer.cshtml" />
+    <Content Include="Views\POSF0052\ReportViewer.cshtml" />
+    <Content Include="Views\POSF0016\ReportViewer.cshtml" />
+    <Content Include="Views\POSF0016\POSF00163.cshtml" />
+    <Content Include="Views\POSF0016\POSF00164.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\POSInventoryMS.cshtml" />
+    <Content Include="Views\POSF0020\ReportViewer.cshtml" />
+    <Content Include="Views\POSF0016\POSF00165.cshtml" />
+    <Content Include="Views\POSF0016\GridInventoryPOSF00165.cshtml" />
+    <Content Include="Views\POSF0016\ReportPayment.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>4535</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:4502/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

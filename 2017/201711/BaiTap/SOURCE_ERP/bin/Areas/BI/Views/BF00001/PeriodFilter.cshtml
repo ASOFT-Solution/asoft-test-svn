@@ -1,0 +1,118 @@
+﻿@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Entities.Infrastructure;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel;
+@using ASOFT.ERP.ViewModel.Helper;
+@model ASOFT.ERP.ViewModel.ASOFTSysFieldsViewModel
+
+
+<div class="asf-filter-main" id="PeriodFilter1">
+    <div class="block-left"> 
+        <div class="asf-filter-label">
+                @Html.ASOFTRadioButton(model=>model.Data, 1, new { id = "rdoFilterDate"}).CheckedIf(true)
+                Từ ngày
+        </div>
+        <div class="asf-filter-input">
+            @(Html.ASOFTDateEdit(model => model.TypeDateTimePicker, htmlAttributes: new {@id = "FromDate", @name = "FromDate" }).Value(ASOFTEnvironment.WorkingDate)
+                    .Value(DateTime.Now)
+                    .Enable(true)
+                    )
+        </div>
+    </div>
+    <div class="block-right">
+        <div class="asf-filter-label">
+            Đến ngày
+        </div>
+        <div class="asf-filter-input">
+            @(Html.ASOFTDateEdit(model => model.TypeDateTimePicker,htmlAttributes: new {@id = "ToDate", @name = "ToDate"}).Value(ASOFTEnvironment.WorkingDate)
+                    .Value(DateTime.Now)
+                    .Enable(true)
+                    )
+        </div>
+    </div>
+</div>
+
+<div class="asf-filter-main" id="PeriodFilter2">
+    <div class="block-left">
+        <div class="asf-filter-label">
+            <span>
+                @Html.ASOFTRadioButton(model => model.Data, 0, new { id = "rdoFilterPeriod"})
+            </span>
+            Từ kì
+        </div>
+        <div class="asf-filter-input">
+            @(Html.ASOFTBussinessComboBox()
+            .ASOFTPeriod(model => model.Data, htmlAttributes: new {id = "FromPeriodFilter"})//.Events(e => e.Change("MTF0060.fromPeriod_Changed").DataBound("MTF0060.fromPeriod_Bound")
+                    .Enable(false)
+                    .Events(e => e.Change("FromPeriodChange")))
+        </div>
+    </div>
+    <div class="block-right">
+        <div class="asf-filter-label">
+            Đến kì
+        </div>
+        <div class="asf-filter-input">
+            @(Html.ASOFTBussinessComboBox()
+                    .ASOFTPeriod(model => model.Data, htmlAttributes: new {id = "ToPeriodFilter"})//.Events(e => e.Change("MTF0060.toPeriod_Changed").DataBound("MTF0060.toPeriod_Bound")
+                    .Enable(false)
+                    .Events(e=>e.Change("ToPeriodChange")))
+        </div>
+    </div>
+</div>
+@{
+        @Html.ASOFTHidden("IsPeriod", 0)
+        @Html.ASOFTHidden("FromTranMonth")
+        @Html.ASOFTHidden("ToTranMonth")
+        @Html.ASOFTHidden("FromTranYear")
+        @Html.ASOFTHidden("ToTranYear")
+
+        @Html.ASOFTHidden("FromDate_Content_DataType", 13)
+        @Html.ASOFTHidden("ToDate_Content_DataType", 13)
+        @Html.ASOFTHidden("FromTranMonth_Content_DataType", 5)
+        @Html.ASOFTHidden("ToTranMonth_Content_DataType", 5)
+        @Html.ASOFTHidden("FromTranYear_Content_DataType", 5)
+        @Html.ASOFTHidden("ToTranYear_Content_DataType", 5)
+
+        @Html.ASOFTHidden("FromDate_Type_Fields", 5)
+        @Html.ASOFTHidden("ToDate_Type_Fields", 5)
+        @Html.ASOFTHidden("FromTranMonth_Type_Fields", 1)
+        @Html.ASOFTHidden("ToTranMonth_Type_Fields", 1)
+        @Html.ASOFTHidden("FromTranYear_Type_Fields", 1)
+        @Html.ASOFTHidden("ToTranYear_Type_Fields", 1)
+}
+
+
+
+<script>
+    function FromPeriodChange() {
+        $("#FromTranMonth").val(this.value().split('/')[0]);
+        $("#FromTranYear").val(this.value().split('/')[1]);
+    }
+    function ToPeriodChange() {
+        $("#ToTranMonth").val(this.value().split('/')[0]);
+        $("#ToTranYear").val(this.value().split('/')[1]);
+    }
+
+    $(document).ready(function () {
+        $("#rdoFilterPeriod").attr("name", "rdoFilter");
+        $("#rdoFilterDate").attr("name", "rdoFilter");
+        $("input[name='rdoFilter']").click(function (e) {
+            var value = $(this).val();
+            var isDateCheck = (value == '1');
+            $("#FromDate").data("kendoDatePicker").enable(isDateCheck);
+            $("#ToDate").data("kendoDatePicker").enable(isDateCheck);
+
+            $("#FromPeriodFilter").data("kendoComboBox").enable(!isDateCheck);
+            $("#ToPeriodFilter").data("kendoComboBox").enable(!isDateCheck);
+
+            if (isDateCheck) {
+                $("#IsPeriod").val('0');
+            }
+            else {
+                $("#IsPeriod").val('1');
+            }
+        });
+    })
+</script>

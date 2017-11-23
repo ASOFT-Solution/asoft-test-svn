@@ -1,0 +1,141 @@
+﻿@media (max-width: 480px) {
+    #dishes ul li {
+        width: calc(100% / 3.2 - 3px);
+        height: 5em;
+        margin-left: 1px;
+        font-size: 11pt;
+        margin-bottom: 30px
+    }
+    #categories h2 {
+        font-size: 11px;
+        font-weight: bold;
+    }
+
+    #dishes h2 {
+        font-size: 11px;
+        font-weight: bold;
+    }
+
+    #dishes .slider-container {
+        left: 33% !important;
+        top: 58px !important;
+        zoom: 80%;
+    }
+
+    /*#dishes .dish-name {
+        height: 3.0em;
+    }*/
+
+     .asf-button {
+        font-size: 9px;
+    }
+
+    label:before {
+        height: 15px !important;
+        width: 15px !important;
+    }
+    #dishes .dish-name-background {
+        height: 3.0em;
+    }
+
+    .k-slider-items {
+        display: none;  
+    }
+
+    #dishes .slider-container {
+        height: 20px;
+            background-color: transparent;
+    }
+    .k-slider {
+        width: 50px;
+    }
+
+    .k-slider-track {
+        display: none;
+    }
+
+    #categories ul li {
+        font-size: 10px;
+        font-weight: bold;
+    }
+
+    #inner-div .right.col {
+        left: 25%;
+    }
+
+    #inner-div .left.col {
+        width: 25%;
+    }
+}
+
+
+@media (min-width: 490px) and (max-width: 600px) {
+    #dishes ul li {
+        width: calc(100% / 3.2 - 3px);
+        height: 7em;
+        margin-left: 1px;
+         font-size: 13pt;
+         margin-bottom: 40px;
+    }
+    #categories h2 {
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    #dishes h2 {
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    #dishes .slider-container {
+        left: 66% !important;
+        top: 73px !important;
+        zoom: 80%;
+    }
+
+    /*#dishes .dish-name {
+        height: 3.0em;
+    }*/
+
+     .asf-button {
+        font-size: 12px;
+    }
+
+    label:before {
+        height: 15px !important;
+        width: 15px !important;
+    }
+    #dishes .dish-name-background {
+        height: 3.0em;
+    }
+
+    .k-slider-items {
+        display: none;  
+    }
+
+    #dishes .slider-container {
+        height: 20px;
+            background-color: transparent;
+    }
+    .k-slider {
+        width: 50px;
+    }
+
+    .k-slider-track {
+        display: none;
+    }
+
+    #categories ul li {
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    #inner-div .right.col {
+        left: 25%;
+    }
+
+    #inner-div .left.col {
+        width: 25%;
+    }
+}
+

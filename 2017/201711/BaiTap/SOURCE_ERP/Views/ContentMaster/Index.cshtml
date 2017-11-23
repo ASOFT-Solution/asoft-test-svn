@@ -1,0 +1,333 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     2/11/2015     Quang Hoàng         Tạo mới
+//####################################################################
+*@
+@using System.Web.Optimization
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.A00.Core.MapperHelper;
+@using ASOFT.ERP.ViewModel;
+@using System.Web.UI.WebControls;
+@using ASOFT.ERP.ViewModel.Helper;
+
+@model IEnumerable<ASOFTSysFieldsViewModel>
+
+@{
+    Layout = "~/Views/Shared/_ContentMaster.cshtml";
+    int CurrentModel = 0;
+    int col3 = Model.ToList().FindAll(m=>m.Visible == 1 && m.FieldVisible == 1).Count;
+      
+    int col1 = col3 / 3;
+    int col2 = 0;
+
+    if (col3 % 3 == 1)
+    {
+        col2 = (col1 * 2) + 1;
+        col1++;
+    }
+    else if (col3 % 3 == 2)
+    {
+        col1++;
+        col2 = col1 * 2;
+    }
+    else
+    {
+        col2 = col1 * 2;
+    }
+    int i = 0;
+
+    string ScreenID = ViewBag.ScreenID;
+    
+    string title = ViewBag.Title;
+
+    string child = ViewBag.ScreenPopup;
+    
+    string module = ViewBag.Module;
+
+    string master = ViewBag.ScreenMaster;
+
+    string urladd = "";
+
+    string urlDelete = "";
+
+    int typeinput = ViewBag.TypeInput;
+
+    int typeGrid = ViewBag.TypeInputGrid;
+
+    int sysCategoryBusinessID = ViewBag.sysCategoryBusinessID;
+
+    if(typeinput == 1)
+    {
+        urladd = "/PopupLayout/Index/" + ViewBag.Module + "/" + child;
+    }
+    if (typeinput == 2)
+    {
+        urladd = "/PopupMasterDetail/Index/" + ViewBag.Module + "/" + child;
+    }
+
+    if(sysCategoryBusinessID == 1)
+    {
+        urlDelete = "/GridCommon/Delete/" + ViewBag.Module + "/" + ScreenID;
+    }
+    if(sysCategoryBusinessID == 2)
+    {
+        urlDelete = "/GridCommon/DeleteBussiness/" + ViewBag.Module + "/" + ScreenID;
+    }
+    
+    string urlcontent = "/ContentMaster/Index/" + ViewBag.Module + "/" + ScreenID;
+
+    List<string> grid = new List<string>();
+    
+    List<string> listjava = new List<string>();
+    listjava = ViewBag.Java;
+
+    List<string> listcss = new List<string>();
+    listcss = ViewBag.CSS;
+   
+}
+
+@Html.ASOFTHidden("urlParentContent", this.Url.Action("Index", "Contentmaster", null, this.Request.Url.Scheme).Replace(ScreenID, ""))
+@Html.ASOFTHidden("AddNew" + ScreenID, urladd)
+@Html.ASOFTHidden("Delete" + ScreenID, urlDelete)
+@Html.ASOFTHidden("Content" + ScreenID, urlcontent)
+@Html.ASOFTHidden("sysScreenID", ScreenID)
+@Html.ASOFTHidden("sysTable" + ScreenID, Model.ElementAt(0).sysTable)
+@Html.ASOFTHidden("Module" +  ScreenID, module)
+@Html.ASOFTHidden("CB" +  ScreenID, sysCategoryBusinessID)
+
+
+
+@helper parseControl(ASOFTSysFieldsViewModel item)
+{
+    string ControlName = item.ColumnName + "_" + ViewBag.ScreenID.ToString();
+    @Html.ASOFTHidden(item.ColumnName + "_Content_DataType", item.sysDataTypeID);
+    @Html.ASOFTHidden(item.ColumnName + "_Type_Fields", item.Type);
+    if(item.SpecialControl != null)
+    {
+        ViewDataDictionary ViewDT = new ViewDataDictionary();
+        ViewDT["Module"] = ViewBag.Module;
+        ViewDT["ScreenID"] = ViewBag.ScreenID;
+        ViewDT["ScreenType"] = "Filter";
+        @Html.Partial(string.Format(@"../Shared/Control/" + LocalizedHelper.GetLocalizedSpecialControl(int.Parse(item.SpecialControl.ToString())).PartialName),item, ViewDT)
+        //Html.ASOFTHidden(ControlName, item.SpecialControl);
+        return;
+    }
+    if(item.FieldVisible == 0)
+    {
+        @Html.ASOFTHidden(ControlName, item.Data == null ? item.Data : item.Data.ToString());
+    }
+    else
+    {
+        switch (item.Type)
+        {
+            case 1:
+                <tr class = @item.ColumnName>
+                    <td>@Html.Label(item.language)</td>
+                    <td>@Html.ASOFTTextBox(itemModel => item.Data, htmlStyle: new { width = Unit.Percentage(100) }, htmlAttribute: new { @id = ControlName, initvalue=item.DefaultValue })</td>                                                     
+                </tr>
+                break;
+                
+            case 2:
+                
+                <tr class = @item.ColumnName>
+                    <td>@Html.Label(item.language)</td>
+                    <td>
+                     @{  
+                ComboBoxDynamic DynamicCheckboxModel = new ComboBoxDynamic();
+                DynamicCheckboxModel.sysComboBoxID = item.sysComboBoxID;
+                DynamicCheckboxModel.ScreenID = ViewBag.ScreenID;
+                DynamicCheckboxModel.Module = ViewBag.Module;
+                if (ASOFT.ERP.Controllers.ComboBoxController.CheckDynamicData(DynamicCheckboxModel, Model))
+                {
+                            @Html.ASOFTBussinessComboBox().ASOFTComboBoxMultiColumn(itemModel => item.Data, DynamicCheckboxModel, true, htmlAttributes: new { @id = ControlName, @Module = ViewBag.Module, @ScreenID = ViewBag.ScreenID, @sysComboBoxID = item.sysComboBoxID }).Events(e => e.Open("OpenComboDynamic"))
+                }
+                else
+                {
+                        @Html.ASOFTBussinessComboBox().ASOFTComboBoxMultiColumn(itemModel => item.Data, DynamicCheckboxModel, false, htmlAttributes: new { @id = ControlName })
+                }
+                    }</td>                                                     
+                </tr>
+                break;
+                
+            case 3:
+                
+                <tr class = @item.ColumnName> 
+                    <td>@Html.Label(item.language)</td>
+                    <td>
+                     @{  
+                ComboBoxDynamic DynamicComboModel = new ComboBoxDynamic();
+                DynamicComboModel.sysComboBoxID = item.sysComboBoxID;
+                DynamicComboModel.ScreenID = ViewBag.ScreenID;
+                DynamicComboModel.Module = ViewBag.Module;
+                DynamicComboModel.isContent = true; //Nếu là combo ở màn hình content thì k cho thêm nhanh
+                if (ASOFT.ERP.Controllers.ComboBoxController.CheckDynamicData(DynamicComboModel, Model))
+                {
+                            @Html.ASOFTBussinessComboBox().ASOFTComboBoxMultiColumn(itemModel => item.Data, DynamicComboModel,  true, htmlAttributes: new { @id = ControlName, @Module = ViewBag.Module, @ScreenID = ViewBag.ScreenID, @sysComboBoxID = item.sysComboBoxID }).Events(e => e.Open("OpenComboDynamic"))
+                }
+                else
+                {
+                        @Html.ASOFTBussinessComboBox().ASOFTComboBoxMultiColumn(itemModel => item.Data, DynamicComboModel, false, htmlAttributes: new { @id = ControlName})
+                }
+                    }</td>                                                     
+                </tr>
+                break;
+                
+            case 4:
+                
+                <tr class = @item.ColumnName>
+                    <td>@Html.Label(item.language)</td>
+                    <td>
+                     @{  
+                ComboBoxDynamic DynamicMultiCheckListModel = new ComboBoxDynamic();
+                DynamicMultiCheckListModel.sysComboBoxID = item.sysComboBoxID;
+                DynamicMultiCheckListModel.ScreenID = ViewBag.ScreenID;
+                DynamicMultiCheckListModel.Module = ViewBag.Module;
+                if (ASOFT.ERP.Controllers.ComboBoxController.CheckDynamicData(DynamicMultiCheckListModel, Model))
+                {
+                            @Html.ASOFTBussinessComboBox().ASOFTDynamicMultiCheckList(itemModel => item.Data, DynamicMultiCheckListModel, true, htmlAttributes: new { @id = ControlName, @Module = ViewBag.Module, @ScreenID = ViewBag.ScreenID, @sysComboBoxID = item.sysComboBoxID }).Events(e => e.Open("OpenMultiCheckListDynamic"))
+                }
+                else
+                {
+                        @Html.ASOFTBussinessComboBox().ASOFTDynamicMultiCheckList(itemModel => item.Data, DynamicMultiCheckListModel, false, htmlAttributes: new { @id = ControlName })
+                }
+                    }</td>                                                     
+                </tr>
+                break;
+
+            case 5:
+            <tr class = @item.ColumnName>
+                <td>@Html.Label(item.language)</td>
+                <td>
+                    @Html.ASOFTDateEdit(itemModel => item.TypeDateTimePicker, htmlAttributes: new { @id = ControlName , @name = ControlName, @value = item.TypeDateTimePicker.ToString() })
+                </td>
+            </tr>
+                break;
+            case 7:
+            @Html.ASOFTHidden(item.ColumnName + "_Content_DataType", item.sysDataTypeID);
+            @Html.ASOFTHidden(item.ColumnName + "_Type_Fields", item.Type);
+            <tr class = @item.ColumnName>
+                <td>@Html.Label(item.language, htmlAttributes: new { @for = item.ColumnName })
+                        @if (item.AllowNull == 0)
+                        {
+                            <span class="asf-label-required">*</span>
+                        }
+                </td>
+                <td>
+                    @Html.ASOFTDateEditLongTime(itemModel => item.TypeDateTimePicker, htmlAttributes: new { @id = item.ColumnName, @name = item.ColumnName, @value = item.TypeDateTimePicker.ToString(), @requaird = item.AllowNull }).Events(e => e.Close("LongDateTime"));
+                </td>
+            </tr>
+                                                                          break;
+
+        }
+    }
+}
+
+
+@section Header
+{  
+    @Html.ASOFTHeader(new HeaderModel { Title = Html.ASOFTPageTitle(title, ScreenID).ToHtmlString(), Breakcrumb = true })
+}
+    
+
+@section FilterCol1
+{
+    @for (; i < col1; i++)
+    {
+        var item = Model.ToArray()[CurrentModel++];
+        if (item.FieldVisible == 0)
+        {
+            i -= 1;
+        }
+        @parseControl(item);
+    }
+}
+@section FilterCol2
+{
+    @for (; i < col2; i++)
+    {
+        var item = Model.ToArray()[CurrentModel++];
+        if (item.FieldVisible == 0)
+        {
+            i -= 1;
+        }
+        @parseControl(item);
+    }
+}
+@section FilterCol3
+{
+    @for (; i < col3; i++)
+    {
+        var item = Model.ToArray()[CurrentModel++];
+        if (item.FieldVisible == 0)
+        {
+            i -= 1;
+        }
+        @parseControl(item);
+    }
+}
+
+@section FilterButtons{
+                <li>
+                    @(Html.ASOFTSearchButton()
+                          .Name("BtnFilter")
+                          .Events(e => e.Click("BtnFilter_Click")))
+                </li>
+                <li>
+                    @(Html.ASOFTSearchResetButton()
+                          .Name("BtnClearFilter")
+                          .Events(e => e.Click("BtnClearFilter_Click")))
+                </li>
+}
+
+@section GridToolBar{
+    @if (Model.ElementAt(0).Toolbar1 != null)
+    {
+       Model.ElementAt(0).Toolbar1.EventAdd = "ShowEditorFrame";
+       Model.ElementAt(0).Toolbar1.EventEdit = "ShowUpdateFrame";
+       Model.ElementAt(0).Toolbar1.EventDelete = "BtnDelete_Click";
+       Model.ElementAt(0).Toolbar1.EventShow = "BtnEnable_Click";   
+       Model.ElementAt(0).Toolbar1.EventHide = "BtnDisable_Click";
+       Model.ElementAt(0).Toolbar1.EventSendDocVPL = "BtnEventSendDocVPL_Click";
+       Model.ElementAt(0).Toolbar1.EventPrint = "BtnPrint_Click";
+       Model.ElementAt(0).Toolbar1.EventConfirmAll = "BtnConfirmAll_Click";
+       Model.ElementAt(0).Toolbar1.EventExport = "BtnExport_Click";
+       Model.ElementAt(0).Toolbar1.EventImport = "BtnImport_Click";
+       Model.ElementAt(0).Toolbar1.EventChangeUnusualType = "BtnChangeUnusualType_Click";
+    }
+    @Html.Partial("~/Views/Shared/EditorTemplates/Toolbar.cshtml", Model.ToArray()[0].Toolbar1 ?? new ASOFTToolBarViewModel())
+}
+
+@section Grid {
+   @Html.Action("GridCommon", "GridCommon", new { area = "" , id = ScreenID, child = master, module = module , table = Model.ToArray()[0].sysTable, typeinput = typeGrid})
+}
+
+@section jsFeature {
+    @if(listjava.Count > 0)
+    {
+        foreach(string jv in listjava)
+        {
+            <script src="@Url.Content("~/Scripts/JavaCustomize/"+ module + "/" + jv + "?v=" + ASOFTEnvironment.Version)" type="text/javascript"></script>
+        }
+    }
+}
+
+@section styleFeature {
+    @if (listcss.Count > 0)
+    {
+        foreach(string css in listcss)
+        {
+            <link  href="@Url.Content("~/Content/CSSCustomize/"+ module + "/" + css +"?v="+ASOFTEnvironment.Version)" rel="stylesheet" type="text/css" />
+        }
+    }
+}
+
+<script src="@Url.Content("~/Scripts/contentmaster.js" +"?v="+ASOFTEnvironment.Version)" type="text/javascript"></script>
+
+
+
+

@@ -1,0 +1,88 @@
+﻿@using Kendo.Mvc.UI;
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.ViewModel;
+@using ASOFT.ERP.ViewModel.Helper;
+
+@model ASOFTChartSetting
+@{
+    string btn = "btn" + Model.Name;    
+}
+@if (!Model.showButton && !string.IsNullOrEmpty(Model.SubTitle))
+{
+    <div class="asf-block-toolbar" style="width: 100%;">
+        <div class="asf-block-title" style="text-align: center; width: 100%;">
+            @Model.Title
+            <br />
+            <span style="color: blue; white-space: pre-line">@Model.SubTitle.Trim()</span>
+        </div>
+    </div>
+}
+else
+{
+    <div class="asf-block-toolbar">
+        <div class="asf-block-title" style="text-align: center">
+            @Model.Title
+            <br />
+            <p>
+                <span style="color: blue;">
+                    @Model.SubTitle
+                </span>
+            </p>
+        </div>
+        @* Button *@
+        <div class="asf-block-button">
+            <a class="k-button" id=@btn style="" data-role="button" role="button" aria-disabled="false" tabindex="0" draggable="false">
+                <span class="asf-button-text">@LocalizedHelper.GetLocalizedResourceString("BF0000.ASM", "BF0000", "BI")</span>
+            </a>
+            <script>
+                jQuery(function () { jQuery("#@btn").kendoButton({ "click": BF0000.btnASM_Click }); });
+            </script>
+        </div>
+    </div>
+}
+<div class="asf-block-content">
+    @(Html.Kendo().Chart()
+        .Name(Model.Name)
+        .Legend(legend => legend
+            .Position(ChartLegendPosition.Bottom)
+        )
+        .ChartArea(chartArea => chartArea
+            .Background("transparent")
+            .Height(300)
+        )
+        .SeriesDefaults(seriesDefaults =>
+            seriesDefaults.Line().Style(ChartLineStyle.Normal)
+                .Labels(label => label.Visible(true).Format(ASOFTUtilities.FormatNumberDecimalDisplay(ASOFTEnvironment.PercentDecimal)).Background("transparent"))
+        )
+        .Series(series =>
+        {
+            foreach (var item in Model.KeyValueSeries)
+            {
+                if (item.Key.Equals("Amount"))
+                    series.Line(item.Value).Name(LocalizedHelper.GetLocalizedResourceString(string.Format("BF0000.BlockASM{0}", item.Key), "BF0000", "BI")).Axis("Amount");
+                else
+                    series.Column(item.Value).Name(LocalizedHelper.GetLocalizedResourceString(string.Format("BF0000.BlockASM{0}", item.Key), "BF0000", "BI"));
+            }
+        })
+        .CategoryAxis(axis => axis
+            .MajorGridLines(lines => lines.Visible(true))
+            .Categories(Model.LabelCategories)
+        )
+        .ValueAxis(axis => axis
+            .Numeric().Labels(labels => labels.Format("{0:#,##0.00}"))
+            .Line(line => line.Visible(true))
+            .AxisCrossingValue()
+        )
+        .ValueAxis(axis => axis
+            .Numeric("Amount").Labels(labels => labels.Format("{0:#,##0.0}"))
+            .Line(line => line.Visible(false))
+            .AxisCrossingValue(-10)
+            .Visible(false)            
+        )
+        .HtmlAttributes(new { style = "width: 100%;" })
+        .Tooltip(tooltip => tooltip
+            .Visible(true)
+            .Format("{0:#,##0.0}")).RenderAs(RenderingMode.SVG)
+    )
+</div>

@@ -1,0 +1,736 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     27/03/2013      Thai Son        Add heading
+//####################################################################
+*@
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_PosLayout.cshtml";
+}
+@using ASOFT.ERP.A00.Entities.Database
+@using ASOFT.ERP.POS.Entities
+@model ASOFT.ERP.ViewModel.POS.POSF00161ViewModel
+
+@{
+    ViewBag.Title = @Html.ASOFTPageTitle(m => m.Title, "POSF00161");
+    string headerTemplate = ASOFTBussinessControl.CreateHeaderTemplate(Model.InventoryColumn);
+    string itemTemplate = ASOFTBussinessControl.CreateItemTemplate(Model.InventoryColumn);
+    //string searchAction = "GetInventories";
+        //string searchAction = "GetInventoriesWithPromotionInfo";
+}
+<div class="asf-disabled-visibility">
+    @Html.ASOFTHidden("_DivisionID", ASOFTEnvironment.DivisionID)
+    @Html.ASOFTHidden("_ShopID", ASOFT.ERP.POS.Business.POSSettings.GetShopID())
+    @Html.ASOFTHidden("_UserID", ASOFTEnvironment.UserID)
+    @Html.ASOFTHidden("CustomerIndex", ASOFTEnvironment.CustomerIndex)
+    @Html.ASOFTHidden("_Select", ASOFTLanguage.FindWordA00("A00.btnChoose"))
+
+    @Html.ASOFTLabel(m => m.SearchInventoryID)
+</div>
+<div id="contentMaster">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new
+    {
+        id = "POSF00161"
+    }))
+    {
+        <div id="posFilter" class="container_12">
+            @Html.Partial("../Shared/EditorTemplates/BarcodeSearch", Model, new ViewDataDictionary { {"multiSelect", false} })
+            @*<div class="grid_8 alpha float_left">
+
+                @(Html.Kendo().AutoCompleteFor(model => model.InventoryID)
+                      .Animation(animation => animation.Enable(false))
+                      .HtmlAttributes(new Dictionary<string, Object> {
+                          {"class","post-autocomplete"}, 
+                          {"height","32px"},
+                          {"data-bind", "value: InventoryID"}
+                      })
+                      .MinLength(1)
+                      .DataTextField(POSF001611.COL_INVENTORYNAME)
+                      .Placeholder(Html.ASOFTRaw(model => model.SearchInventoryID))
+                      .Filter("startswith")
+                      .HeaderTemplate(headerTemplate)
+                      .Template(itemTemplate)
+                      .Name("InventoryID")
+                      .Events(e => e.Select("InventoryID_Change")
+                      .Close("InventoryID_Close").DataBound("InventoryID_DataBound"))
+                      .DataSource(source => source.Read(read => read.Action(searchAction, "POSF0016",
+                          new
+                          {
+                              area = "POS"
+                          })).ServerFiltering(true))
+                      )
+
+            </div>*@
+            <div class="grid_4_1 omega float_right addObject">
+                @(Html.Kendo().AutoCompleteFor(model => model.MemberID)
+                      .Animation(animation => animation.Enable(false))
+                      .HtmlAttributes(new Dictionary<string, Object> {
+                          {"class","post-add-autocomplete"}, 
+                          {"height","32px"},
+                          {"data-bind", "value: MemberID"}
+                      })
+                      .DataTextField(POST0011.COL_MEMBERNAME)
+                      .Placeholder(Html.ASOFTRaw(model => model.SearchMemberID))
+                      .Filter("contains")
+                      .Name("MemberID")
+                      .Events(e => e.Select("MemberID_Change").DataBound("MemberID_DataBound"))
+                      .DataSource(source => source.Read(read => read.Action("GetMembers", "POSF0016",
+                          new
+                          {
+                              area = "POS"
+                          })).ServerFiltering(true))
+                      )
+                @(Html.ASOFTAddBlueButton(Model.AddObject)
+                      .Name(Model.AddObject ?? "btnAddObject")
+                      .Events(e => e.Click("MemberID_Click"))
+                      )
+
+            </div>
+
+        </div>
+        
+        <!--Grid -->
+        <div id="pos_grid" class="container_12">
+            @Html.Partial("GridInventory", Model)
+        </div>
+        <div class="clear"></div>
+        <div id="pos_controls" class="container_12">
+            <div class="container_12 gift_container">
+                <div class="grid_3">
+                    @Html.LabelFor(model => model.Gifts, htmlAttributes: new
+               {
+                   @class = "bold"
+               }):
+                </div>
+                <div class="grid_8 asf-marquee">
+                    <p> 
+                        @Html.ASOFTWrapperTagFor(model => model.Gifts)
+                    </p>
+                </div>
+            </div>
+            <!--End Grid -->
+            <div class="container_12 full_height">
+                <div class="grid_5 alpha">
+                    <div id="pos_info">
+                        <div class="pos_header">
+                            <h3>@Html.ASOFTRaw(model => model.VoucherTitle)</h3>
+                        </div>
+                        <div class="pos_inner">
+                            <div class="grid_12">
+                                <div class="grid_5">
+                                    @Html.ASOFTLabel(model => model.VoucherDate)
+                                </div>
+                                <div class="grid_7">
+                                    @Html.ASOFTDateEdit(model => model.VoucherDate,
+                                        htmlStyle: new
+                                        {
+                                            width = Unit.Percentage(100)
+                                        },
+                                        htmlAttributes: new Dictionary<string, object> {
+                                            {"data-bind","value:VoucherDate"}}
+                                        )
+                                </div>
+                            </div>
+                            <div class="grid_12">
+                                <div class="grid_5">
+                                    @Html.ASOFTLabel(model => model.VoucherNo)
+                                </div>
+
+                                <div class="grid_7">
+                                    @Html.ASOFTTextBox(model => model.VoucherNo,
+                                        htmlStyle: new
+                                        {
+                                            width = Unit.Percentage(100)
+                                        },
+                                        htmlAttribute: new Dictionary<string, object> {
+                                            {"data-bind","value:VoucherNo"}}
+                                        ).ReadOnlyIf(Model.Status != 0)
+                                </div>
+                            </div>
+                            @if (Model.Status == 1)
+                            {
+                                <div class="grid_12">
+                                    <div class="grid_5">
+                                        @Html.ASOFTLabel(model => model.PVoucherNo)
+                                    </div>
+
+                                    <div class="grid_7">
+                                        @Html.ASOFTTextBox(model => model.PVoucherNo,
+                                            htmlStyle: new
+                                            {
+                                                width = Unit.Percentage(100)
+                                            },
+                                            htmlAttribute: new Dictionary<string, object> {
+                                                {"data-bind","value:PVoucherNo"}}
+                                            )
+                                    </div>
+                                </div>    
+                            }
+
+                            @if (Model.Status == 2)
+                            {
+                                <div class="grid_12">
+                                    <div class="grid_5">
+                                        @Html.ASOFTLabel(model => model.CVoucherNo)
+                                    </div>
+
+                                    <div class="grid_7">
+                                        @Html.ASOFTTextBox(model => model.CVoucherNo,
+                                            htmlStyle: new
+                                            {
+                                                width = Unit.Percentage(100)
+                                            },
+                                            htmlAttribute: new Dictionary<string, object> {
+                                                {"data-bind","value:CVoucherNo"}}
+                                            )
+                                    </div>
+                                </div>    
+                            }
+
+                            <div class="grid_12">
+                                <div class="grid_5">
+                                    @Html.ASOFTLabel(model => model.MemberName)
+                                </div>
+                                <div class="grid_7">
+                                    @Html.ASOFTTextBox(model => model.MemberName,
+                                        htmlStyle: new
+                                        {
+                                            width = Unit.Percentage(100)
+                                        },
+                                        htmlAttribute: new Dictionary<string, object> {
+                                            {"data-bind","value:MemberName"}}
+                                        )
+                                </div>
+                            </div>
+                            <div class="grid_12">
+                                <div class="grid_5">
+                                    @Html.ASOFTLabel(model => model.CurrencyID)
+                                </div>
+                                <div class="grid_7">
+                                    @(Html.ASOFTBussinessComboBox().ASOFTCurrencyID(model => model.CurrencyID,
+                                          htmlStyle: new
+                                          {
+                                              width = Unit.Percentage(100),
+                                              height = "auto"
+                                          },
+                                          htmlAttributes: new Dictionary<string, object> {
+                                              {"data-bind","value:CurrencyID"}}
+                                          )
+                                          .Name("CurrencyID")
+                                          .Events(e => e.Change("Combobox_Change"))
+                                          )
+                                </div>
+                            </div>
+                            <div class="grid_12">
+                                <div class="grid_5">
+                                    @Html.ASOFTLabel(model => model.SaleManID)
+                                </div>
+                                <div class="grid_7">
+                                    @(Html.ASOFTBussinessComboBox().ASOFTSaleManID(model => model.SaleManID,
+                                          htmlStyle: new
+                                          {
+                                              width = Unit.Percentage(100),
+                                              height = "auto"
+                                          },
+                                          htmlAttributes: new Dictionary<string, object> {
+                                              {"data-bind","value:SaleManID"}}
+                                          )
+                                          .Name("SaleManID")
+                                          )
+                                </div>
+                            </div>
+                            @if(Model.Status == 0)
+                            {
+                                <div class="grid_12">
+                                    <div>
+                                        @Html.ASOFTCheckbox(model => model.IsWarehouseExported)
+                                    </div>
+                                </div>
+                            }
+                            <div class="grid_12">
+                                <div class="grid_5">
+                                    @Html.ASOFTLabel(model => model.APKPaymentID)
+                                </div>
+                                <div class="grid_7">
+                                    @{
+                                        int defaulSelected = -1;
+                                        foreach (var item in Model.PaymentList)
+                                        {
+                                            if (item.IsDefault == 1)
+                                            {
+                                                defaulSelected = Model.PaymentList.IndexOf(item);
+                                            }
+                                        }                    
+                                    }
+                                    @(Html.ASOFTBussinessComboBox().ASOFTPOSPayment(model => model.PaymentID,
+                                          htmlStyle: new
+                                          {
+                                              width = Unit.Percentage(100),
+                                              height = "auto"
+                                          },
+                                          htmlAttributes: new Dictionary<string, object> {
+                                              {"data-bind","value:APKPaymentID"}}
+                                          )
+                                          .Name("APKPaymentID")
+                                          .BindTo(Model.PaymentList)
+                                          .SelectedIndex(defaulSelected)
+                                          .Events(e => e.Cascade("APKPaymentID_Cascade").Change("Combobox_Change"))
+                                          )
+                                </div>
+                            </div>
+
+                            <div id="divPaymentObjectID1" class="grid_12 hidden">
+                                <div class="grid_5">
+                                    @Html.ASOFTLabel(model => model.PaymentObjectID01)
+                                </div>
+                                <div class="grid_7">
+
+                                    @(Html.ASOFTBussinessComboBox().ASOFTPOSObjectID(model => model.PaymentObjectID01,
+                                          htmlStyle: new
+                                          {
+                                              width = Unit.Percentage(100),
+                                              height = "auto"
+                                          },
+                                          htmlAttributes: new Dictionary<string, object> {
+                                              {"data-bind","value:PaymentObjectID01"}}
+                                          )
+                                          .Name("PaymentObjectID01")
+                                          .DataSource(source =>
+                                          {
+                                              source.Read(read =>
+                                              {
+                                                  read.Action("ShopID", "ComboBox", new
+                                                  {
+                                                      area = ""
+                                                  }).Data("filterPaymentObjectID1");
+                                              })
+                                                  .ServerFiltering(true);
+                                          })
+                                          .CascadeFrom("APKPaymentID")
+                                          .Events(e => e.Change("Combobox_Change"))
+                                          )
+                                </div>
+                                <div class="grid_12"></div>
+                                <div class="grid_5">
+                                    @Html.LabelFor(model => model.AccountNumber01, htmlAttributes: new
+                               {
+                                   @class = "special"
+                               })
+                                </div>
+                                <div class="grid_7">
+                                    @(Html.ASOFTTextBox(model => model.AccountNumber01,
+                                          htmlStyle: new
+                                          {
+                                              width = "100%"
+                                          },
+                                          htmlAttribute: new Dictionary<string, object> {
+                                              {"class" , "special"},
+                                              {"data-bind","value: AccountNumber01"}})
+                                          )
+                                </div>
+                            </div>
+
+                            <div id="divPaymentObjectID2" class="grid_12 hidden">
+                                <div class="grid_5">
+                                    @Html.ASOFTLabel(model => model.PaymentObjectID02)
+                                </div>
+                                <div class="grid_7">
+                                    @(Html.ASOFTBussinessComboBox().ASOFTPOSObjectID(model => model.PaymentObjectID02,
+                                          htmlStyle: new
+                                          {
+                                              width = Unit.Percentage(100),
+                                              height = "auto"
+                                          },
+                                          htmlAttributes: new Dictionary<string, object> {
+                                              {"data-bind","value:PaymentObjectID02"}}
+                                          )
+                                          .Name("PaymentObjectID02")
+                                          .DataSource(source =>
+                                          {
+                                              source.Read(read =>
+                                              {
+                                                  read.Action("ShopID", "ComboBox", new
+                                                  {
+                                                      area = ""
+                                                  }).Data("filterPaymentObjectID2");
+                                              })
+                                                  .ServerFiltering(true);
+                                          })
+                                          .CascadeFrom("APKPaymentID")
+                                          .Events(e => e.Change("Combobox_Change"))
+                                          )
+                                </div>
+                                <div class="grid_12"></div>
+                                <div class="grid_5">
+                                    @Html.LabelFor(model => model.AccountNumber02, htmlAttributes: new
+                               {
+                                   @class = "special"
+                               })
+                                </div>
+                                <div class="grid_7">
+                                    @(Html.ASOFTTextBox(model => model.AccountNumber02,
+                                          htmlStyle: new
+                                          {
+                                              width = "100%"
+                                          },
+                                          htmlAttribute: new Dictionary<string, object> {
+                                              {"class" , "special"},
+                                              {"data-bind","value: AccountNumber02"}})
+                                          )
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="grid_5">
+                    <div id="payment_container">
+                        <div class="clearfix"></div>
+                        <div class="pos_header">
+                            <h3>@Html.ASOFTRaw(model => model.PaymentTitle)</h3>
+                        </div>
+                        <div class="pos_inner other-height">
+                            <div class="grid_12">
+                                <div class="grid_6">
+                                    @Html.ASOFTLabel(model => model.TotalAmount)
+                                </div>
+                                <div class="grid_6 asf-cols-align-right">
+                                    @Html.ASOFTWrapperTagFor(model => model.TotalAmount,
+                                        htmlAttributes: new RouteValueDictionary {
+                                            {"data-bind","text: TotalAmount"}
+                                        })
+                                </div>
+                            </div>
+
+                            <div class="grid_12">
+                                <div class="grid_4">
+                                    @Html.ASOFTLabel(model => model.TotalDiscountAmount)
+                                </div>
+                                <div class="grid_4 asf-cols-align-right">
+                                    @(Html.ASOFTTextBox(model => model.TotalDiscountRate,
+                                          htmlStyle: new
+                                          {
+                                              width = "60%"
+                                          },
+                                          htmlAttribute: new Dictionary<string, object> {
+                                              {"class" , "special numberic asf-temporary-hidden"},
+                                              {"data-bind","value: TotalDiscountRate"}})
+                                          )&nbsp;%
+                                </div>
+                                <div class="grid_4 asf-cols-align-right">
+                                    @(Html.ASOFTTextBox(model => model.TotalDiscountAmount,
+                                          htmlStyle: new
+                                          {
+                                              width = "100%"
+                                          },
+                                          htmlAttribute: new Dictionary<string, object> {
+                                               {"class" , "special numberic asf-temporary-hidden"},
+                                              {"data-bind","value: TotalDiscountAmount"}})
+                                          )
+                                </div>
+                            </div>
+
+                            <div class="grid_12">
+                                <div class="grid_4">
+                                    @Html.ASOFTLabel(model => model.TotalRedureRate)
+                                </div>
+                                <div class="grid_4 asf-cols-align-right">
+                                    @(Html.ASOFTTextBox(model => model.TotalRedureRate,
+                                          htmlStyle: new
+                                          {
+                                              width = "60%"
+                                          },
+                                          htmlAttribute: new Dictionary<string, object> {
+                                               {"class" , "special numberic asf-temporary-hidden"},
+                                              {"data-bind","value: TotalRedureRate"}})
+                                          )&nbsp;%
+                                </div>
+                                <div class="grid_4 asf-cols-align-right">
+                                    @(Html.ASOFTTextBox(model => model.TotalRedureAmount,
+                                          htmlStyle: new
+                                          {
+                                              width = "100%"
+                                          },
+                                          htmlAttribute: new Dictionary<string, object> {
+                                               {"class" , "special numberic asf-temporary-hidden"},
+                                              {"data-bind","value: TotalRedureAmount"}})
+                                          )
+
+                                </div>
+                            </div>
+
+                            <!--<div class="grid_12">
+                                    <div class="grid_4">
+                                
+                                        @Html.ASOFTLabel(model => model.AccruedScore)
+                                    </div>
+                                    <div class="grid_8">
+                                        @Html.ASOFTWrapperTagFor(model => model.AccruedScore,
+                                            htmlAttributes: new RouteValueDictionary {
+                                                {"data-bind","text: AccruedScore"},
+                                                 {"class" , "asf-temporary-hidden"},
+                                            })
+                                    </div>
+                                </div>
+
+                                <div class="grid_12" >
+                                    <div class="grid_5">
+                                        @Html.ASOFTLabel(model => model.PayScore)
+                                    </div>
+                                    <div class="grid_7">
+                                        @*(Html.ASOFTTextBox(model => model.PayScore,
+                                      htmlStyle: new { width = "80%" },
+                                      htmlAttributes: new Dictionary<string, object> {
+                                          {"class" , "special"},
+                                          {"data-bind","value: PayScore"},
+                                          {"data-role","numerictextbox"}})
+                                      .Events(e => e.Change("Cash_Change")).Spinners(false)
+                                      ) *@                              
+                                    </div>
+                                </div>
+
+                                <div class="grid_12">
+                                    <div class="grid_4">
+                                        @* Điểm tích lũy lần cuối*@
+                                        @Html.ASOFTLabel(model => model.LastAccruedScore)
+                                    </div>
+                                    <div class="grid_8">
+                                        @Html.ASOFTWrapperTagFor(model => model.LastAccruedScore,
+                                            htmlAttributes: new RouteValueDictionary {
+                                                {"data-bind","text: TotalTaxAmount"}
+                                            })
+                                    </div>
+                                    <div class="grid_12 line"></div>
+                                </div>-->
+                            <div class="grid_12">
+                                <div class="grid_6">
+                                    @Html.ASOFTLabel(model => model.TotalTaxAmount)
+                                </div>
+                                <div class="grid_6 asf-cols-align-right">
+                                    @Html.ASOFTWrapperTagFor(model => model.TotalTaxAmount,
+                                        htmlAttributes: new RouteValueDictionary {
+                                            {"data-bind","text: TotalTaxAmount"}
+                                        })
+                                </div>
+                            </div>
+                            @if(ASOFTEnvironment.CustomerIndex == ASOFTConstants.CUSTOMERINDEX_MINHSANG && Model.Status == 0)
+                            {
+                               <div class="grid_12">
+                               <div class="grid_6">
+                                    @Html.LabelFor(model => model.PromoteChangeAmount)
+                                </div>
+                                <div class="grid_6 asf-cols-align-right">
+                                    @Html.ASOFTWrapperTagFor(model => model.PromoteChangeAmount,
+                                        htmlAttributes: new RouteValueDictionary {
+                                            {"data-bind","text: PromoteChangeAmount"}
+                                        })
+                                </div>
+                            </div>
+                            }
+                            <div class="grid_12">
+                                <div class="grid_6">
+                                    @Html.LabelFor(model => model.TotalInventoryAmount, htmlAttributes: new
+                               {
+                                   @class = "bold special"
+                               })
+                                </div>
+                                <div class="grid_6 asf-cols-align-right">
+                                    @Html.ASOFTWrapperTagFor(model => model.TotalInventoryAmount,
+                                        htmlAttributes: new RouteValueDictionary {
+                                            {"data-bind","text: TotalInventoryAmount"},
+                                            {"class","amount special"}
+                                        })
+                                </div>
+                            </div>
+                            @if (Model.Status == 2)
+                            {
+                                <div class="grid_12">
+                                    <div class="grid_6">
+                                        @Html.LabelFor(model => model.ChangeAmount, htmlAttributes: new
+                                   {
+                                       @class = ""
+                                   })
+                                    </div>
+                                    <div class="grid_6 asf-cols-align-right">
+                                        @(Html.ASOFTTextBox(model => model.ChangeAmount,
+                                          htmlStyle: new
+                                          {
+                                              width = "100%"
+                                          },
+                                          htmlAttribute: new Dictionary<string, object> {
+                                              {"class" , "numberic"},
+                                              {"data-bind","value: ChangeAmount"}}).ReadOnlyIf(true)
+                                          )
+                                    </div>
+                                </div>
+                            }
+                            <div class="grid_12 line">&nbsp;</div>
+                            <div id="divPaymentID1" class="grid_12 hidden">
+                                <div class="grid_6">
+                                    @Html.LabelFor(model => model.PaymentObjectAmount01, htmlAttributes: new
+                               {
+                                   @class = "special"
+                               })
+                                </div>
+                                <div class="grid_6">
+                                    @(Html.ASOFTTextBox(model => model.PaymentObjectAmount01,
+                                          htmlStyle: new
+                                          {
+                                              width = "100%"
+                                          },
+                                          htmlAttribute: new Dictionary<string, object> {
+                                              {"class" , "special numberic"},
+                                              {"data-bind","value: PaymentObjectAmount01"}})
+                                          )
+                                </div>
+
+                            </div>
+                            <div id="divPaymentID2" class="grid_12 hidden">
+                                <div class="grid_6">
+                                    @Html.LabelFor(model => model.PaymentObjectAmount02, htmlAttributes: new
+                               {
+                                   @class = "special"
+                               })
+                                </div>
+                                <div class="grid_6">
+                                    @(Html.ASOFTTextBox(model => model.PaymentObjectAmount02,
+                                          htmlStyle: new
+                                          {
+                                              width = "100%"
+                                          },
+                                          htmlAttribute: new Dictionary<string, object> {
+                                              {"class" , "special numberic"},
+                                              {"data-bind","value: PaymentObjectAmount02"}})
+                                          )
+                                </div>
+
+                            </div>
+
+                            <div class="grid_12">
+                                <div class="grid_6">
+                                    @Html.LabelFor(model => model.Change, htmlAttributes: new
+                               {
+                                   @class = "special"
+                               })
+                                </div>
+                                <div class="grid_6 asf-cols-align-right">
+                                    @Html.ASOFTWrapperTagFor(model => model.Change,
+                                        htmlAttributes: new RouteValueDictionary {
+                                            {"data-bind","text: Change"},
+                                            {"class","amount special return-amount"}
+                                        })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid_2 omega float_right">
+                    <!--<div class="grid_12 pos_button">
+                        <div class="control1">@(Html.ASOFTButton(caption: Html.ASOFTRaw(model => model.ChangeInventory))
+                                                    .Name("BtnChangeInventory")
+                                                    .Enable(Model.IsBuy && Model.FormStatus == ASOFTFormActionType.Edit && Model.AllowUpdate())
+                                                    .Icon("asf-i-return")
+                                                    .Events(e => e.Click("btnChangeInventory_Click"))
+                                                    .HtmlAttributes(new Dictionary<string, Object> {
+                                                        {"class", "asf-button"}
+                                                    }))
+                        </div>
+                    </div>
+                    <div class="grid_12 pos_button">
+                        <div class="control1">@(Html.ASOFTButton(caption: Html.ASOFTRaw(model => model.Return))
+                                                    .Name("BtnReturn")
+                                                    .Enable(Model.IsBuy && Model.FormStatus == ASOFTFormActionType.Edit && Model.AllowUpdate())
+                                                    .Icon("asf-i-return")
+                                                    .Events(e => e.Click("btnReturn_Click"))
+                                                    .HtmlAttributes(new Dictionary<string, Object> {
+                                                        {"class", "asf-button"}
+                                                    }))
+                        </div>
+                    </div>-->
+                    @if(Model.FormStatus == ASOFTFormActionType.AddNew && Model.Status == 0)
+                    {
+                        <div class="grid_12 pos_button">
+                            <div class="control1">@(Html.ASOFTButton(caption: Html.ASOFTRaw(model => model.SalseOrderAPP))
+                                                        .Name("BtnSalseOrderAPP")
+                                                        .Events(e => e.Click("btnSalseOrderAPP_Click"))
+                                                        .Enable(Model.AllowAdd() || Model.AllowUpdate())
+                                                        .Icon("asf-i-reset")
+                                                        .HtmlAttributes(new Dictionary<string, Object> {
+                                                            {"class", "asf-button"}
+                                                        })
+                                                        )
+                            </div>
+                        </div>
+                    }
+                    <div class="grid_12 pos_button">
+                        <div class="control1">@(Html.ASOFTButton(caption: Html.ASOFTRaw(model => model.Delete))
+                                                    .Name("BtnCancel")
+                                                    .Events(e => e.Click("btnReset_Click"))
+                                                    .Enable(Model.AllowAdd() || Model.AllowUpdate())
+                                                    .Icon("asf-i-reset")
+                                                    .HtmlAttributes(new Dictionary<string, Object> {
+                                                        {"class", "asf-button"}
+                                                    })
+                                                    )
+                        </div>
+                    </div>
+                    <div class="grid_12 pos_button">
+                        <div class="control2 pay">
+                            @{
+                                var enableBtnAccept = ((Model.FormStatus == ASOFTFormActionType.AddNew && Model.AllowAdd()) || 
+                                    (Model.FormStatus == ASOFTFormActionType.Edit && Model.AllowUpdate()));
+                                
+                            }
+                            @(Html.ASOFTButton()
+                                  .Name("btnSave")
+                                  .Enable(enableBtnAccept)
+                                  .Content(Html.ASOFTRaw(model => model.Accept))
+                                  .Icon("asf-i-pay")
+                                  .Events(e => e.Click("btnSave_Click"))
+                                  .HtmlAttributes(new Dictionary<string, Object> {
+                                      {"class", "asf-button"}
+                                  })
+                                  )
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        @Html.ASOFTHidden("IsUpdate", Model.FormStatus == ASOFTFormActionType.Edit)
+        @Html.ASOFTHidden(m => m.APK)
+        @Html.ASOFTHidden(m => m.APPSuggestID)
+        @Html.ASOFTHidden(m => m.Status)
+        @Html.ASOFTHidden(m => m.EmployeeID)
+        @Html.ASOFTHidden(m => m.EmployeeName)
+        @Html.ASOFTHidden(m => m.ExchangeRate)
+        @Html.ASOFTHidden(m => m.APKMInherited)
+        @Html.ASOFTHidden(m => m.IsBuy)
+        @Html.ASOFTHidden(m => m.LastModifyDateValue)
+        @Html.ASOFTHidden(m => m.DivisionID)
+        @Html.ASOFTHidden(m => m.ShopID)
+        @Html.ASOFTHidden("MemberValue", Model.MemberID);
+        @Html.ASOFTHidden("PrintMessage", ASOFTLanguage.FindWordA00("A00.PrintMessage"))
+        <a id="btnPrint" class="hidden">Print!</a>
+    }
+</div>
+
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/POS/Scripts/jquery.scannerdetection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Areas/POS/Scripts/jquery.printPage.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF0040/asoft-core-jquery.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF00161.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF0040/jQuery.searchBarcode.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF00161.part2.js")" type="text/javascript"></script>
+}
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/POS/Content/POSF00161.css")" rel="stylesheet" type="text/css" />
+     <link href="@Url.Content("~/Areas/POS/Content/POSF00161RWD/POSF00161RWD.css")" rel="stylesheet" type="text/css" />
+}
+
+

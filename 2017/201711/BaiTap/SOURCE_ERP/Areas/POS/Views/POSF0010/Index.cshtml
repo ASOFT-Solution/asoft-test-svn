@@ -1,0 +1,123 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     28/03/2014      Chánh Thi      Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.A00.Core
+
+@model ASOFT.ERP.ViewModel.POS.POSF0010ViewModel
+
+@{
+    Layout = "~/Views/Shared/_ContentMaster.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(model => model.Title, "POSF0010").ToHtmlString();
+}
+
+@Html.ASOFTHidden("UpdateRecord", Url.Action("UpdateRecord"))
+@Html.ASOFTHidden("UrlDeleted", Url.Action("Delete"))
+@Html.ASOFTHidden("UrlInsert", Url.Action("Insert"))
+@Html.ASOFTHidden("UrlUpdate", Url.Action("Update"))
+@Html.ASOFTHidden("UrlPOSF00101", Url.Action("POSF00101"))
+@Html.ASOFTHidden("UrlPOSF0050", Url.Action("index", "POSF0050"))
+
+@section Header {
+        @Html.ASOFTHeader(new HeaderModel {  Title = Html.ASOFTPageTitle(model => model.Title, "POSF0010").ToHtmlString(), 
+       Breakcrumb = true })
+}
+@section FilterCol1 {
+                    <tr>
+                        <td>@Html.ASOFTLabel(model => model.DivisionIDFilter)</td>
+                        <td>
+                            @(Html.ASOFTBussinessComboBox().
+                            ASOFTDivisionIDList(model => model.DivisionIDFilter))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@Html.ASOFTLabel(model => model.ShopIDFilter)</td>
+                        <td>
+                            @Html.ASOFTTextBox(model => model.ShopIDFilter, 
+                            htmlStyle: new { width = Unit.Percentage(100) })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@Html.ASOFTLabel(model => model.ShopNameFilter)</td>
+                        <td>
+                            @Html.ASOFTTextBox(model => model.ShopNameFilter, 
+                            htmlStyle: new { width = Unit.Percentage(100) })
+                        </td>
+                    </tr>
+}
+@section FilterCol2 {
+                    <tr>
+                        <td>@Html.ASOFTLabel(model => model.ObjectIDFilter)</td>
+                        <td>
+                            @Html.ASOFTTextBox(model => model.ObjectIDFilter, 
+                            htmlStyle: new { width = Unit.Percentage(100) })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@Html.ASOFTLabel(model => model.AddressFilter)</td>
+                        <td>
+                            @Html.ASOFTTextBox(model => model.AddressFilter, 
+                            htmlStyle: new { width = Unit.Percentage(100) })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@Html.ASOFTLabel(model => model.TelFilter)</td>
+                        <td>
+                            @Html.ASOFTTextBox(model => model.TelFilter, 
+                            htmlStyle: new { width = Unit.Percentage(100) })
+                        </td>
+                    </tr>
+}
+@section FilterCol3 {
+                    <tr>
+                        <td>@Html.ASOFTLabel(model => model.FaxFilter)</td>
+                        <td>
+                            @Html.ASOFTTextBox(model => model.FaxFilter, 
+                            htmlStyle: new { width = Unit.Percentage(100) })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@Html.ASOFTLabel(model => model.EmailFilter)</td>
+                        <td>
+                            @Html.ASOFTTextBox(model => model.EmailFilter,
+                            htmlStyle: new { width = Unit.Percentage(100) })
+                        </td>
+                    </tr>
+                    <tr>
+                       <td>@Html.ASOFTLabel(model => model.Disabled)</td>
+                        <td>
+                            @(Html.ASOFTBussinessComboBox().ASOFTCiCodeMasterDisabled(model => model.Disabled, htmlStyle: new
+                                   {
+                                       width = Unit.Percentage(100)
+                                   }))
+                        </td>
+                    </tr>
+            
+        }
+@section GridToolBar {
+            @Html.Partial("~/Views/Shared/EditorTemplates/Toolbar.cshtml", 
+            Model.Toolbar1 ?? new ASOFTToolBarViewModel())
+}
+@section FilterButtons {
+                <li>
+                    @(Html.ASOFTSearchButton()
+                          .Name("POSF0010BtnFilter").Events(e => e.Click("filterData")))
+
+                </li>
+                <li>
+                    @(Html.ASOFTSearchResetButton()
+                          .Name("POSF0010BtnClearFilter").Events(e => e.Click("resetForm")))
+                </li>
+}
+@section Grid {
+    @Html.Partial("GridShop")
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF0010.js")" type="text/javascript"></script>
+}

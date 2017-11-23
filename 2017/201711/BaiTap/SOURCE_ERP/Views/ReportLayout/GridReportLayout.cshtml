@@ -1,0 +1,75 @@
+﻿@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Entities.Common;
+@model ASOFT.ERP.ViewModel.ASOFTsysReportGroupViewModel
+
+@{
+    var GridColumn = new List<ASOFTGridColumnSetting>
+    {
+        new ASOFTGridColumnSetting
+        {
+            IDColumn = "RowNum",
+            TitleColumn = ASOFT.ERP.A00.Core.ASOFTLanguage.FindWordA00("A00.Order"),
+            Width = 50,
+            VisibleColumn = true,
+            HtmlAttrCoulmns = (new { style = "text-align:center" })
+        },
+        new ASOFTGridColumnSetting
+        {
+            IDColumn = "ReportID",
+            TitleColumn = ASOFT.ERP.A00.Core.ASOFTLanguage.FindWordA00("A00.ReportID"),
+            VisibleColumn = true,
+            Width = 100,
+            HtmlAttrCoulmns = (new { style = "text-align:center" })
+        },
+        new ASOFTGridColumnSetting
+        {
+            IDColumn = "ReportName",
+            TitleColumn = ASOFT.ERP.A00.Core.ASOFTLanguage.FindWordA00("A00.ReportName"),
+            VisibleColumn = true,
+            ClientTemplate = "# if(Permission){#<a onClick='getFilter_Click(this)' class='asf-grid-link'>#} #" + "#=genLanguageReport(data.ReportName,data.ModuleID,data.ScreenID)#" + "# if(Permission){#</a>#} #"
+            //string.Format("<a onClick='getFilter_Click(this)' class='asf-grid-link'>#:{0}#</a>","ReportName")          
+        },
+        new ASOFTGridColumnSetting
+        {
+            IDColumn = "Description",
+            TitleColumn = ASOFT.ERP.A00.Core.ASOFTLanguage.FindWordA00("A00.Description"),
+            VisibleColumn = false,
+        },
+        new ASOFTGridColumnSetting
+        {
+            IDColumn = "GroupID",
+            TitleColumn = "",
+            VisibleColumn = false,
+        },
+                new ASOFTGridColumnSetting
+        {
+            IDColumn = "ScreenID",
+            TitleColumn = "",
+            VisibleColumn = false,
+        },
+              new ASOFTGridColumnSetting
+        {
+            IDColumn = "ModuleID",
+            TitleColumn = "",
+            VisibleColumn = false,
+        },
+    };
+
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "GridReport" + Model.GroupID,
+        //keyColumnID = "APK",
+        NameEventPost = "GetGroupID"+Model.GroupID,
+        Scrollable = true,
+        //NameEventDataBind = "ASOFT.asoftGrid.dataBindGridPanging",
+        ActionName = "GetDataReport",
+        ControllerName = "ReportLayout",
+        IsShowCheck = false,
+        IsAutoHeight = false,
+        HtmlAttribute = new { style = "margin-top:33px", @class = "asf-grid" },
+        ListGridColumn = GridColumn
+    };
+}
+@(Html.ASOFTCreateGridNotPagging<ASOFTGridReport>(gridsetting))
+@Html.Raw(string.Format("<script> function GetGroupID{0}(){{ return {{ GroupID : '{0}', Area : '{1}' }}; }} </script>", Model.GroupID, Model.Module))

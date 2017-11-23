@@ -1,0 +1,43 @@
+﻿
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Infrastructure;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel;
+@using ASOFT.ERP.ViewModel.Helper;
+@model ASOFT.ERP.A00.Entities.Database.AT1302
+
+@{
+    string id = ViewBag.ScreenID;
+    string Area = ViewBag.Area;
+    //ASOFTToolBarViewModel toolbar = ViewBag.Toolbar;
+    //if (toolbar != null)
+    //{
+    //    toolbar.EventEdit = "EditCIF1174_Click";
+    //}
+    //string htmlToolbar = string.Format(@"<div class='asfbtn asfbtn-right-2'><ul class='asf-toolbar'><li>{0}</li></ul></div>", Html.ASOFTEditButton(toolbar.EventEdit, new {title = ASOFTLanguage.FindWordA00("A00.btnSendDocVPL")})
+    //        .Name(toolbar.ScreenIDEdit + "CIF1174" ?? "btnEditVPL")
+    //        .Enable(ASOFTEnvironment.CheckPermission(screenID: toolbar.ScreenIDEdit ?? toolbar.BelongToScreenID, 
+    //                                permission: ASOFTPermission.Update)).ToString());
+}
+    <tr>
+        <td style="vertical-align:top !important; border:none;">@LocalizedHelper.GetLocalizedResourceString(id + "ImageID" , id, Area)</td>
+        <td class="dot"></td>
+        <td style="vertical-align:top !important; border:none;" align="left">
+            @Html.ASOFTLogo("Partial", "Avatar", new { Column = "ImageID", ScreenID = id }, width:150, height:150)
+        </td>
+    </tr>
+
+@*@if (id.Equals("CIF1172"))
+{
+    @Html.ASOFTHidden("htmlToolbar", htmlToolbar);
+}*@
+
+
+
+@*<script>
+    $(document).ready(function () {
+        $("#CIF1172_ThongTinKhac-1").prepend($("#htmlToolbar").val());
+    })
+</script>*@

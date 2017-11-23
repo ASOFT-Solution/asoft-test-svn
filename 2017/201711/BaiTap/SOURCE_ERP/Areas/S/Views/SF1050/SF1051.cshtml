@@ -1,0 +1,135 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved.
+//#
+//# History:
+//#     Date Time       Created         Comment
+//#     09/10/2014      Hoang Tu        Tạo mới
+//####################################################################
+*@
+@using System.Web.UI.WebControls;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Database
+@model ASOFT.ERP.ViewModel.S.SF1051ViewModel
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = @Html.ASOFTPageTitle(@Html.PopupEditTitle(m => m.Title), "SF1051").ToHtmlString();
+    ViewBag.Width = 650;
+}
+@helper Common()
+{
+    @Html.Partial("Role")  
+}
+
+@helper Order()
+{
+    @Html.Partial("GridDataRole")  
+}
+
+
+<div class="asf-form-container">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "SF1051" }))
+    {
+        <div class="form-content">
+             @(Html.ASOFTTab()
+              .Name("SF1051Tab")
+              //.Events(e => e.Activate("POSF00101TabActivate"))
+              .Items(tabstrip =>
+              {
+
+                  tabstrip.Add().Text(Html.ASOFTRaw(m => m.Role).ToString().ToUpper())
+                      .Selected(true)
+                      .HtmlAttributes(new
+                      {
+                          @id = "TabstripMaster-1"
+                      })
+                      .ContentHtmlAttributes(new
+                      {
+                          @class = "asf-tab-content"
+                      })
+                      .Content(this.Common().ToHtmlString());
+
+                  tabstrip.Add().Text(Html.ASOFTRaw(m => m.DataRole).ToString().ToUpper())
+                      .HtmlAttributes(new
+                      {
+                          @id = "TabstripMaster-2"
+                      })
+                      //.ContentHtmlAttributes(new { style = "height:792px;" })
+                      .ContentHtmlAttributes(new
+                      {
+                          @class = "asf-tab-content"
+                      })
+                      .Content(this.Order().ToHtmlString());
+              })
+              )
+        </div>
+        <div class="asf-form-button">
+            <table class="asf-table-view">
+                <tr>
+                    <td align="right">
+                        <div class="asf-popup-button-container">
+                            @if (Model.FormStatus == ASOFTFormActionType.AddNew)
+                            {
+                                bool hasPermission = false;
+                                if (Model.AllowAdd())
+                                {
+                                    hasPermission = true;
+                                }
+                                <div>
+                                    @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                               .Name("BtnClose")
+                              .Events(e => e.Click(hasPermission ? "popupClose_Click" : "ASOFT.asoftPopup.closeOnly"))
+                            )
+                                </div>
+                                <div>@(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSaveCopy"))
+                                .Name("SF1051SaveCopy")
+                                .Events(m => m.Click("SF1051SaveCopy_Click"))
+                                .Enable(hasPermission)
+                                )
+                                </div>
+                                <div>
+                                    @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSaveNew"))
+                                .Name("SF1051SaveNew")
+                                .Events(m => m.Click("SF1051SaveNew_Click"))
+                                 .Enable(hasPermission))
+                                </div>
+
+                            }
+                            else
+                                if (Model.FormStatus != ASOFTFormActionType.AddNew)
+                                {
+                                    bool hasPermission = false;
+                                    if (Model.CheckPermission("SF1051", ASOFTPermission.Update))
+                                    {
+                                        hasPermission = true;
+                                    }
+
+                                <div>
+                                    @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                                  .Name("BtnClose")
+                                 .Events(e => e.Click(hasPermission ? "popupClose_ClickA" : "ASOFT.asoftPopup.closeOnly")))
+                                </div>
+                                <div>
+                                    @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSave"))
+                                  .Name("SF1051btnSaveNew")
+                                  .Events(e => e.Click("SF1051btnUpdate_Click"))
+                                  .Enable(hasPermission)
+                                  )
+                                </div>
+
+                                }
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        @Html.ASOFTHidden("APK", Model.APK)
+        @Html.ASOFTHidden("LastModifyDate", Model.LastModifyDate)
+        @Html.ASOFTHidden("LevelRoleID", Model.LevelRoleID)
+    }
+</div>
+
+@section jsFeature
+    {
+    <script src="@Url.Content("~/Areas/S/Scripts/SF1051.js" +"?v="+ASOFTEnvironment.Version)" type="text/javascript"></script>
+}

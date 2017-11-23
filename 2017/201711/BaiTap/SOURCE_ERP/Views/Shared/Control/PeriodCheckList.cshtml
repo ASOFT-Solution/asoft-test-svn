@@ -1,0 +1,87 @@
+﻿@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Entities.Infrastructure;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel;
+@using ASOFT.ERP.ViewModel.Helper;
+@model ASOFT.ERP.ViewModel.ASOFTSysFieldsViewModel
+
+<div class="asf-filter-main">
+    <div class="block-left"> 
+        <div class="asf-filter-label">
+                @Html.ASOFTRadioButton(model=>model.Data, 1, new { id = "rdoFilterDate"}).CheckedIf(true)
+           <label for="FromDatePeriodControl"> @LocalizedHelper.GetLocalizedResourceString("A00.rdoFilterFromDate","A00","00")</label>
+        </div>
+        <div class="asf-filter-input">
+            @Html.ASOFTDateEdit(model => model.TypeDateTimePicker, htmlAttributes: new {id = "FromDatePeriodControl", @name = "FromDatePeriodControl" }).Value(ASOFTEnvironment.WorkingDate).Enable(true)
+                    
+        </div>
+    </div>
+    <div class="block-right">
+        <div class="asf-filter-label">
+           <label for="ToDatePeriodControl"> @LocalizedHelper.GetLocalizedResourceString("A00.rdoToDate","A00","00")</label>
+        </div>
+        <div class="asf-filter-input">
+            @Html.ASOFTDateEdit(model => model.TypeDateTimePicker, htmlAttributes: new {id = "ToDatePeriodControl", @name = "ToDatePeriodControl" }).Value(ASOFTEnvironment.WorkingDate).Enable(true)
+                    
+        </div>
+    </div>
+</div>
+
+<div class="asf-filter-main">
+        <div class="asf-filter-label">
+            <span>
+                @Html.ASOFTRadioButton(model => model.Data, 0, new { id = "rdoFilterPeriod" })
+            </span>
+            <label for="CheckListPeriodControl">@LocalizedHelper.GetLocalizedResourceString("A00.rdoFilterPeriod","A00","00")</label>
+        </div>
+        <div class="asf-filter-input">
+
+            @Html.ASOFTBussinessComboBox().ASOFTCheckListPeriod(model => model.Data, htmlAttributes: new {id = "CheckListPeriodControl" }).Enable(false)
+                    
+        </div>
+</div>
+@Html.ASOFTHidden("IsPeriod", 0)
+@Html.ASOFTHidden("FromDatePeriodControl_Type_Fields", 5)
+@Html.ASOFTHidden("ToDatePeriodControl_Type_Fields", 5)
+@Html.ASOFTHidden("FromDatePeriodControl_Content_DataType", 13)
+@Html.ASOFTHidden("ToDatePeriodControl_Content_DataType", 13)
+@Html.ASOFTHidden("CheckListPeriodControl_Type_Fields", 4)
+@Html.ASOFTHidden("CheckListPeriodControl_Content_DataType", 13)
+
+
+<script>
+    $(document).ready(function () {
+        $("#rdoFilterPeriod").attr("name", "rdoFilter");
+        $("#rdoFilterDate").attr("name", "rdoFilter");
+        $("input[name='rdoFilter']").click(function (e) {
+            var value = $(this).val();
+            var isDateCheck = (value == '1');
+            $("#FromDatePeriodControl").data("kendoDatePicker").enable(isDateCheck);
+            $("#ToDatePeriodControl").data("kendoDatePicker").enable(isDateCheck);
+
+            $("#CheckListPeriodControl").data("kendoDropDownList").enable(!isDateCheck);
+
+            if (isDateCheck) {
+                $("#IsPeriod").val('0');
+            }
+            else {
+                $("#IsPeriod").val('1');
+            }
+        });
+    });
+
+    function onAfterClearFilter() {
+        $("#IsPeriod").val('0');
+        $("#rdoFilterDate").val("1");
+        $("#rdoFilterPeriod").val("0");
+        $("#rdoFilterDate").attr("checked", "checked");
+        $("#FromDatePeriodControl").data("kendoDatePicker").enable(true);
+        $("#ToDatePeriodControl").data("kendoDatePicker").enable(true);
+        $("#CheckListPeriodControl").data("kendoDropDownList").enable(false);
+
+        $("#FromDatePeriodControl").data("kendoDatePicker").value(new Date());
+        $("#ToDatePeriodControl").data("kendoDatePicker").value(new Date());
+    };
+</script>

@@ -1,0 +1,28 @@
+﻿@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.ViewModel;
+@model ASOFT.ERP.ViewModel.ASOFTSysFieldsViewModel
+
+<tr class="ToAccountIDPartial">
+    <td class="asf-td-caption">@Html.Label(Model.language, htmlAttributes: new { @for = "ToAccountName" })
+    </td>
+    <td>
+        @(Html.ASOFTTextBox(model => model.Data, htmlAttribute: new { Disabled = "Disabled", @id = "ToAccountName"}))
+                  
+        @(Html.ASOFTButton("...")
+        .Name("btnChooseToFromAccount")
+        .HtmlAttributes(new { style = "width : 26px; height: 26px; background-repeat: no-repeat" })
+        .Enable(true)
+        .Events(e => e.Click("btnChooseToAccount_Click")))
+
+        @(Html.ASOFTButton("")
+            .Name("btnDeleteToAccount")
+            .HtmlAttributes(new { style = "width : 26px; height: 26px; background-image: url(/Content/Images/icon-delete-24x24.png); background-repeat: no-repeat" })
+            .Enable(true)
+            .Events(e => e.Click("btnDeleteToAccount_Click")))
+    </td>
+</tr>
+
+<script>
+    $("#ToAccountName").css("width", "260px");
+    $("#ToAccountName").attr("name", "ToAccountName");
+</script>

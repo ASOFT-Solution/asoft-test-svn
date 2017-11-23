@@ -1,0 +1,97 @@
+﻿
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Entities.Database
+@model CRMT90031
+@using ASOFT.ERP.ViewModel.Helper;
+
+@{
+    string DivisionID = ViewBag.DivisionID;
+    List<CRMT90031> listComment = (List<CRMT90031>)ViewBag.ListNotes;
+    bool isDivision = DivisionID.Equals("@@@") || DivisionID.Equals(ASOFTEnvironment.DivisionID);
+    bool checkPermission = ViewBag.checkPermission;
+    bool checkPermissionInsert = ViewBag.checkPermissionInsert;
+    int k = 0;
+}
+
+@if (isDivision && checkPermissionInsert)
+{
+    <div class="asf-master-content" id="Comment">
+        <div style="width: 20%;  float: left">&nbsp</div>
+        <div class="form-style-1">
+            @Html.ASOFTTextArea(m => m.Description)
+            <div style = "height: 10px">&nbsp</div>
+            <label style="font-style: italic">@ASOFTLanguage.FindWordA00("A00.NoteMessage")</label>
+            <div style = "float: right">
+             @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSend"))
+                                      .Name("Send").Events(e => e.Click("btnSend_Click")))
+            </div>     
+             <div style="float:right">&nbsp&nbsp</div>
+             <div style="float:right">
+             @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.Clear"))
+                                      .Name("Clear").Events(e => e.Click("btnClear_Click")))
+            </div>
+        
+        </div>
+        <div style="width: 20%;  float: left">&nbsp</div>
+    </div>
+}
+else {
+    
+    <div class="asf-master-content" style="padding-top: 20px"></div>
+}
+
+@{
+    bool isMore = false;
+    foreach (CRMT90031 item in listComment) 
+    {
+        if (k < 5)
+        {
+            <div class="asf-master-content isMoreShow" style="margin-top: -20px">
+                <div style="width: 20%;  float: left">&nbsp</div>
+                <div style="float: left;">@Html.ASOFTLogo("PartialView2", "Avatar", new { Area = "", UserID = item.CreateUserID },  width:70, height:62)</div>
+                <div class="form-style-2">
+                    @if (isDivision && checkPermission && item.CreateUserID.Equals(ASOFTEnvironment.UserID))
+                    {
+                        <a class='close-x-notes' style='font-size: 20px; padding: 3px' onclick='btnDelete_Click(@item.NotesID,this)'>×</a>
+                    }
+                    <div><span class="user-comment">@item.CreateUserID</span> - <span class="user-create">@item.CreateDate</span></div>
+                    <div>@item.Description</div>
+                </div>
+                <div style="width: 20%;  float: left">&nbsp</div>
+            </div>
+        }   
+        else {
+            <div class="asf-master-content isMoreHide" style="margin-top: -20px">
+                <div style="width: 20%;  float: left">&nbsp</div>
+                <div style="float: left;">@Html.ASOFTLogo("PartialView2", "Avatar", new { Area = "", UserID = item.CreateUserID },  width:70, height:62)</div>
+                <div class="form-style-2">
+                    @if (isDivision && checkPermission && item.CreateUserID.Equals(ASOFTEnvironment.UserID))
+                    {
+                        <a class='close-x-notes' style='font-size: 20px; padding: 3px' onclick='btnDelete_Click(@item.NotesID,this)'>×</a>
+                    }
+                    <div><span class="user-comment">@item.CreateUserID</span> - <span class="user-create">@item.CreateDate</span></div>
+                    <div>@item.Description</div>
+                </div>
+                <div style="width: 20%;  float: left">&nbsp</div>
+            </div>
+            isMore = true;
+        }
+
+        k++;       
+    }
+    
+    if(isMore)
+    {
+        <div class="asf-master-content" style="margin-top: -20px" id="viewmore">
+            <div style="width: 20%;  float: left">&nbsp</div>
+            <div style="width: 60%;  float: left">
+                <div style="float: right"><a class='viewMore' onclick="btnViewMore_Click()">@ASOFTLanguage.FindWordA00("A00.ViewMore")</a></div>
+            </div>
+            <div style="width: 20%;  float: left">&nbsp</div>
+        </div>
+        isMore = false;
+    }
+}
+
+<script src="@Url.Content("~/Scripts/notes.js" +"?v="+ASOFTEnvironment.Version)" type="text/javascript"></script>

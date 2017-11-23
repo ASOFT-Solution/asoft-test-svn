@@ -1,0 +1,113 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     31/03/2014      Thai Son        Tạo mới
+//#     05/05/2014      Thai Son        Update
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.ViewModel.POS
+@model POSF0006ViewModel
+
+@{  
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "POSF0006Grid",
+        Scrollable = true,
+        ControllerName = "POSF0006",
+        ActionName = "GetGridPayment",
+        IsShowCheck = false,
+        HtmlAttribute = new
+        {
+            style = "height:300px;",
+            @class = "asf-grid"
+        },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "RowNum",
+                ClientTemplate = "#= view.Grid.renderIndex(data) #",
+                TitleColumn = ASOFTLanguage.FindWordA00("A00.Number"),
+                Width = 30,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"}),
+                
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "PaymentName01",
+                TitleColumn = Html.ASOFTRaw(model => model.PaymentName01),
+                Width = 150,
+                VisibleColumn = true,
+                EditColumn = true,
+                EditorTemplateName = "POSPaymentTypes01"
+            },new ASOFTGridColumnSetting
+            {
+                IDColumn = "PaymentName02",
+                TitleColumn = Html.ASOFTRaw(model => model.PaymentName02),
+                Width = 150,
+                VisibleColumn = true,
+                EditColumn = true,
+                EditorTemplateName = "POSPaymentTypes02"
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "ObjectTypeName01",
+                TitleColumn = 
+                    Html.ASOFTRaw(model => model.ObjectTypeName01),
+                Width = 100,
+                VisibleColumn = true,
+                EditColumn = true,
+                EditorTemplateName = "POSObjectTypes01"
+            }
+            ,
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "ObjectTypeName02",
+                TitleColumn = 
+                    Html.ASOFTRaw(model => model.ObjectTypeName02),
+                Width = 100,
+                VisibleColumn = true,
+                EditColumn = true,
+                EditorTemplateName = "POSObjectTypes02"
+            },
+            new ASOFTGridColumnSetting
+            {
+                TitleColumn = 
+                    Html.ASOFTRaw(model => model.IsDefault),
+                IDColumn = "IsDefault",
+                Width = 60,
+                 //ClientTemplate = @"<input type='checkbox' #= (IsDefault == 1) ? checked='checked': '' # class='chkbx' data-payment-apk='#=APK#' />",
+                 ClientTemplate  = "<input  type='radio' name='radio-check' data-payment-apk='#=APK#'  value='#=APK#' #= IsDefault===1 && 'checked' #/>",
+                VisibleColumn = true,
+                EditColumn = false,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+                
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "APK",
+                Width = 24,
+                ClientTemplate = @"<a                                      
+                                    data-role='btnDelete' 
+                                    data-apk='#=APK#'                                     
+                                    class='asf-i-delete-24 asf-icon-24'                                    
+                                    href='javascript:void(0)'>
+                                    <span>Del</span>
+                                  </a>",
+                VisibleColumn = true,
+                EditColumn = false,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+                
+            },
+        }
+    };
+}
+
+@(Html.ASOFTCreateGridEdit<ASOFT.ERP.A00.Entities.Extension.POST0006>
+(gridsetting))

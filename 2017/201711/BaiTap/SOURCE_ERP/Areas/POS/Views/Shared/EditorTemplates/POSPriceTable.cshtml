@@ -1,0 +1,19 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     22/07/2014      Đức Quý        Tạo mới
+//####################################################################
+*@
+@model string
+@using System.Collections
+@using ASOFT.ERP.POS.Entities
+@using ASOFT.ERP.A00.Core;
+
+
+@(Html.ASOFTBussinessComboBox()
+    .ASOFTTablePricesID(model=>model, htmlAttributes: new { listWidth = 500 })
+    .Events(e=>e.Change("tablePricesID_Changed"))
+)

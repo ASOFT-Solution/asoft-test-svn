@@ -1,0 +1,18 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     08/08/2017      Quang Hoàng       Tạo mới
+//####################################################################
+*@
+@model string
+@using System.Collections
+@using ASOFT.ERP.POS.Entities
+@using ASOFT.ERP.A00.Core;
+
+
+@(Html.ASOFTBussinessComboBox().ASOFTInventoryMS(m=>m,   option: new ComboOption() { 
+                                        EventPostData = "inventory_SendData"
+                                    }).Events(e=>e.Change("inventory_Changed")))

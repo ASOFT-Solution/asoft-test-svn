@@ -1,0 +1,46 @@
+﻿/*//
+//####################################################################
+//# Copyright (C) 2010-2011, ASOFT JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     13/06/2014      Thai Son        New
+//####################################################################
+/*/
+
+#posFilter {
+    position: relative;
+     margin-bottom: 7px;
+}
+
+.theleft , #InventoryFilter{
+    width: 100%;
+    height: 32px;
+}
+.therightbutton, #btnInventoryIDFilterXYZ {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 33px;
+    width: 32px;
+    background: url("/Content/Images/search.png") no-repeat scroll 50% 50% rgba(0, 0, 0, 0);
+    z-index: 100000;
+}
+
+.searchBox {
+    width: 100%;
+    z-index: -1; 
+    padding-right: 32px;
+    border: 1px solid #999;
+}
+.right-align {
+    text-align:right
+}
+#POSF0030 legend{
+    text-transform: uppercase;
+}
+
+.asf-form-button ul li, .asf-li-container li {
+    float: right;
+    padding-left: 15px;
+}

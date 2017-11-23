@@ -1,0 +1,164 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     18/03/2014      Minh Lâm      Tạo mới
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core
+
+@model ASOFT.ERP.ViewModel.POS.POSR0001ViewModel
+
+@{
+    Layout = "~/Views/Shared/_EmptyLayout.cshtml";
+    ViewBag.Title = @Html.ASOFTRaw(m => m.Title);
+}
+<div class="container_12">
+    <!-- end .grid_12 -->
+    <div class="clear">&nbsp;</div>
+    <div class="grid_12 asf-cols-align-center">
+        @Html.AOSFTDefaultImage(Model.ShopInfo.ImageLogo)
+    </div>
+    <div class="clear">&nbsp;</div>
+    <div class="grid_12">
+        <!--<span class="bold">@Html.ASOFTLabel(model => model.ShopName):</span>-->
+        @Html.ValueFor(model => model.ShopName)
+    </div>
+    <div class="clear">&nbsp;</div>
+    <div class="grid_12">
+        <!--<span class="bold">@Html.ASOFTLabel(model => model.Address):</span>-->
+        @Html.ValueFor(model => model.Address)
+    </div>
+    <div class="clear">&nbsp;</div>
+    <div class="grid_12">
+        <span class="bold">@Html.ASOFTLabel(model => model.Tel).&nbsp;</span>
+        @Html.ASOFTWrapperTagFor(model => model.Tel)
+    </div>
+    <div class="clear">&nbsp;</div>
+
+    <div class="grid_12 asf-cols-align-center">
+        <!--<span class="bold">@Html.ASOFTLabel(model => model.Website):</span>-->
+        @Html.ValueFor(model => model.Website)
+    </div>
+    <div class="clear">&nbsp;</div>
+    <div class="grid_12 line"></div>
+
+    <div class="grid_12 center bold">
+        @Html.ASOFTLabel(model => model.Title)
+    </div>
+    <div class="grid_12 line"></div>
+    <div class="clear">&nbsp;</div>
+    
+    <div class="grid_12">
+        <span class="bold">
+            @Html.ASOFTLabel(model => model.VoucherNo):
+        </span>
+        @Html.ASOFTWrapperTagFor(model => model.Master.VoucherNo)
+    </div>
+    <div class="clear">&nbsp;</div>
+    <div class="grid_12">
+        <span class="bold">@Html.ASOFTLabel(model => model.VoucherDate):</span>
+        @Html.ASOFTWrapperTagFor(model => model.VoucherDate)
+    </div>
+    <div class="clear">&nbsp;</div>
+    <div class="grid_12 bold">
+        <span class="bold">@Html.ASOFTLabel(model => model.MemberID):</span>
+        @Html.ASOFTWrapperTagFor(model => model.MemberID)
+    </div>
+    <div class="clear">&nbsp;</div>
+    <div class="grid_12 bold">
+        <span class="bold">@Html.ASOFTLabel(model => model.MemberName):</span>
+        @Html.ValueFor(model => model.MemberName)
+    </div>
+    <div class="clear">&nbsp;</div>
+    <div class="grid_12 bold">
+        <span class="bold">@Html.ASOFTLabel(model => model.EmployeeName):</span>
+        @Html.ValueFor(model => model.EmployeeName)
+    </div>
+    <div class="clear">&nbsp;</div>
+    <div class="grid_12 line"></div>
+    <div class="clear">&nbsp;</div>
+    <!-- GRID -->
+    <div class="grid_12 asf-grid alpha omega">
+        @Html.Partial("GridPrint")
+    </div>
+    <!-- END GRID -->
+    <div class="grid_12 line"></div>
+    <div class="clear">&nbsp;</div>
+    <div class="grid_5 bold">
+        @Html.ASOFTLabel(model => model.TotalAmount):
+    </div>
+    <div class="grid_7 asf-cols-align-right alpha">
+        @Html.ASOFTWrapperTagFor(model => model.TotalAmount)
+    </div>
+    <div class="clear">&nbsp;</div>
+    <div class="grid_5 bold">
+        @Html.ASOFTLabel(model => model.TotalTaxAmount):
+    </div>
+    <div class="grid_7 asf-cols-align-right alpha">
+        @Html.ASOFTWrapperTagFor(model => model.TotalTaxAmount)
+    </div>
+    <div class="clear">&nbsp;</div>
+    <div class="grid_5 bold">
+        @Html.ASOFTLabel(model => model.TotalDiscountAmount):
+    </div>
+    <div class="grid_7 asf-cols-align-right alpha">
+        @Html.ASOFTWrapperTagFor(model => model.TotalDiscountAmount)
+    </div>
+    <div class="clear">&nbsp;</div>
+    <div class="grid_5 bold">
+        @Html.ASOFTLabel(model => model.TotalRedureAmount):
+    </div>
+    <div class="grid_7 asf-cols-align-right alpha">
+        @Html.ASOFTWrapperTagFor(model => model.TotalRedureAmount)
+    </div>
+    <div class="clear">&nbsp;</div>
+    <div class="grid_5 bold">
+        @Html.ASOFTLabel(model => model.TotalInventoryAmount):
+    </div>
+    <div class="grid_7 asf-cols-align-right alpha">
+        @Html.ASOFTWrapperTagFor(model => model.TotalInventoryAmount)
+    </div>
+    @if (Model.Master != null && Model.Master.PaymentObjectID01 != null)
+    {
+        <div class="clear">&nbsp;</div>
+        <div class="grid_5 bold">
+            @Html.ValueFor(model => model.Master.PaymentObjectName01):
+        </div>
+        <div class="grid_7 asf-cols-align-right alpha">
+            @Html.ASOFTWrapperTagFor(model => model.PaymentObjectAmount01)
+        </div>
+    }
+    @if (Model.Master != null && Model.Master.PaymentObjectID02 != null)
+    {
+        <div class="clear">&nbsp;</div>
+        <div class="grid_5 bold">
+            @Html.ValueFor(model => model.Master.PaymentObjectName02):
+        </div>
+        <div class="grid_7 asf-cols-align-right alpha">
+            @Html.ASOFTWrapperTagFor(model => model.PaymentObjectAmount02)
+        </div>
+    }
+    <div class="clear">&nbsp;</div>
+    <div class="grid_5 bold">
+        @Html.ASOFTLabel(model => model.Change):
+    </div>
+    <div class="grid_7 asf-cols-align-right alpha">
+        @Html.ASOFTWrapperTagFor(model => model.Change)
+    </div>
+    <div class="clear">&nbsp;</div>
+    <div class="grid_12 center alpha">
+        <br />
+        @Html.ASOFTLabel(model => model.GoodBye)
+        <br />
+        ***
+    </div>
+</div>
+<div class="page-break"></div>
+
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/POS/Content/POSF00161.css")" rel="stylesheet" type="text/css" />
+}

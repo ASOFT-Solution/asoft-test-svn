@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Xem trả món";
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Width = 950;
+    
+}
+<div id="cancelled-dishes" class="container_12">
+    @Html.Partial("GridReturnedInventory")
+
+    <div class="asf-form-button">
+        <table class="asf-table-view">
+            <tr>
+                <td>
+                    <div class="asf-popup-button-container">
+
+                        <div>
+                            @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                                          .Name("btnClose")                                    
+                                          )
+                        </div>
+                        
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF0042.js")" type="text/javascript"></script>
+}
+@section styleFeature{
+    @*<link href="@Url.Content("~/Areas/POS/Content/POSF0038.css")" rel="stylesheet" type="text/css" />*@
+}

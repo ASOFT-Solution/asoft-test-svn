@@ -1,0 +1,771 @@
+﻿
+@media (max-width: 480px)  {
+    /*.k-window {
+        width: 300px !important;
+    }*/
+
+    .asf-button-1 {
+        display: block;
+    }
+
+    .asf-grid {
+        font-size: 11px;
+        height: 300px !important;
+    }
+    .k-grid-content {
+         height: 250px !important;
+    }
+
+    .asf-button{
+        min-width: 50px;
+    }
+
+    #bodyMaster .asf-header {
+        display: none;
+    }
+
+    body {
+       min-width: 300px !important;
+       font-size: 11px;
+    }
+
+    #contentMaster {
+       padding: 0 10px 0;
+    }
+
+    .container_12 {
+        width: 100%;
+    }
+
+    .container_12 .grid_8 {
+         width: 60.667%;
+    }
+
+    .gift_container {
+        width: 100%;
+    }
+
+    .full_height {
+        width: 100%;
+    }
+
+    .container_12 .grid_5{
+        width: 100%;
+        margin-left: 0%;
+    }
+
+    .container_12 .line_right {
+        width: 97%;
+    }
+
+    .container_12 .grid_9 {
+        width: 100%;
+    }
+
+    .container_12 .grid_6.line_right:after {
+        border: none;
+    }
+
+    .full_height .grid_2 {
+        width: 100%;
+    }
+
+    .pos_button.grid_12 {
+        width: 50% !important;
+    }
+
+    /*.pos_button.grid_12:nth-child(2) {
+        float: right;
+    }*/
+
+    .container_12 .grid_7 {
+         width: 100%;
+    }
+
+    #divPaymentObjectID1 .grid_7 {
+         width: 200% !important;
+    }
+
+     #divPaymentObjectID2 .grid_7 {
+         width: 200% !important;
+    }
+
+    .pos_button .control2 {
+        height: 95px;
+    }
+
+    #status-bar h2 {
+        font-size: 13px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    #status-bar h2:hover {
+        white-space: inherit;
+        width: 100%;
+    }
+
+    #controls {
+        display: none;
+    }
+
+    #payment_container .pos_inner {
+        display: none;
+    }
+
+    #arrow-1 {
+        display: block;
+    }
+
+    li.orange_square {
+        height: 25px;
+    }
+
+    li.green_square {
+        height: 25px;
+        margin-left: 20px !important;
+    }
+
+    #status-bar ul li {
+        float: left;
+        margin-left : 0px;
+    }
+
+    #status-bar ul {
+        float: inherit;
+        margin-left: -39px;
+    }
+
+     #pos_controls input {
+        height: 20px !important;
+        font-size: 12px !important;
+    }
+
+    #payment_container span {
+        font-size: 12px !important;
+    }
+
+    .floating-element {
+        width: 90% !important;
+        top: 50px !important;
+    }
+
+     .asf-header-icon-logo {
+       zoom: 43%;
+        margin-right: 5px;
+    }
+
+    .asf-header {
+        min-width: 0px;
+        padding-left: 10px;
+    }
+
+    .asf-header .right {
+        padding: 0 20px 0 0;
+        width: 70%;
+        font-size: 10px;
+    }
+
+    .asf-header-user {
+        padding: 0px;
+    }
+
+    .asf-header-system-text {
+        display: none;
+    }
+
+    .asf-i-user {
+        background-image: url(/Content/Images/user.png);
+    }
+
+    .asf-i-close {
+        zoom: 60%;
+    }
+
+    #Header a {
+        font-size: 10px;
+    }
+
+
+    .asf-combo-item .asf-combo-item-col-value {
+        width: 30px !important;
+    }
+    .asf-combo-item .asf-combo-item-col-text {
+        width: 100px !important;
+    }
+
+    .k-list-container {
+         width: 300px !important;
+    }
+
+    .pos_button.grid_12:nth-child(3) {
+        height: 8em;
+         width: 100% !important;
+    }
+
+    .pos_button .pay a {
+         font-size: 11px;
+    }
+
+    .container_12 .grid_10 {
+        width: 100%;
+    }
+
+}
+
+
+@media (min-width: 481px) and (max-width: 768px) {
+    /*.k-window {
+        width: 300px !important;
+    }*/
+
+     .asf-button-1 {
+        display: block;
+    }
+
+    .asf-grid {
+        font-size: 12px;
+        height: 300px !important;
+    }
+    .k-grid-content {
+         height: 250px !important;
+    }
+
+    .asf-button{
+        min-width: 50px;
+    }
+
+    #bodyMaster .asf-header {
+        display: none;
+    }
+
+    body {
+       min-width: 300px !important;
+       font-size: 12px;
+    }
+
+    #contentMaster {
+       padding: 0 10px 0;
+    }
+
+    .container_12 {
+        width: 100%;
+    }
+
+    .container_12 .grid_8 {
+         width: 60.667%;
+    }
+
+    .gift_container {
+        width: 100%;
+    }
+
+    .full_height {
+        width: 100%;
+    }
+
+    .container_12 .grid_5{
+        width: 100%;
+        margin-left: 0%;
+    }
+
+    .container_12 .line_right {
+        width: 97%;
+    }
+
+    .container_12 .grid_9 {
+        width: 100%;
+    }
+
+    .container_12 .grid_6.line_right:after {
+        border: none;
+    }
+
+    .full_height .grid_2 {
+        width: 100%;
+    }
+
+    .pos_button.grid_12 {
+        width: 50% !important;
+    }
+
+    /*.pos_button.grid_12:nth-child(2) {
+        float: right;
+    }*/
+
+    .container_12 .grid_7 {
+         width: 100%;
+    }
+
+    #divPaymentObjectID1 .grid_7 {
+         width: 200% !important;
+    }
+
+     #divPaymentObjectID2 .grid_7 {
+         width: 200% !important;
+    }
+
+    .pos_button .control2 {
+        height: 95px;
+    }
+
+    #status-bar h2 {
+        font-size: 14px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    #status-bar h2:hover {
+        white-space: inherit;
+        width: 100%;
+    }
+
+    #controls {
+        display: none;
+    }
+
+    #payment_container .pos_inner {
+        display: none;
+    }
+
+    #arrow-1 {
+        display: block;
+    }
+
+    li.orange_square {
+        height: 25px;
+    }
+
+    li.green_square {
+        height: 25px;
+        margin-left: 20px !important;
+    }
+
+    #status-bar ul li {
+        float: left;
+        margin-left : 0px;
+    }
+
+    #status-bar ul {
+        float: inherit;
+        margin-left: -39px;
+    }
+
+     #pos_controls input {
+        height: 20px !important;
+        font-size: 12px !important;
+    }
+
+    #payment_container span {
+        font-size: 13px !important;
+    }
+
+    .floating-element {
+        width: 90% !important;
+        top: 50px !important;
+    }
+
+    .asf-header {
+        min-width: 0px;
+        padding-left: 10px;
+    }
+
+    .asf-i-user {
+        background-image: url(/Content/Images/user.png);
+    }
+
+    #Header a {
+        font-size: 13px;
+    }
+
+    .asf-header-system-text {
+        display: none;
+    }
+
+
+
+     .asf-combo-item .asf-combo-item-col-value {
+        width: 80px !important;
+    }
+    .asf-combo-item .asf-combo-item-col-text {
+        width: 150px !important;
+    }
+
+    .k-list-container {
+         width: 540px !important;
+    }
+
+    .pos_button.grid_12:nth-child(3) {
+        height: 8em;
+         width: 100% !important;
+    }
+
+    .pos_button .pay a {
+         font-size: 12px;
+    }
+
+    .container_12 .grid_10 {
+        width: 100%;
+    }
+
+}
+
+@media (min-width: 769px) and (max-width: 1000px)  {
+    /*.k-window {
+        width: 300px !important;
+    }*/
+
+
+     .asf-button-1 {
+        display: block;
+    }
+    .asf-grid {
+        font-size: 12px;
+        height: 300px !important;
+    }
+    .k-grid-content {
+         height: 250px !important;
+    }
+
+    .asf-button{
+        min-width: 50px;
+    }
+
+    #bodyMaster .asf-header {
+        display: none;
+    }
+
+    body {
+       min-width: 300px !important;
+       font-size: 12px;
+    }
+
+    #contentMaster {
+       padding: 0 10px 0;
+    }
+
+    .container_12 {
+        width: 100%;
+    }
+
+    .container_12 .grid_8 {
+         width: 60.667%;
+    }
+
+    .gift_container {
+        width: 100%;
+    }
+
+    .full_height {
+        width: 100%;
+    }
+
+    .container_12 .grid_5{
+        width: 100%;
+        margin-left: 0%;
+    }
+
+    .container_12 .line_right {
+        width: 97%;
+    }
+
+    .container_12 .grid_9 {
+        width: 100%;
+    }
+
+    .container_12 .grid_6.line_right:after {
+        border: none;
+    }
+
+    .full_height .grid_2 {
+        width: 100%;
+    }
+
+    .pos_button.grid_12 {
+        width: 50% !important;
+    }
+
+    /*.pos_button.grid_12:nth-child(2) {
+        float: right;
+    }*/
+
+    .container_12 .grid_7 {
+         width: 100%;
+    }
+
+    #divPaymentObjectID1 .grid_7 {
+         width: 200% !important;
+    }
+
+     #divPaymentObjectID2 .grid_7 {
+         width: 200% !important;
+    }
+
+    .pos_button .control2 {
+        height: 95px;
+    }
+
+    #status-bar h2 {
+        font-size: 14px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    #status-bar h2:hover {
+        white-space: inherit;
+        width: 100%;
+    }
+
+    #controls {
+        display: none;
+    }
+
+    #payment_container .pos_inner {
+        display: none;
+    }
+
+    #arrow-1 {
+        display: block;
+    }
+
+    li.orange_square {
+        height: 25px;
+    }
+
+    li.green_square {
+        height: 25px;
+        margin-left: 20px !important;
+    }
+
+    #status-bar ul li {
+        float: left;
+        margin-left : 0px;
+    }
+
+    #status-bar ul {
+        float: inherit;
+        margin-left: -39px;
+    }
+
+     #pos_controls input {
+        height: 20px !important;
+        font-size: 12px !important;
+    }
+
+    #payment_container span {
+        font-size: 13px !important;
+    }
+
+    .floating-element {
+        width: 90% !important;
+        top: 50px !important;
+    }
+
+    .asf-header {
+        min-width: 0px;
+        padding-left: 10px;
+    }
+
+    .asf-i-user {
+        background-image: url(/Content/Images/user.png);
+    }
+
+    #Header a {
+        font-size: 13px;
+    }
+
+    .pos_button.grid_12:nth-child(3) {
+        height: 8em;
+         width: 100% !important;
+    }
+
+    .pos_button .pay a {
+         font-size: 12px;
+    }
+
+    .container_12 .grid_10 {
+        width: 100%;
+    }
+}
+
+@media (min-width: 1001px) and (max-width: 1200px) {
+     .asf-button-1 {
+        display: block;
+    }
+
+    .asf-grid {
+        font-size: 12px;
+        height: 300px !important;
+    }
+    .k-grid-content {
+         height: 250px !important;
+    }
+
+    .asf-button{
+        min-width: 50px;
+    }
+
+    #bodyMaster .asf-header {
+        display: none;
+    }
+
+    body {
+       min-width: 300px !important;
+       font-size: 12px;
+    }
+
+    #contentMaster {
+       padding: 0 10px 0;
+    }
+
+    .container_12 {
+        width: 100%;
+    }
+
+    .container_12 .grid_8 {
+         width: 60.667%;
+    }
+
+    .gift_container {
+        width: 100%;
+    }
+
+    .full_height {
+        width: 100%;
+    }
+
+    .container_12 .grid_5{
+        width: 100%;
+        margin-left: 0%;
+    }
+
+    .container_12 .line_right {
+        width: 97%;
+    }
+
+    .container_12 .grid_9 {
+        width: 100%;
+    }
+
+    .container_12 .grid_6.line_right:after {
+        border: none;
+    }
+
+    .full_height .grid_2 {
+        width: 100%;
+    }
+
+    .pos_button.grid_12 {
+        width: 50% !important;
+    }
+
+    /*.pos_button.grid_12:nth-child(2) {
+        float: right;
+    }*/
+
+    .container_12 .grid_7 {
+         width: 100%;
+    }
+
+    #divPaymentObjectID1 .grid_7 {
+         width: 200% !important;
+    }
+
+     #divPaymentObjectID2 .grid_7 {
+         width: 200% !important;
+    }
+
+    .pos_button .control2 {
+        height: 95px;
+    }
+
+    #status-bar h2 {
+        font-size: 14px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    #status-bar h2:hover {
+        white-space: inherit;
+        width: 100%;
+    }
+
+    #controls {
+        display: none;
+    }
+
+    #payment_container .pos_inner {
+        display: none;
+    }
+
+    #arrow-1 {
+        display: block;
+    }
+
+    li.orange_square {
+        height: 25px;
+    }
+
+    li.green_square {
+        height: 25px;
+        margin-left: 20px !important;
+    }
+
+    #status-bar ul li {
+        float: left;
+        margin-left : 0px;
+    }
+
+    #status-bar ul {
+        float: inherit;
+        margin-left: -39px;
+    }
+
+     #pos_controls input {
+        height: 20px !important;
+        font-size: 12px !important;
+    }
+
+    #payment_container span {
+        font-size: 13px !important;
+    }
+
+    .floating-element {
+        width: 90% !important;
+        top: 50px !important;
+    }
+
+    .asf-header {
+        min-width: 0px;
+        padding-left: 10px;
+    }
+
+    .asf-i-user {
+        background-image: url(/Content/Images/user.png);
+    }
+
+    #Header a {
+        font-size: 13px;
+    }
+
+    .pos_button.grid_12:nth-child(3) {
+        height: 8em;
+         width: 100% !important;
+    }
+
+    .pos_button .pay a {
+         font-size: 12px;
+    }
+
+    .container_12 .grid_10 {
+        width: 100%;
+    }
+}

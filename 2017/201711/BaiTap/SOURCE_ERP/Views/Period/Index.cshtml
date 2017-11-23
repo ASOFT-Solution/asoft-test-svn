@@ -1,0 +1,99 @@
+﻿@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.ViewModel;
+@model ASOFT.ERP.ViewModel.A00.PeriodViewModel
+@{
+    Layout = "";
+    
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "Periods" }))
+{
+    <div class="asf-form-container">
+        <div class="form-content">
+            <table class="asf-table-view">
+                <tr>
+                    <td valign="bottom" class="asf-td-caption">@Html.ASOFTLabel(model => model.DivisionID)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @Html.ASOFTHidden("periodTitle", Html.ASOFTRaw(model => model.Title))
+                        @Html.ASOFTHidden("UrlUpdatePeriod", Url.Action("Update",new { area = "", controller = "Period" }))
+                        @(Html.ASOFTBussinessComboBox().ASOFTDivisionID(model=>model.DivisionID)
+                            .Events(e=>e.Change("divisionIDChanged")))
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="bottom" class="asf-td-caption">@Html.ASOFTLabel(model => model.ShopID)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTBussinessComboBox().ASOFTShopIDPOS(model => model.ShopID)
+                            .Events(e => e.Open("comboShopIDOpen")))
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="bottom" class="asf-td-caption">@Html.ASOFTLabel(model => model.Period)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTBussinessComboBox().ASOFTPeriod(model => model.Period, option: new ComboOption { EventPostData = "periodData" })
+                                .Events(e => e.Change("periodChanged"))//.DataBound("periodDataBound"))
+                                .CascadeFrom("DivisionID"))
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="bottom" class="asf-td-caption">@Html.ASOFTLabel(model => model.VoucherDate)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @Html.ASOFTDateEdit(model=>model.VoucherDate)
+                    </td>
+                </tr>
+                @{if (!ASOFTEnvironment.CurrentModule.Equals(ASOFTConstants.MODULE_CRM))
+                  {
+                    <tr>
+                        <td valign="bottom" class="asf-td-caption">@Html.ASOFTLabel(model => model.BeginDate)</td>
+                        <td class="asf-td-field" colspan="2">
+                            @Html.ASOFTDateEdit(model => model.BeginDate)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="bottom" class="asf-td-caption">@Html.ASOFTLabel(model => model.EndDate)</td>
+                        <td class="asf-td-field" colspan="2">
+                             @Html.ASOFTDateEdit(model => model.EndDate)
+                        </td>
+                    </tr>
+                }
+                }
+            </table>
+        </div>
+        <div class="asf-form-button">
+            <table class="asf-table-view">
+                <tr>
+                    <td align="right">
+                        <div class="asf-popup-button-container">
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                                      .Name("BtnClose")
+                                      .Events(e => e.Click("btnClosePeriodClick")))
+                            </div>
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnOK"))
+                                        .Name("btnSavePeriod")
+                                        .Events(e => e.Click("btnPeriodClick")))
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+}
+
+<script type="text/javascript"> 
+    $(document).ready(function () {
+        if (window.parent.ASOFTEnvironment.CurrentModule.HRM=="True") {
+            var beginDate = $("#BeginDate").data("kendoDatePicker");
+            var endDate = $("#EndDate").data("kendoDatePicker");
+            if (beginDate && endDate) {
+                beginDate.readonly();
+                endDate.readonly();
+            }
+        }
+
+        parent.bindShopDataSource(true);
+    });
+</script> 

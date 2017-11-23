@@ -1,0 +1,93 @@
+﻿@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Core;
+@model CIF1040GridViewModel
+
+@{
+   
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "CIF1041Grid",
+        NameEventPost = "CIF1041.gridSendData",
+        Scrollable = true,
+        IsShowCheck = false,
+        ActionName = "GetGridDetail",
+        ControllerName = "CIF1040",
+        IsAutoHeight = false,
+        HtmlAttribute = new { @class = "asf-grid"},
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "RowNum",
+                TitleColumn = ASOFTLanguage.FindWordA00("A00.Order"),
+                ClientTemplate = "#= CIF1041.renderNumber() #",
+                Width = 50,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = CIF1041.COL_METHODID,
+                TitleColumn = Html.DisplayNameFor(model => model.MethodID).ToHtmlString(),
+                Width = 100,
+                EditColumn = true,
+                VisibleColumn = true
+            },
+            //new ASOFTGridColumnSetting
+            //{
+            //    IDColumn = CIF1041.COL_SHOWDESCRIPTIONID,
+            //    TitleColumn = Html.DisplayNameFor(model => model.ShowDescriptionID).ToHtmlString(),
+            //    Width = 200,
+            //    EditColumn = true,
+            //    EditorTemplateName = "ComboBoxDescription",
+            //    VisibleColumn = true,
+            //},
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = CIF1041.COL_SHOWDESCRIPTIONNAME,
+                TitleColumn = Html.DisplayNameFor(model => model.ShowDescriptionID).ToHtmlString(),
+                Width = 200,              
+                EditColumn = true,
+                EditorTemplateName = "ComboBoxDescription",
+                VisibleColumn = true,
+            },
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = CIF1041.COL_SCREENID,
+                Width = 100,
+                EditColumn = false,
+                VisibleColumn = false
+            },
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = CIF1041.COL_TABLEID,
+                Width = 100,
+                EditColumn = false,
+                VisibleColumn = false
+            },
+        }
+    };
+}
+
+@{
+    if(ASOFTEnvironment.Action.Equals("CIF1041"))
+    {
+        gridsetting.ListGridColumn.Add(
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = CIF1041.COL_APK,
+                Width = 50,
+                VisibleColumn = true,
+                ClientTemplate = string.Format("<a href='\\#' onclick='return {0}' class='asf-i-delete-24 asf-icon-24'><span>Del</span></a>",
+                        "CIF1041.deleteParams(this)"),
+                HtmlAttrCoulmns = new { @class = "asf-cols-align-center" }
+            });
+        @(Html.ASOFTCreateGridEdit<CIF1041>(gridsetting,false))
+        <i style="color:#F00">@Html.ASOFTLabel(model => model.Notification)</i>
+    }
+    else
+    {
+        gridsetting.Styles.Add("width", "100%");
+        @(Html.ASOFTCreateGridNotPagging<CIF1041>(gridsetting))
+    }
+}
+

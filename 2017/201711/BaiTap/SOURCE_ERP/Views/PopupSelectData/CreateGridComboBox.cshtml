@@ -1,0 +1,82 @@
+﻿
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Entities.Common
+@model ASOFTSysGrid
+
+@{
+    List<ASOFTGridColumnSetting> list = new List<ASOFTGridColumnSetting>();
+    string Table = ViewBag.Grid;
+    int typescr = ViewBag.ScreenType;
+    var count = Model.Bind.Count;
+}
+
+@Html.ASOFTHidden(Table + "type", typescr)
+@Html.ASOFTHidden("tableName", Table)
+@Html.ASOFTHidden("PK" + Table, Model.PK)
+
+@{
+  string Template = string.Empty;
+  list.Add(new ASOFTGridColumnSetting());
+  string ListColumn = string.Empty;
+}
+
+
+
+@for (int i = 0; i < count; i++)
+{
+    ASOFTGridColumnSetting Grid;
+    bool enable = Model.visible.ElementAt(i) == 1 ? true : false;
+    int tp = Model.Template.ElementAt(i);
+    ListColumn += Model.Bind.ElementAt(i).Key + ",";
+    int controlType = Model.ControlType.ElementAt(i);
+    string tempalte = string.IsNullOrEmpty(Model.ClientTemplate.ElementAt(i))?"":string.Format(Model.ClientTemplate.ElementAt(i),Model.Bind.ElementAt(i).Key);
+    if(controlType == 5 || controlType == 6)
+    {
+        tempalte = string.Format("#= parseDate(data.{0}) #", Model.Bind.ElementAt(i).Key);
+    }
+    
+    Grid = new ASOFTGridColumnSetting
+    {
+        IDColumn = Model.Bind.ElementAt(i).Key,
+        TitleColumn = Model.Title.ElementAt(i),
+        TypeColumn = Model.Bind.ElementAt(i).Value,
+        ClientTemplate = tempalte,
+        Width = Model.GridWidth[i] == 0 ? 100 : Model.GridWidth[i],
+        VisibleColumn = enable
+    };
+
+    Template += "radio_" + Model.Bind.ElementAt(i).Key + "='#= zenValue(data,'" + Model.Bind.ElementAt(i).Key + "')#' ";
+    list.Add(Grid);
+ }
+
+@{
+    Template = "<input type='radio' name='radio-check' " + Template + " />";
+    list[0] = new ASOFTGridColumnSetting
+    {
+        IDColumn = "",
+        TitleColumn = ASOFTLanguage.FindWordA00("A00.Choose"),
+        Width = 50,
+        VisibleColumn = true,
+        HtmlAttrCoulmns = (new { style = "text-align:center", @class = "asf-cols-align-center" }),
+        ClientTemplate = Template,
+    }; 
+}
+
+    
+@{
+    var gridsetting = new ASOFTGridSetting 
+    {
+        NameGrid = "Grid" + Table,
+        Scrollable = true,
+        ControllerName = "PopupSelectData",
+        NameEventPost = "ReadTK",
+        IsAutoHeight = false,
+        ActionName = "Read",
+        IsShowCheck = false,
+        HtmlAttribute = new { style = "height:300px;", @class = "asf-grid" },          
+        ListGridColumn = list,   
+     };           
+ }
+@(Html.ASOFTCreateGrid<dynamic>(gridsetting, Model.PK))
+@Html.ASOFTHidden("ListColumn", ListColumn)

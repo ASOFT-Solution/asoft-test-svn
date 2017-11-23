@@ -1,0 +1,53 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Created           Comment
+//#     07/10/2014      Hồ Hoàng Tú       Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.ViewModel.S
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Entities
+@using ASOFT.ERP.S.Entities
+@model ASOFT.ERP.ViewModel.S.SF0002ViewModel
+
+@{  
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "SF0002Grid1", 
+        Scrollable = true, 
+        ControllerName = "SF0002",
+        ActionName = "GridDataLeft",
+        IsAutoHeight =  false,
+        NameEventPost = "sendDataPost1",
+        IsShowCheck = false,
+        HtmlAttribute = new
+        {
+            style = "height:300px;", 
+            @class = "asf-grid"
+        },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+           
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "UserID",
+                TitleColumn = Html.ASOFTRaw(model => model.UserID),
+                Width = 80,
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "UserName",
+                TitleColumn = Html.ASOFTRaw(model => model.UserName),
+                Width = 150,
+                VisibleColumn = true,
+            },
+        }
+    };
+}
+@(Html.ASOFTCreateGridNotPagging<SF0002>(gridsetting))
+            

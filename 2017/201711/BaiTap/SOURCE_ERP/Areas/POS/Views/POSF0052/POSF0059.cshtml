@@ -1,0 +1,53 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Created        Comment
+//#     30/07/2014      Hoang Tu       Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Infrastructure;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel;
+@using System.Web.UI.WebControls;
+@using ASOFT.ERP.ViewModel.POS;
+@using Kendo.Mvc;
+@model ASOFT.ERP.ViewModel.POS.POSF0059ViewModel
+@{
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.Title, "POSF0059").ToHtmlString();
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section jsFeature
+{   
+     <script src="@Url.Content("~/Areas/POS/Scripts/POSF0059.js")"></script>
+}
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/POS/Content/POSF0059.css")" rel="stylesheet" type="text/css" />
+}
+<div id="contentMaster">
+   @Html.ASOFTHeader(new HeaderModel { Title = Html.ASOFTPageTitle(model => model.Title, "POSF0059").ToHtmlString(), Breakcrumb = true })
+    <div id="ViewMaster" class="asf-panel-view-master" >
+        <div class="asf-panel-master-header">             
+            <div class="asfbtn asfbtn-right">
+                 <div class="asfbtn asfbtn-right">                    
+                        @if (Model.Toolbar1 != null)
+                        {
+                            Model.Toolbar1.EventEdit = "POSF0059Param .btnEdit_Click";
+                            Model.Toolbar1.EventDelete = "POSF0059Param .btnDelete_Click";        
+                                       
+                        }
+                        @Html.Partial("~/Views/Shared/EditorTemplates/Toolbar.cshtml", Model.Toolbar1 ?? new ASOFTToolBarViewModel())
+                   </div>
+             </div>    
+        <div id="viewPartial">
+            @Html.Partial("POSF0059M", Model)
+        </div>
+    </div>
+</div>
+@Html.ASOFTHidden("POSF0059TableID", Model.TableID)
+@Html.ASOFTHidden("UrlPOSF0052", Url.Action("index"))
+@Html.ASOFTHidden("UrlPOSF0059M", Url.Action("POSF0059M"))

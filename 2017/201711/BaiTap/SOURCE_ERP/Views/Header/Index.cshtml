@@ -1,0 +1,37 @@
+﻿@using Kendo.Mvc;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Core.Control;
+@model ASOFT.ERP.A00.Entities.Common.HeaderModel
+
+<div class="asf-headerpage">
+        <input type="hidden" id="Breakcrumb" value='@Model.Breakcrumb.ToString()' />
+        <div id="Breakcrumb_div" class="asf-breakcumb" style="display:none">
+        </div>
+        <div class="asf-headerpage-title">
+            <div id="HeaderLabel">
+                <h3>@Model.Title.ToUpper()</h3>
+            </div>
+            @if (Model.QuickSearch)
+            {
+                <div class="asf-common-search" hidden>
+                    <span class="k-textbox k-space-right">
+                        <div class="asf-box-button-search">
+                            @(Html.ASOFTButtonIcon("", htmlStyle: new { width = "24px", height = "24px" })
+                                .Name("btnFilter").Events(e => e.Click("btnFilter_Click1"))
+                                .SpriteCssClass("k-sprite asf-icon asf-icon-24 asf-i-search-24"))
+                            @*@(Html.ASOFTButton("", htmlStyle: new { width = "24px", height = "24px" })
+                                .Name("btnFilter")
+                                .HtmlAttributes(new { Class = "k-icon asf-i-search-24" }))*@
+                        </div>    
+                         @Html.ASOFTTextBox(model=>model.HeaderFilter, htmlStyle: new { width = "250px"})                        
+                    </span>
+                        @*@(Html.ASOFTButton("", htmlStyle: new { width = "24px", height = "24px" })
+                        .Name("btnCustom")
+                        .HtmlAttributes(new { Class = "asf-i-tool-24 asf-button-common-custom-search" }))*@
+                    @(Html.ASOFTButtonIcon("", htmlAttributes: new { Class = "asf-button-common-custom-search" }, htmlStyle: new { width = "24px", height = "24px" })
+                            .Name("btnCustom")
+                            .SpriteCssClass("k-sprite asf-icon asf-icon-24 asf-i-tool-24"))
+                </div>
+            }
+        </div>
+</div>

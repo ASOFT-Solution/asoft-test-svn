@@ -1,0 +1,54 @@
+﻿@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.ViewModel.S
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Entities
+@using ASOFT.ERP.S.Entities
+
+
+@model ASOFT.ERP.ViewModel.S.SF1015ViewModel
+
+@{  
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "GridDivisionGroup", 
+        Scrollable = true, 
+        ControllerName = "SF1010",
+        ActionName = "GetDivisionIDIn",
+        IsAutoHeight =  false,
+        NameEventPost = "SF1015.sendDataFilter",
+        IsShowCheck = false,
+        HtmlAttribute = new
+        {
+            style = "height:300px;", 
+            @class = "asf-grid"
+        },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                 TitleColumn = ASOFT.ERP.A00.Core.ASOFTLanguage.FindWordA00("A00.Number"),
+                Width = 30,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"}),
+                ClientTemplate = "#= SF1015.renderNumber() #",
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn =AT1101.COL_DIVISIONID,
+                TitleColumn = Html.ASOFTRaw(model => model.DivisionID),
+                Width = 100,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = new { @class = "asf-cols-align-center" }
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = AT1101.COL_DIVISIONNAME,
+                TitleColumn = Html.ASOFTRaw(model => model.DivisionName),
+                Width = 150,
+                VisibleColumn = true,
+            },
+        }
+    };
+}
+
+@(Html.ASOFTCreateGridNotPagging<ASOFT.ERP.A00.Entities.Database.AT1101>(gridsetting))

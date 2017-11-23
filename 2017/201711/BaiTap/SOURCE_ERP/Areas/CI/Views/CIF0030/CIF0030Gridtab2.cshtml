@@ -1,0 +1,84 @@
+﻿@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Entities.Database
+@using ASOFT.ERP.ViewModel.CI;
+@model CIF0030ViewModel
+
+@{
+    var gridsetting = new ASOFTGridSetting
+                          {
+                              NameGrid = "CIF0030Grid2",
+                              NameEventPost = "",
+                              Scrollable = true,
+                              ActionName = "GetGridData2",
+                              ControllerName = "CIF0030",
+                              HtmlAttribute = new { @class = "asf-grid", style = "height:300px", AddNewRowDisabled = "true" },
+                              IsShowCheck = true,
+                              IsAutoHeight = false,
+                              ListGridColumn = new List<ASOFTGridColumnSetting>{
+                                  new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = CIF0030.COL_ISUSED,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.IsUsed),
+                                                               Width = 50,
+                                                               VisibleColumn = true,
+                                                               //EditColumn = true,
+                                                               //EditorTemplateName = "DRMCheckBox",
+                                                               ClientTemplate = string.Format("<input id='{0}' style= 'width:100%' type='checkbox' #= {0} ? 'checked' : '' # onchange='CIF0030.checkBox_Changed(this)' />",
+                                                                                CIF0030.COL_ISUSED),
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = CIF0030.COL_SYSTEMNAME,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.SystemName),
+                                                               Width = 150,
+                                                               VisibleColumn = true, 
+                                                               EditColumn = true,
+                                                           },    
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = CIF0030.COL_USERNAME,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.UserName),
+                                                               Width = 200,
+                                                               VisibleColumn = true,
+                                                               EditColumn = true,
+                                                           }, 
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = CIF0030.COL_USERNAMEE,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.UserNameE),
+                                                               Width = 200,
+                                                               VisibleColumn = true,
+                                                               EditColumn = true,                                                           
+                                                           },      
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = CIF0030.COL_ISCOMMON,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.IsCommon),
+                                                               Width = 50,
+                                                               VisibleColumn = true,
+                                                               //EditColumn = true,
+                                                               //EditorTemplateName = "DRMCheckBox",
+                                                               ClientTemplate = string.Format("<input id='{0}'  style= 'width:100%' type='checkbox' #= {0} ? 'checked' : '' # onchange='CIF0030.checkBox_Changed(this)' />",
+                                                                                CIF0030.COL_ISCOMMON),
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+                                                           },      
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = CIF0030.COL_STATUS,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.Status),
+                                                               Width = 60,
+                                                               VisibleColumn = true,
+                                                               //EditColumn = true,
+                                                               //EditorTemplateName = "DRMCheckBox",
+                                                               ClientTemplate = string.Format("<input id='{0}' style= 'width:100%' type='checkbox' #= {0} ? 'checked' : '' # onchange='CIF0030.checkBox_Changed(this)' />",
+                                                                                CIF0030.COL_STATUS),
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+                                                           }, 
+                                                                        
+                              }
+                          };
+}
+
+@(Html.ASOFTCreateGridEdit<CIF0030>(gridsetting,false))

@@ -1,0 +1,119 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#    03/09/2015      Quang Chiến      Tạo mới
+//####################################################################
+*@
+@model CIF0001ViewModel
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.CIF0001Title, "CIF0001").ToHtmlString();
+    ViewBag.Width = 600;
+}
+
+
+@Html.ASOFTHidden("UrlUpdate", Url.Action("Update"))
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "CIF0001" }))
+{
+    <div class="asf-form-container">
+    <div class="form-content">
+
+        <table class="asf-table-view">
+            <tr>
+                <td class="asf-td-caption">@Html.ASOFTLabel(model => model.ContractAnaTypeID)</td>
+                <td class="asf-td-field">@(Html.ASOFTBussinessComboBox().ASOFTCIAnaTypeID(model => model.ContractAnaTypeID).Events(e=>e.Change("CIF0001.CboAnaChange_Change")))</td>
+                <td class="asf-td-field" style="padding-left: 27px;">
+                    @Html.ASOFTTextBox(model => model.ContractAnaTypeName).ReadOnlyIf(true)
+                </td>
+            </tr>
+            <tr>
+                <td class="asf-td-caption">@Html.ASOFTLabel(model => model.SalesContractAnaTypeID)</td>
+                <td class="asf-td-field">@(Html.ASOFTBussinessComboBox().ASOFTCIAnaTypeID(model => model.SalesContractAnaTypeID).Events(e=>e.Change("CIF0001.CboAnaChange_Change")))</td>
+                <td class="asf-td-field" style="padding-left: 27px;">
+                    @Html.ASOFTTextBox(model => model.SalesContractAnaTypeName).ReadOnlyIf(true)
+                </td>
+            </tr>
+            <tr>
+                <td class="asf-td-caption">@Html.ASOFTLabel(model => model.DepartmentAnaTypeID)</td>
+                <td class="asf-td-field">@(Html.ASOFTBussinessComboBox().ASOFTCIAnaTypeID(model => model.DepartmentAnaTypeID).Events(e=>e.Change("CIF0001.CboAnaChange_Change")))</td>
+                <td class="asf-td-field" style="padding-left: 27px;">
+                    @Html.ASOFTTextBox(model => model.DepartmentAnaTypeName).ReadOnlyIf(true)
+                </td>
+            </tr>
+            <tr>
+                <td class="asf-td-caption">@Html.ASOFTLabel(model => model.TeamAnaTypeID)</td>
+                <td class="asf-td-field">@(Html.ASOFTBussinessComboBox().ASOFTCIAnaTypeID(model => model.TeamAnaTypeID).Events(e=>e.Change("CIF0001.CboAnaChange_Change")))</td>
+                <td class="asf-td-field" style="padding-left: 27px;">
+                    @Html.ASOFTTextBox(model => model.TeamAnaTypeName).ReadOnlyIf(true)
+                </td>
+            </tr>
+            <tr>
+                <td class="asf-td-caption">@Html.ASOFTLabel(model => model.ProjectAnaTypeID)</td>
+                <td class="asf-td-field">@(Html.ASOFTBussinessComboBox().ASOFTCIAnaTypeID(model => model.ProjectAnaTypeID).Events(e=>e.Change("CIF0001.CboAnaChange_Change")))</td>
+                <td class="asf-td-field" style="padding-left: 27px;">
+                    @Html.ASOFTTextBox(model => model.ProjectAnaTypeName).ReadOnlyIf(true)
+                </td>
+            </tr>
+            <tr>
+                <td class="asf-td-caption">@Html.ASOFTLabel(model => model.SalesAnaTypeID)</td>
+                <td class="asf-td-field">@(Html.ASOFTBussinessComboBox().ASOFTCIAnaTypeID(model => model.SalesAnaTypeID).Events(e=>e.Change("CIF0001.CboAnaChange_Change")))</td>
+                <td class="asf-td-field" style="padding-left: 27px;">
+                    @Html.ASOFTTextBox(model => model.SalesAnaTypeName).ReadOnlyIf(true)
+                </td>
+            </tr>
+            <tr>
+                <td class="asf-td-caption">@Html.ASOFTLabel(model => model.CostAnaTypeID)</td>
+                <td class="asf-td-field">@(Html.ASOFTBussinessComboBox().ASOFTCIAnaTypeID(model => model.CostAnaTypeID).Events(e=>e.Change("CIF0001.CboAnaChange_Change")))</td>
+                <td class="asf-td-field" style="padding-left: 27px;">
+                    @Html.ASOFTTextBox(model => model.CostAnaTypeName).ReadOnlyIf(true)
+                </td>
+            </tr>
+            <tr>
+                <td class="asf-td-caption">@Html.ASOFTCheckbox(model => model.IsPriceControl)</td>
+                <td class="asf-td-field">@(Html.ASOFTBussinessComboBox().ASOFTCIAnaTypeID(model => model.OPriceTypeID))</td>
+            </tr>
+            <tr>
+                <td class="asf-td-caption" style="padding-top: 12px;" colspan="3">@Html.ASOFTCheckbox(model => model.IsQuantityControl)</td>
+            </tr>
+            <tr>
+                <td class="asf-td-caption" style="padding-top: 12px;" colspan="3">@Html.ASOFTCheckbox(model => model.IsSpecificate)</td>
+            </tr>
+        </table>
+    </div>
+</div>
+}
+<div class="asf-form-button">
+    <table class="asf-table-view">
+        <tr>
+            <td align="right">
+                <div class="asf-popup-button-container">
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                              .Name("BtnClose")
+                                .Events(e => e.Click("CIF0001.btnClose_Click"))
+                              )
+                    </div>
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnConfig"))
+                                .Name("BtnSaveClose")
+                                .Events(e => e.Click("CIF0001.btnSave_Click"))
+                                )
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/CI/Content/Common.css")" rel="stylesheet" type="text/css" />
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/CI/Scripts/CIF0001.js?v=" + ASOFTEnvironment.Version)"></script>
+}

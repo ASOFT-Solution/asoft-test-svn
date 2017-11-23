@@ -1,0 +1,73 @@
+﻿
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Entities.Database
+@using ASOFT.ERP.ViewModel.S
+@using ASOFT.ERP.S.Entities
+@model SF1040ViewModel
+@{
+    var gridsetting = new ASOFTGridSetting
+                          {
+                              NameGrid = "SF1040Grid",
+                              NameEventPost = "SF1040.sendDataFilter",
+                              Scrollable = true,
+                              ActionName = "GetSF1040GridData",
+                              ControllerName = "SF1040",
+                              HtmlAttribute = new {style = "height:590px;", @class = "asf-grid"},
+                              IsShowCheck = true,
+                              ListGridColumn = new List<ASOFTGridColumnSetting>{
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = "RowNum",
+                                                               TitleColumn = ASOFTLanguage.FindWordA00("A00.Order"),
+                                                               Width = 50,
+                                                               VisibleColumn = true,
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = SP1040.COL_SCREENNAME,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.ScreenName),
+                                                               Width = 150,
+                                                               VisibleColumn = true,       
+                                                                   
+                                                           },  
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = SP1040.COL_ID,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.ID),
+                                                               Width = 100,
+                                                               VisibleColumn = true,
+                                                               
+                                                           },    
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = SP1040.COL_USERNAME,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.UserName),
+                                                               Width = 200,
+                                                               VisibleColumn = true,       
+                                                                   
+                                                           },  
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = SP1040.COL_CREATEDATE,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.CreateDate),
+                                                               Format="{0:dd/MM/yyyy hh:mm:ss.fff}",
+                                                               Width = 100,
+                                                               VisibleColumn = true,
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = SP1040.COL_ACTIONTYPENAME,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.ActionTypeName),
+                                                               Width = 70,
+                                                               VisibleColumn = true,       
+                                                               
+                                                           },
+                                                        
+                                       
+                                
+                              }
+                          };
+}
+
+@(Html.ASOFTCreateGrid<ASOFT.ERP.S.Entities.SP1040>(gridsetting,false))

@@ -1,0 +1,100 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     13/06/2013      Thai Son        Tạo mới
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.ViewModel.POS
+@using ASOFT.ERP.POS.Entities
+
+@model POSF0012ViewModel
+
+@{  
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "POSF0012Grid",
+        NameEventPost = "filterData",
+        IsShowCheck = true,
+        Scrollable = true, 
+        ControllerName = "POSF0012",
+        ActionName = "GetGridData",
+        HtmlAttribute = new
+        {
+            style = "height:570px;", 
+            @class = "asf-grid"
+        },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "RowNum",
+                TitleColumn = ASOFTLanguage.FindWordA00("A00.Number"),
+                Width = 30,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "DivisionID",
+                TitleColumn = Html.ASOFTRaw(model => model.DivisionID),
+                Width = 30,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "Barcode",
+                TitleColumn = Html.ASOFTRaw(model => model.Barcode),
+                Width = 80,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "InventoryID",
+                TitleColumn = Html.ASOFTRaw(model => model.InventoryID),
+                Width = 80,
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "InventoryName",
+                TitleColumn = Html.ASOFTRaw(model => model.InventoryName),
+                Width = 160,
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "UnitID",
+                TitleColumn = Html.ASOFTRaw(model => model.UnitID),
+                Width = 50,
+                HtmlAttrCoulmns = (new {style = "text-align:center"}),
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "UnitPrice",
+                TitleColumn = Html.ASOFTRaw(model => model.UnitPrice),
+                Width = 80,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:right"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                //IDColumn = "Gifts",
+                TitleColumn = Html.ASOFTRaw(model => model.Gifts),
+                Width = 90,
+                ClientTemplate = "<a class='asf-grid-link' onclick='giftDetail_Click(\"#=InventoryID#\")'>...</a>",
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            }
+        }
+    };
+}
+
+@(Html.ASOFTCreateGrid<POSP0012>(gridsetting))

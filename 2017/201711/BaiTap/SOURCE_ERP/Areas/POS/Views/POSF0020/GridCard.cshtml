@@ -1,0 +1,121 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     21/04/2013      Dam Mo          Tao moi
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.ViewModel.POS
+@using ASOFT.ERP.POS.Entities
+@using ASOFT.ERP.A00.Entities
+
+@model POSF0020ViewModel
+
+@{  
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "POSF0020Grid",
+        Scrollable = true,
+        ControllerName = "POSF0020",
+        ActionName = "GridData",
+        NameEventPost = "sendDataFilter",
+        HtmlAttribute = new
+        {
+            style = "height:550px;",
+            @class = "asf-grid"
+        },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "RowNum",
+                TitleColumn = ASOFTLanguage.FindWordA00("A00.Number"),
+                Width = 50,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "DivisionID",
+                TitleColumn = Html.ASOFTRaw(model => model.DivisionID),
+                Width = 60,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {Class="asf-cols-align-left"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "MemberCardID",
+                TitleColumn = Html.ASOFTRaw(model => model.MemberCardID),
+                ClientTemplate = "<a class='asf-grid-link' onclick='voucherDetail_Click(this)'>#:MemberCardID#</a>",
+                Width = 120,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {Class="asf-cols-align-left"})
+            },
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "MemberCardName",
+                TitleColumn = Html.ASOFTRaw(model => model.MemberCardName),
+                Width = 120,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "TypeNo",
+                TitleColumn = Html.ASOFTRaw(model => model.TypeNo),
+                Width = 60,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {Class="asf-cols-align-left"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "MemberID",
+                TitleColumn = Html.ASOFTRaw(model => model.MemberID),
+                Width = 180,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {Class="asf-cols-align-left"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "MemberName",
+                TitleColumn = Html.ASOFTRaw(model => model.MemberName),
+                Width = 140,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:left"})
+            },
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "ReleaseDate",
+                TitleColumn = Html.ASOFTRaw(model => model.ReleaseDate),
+                Width = 120,
+                VisibleColumn = true,
+                Format = "{0:dd/MM/yyyy}",
+                HtmlAttrCoulmns = (new {style = "text-align:right"})   
+            },
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "ExpireDate",
+                TitleColumn = Html.ASOFTRaw(model => model.ExpireDate),
+                Width = 120,
+                VisibleColumn = true,
+                Format = "{0:dd/MM/yyyy}",
+                HtmlAttrCoulmns = (new {style = "text-align:right"})
+                
+            },
+             new ASOFTGridColumnSetting
+           {
+                IDColumn = "Disabled",
+                TitleColumn = Html.ASOFTRaw(model => model.Disabled),
+                Width = 110,
+                VisibleColumn = true,
+                ClientTemplate  = "<input type='checkbox' #= Disabled == 1 ? 'checked' : '' # onclick='return false;' disabled=disabled />", // Readonly checkbox
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            }
+        }
+    };
+}
+
+@(Html.ASOFTCreateGrid<POSP0020>(gridsetting))

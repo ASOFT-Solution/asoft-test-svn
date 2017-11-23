@@ -1,0 +1,128 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     10/06/2014      Chánh Thi      Tạo mới
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Entities.Database
+@model ASOFT.ERP.ViewModel.POS.POSF00101ViewModel
+
+
+<script id="fileTemplate" type="text/x-kendo-template">
+    <span class='file-heading file-name-heading'>#=name#</span>
+</script>
+
+<div class="container_12">
+    <div class="grid_6">
+        <fieldset>
+            <legend>@Html.ASOFTLabel(model => model.DebitInfo)</legend>
+              <table class="asf-table-view">
+               <tr>
+                <td>@Html.ASOFTLabel(model => model.TaxDebitAccountID)</td>
+                <td class="fixWidthPopup">
+                    @(Html.ASOFTBussinessComboBox()
+                              .ASOFTAccountID(model => model.TaxDebitAccountID, serverDataSource: (IEnumerable<object>) ViewBag.AccountIDList,
+                               htmlAttributes: new Dictionary<string, object> 
+                                {
+                                    {"data-bind","value:TaxDebitAccountID"}
+                                })
+                              .DataTextField(AT1005.COL_ACCOUNTID)
+                              )
+                </td>
+              </tr>
+              <tr>
+                <td>@Html.ASOFTLabel(model => model.TaxCreditAccountID)</td>
+                <td>
+                
+                  @Html.ASOFTBussinessComboBox().ASOFTAccountID(model => model.TaxCreditAccountID, serverDataSource: (IEnumerable<object>) ViewBag.AccountIDList)
+                  
+                </td>
+              </tr>
+          </table>
+        </fieldset>
+        <fieldset>
+            <legend>@Html.ASOFTLabel(model => model.PayBillInfo)</legend>
+              <table class="asf-table-view">
+               <tr>
+                <td>@Html.ASOFTLabel(model => model.PayDebitAccountID)</td>
+                <td class="fixWidthPopup">
+                    @(Html.ASOFTBussinessComboBox()
+                              .ASOFTAccountID(model => model.PayDebitAccountID, serverDataSource: (IEnumerable<object>) ViewBag.AccountIDList,
+                               htmlAttributes: new Dictionary<string, object> 
+                                {
+                                    {"data-bind","value:PayDebitAccountID"}
+                                })
+                              .DataTextField(AT1005.COL_ACCOUNTID)
+                              )
+                </td>
+              </tr>
+              <tr>
+                <td>@Html.ASOFTLabel(model => model.PayCreditAccountID)</td>
+                <td>
+                
+                  @Html.ASOFTBussinessComboBox().ASOFTAccountID(model => model.PayCreditAccountID, serverDataSource: (IEnumerable<object>) ViewBag.AccountIDList)
+                  
+                </td>
+              </tr>
+          </table>
+        </fieldset>
+    </div>
+    <div class="grid_6 line_left">
+        <fieldset>
+            <legend>@Html.ASOFTLabel(model => model.DebitInfo2)</legend>
+            <table class="asf-table-view">
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.DebitAccountID)</td>
+                <td class="fixWidthPopup">
+                    @(Html.ASOFTBussinessComboBox()
+                              .ASOFTAccountID(model => model.DebitAccountID, serverDataSource: (IEnumerable<object>) ViewBag.AccountIDList,
+                               htmlAttributes: new Dictionary<string, object> 
+                                {
+                                    {"data-bind","value:DebitInfo"}
+                                })
+                              .DataTextField(AT1005.COL_ACCOUNTID)
+                              )
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.CreditAccountID)</td>
+                <td>
+                
+                  @Html.ASOFTBussinessComboBox().ASOFTAccountID(model => model.CreditAccountID, serverDataSource: (IEnumerable<object>) ViewBag.AccountIDList)
+                  
+                </td>
+            </tr>
+        </table>
+        </fieldset>
+        <fieldset>
+            <legend>@Html.ASOFTLabel(model => model.CostBillInfo)</legend>
+              <table class="asf-table-view">
+               <tr>
+                <td>@Html.ASOFTLabel(model => model.CostDebitAccountID)</td>
+                <td class="fixWidthPopup">
+                    @(Html.ASOFTBussinessComboBox()
+                              .ASOFTAccountID(model => model.CostDebitAccountID, serverDataSource: (IEnumerable<object>) ViewBag.AccountIDList,
+                               htmlAttributes: new Dictionary<string, object> 
+                                {
+                                    {"data-bind","value:CostDebitAccountID"}
+                                })
+                              .DataTextField(AT1005.COL_ACCOUNTID)
+                              )
+                </td>
+              </tr>
+              <tr>
+                <td>@Html.ASOFTLabel(model => model.CostCreditAccountID)</td>
+                <td>
+                
+                  @(Html.ASOFTBussinessComboBox().ASOFTAccountID(model => model.CostCreditAccountID, serverDataSource: (IEnumerable<object>) ViewBag.AccountIDList))
+                  
+                </td>
+              </tr>
+          </table>
+        </fieldset>
+    </div>
+</div>

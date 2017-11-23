@@ -1,0 +1,135 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     27/03/2013      Thai Son        Add heading
+//####################################################################
+*@
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_PosLayout.cshtml";
+}
+
+@model ASOFT.ERP.ViewModel.POS.POSF0040ViewModel
+
+@{
+    ViewBag.Title = @Html.ASOFTPageTitle(m => m.Title, "POSF0040");
+    string headerTemplate = ASOFTBussinessControl.CreateHeaderTemplate(Model.InventoryColumn);
+    string itemTemplate = ASOFTBussinessControl.CreateItemTemplate(Model.InventoryColumn);
+}
+
+@(Html.Kendo().Window()
+    .Name("TaskButtonsMB")
+    .Content(Html.Partial("Partials/TaskButtonsMB").ToHtmlString())
+    .HtmlAttributes(new { style = "width:auto; overflow: hidden;", @class = "asf-windown" })
+    .Visible(false)
+    .Title(false)
+    .Animation(true)
+)
+
+<div id="contentMaster" class="asf-disabled-visibility">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new
+    {
+        id = "POSF0040"
+    }))
+    {
+        <div class="asf-disabled-visibility" id="asf-user-id">@ASOFTEnvironment.UserID</div>
+        <div class="asf-disabled-visibility">
+            @Html.ASOFTHidden("_DivisionID", ASOFTEnvironment.DivisionID)
+            @Html.ASOFTHidden("_ShopID", ASOFT.ERP.POS.Business.POSSettings.GetShopID())
+            @Html.ASOFTHidden("_UserID", ASOFTEnvironment.UserID)
+            @Html.ASOFTHidden("_APKMaster", Model.APK)
+            @Html.ASOFTHidden("_Select", ASOFTLanguage.FindWordA00("A00.btnChoose"))
+            @Html.ASOFTLabel(m => m.SearchInventoryID)
+        </div>
+        <div id="posFilter" class="container_12">
+            @Html.Partial("../Shared/EditorTemplates/BarcodeSearch", new ASOFT.ERP.ViewModel.POS.POSF00161ViewModel(), new ViewDataDictionary { {"multiSelect", true} })
+            @Html.Partial("Partials/MemberSearch")
+        </div>
+        <div class="container_12" id="status-bar">
+            @Html.Partial("Partials/TableAndStatus")
+        </div>
+        <!--Grid -->
+        <div id="pos_grid" class="container_12">
+            @Html.Partial("Partials/GridInventory")
+        </div>
+        <div class="clear"></div>
+           <div>
+                @(Html.ASOFTButton()
+                .Name("btnChooseMobile")
+                //.Icon("asf-i-return")
+                .ImageUrl("/Content/Images/navigate.next.png")
+                .HtmlAttributes(new Dictionary<string, Object> {
+                    {"class", "asf-button-1"}
+                }))
+            </div>
+        <div id="pos_controls" class="container_12">
+            <div class="container_12 gift_container">
+                <div class="grid_3">
+                    @Html.LabelFor(model => model.Gifts, htmlAttributes: new
+                   {
+                       @class = "bold"
+                   }):
+                </div>
+                <div class="grid_8 asf-marquee">
+                    <p>
+                        @Html.ASOFTWrapperTagFor(model => model.Gifts)
+                    </p>
+                </div>
+            </div>
+            <!--End Grid -->
+            @*Khu vực các nút tác vụ*@
+
+            <div class="container_12 full_height ">
+                <div class="grid_8 alpha asf-disabled-visibility">
+                    @Html.Partial("Partials/VoucherInfo")
+                </div>
+
+                <div class="grid_9 grid_9_override">
+                    <div class="container_12" id="controls">
+                        @Html.Partial("Partials/TaskButtons")
+                    </div>
+                    @Html.Partial("Partials/PaymentInfo")
+                </div>
+                <div class="grid_2 omega float_right">
+                    @Html.Partial("Partials/FinalButtons")
+                </div>
+            </div>
+        </div>
+        @Html.ASOFTHidden(m => m.APK)
+        @Html.ASOFTHidden(m => m.APKMInherited)
+        @Html.ASOFTHidden(m => m.IsBuy)
+        @Html.ASOFTHidden(m => m.LastModifyDateValue)
+        @Html.ASOFTHidden("MemberValue", Model.MemberID);
+        @Html.ASOFTHidden("PrintMessage", ASOFTLanguage.FindWordA00("A00.PrintMessage"))
+        <a id="btnPrint" class="hidden">Print!</a>
+    }
+</div>
+
+
+@section jsFeature {
+    @Html.Kendo().DeferredScripts()
+    <script src="@Url.Content("~/Areas/POS/Scripts/jquery.scannerdetection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF0040/POSF0040.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF0040/asoft-core-jquery.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF0040/asoft-sandbox.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF0040/task-buttons.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF0040/content-master.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF0040/master-data.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF0040/POSF0038.choose-dishes.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF0040/POSF0036.choose-tables.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF0040/sever-communicator.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF0040/jQuery.searchBarcode.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF0040/search-id-barcode.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF0040/POSF00401.js")" type="text/javascript"></script>
+}
+
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/POS/Content/POSF0040.css")" rel="stylesheet" type="text/css" />
+      <link href="@Url.Content("~/Areas/POS/Content/POSF0040RWD/POSF0040RWD.css")" rel="stylesheet" type="text/css" />
+}

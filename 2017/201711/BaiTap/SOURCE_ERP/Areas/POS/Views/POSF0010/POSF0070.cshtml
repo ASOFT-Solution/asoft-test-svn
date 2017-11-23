@@ -1,0 +1,131 @@
+﻿@using ASOFT.ERP.ViewModel.Helper;
+@model ASOFT.ERP.ViewModel.POS.POSF00101ViewModel
+@{
+    string SCREENID = "POSF0070";
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = @Html.ASOFTPageTitle(LocalizedHelper.GetLocalizedResourceString("POSF00701.POSF00701Title", SCREENID, "POS"), SCREENID).ToHtmlString();
+    ViewBag.Width = 700;
+}
+
+
+<div class="box-list-industry">
+    <ul>
+    	<li class="list-industry">
+    	    	<a href="#" class="list" onclick="img_Click(@ASOFTConstants.BUSSINESSAREA_CAFE, true)" ondblclick="db_Click(@ASOFTConstants.BUSSINESSAREA_CAFE, true)">
+                    	<img src="~/Content/Images/nha hang cafe.png" alt="" class="industry_icon" />
+                        <h6>@LocalizedHelper.GetLocalizedResourceString("POSF00701.BUSSINESSAREA_CAFE", SCREENID, "POS")</h6>
+            	</a>
+    	</li>
+    	<li class="list-industry">
+    	    	<a href="#" class="list" onclick="img_Click(@ASOFTConstants.BUSSINESSAREA_FASHIONSTORE)" ondblclick="db_Click(@ASOFTConstants.BUSSINESSAREA_FASHIONSTORE)">
+                    	<img src="~/Content/Images/thoi trang.png" alt="" class="industry_icon"/>
+                    <h6>@LocalizedHelper.GetLocalizedResourceString("POSF00701.BUSSINESSAREA_FASHIONSTORE", SCREENID, "POS")</h6>
+            	</a>
+    	</li>
+    	<li class="list-industry">
+    	    	<a href="#"class="list" onclick="img_Click(@ASOFTConstants.BUSSINESSAREA_MOMBABY)"  ondblclick="db_Click(@ASOFTConstants.BUSSINESSAREA_MOMBABY)">
+                    	<img src="~/Content/Images/Me va be.png" alt="" class="industry_icon"/>
+                    <h6>@LocalizedHelper.GetLocalizedResourceString("POSF00701.BUSSINESSAREA_MOMBABY", SCREENID, "POS")</h6>
+            	</a>
+    	</li>
+    	<li class="list-industry">
+    	    	<a href="#"  class="list" onclick="img_Click(@ASOFTConstants.BUSSINESSAREA_PHONEELECTRIC)"  ondblclick="db_Click(@ASOFTConstants.BUSSINESSAREA_PHONEELECTRIC)">
+                    	<img src="~/Content/Images/dien thoai.png" alt="" class="industry_icon"/>
+                    <h6>@LocalizedHelper.GetLocalizedResourceString("POSF00701.BUSSINESSAREA_PHONEELECTRIC", SCREENID, "POS")</h6>
+            	</a>
+    	</li>
+    	<li class="list-industry">
+    	    	<a href="#"  class="list" onclick="img_Click(@ASOFTConstants.BUSSINESSAREA_COMESTICSTORE)" ondblclick="db_Click(@ASOFTConstants.BUSSINESSAREA_COMESTICSTORE)">
+                    	<img src="~/Content/Images/my pham.png" alt="" class="industry_icon"/>
+                    <h6>@LocalizedHelper.GetLocalizedResourceString("POSF00701.BUSSINESSAREA_COMESTICSTORE", SCREENID, "POS")</h6>
+            	</a>
+    	</li>
+    	<li class="list-industry">
+    	    	<a href="#"  class="list" onclick="img_Click(@ASOFTConstants.BUSSINESSAREA_FURNITUREAPPLIANCES)" ondblclick="db_Click(@ASOFTConstants.BUSSINESSAREA_FURNITUREAPPLIANCES)">
+                    	<img src="~/Content/Images/Noi that gia dung.png" alt="" class="industry_icon"/>
+                    <h6>@LocalizedHelper.GetLocalizedResourceString("POSF00701.BUSSINESSAREA_FURNITUREAPPLIANCES", SCREENID, "POS")</h6>
+            	</a>
+    	</li>
+    	<li class="list-industry">
+    	    	<a href="#"  class="list" onclick="img_Click(@ASOFTConstants.BUSSINESSAREA_FLOWERSGIFT)"  ondblclick="db_Click(@ASOFTConstants.BUSSINESSAREA_FLOWERSGIFT)">
+                    	<img src="~/Content/Images/Hoaquatang.png" alt="" class="industry_icon"/>
+                    <h6>@LocalizedHelper.GetLocalizedResourceString("POSF00701.BUSSINESSAREA_FLOWERSGIFT", SCREENID, "POS")</h6>
+            	</a>
+    	</li>
+    	<li class="list-industry">
+    	    	<a href="#"  class="list" onclick="img_Click(@ASOFTConstants.BUSSINESSAREA_MOTORBIKEACCESSORIES)"  ondblclick="db_Click(@ASOFTConstants.BUSSINESSAREA_MOTORBIKEACCESSORIES)">
+                    	<img src="~/Content/Images/xemaylinhkien.png" alt="" class="industry_icon"/>
+                    <h6>@LocalizedHelper.GetLocalizedResourceString("POSF00701.BUSSINESSAREA_MOTORBIKEACCESSORIES", SCREENID, "POS")</h6>
+            	</a>
+    	</li>
+    	<li class="list-industry">
+    	    	<a href="#"  class="list" onclick="img_Click(@ASOFTConstants.BUSSINESSAREA_BOOKSTATIONERY)" ondblclick="db_Click(@ASOFTConstants.BUSSINESSAREA_BOOKSTATIONERY)">
+                    	<img src="~/Content/Images/Book store.png" alt="" class="industry_icon"/>
+                    <h6>@LocalizedHelper.GetLocalizedResourceString("POSF00701.BUSSINESSAREA_BOOKSTATIONERY", SCREENID, "POS")</h6>
+            	</a>
+    	</li>
+    	<li class="list-industry">
+    	    	<a href="#"  class="list" onclick="img_Click(@ASOFTConstants.BUSSINESSAREA_MINISUPERMARKET)"  ondblclick="db_Click(@ASOFTConstants.BUSSINESSAREA_MINISUPERMARKET)">
+                    	<img src="~/Content/Images/Cuahangtaphoa.png" alt="" class="industry_icon" />
+                    <h6>@LocalizedHelper.GetLocalizedResourceString("POSF00701.BUSSINESSAREA_MINISUPERMARKET", SCREENID, "POS")</h6>
+            	</a>
+    	</li>
+    	<li class="list-industry">
+    	    	<a href="#"  class="list" onclick="img_Click(@ASOFTConstants.BUSSINESSAREA_AGRICULTURALFOOD)" ondblclick="db_Click(@ASOFTConstants.BUSSINESSAREA_AGRICULTURALFOOD)">
+                    	<img src="~/Content/Images/Nongsanthucpham.png" alt="" class="industry_icon"/>
+                    <h6>@LocalizedHelper.GetLocalizedResourceString("POSF00701.BUSSINESSAREA_AGRICULTURALFOOD", SCREENID, "POS")</h6>
+            	</a>
+    	</li>
+    	<li class="list-industry" onclick="img_Click(@ASOFTConstants.BUSSINESSAREA_DRUGSTORE)"  ondblclick="db_Click(@ASOFTConstants.BUSSINESSAREA_DRUGSTORE)">
+    	    	<a href="#"  class="list">
+                    	<img src="~/Content/Images/Nha thuoc.png" alt="" class="industry_icon"/>
+                    <h6>@LocalizedHelper.GetLocalizedResourceString("POSF00701.BUSSINESSAREA_DRUGSTORE", SCREENID, "POS")</h6>
+            	</a>
+    	</li>
+    	<li class="list-industry">
+    	    	<a href="#"  class="list" onclick="img_Click(@ASOFTConstants.BUSSINESSAREA_STORECONSTRUCTIONMATERIAL)"  ondblclick="db_Click(@ASOFTConstants.BUSSINESSAREA_STORECONSTRUCTIONMATERIAL)">
+                    	<img src="~/Content/Images/vatlieuxaydung.png" alt="" class="industry_icon"/>
+                    <h6>@LocalizedHelper.GetLocalizedResourceString("POSF00701.BUSSINESSAREA_STORECONSTRUCTIONMATERIAL", SCREENID, "POS")</h6>
+            	</a>
+    	</li>
+    	<li class="list-industry">
+    	    	<a href="#"  class="list" onclick="img_Click(@ASOFTConstants.BUSSINESSAREA_TOYSSHOP)" ondblclick="db_Click(@ASOFTConstants.BUSSINESSAREA_TOYSSHOP)">
+                    	<img src="~/Content/Images/do cho tre em.png" alt="" class="industry_icon"/>
+                    <h6>@LocalizedHelper.GetLocalizedResourceString("POSF00701.BUSSINESSAREA_TOYSSHOP", SCREENID, "POS")</h6>
+            	</a>
+    	</li>
+    	<li class="list-industry">
+    	    	<a href="#"  class="list" onclick="img_Click(@ASOFTConstants.BUSSINESSAREA_OTHERSTORE)" ondblclick="db_Click(@ASOFTConstants.BUSSINESSAREA_OTHERSTORE)">
+                    	<img src="~/Content/Images/nganh nghe khac.png" alt="" class="industry_icon"/>
+                    <h6>@LocalizedHelper.GetLocalizedResourceString("POSF00701.BUSSINESSAREA_OTHERSTORE", SCREENID, "POS")</h6>
+            	</a>
+    	</li>
+   </ul>
+</div>
+<div class="asf-form-button">
+            <table class="asf-table-view">
+                <tr>
+                    <td align="right">
+                        <div class="asf-popup-button-container">
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                                    .Name("BtnClose").Events(e => e.Click("popupClose1")))
+                            </div>    
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnChoose"))
+                                    .Name("BtnChoose").Events(e => e.Click("btnChoose_Click")))
+                            </div>
+                         </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/POS/Content/POSF0070.css")" rel="stylesheet" type="text/css" />
+}
+
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF00701.js")" type="text/javascript"></script>
+}
+

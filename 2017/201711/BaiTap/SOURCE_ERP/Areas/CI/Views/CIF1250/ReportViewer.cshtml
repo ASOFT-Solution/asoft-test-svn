@@ -1,0 +1,36 @@
+﻿
+@{
+    Layout = null;
+    if (ViewBag.ActionPrint == 2)
+    {
+        ViewBag.Action = Url.Action("ExportReport", "CIF1250", new
+                                                              {
+                                                                  id = ViewBag.APK,
+                                                                  viewer = ViewBag.Viewer,
+                                                                  actionPrint = "2"
+                                                              });
+    }
+    if (ViewBag.ActionPrint == 1)
+    {
+        ViewBag.Action = Url.Action("ExportReport", "CIF1250", new
+        {
+            id = ViewBag.APK,
+            viewer = ViewBag.Viewer,
+            actionPrint = "1"
+        });
+    }
+
+    if (ViewBag.ActionPrint == 3)
+    {
+        ViewBag.Action = Url.Action("ExportReport", "CIF1250", new
+        {
+            id = ViewBag.APK,
+            viewer = ViewBag.Viewer,
+            actionPrint = "3"
+        });
+    }
+}  
+
+
+
+@Html.Partial("~/Views/Shared/_ReportLayout.cshtml")

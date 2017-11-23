@@ -1,0 +1,153 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved.
+//#
+//# History:
+//#     Date Time       Created         Comment
+//#     09/10/2014      Hoang Tu        Tạo mới
+//####################################################################
+*@
+@using System.Web.UI.WebControls;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Database
+@model ASOFT.ERP.ViewModel.POS.POSF0029ViewModel
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = @Html.ASOFTPageTitle(@Html.PopupEditTitle(m => m.Title), "POSF0029").ToHtmlString();
+    ViewBag.Width = 500;
+}
+@Html.ASOFTHidden(model => model.APK)
+
+<div class="asf-form-container">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "POSF0029" }))
+    {
+        @Html.ASOFTHidden(model => model.InventoryName)
+        @Html.ASOFTHidden(model => model.UnitName)
+         @Html.ASOFTHidden(model => model.InventoryTypeID)
+          @Html.ASOFTHidden(model => model.ShopID)
+        <div class="asf-form-container">
+            <div class="form-content">
+                <table class="asf-table-view">
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.InventoryID)</td>
+                        <td class="asf-td-field" colspan="2">@Html.ASOFTTextBox(model => model.InventoryID,
+                            htmlStyle: new { width = Unit.Percentage(90) }).ReadOnlyIf(true)
+
+                            @(Html.ASOFTButton("...")
+                            .Name("btnChooseInventory")
+                            .HtmlAttributes(new { style = "width : 26px; height: 26px; background-repeat: no-repeat" })
+                            .Enable(true)
+                            .Events(e => e.Click("btnChooseInventory_Click")))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.UnitID)</td>
+                        <td class="asf-td-field" colspan="2">
+                            @Html.ASOFTTextBox(model => model.UnitID,
+                            htmlStyle: new { width = Unit.Percentage(100) }).ReadOnlyIf(true)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.SalePrice)</td>
+                        <td class="asf-td-field" colspan="2">
+                            @Html.ASOFTTextBox(model => model.SalePrice,
+                            htmlStyle: new { width = Unit.Percentage(100) })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.ShipQuantity)</td>
+                        <td class="asf-td-field" colspan="2">
+                            @Html.ASOFTTextBox(model => model.ShipQuantity,
+                            htmlStyle: new { width = Unit.Percentage(80) })
+
+                            @(Html.ASOFTButton("+")
+                            .Name("btnPlus")
+                            .HtmlAttributes(new { style = "width : 26px; height: 26px; background-repeat: no-repeat" })
+                            .Enable(true)
+                            .Events(e => e.Click("btnPlus_Click")))
+
+                            @(Html.ASOFTButton("-")
+                            .Name("btnMinus")
+                            .HtmlAttributes(new { style = "width : 26px; height: 26px; background-repeat: no-repeat" })
+                            .Enable(true)
+                            .Events(e => e.Click("btnMinus_Click")))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.Description)</td>
+                        <td class="asf-td-field" colspan="2">
+                             @Html.ASOFTTextBox(model => model.Description,
+                            htmlStyle: new { width = Unit.Percentage(100) })
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="asf-form-button">
+            <table class="asf-table-view">
+                <tr>
+                    <td align="right">
+                        <div class="asf-popup-button-container">
+                            @if (Model.FormStatus == ASOFTFormActionType.AddNew)
+                            {
+                                bool hasPermission = false;
+                                if (Model.AllowAdd())
+                                {
+                                    hasPermission = true;
+                                }
+                                <div>
+                                    @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                               .Name("BtnClose")
+                              .Events(e => e.Click(hasPermission ? "btnClose_Click" : "ASOFT.asoftPopup.closeOnly"))
+                            )
+                                </div>
+                                <div>@(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSaveCopy"))
+                                .Name("POSF00281SaveCopy")
+                                .Events(m => m.Click("SaveCopy_Click"))
+                                .Enable(hasPermission)
+                                )
+                                </div>
+                                <div>
+                                    @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSaveNew"))
+                                .Name("POSF00281SaveNew")
+                                .Events(m => m.Click("SaveNew_Click"))
+                                 .Enable(hasPermission))
+                                </div>
+
+                            }
+                            else
+                                if (Model.FormStatus != ASOFTFormActionType.AddNew)
+                                {
+                                    bool hasPermission = false;
+                                    if (Model.CheckPermission("POSF00281", ASOFTPermission.Update))
+                                    {
+                                        hasPermission = true;
+                                    }
+
+                                <div>
+                                    @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                                  .Name("BtnClose")
+                                 .Events(e => e.Click(hasPermission ? "btnClose_Click" : "ASOFT.asoftPopup.closeOnly")))
+                                </div>
+                                <div>
+                                    @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSave"))
+                                  .Name("POSF00281btnSaveNew")
+                                  .Events(e => e.Click("btnUpdate_Click"))
+                                  .Enable(hasPermission)
+                                  )
+                                </div>
+
+                                }
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+</div>
+
+@section jsFeature
+    {
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF0029.js")" type="text/javascript"></script>
+}
+@Html.ASOFTHidden("POSF0029DivisionID", Model.DivisionID)

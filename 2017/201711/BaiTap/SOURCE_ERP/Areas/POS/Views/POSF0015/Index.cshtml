@@ -1,0 +1,180 @@
+﻿@model ASOFT.ERP.ViewModel.POS.POSF0015ViewModel
+@{
+    Layout = "~/Views/Shared/_ContentMaster.cshtml";
+    ViewBag.Title = @Html.ASOFTPageTitle(m => m.Title, "POSF0015");
+
+}
+
+
+@section Header {
+    @Html.ASOFTHeader(new ASOFT.ERP.A00.Entities.Common.HeaderModel
+    {
+        Title = Html.ASOFTPageTitle(model => model.Title, "POSF0015").ToHtmlString(),
+        Breakcrumb = true
+    })
+
+    @Html.ASOFTHidden("UrlPreExportData", Url.Action("PreExportData"))
+    @Html.ASOFTHidden("UrlExportData", Url.Action("ExportData"))
+    @Html.ASOFTHidden("UrlActive", Url.Action("SetEnabled"))
+    @Html.ASOFTHidden("UrlDeactive", Url.Action("SetDisabled"))
+    @Html.ASOFTHidden("UrlDelete", Url.Action("DeleteMany"))
+    @Html.ASOFTHidden("UrlDetail", Url.Action("POSF00151"))
+    @Html.ASOFTHidden("UrlInsert", Url.Action("POSF00151"))
+    @Html.ASOFTHidden("UrlGridData", Url.Action("GetGridData"))
+    @Html.ASOFTHidden("ReportID", "POSR0002")
+    @Html.ASOFTHidden("UrlParameter", "APK")
+    @Html.ASOFTHidden("IdentityColumn", "APK")
+}
+
+@section FilterCol1 {
+    @Html.Partial(@"../Shared/NewPeriodFilter",
+    new ASOFT.ERP.ViewModel.A00.PeriodFilterViewModel())
+
+    <tr>
+        <td colspan="2">@Html.ASOFTLabel(model => model.DivisionIDFilter)</td>
+        <td class="container_period_space"></td>
+        <td colspan="2">@(Html.ASOFTBussinessComboBox()
+                        .ASOFTDivisionIDList(model
+                            => model.DivisionIDFilter,
+                            htmlAttributes: new Dictionary<string, object> 
+                            {
+                                {"data-bind","value:DivisionIDFilter"}
+                            }
+                                                ))</td>
+    </tr>
+
+    <tr>
+        <td>@Html.ASOFTLabel(model => model.StatusFilter)</td>
+        <td colspan="4">@(Html.ASOFTBussinessComboBox()
+        .ASOFTInputStatusID(model => model.StatusFilter,
+                option: new ComboOption() { ShowAll = true },
+                htmlAttributes: new Dictionary<string, object> {
+            {"data-bind","value:StatusFilter"}}
+        ))
+
+        </td>
+    </tr>
+}
+
+@section FilterCol2 {
+
+   <tr>
+        <td class="container_label">@Html.ASOFTLabel(model => model.ShopIDFilter)</td>
+        <td class="container_control">
+            @Html.ASOFTTextBox(model => model.ShopIDFilter,
+                htmlStyle: new { width = Unit.Percentage(100) },
+                htmlAttribute: new Dictionary<string, object> {
+                    {"data-bind","value:ShopIDFilter"}}
+                )
+        </td>
+    </tr>
+    <tr>
+        <td>@Html.ASOFTLabel(model => model.VoucherNoFilter)</td>
+        <td>
+            @Html.ASOFTTextBox(model => model.VoucherNoFilter,
+            htmlStyle: new { width = Unit.Percentage(100) },
+            htmlAttribute: new Dictionary<string, object> {
+                                    {"data-bind","value:VoucherNoFilter"}}
+                                )
+        </td>
+    </tr>
+    <tr>
+        <td>@Html.ASOFTLabel(model => model.RefVoucherNoFilter)</td>
+        <td>
+            @Html.ASOFTTextBox(model => model.RefVoucherNoFilter,
+            htmlStyle: new { width = Unit.Percentage(100) },
+            htmlAttribute: new Dictionary<string, object> {
+                                    {"data-bind","value:RefVoucherNoFilter"}}
+                                )
+        </td>
+    </tr>
+    <tr>
+        <td>@Html.ASOFTLabel(model => model.ReceiverIDFilter)</td>
+        <td>
+            @Html.ASOFTTextBox(model => model.ReceiverIDFilter,
+            htmlStyle: new { width = Unit.Percentage(100) },
+            htmlAttribute: new Dictionary<string, object> {
+                                    {"data-bind","value:ReceiverIDFilter"}}
+                                )
+        </td>
+    </tr>
+
+}
+
+@section FilterCol3 {
+
+    <tr>
+        <td class="container_label">@Html.ASOFTLabel(model => model.ReceiverNameFilter)</td>
+        <td class="container_control">
+            @Html.ASOFTTextBox(model => model.ReceiverNameFilter,
+            htmlAttribute: new Dictionary<string, object> {
+                                    {"data-bind","value:ReceiverNameFilter"}},
+            htmlStyle: new { width = Unit.Percentage(100) })
+        </td>
+    </tr>
+    <tr>
+        <td>@Html.ASOFTLabel(model => model.SenderNameFilter)</td>
+        <td>
+            @Html.ASOFTTextBox(model => model.SenderNameFilter,
+                htmlAttribute: new Dictionary<string, object> {
+                    {"data-bind","value:SenderNameFilter"}},
+                htmlStyle: new { width = Unit.Percentage(100) })
+        </td>
+    </tr>
+    <tr>
+        <td>@Html.ASOFTLabel(model => model.DescriptionFilter)</td>
+        <td>
+            @Html.ASOFTTextBox(model => model.DescriptionFilter,
+                htmlAttribute: new Dictionary<string, object> {
+                    {"data-bind","value:DescriptionFilter"}},
+                htmlStyle: new { width = Unit.Percentage(100) })
+        </td>
+    </tr>
+
+}
+
+@section Grid {
+    @Html.Partial("GridVoucher")
+
+}
+@section FilterButtons {
+    <li>
+                        @(Html.ASOFTSearchButton()
+                                  .Name("BtnFilter")
+            //.Events(e=>e.Click("btnSearch_Click"))
+                                  .HtmlAttributes(new Dictionary<string, Object> {
+                                      {"class", "asf-button"}
+                                  }))
+
+
+                    </li>
+                    <li>
+                        @(Html.ASOFTSearchResetButton()
+                                  .Name("BtnClearFilter")
+                                  .HtmlAttributes(new Dictionary<string, Object> {
+                                      //{"data-bind","click: reset"},
+                                      {"class", "asf-button"}
+                                  }))
+                    </li>
+}
+
+@section GridToolBar {
+    @Html.Partial("~/Views/Shared/EditorTemplates/Toolbar.cshtml", Model.Toolbar1 ?? new ASOFTToolBarViewModel())
+
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSFGridScreen.js")" 
+        type="text/javascript"></script>
+    @*<script src="@Url.Content("~/Areas/POS/Scripts/POSFSearchPeriod.js")" 
+        type="text/javascript"></script>*@
+
+}
+
+@section styleFeature{
+    @*<link href="@Url.Content("~/Areas/POS/Content/POSF0015.css")" 
+        rel="stylesheet" type="text/css" />*@
+
+}
+
+

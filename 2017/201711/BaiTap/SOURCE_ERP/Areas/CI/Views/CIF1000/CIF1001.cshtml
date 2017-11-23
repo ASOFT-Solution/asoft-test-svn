@@ -1,0 +1,138 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved.
+//#
+//# History:
+//#     Date Time       Created         Comment
+//#     10/10/2014      Hoàng Tú        Tạo mới
+//####################################################################
+*@
+@using System.Web.UI.WebControls;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Database
+@model ASOFT.ERP.ViewModel.CI.CIF1001ViewModel
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = @Html.ASOFTPageTitle(@Html.PopupEditTitle(m => m.Title), "CIF1001").ToHtmlString();
+    ViewBag.Width = 500;
+}
+<div class="asf-form-container">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "CIF1001" }))
+    {
+        <span class="asf-disabled-visibility">
+            @Html.ASOFTTextBox(model => model.LastModifyDateValue)
+        </span>
+        <div class="asf-form-container">
+            <div class="form-content">
+                <table class="asf-table-view">
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.DepartmentID)</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTTextBox(model => model.DepartmentID, htmlAttribute: new { initValue = Model.DepartmentID }, checkRegularExp: true)
+                                    .ReadOnlyIf(Model.FormStatus != ASOFTFormActionType.AddNew)) 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.DepartmentName)</td>
+                        <td class="asf-td-field" colspan="2">
+                            @Html.ASOFTTextBox(model => model.DepartmentName,
+                                    htmlStyle: new { width = Unit.Percentage(100) })
+                        </td>
+                    </tr>
+                    @{
+                        if (ASOFTEnvironment.CustomerIndex != ASOFTConstants.CUSTOMERINDEX_XUONGRONG)
+                        {
+                            <tr>
+                                <td class="asf-td-caption">@Html.ASOFTLabel(model => model.AccountID)</td>
+                                <td class="asf-td-field" colspan="2">
+                                    @(Html.ASOFTBussinessComboBox().ASOFTAccountIDCombo(model => model.AccountID,
+                                                            htmlStyle: new
+                                                          {
+                                                              width = Unit.Percentage(100)
+                                                          })
+                                                          .SelectedIndex(0)
+                                                           .Events(e => e.Change("combo_Changed"))
+                                                           )
+                                </td>
+                            </tr>  
+                        }
+                    }
+                    
+                    <tr>
+                        <td class="asf-td-caption"></td>
+                        <td class="asf-td-field">@Html.ASOFTCheckbox(model => model.IsCommon)</td>
+                        <td class="asf-td-field">@Html.ASOFTCheckbox(model => model.Disabled).HideIf(Model.FormStatus == ASOFTFormActionType.AddNew)</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="asf-form-button">
+            <table class="asf-table-view">
+                <tr>
+                    <td align="right">
+                        <div class="asf-popup-button-container">
+                            @if (Model.FormStatus == ASOFTFormActionType.AddNew)
+                            {
+                                bool hasPermission = false;
+                                if (Model.AllowAdd())
+                                {
+                                    hasPermission = true;
+                                }
+                                <div>
+                                    @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                                      .Name("BtnClose")
+                                   .Events(e => e.Click(hasPermission ? "popupClose_Click" : "ASOFT.asoftPopup.closeOnly"))
+                                    )
+                                </div>
+
+                                <div>@(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSaveCopy"))
+                                       .Name("CIF1001SaveCopy")
+                                      .Events(m => m.Click("CIF1001SaveCopy_Click"))
+                                      .Enable(hasPermission)
+                                      )
+                                </div>
+                                <div>
+                                    @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSaveNew"))
+                                        .Name("CIF1001SaveNew")
+                                       .Events(m => m.Click("CIF1001SaveNew_Click"))
+                                       .Enable(hasPermission)
+                                     )
+                                </div>
+
+                            }
+                            else
+                                if (Model.FormStatus != ASOFTFormActionType.AddNew)
+                                {
+                                    bool hasPermission = false;
+                                    if (Model.CheckPermission("CIF1001", ASOFTPermission.Update))
+                                    {
+                                        hasPermission = true;
+                                    }
+
+                                <div>
+                                    @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                                          .Name("BtnClose")
+                                          .Events(e => e.Click(hasPermission ? "popupClose_ClickA" : "ASOFT.asoftPopup.closeOnly"))
+                                           )
+                                </div>
+                                <div>
+                                    @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSave"))
+                                          .Name("CIF1001btnSaveNew")
+                                          .Events(e => e.Click("CIF1001btnUpdate_Click"))
+                                          .Enable(hasPermission)
+                                          )
+                                </div>
+
+                                }
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+</div>
+
+@section jsFeature
+    {
+    <script src="@Url.Content("~/Areas/CI/Scripts/CIF1001.js?v=" + ASOFTEnvironment.Version)" type="text/javascript"></script>
+}

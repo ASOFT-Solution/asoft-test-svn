@@ -1,0 +1,183 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     29/10/2014      Đức Quý         Tạo mới
+//####################################################################
+*@
+@model CIF1041ViewModel
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.Title, "CIF1041").ToHtmlString();
+    ViewBag.Width = 750;
+
+    // Form Status
+    bool isInsert = Model.FormStatus.Equals(ASOFTFormActionType.AddNew);
+}
+
+@helper Editor()
+{
+    <div class="form-content">
+       <table class="asf-table-view">
+            @*<tr>
+                <td class="asf-td-field">
+                    @(Html.ASOFTRadioButton(model => model.IsHTML, 1, new { id = "rdHTML" }))
+                    @Html.LabelFor(model=>model.HTML)
+                    @(Html.ASOFTRadioButton(model => model.IsHTML, 0, new { id = "rdText" }))
+                    @Html.LabelFor(model=>model.Text)
+                </td>
+            </tr>*@
+             <tr>
+                <td >
+                  @(Html.Kendo().EditorFor(model => model.EmailBody)
+                    //.Name("editor")
+                    .HtmlAttributes(new { style = "width: auto;height:240px", initValue = Model.EmailBody })
+                    .Encode(false)
+                    //.Value(Model.TemplateBody)
+                    .Tools(tools => tools
+                        .Clear()
+                        .Bold().Italic().Underline().Strikethrough()
+                        .JustifyLeft().JustifyCenter().JustifyRight().JustifyFull()
+                        .InsertUnorderedList().InsertOrderedList()
+                        .Outdent().Indent()
+                        .CreateLink().Unlink()
+                        .InsertImage()
+                        .SubScript()
+                        .SuperScript()
+                        .TableEditing()
+                        .ViewHtml()
+                        .Formatting()
+                        .FontName()
+                        .FontSize()
+                        .FontColor().BackColor()
+                    )
+                    //.ImageBrowser(imageBrowser => imageBrowser
+                    //    .Image("~/Content/Images/{0}")
+                    //    .Read("Read", "ImageEditor", new { area = "" })
+                    //    //.Create("Create", "~/Content/Images")
+                    //    //.Destroy("Destroy", "~/Content/Images")
+                    //    .Upload("Upload", "Content")
+                    //    .Thumbnail("Thumbnail", "ImageEditor", new { area = "" }))
+                    )
+                </td>
+            </tr>
+        </table>
+    </div>
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new {id = "CIF1041"}))
+{
+ <div class="asf-form-container">
+    <div class="form-content">
+        <div class="form-content-left">
+            <table class="asf-table-view">
+                <tr>
+                    <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.TemplateID)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTTextBox(model => model.TemplateID, checkRegularExp:true)
+                                .ReadOnlyIf(!isInsert))
+                        @Html.ASOFTHidden(AT0129.COL_LASTMODIFYDATE, Model.LastModifyDate != null ? Model.LastModifyDate.Value.ToString("dd/MM/yyyy HH:mm:ss.fff") : "")
+                    </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.TemplateName)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTTextBox(model => model.TemplateName))
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="asf-td-field">
+                        @(Html.ASOFTCheckbox(model => model.IsCommon))@*.HideIf(!ASOFTEnvironment.IsCommon))*@
+                    </td>
+                    <td class="asf-td-field">
+                        @(Html.ASOFTCheckbox(model => model.Disabled).HideIf(isInsert))
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="form-content-right">
+            <table class="asf-table-view">
+               <tr>
+                    <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.EmailTitle)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTTextBox(model => model.EmailTitle))
+                    </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.EmailGroupID)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTBussinessComboBox()
+                                .ASOFTDRMCodeMasterNew(model => model.EmailGroupID, "EmailGroup", "CRMT00000002")
+                                .Events(e => e.Change("CIF1041.emailGroup_Changed")).SelectedIndex(0))
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="asf-form-container">
+    @(Html.ASOFTTab()
+        .Name("CIF1041Tab")
+        .Items(tabstrip =>
+        {
+            tabstrip.Add().Text(Html.ASOFTRaw(model => model.Tab01))
+                .Selected(true)
+                .HtmlAttributes(new { @id = "TabMaster01" })
+                .ContentHtmlAttributes(new { @class = "asf-tab-content" })
+                .Content(Editor().ToHtmlString());
+
+            tabstrip.Add().Text(Html.ASOFTRaw(model => model.Tab02))
+                .HtmlAttributes(new { @id = "TabMaster02" })
+                .ContentHtmlAttributes(new { @class = "asf-tab-content" })
+                .Content(Html.Partial("GridParams", new CIF1040GridViewModel()).ToHtmlString());
+          
+            })
+    )
+</div>
+<div class="asf-form-button">
+    <table class="asf-table-view">
+        <tr>
+            <td align="right">
+                <div class="asf-popup-button-container">
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                              .Name("BtnClose")
+                              .Events(e => e.Click("CIF1041.btnClose_Click")))
+                    </div>
+                    <div >
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSaveCopy"))
+                                .Name("BtnSaveCopy")
+                                .Events(e => e.Click("CIF1041.btnSaveCopy_Click"))
+                                .HideIf(!isInsert))
+                    </div>
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSaveNew"))
+                                .Name("btnSaveCIF1041")
+                                .Events(e => e.Click("CIF1041.btnSaveNext_Click"))
+                                .HideIf(!isInsert))
+                    </div>
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSave"))
+                                .Name("BtnSaveClose")
+                                .Events(e => e.Click("CIF1041.btnSave_Click"))
+                                .HideIf(isInsert))
+                    </div>        
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+    @Html.ASOFTHidden(m => m.ScreenID)
+    @Html.ASOFTHidden(m => m.TableID)
+}
+
+@section styleFeature{
+    @*<link href="@Url.Content("~/Areas/DRM/Content/Common.css")" rel="stylesheet" type="text/css" />*@
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/CI/Scripts/CIF1041.js?v=" + ASOFTEnvironment.Version)"></script>
+}

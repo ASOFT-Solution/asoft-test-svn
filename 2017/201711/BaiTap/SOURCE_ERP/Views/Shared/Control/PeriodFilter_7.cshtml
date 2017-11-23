@@ -1,0 +1,39 @@
+﻿@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Entities.Infrastructure;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel;
+@using ASOFT.ERP.ViewModel.Helper;
+@model ASOFT.ERP.ViewModel.ASOFTSysFieldsViewModel
+
+@* Dành cho màn hình xin phép  Date OOF2040*@
+
+
+
+<div class="asf-filter-main" id="FromToDate"> 
+    <div class="asf-filter-main" >
+     @LocalizedHelper.GetLocalizedResourceString("A00.rdoFilterBSQTFromDateTitle","A00","00")
+</div>
+    <div>  
+    <div class="block-left"> 
+        <div class="asf-filter-label">
+            @LocalizedHelper.GetLocalizedResourceString("A00.rdoFilterBSQTFromDate","A00","00")
+        </div>
+        <div class="asf-filter-input">
+            @(Html.ASOFTDateEdit(model => model.TypeDateTimePicker, htmlAttributes: new {@id = "FromDate", @name = "FromDate" })
+                    .Enable(true).Value(string.Empty)
+                    )
+        </div>
+    </div>
+    <div class="block-right">
+        <div class="asf-filter-label">
+            @LocalizedHelper.GetLocalizedResourceString("A00.rdoFilterBSQTToDate","A00","00")
+        </div>
+        <div class="asf-filter-input">
+            @(Html.ASOFTDateEdit(model => model.TypeDateTimePicker,htmlAttributes: new {@id = "ToDate", @name = "ToDate"})
+                    .Enable(true).Value(string.Empty)
+                    )
+        </div></div> 
+    </div>
+</div>

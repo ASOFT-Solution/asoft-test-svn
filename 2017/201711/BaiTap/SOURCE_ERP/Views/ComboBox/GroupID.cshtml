@@ -1,0 +1,39 @@
+﻿
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Entities.Database
+
+@model ASOFT.ERP.A00.Entities.Common.GroupComboboxModel
+@{
+    var comboBox = (Html.ASOFTCombobox(model => model.GroupID, htmlStyle: Model.Style)
+        .Name(Model.Name)
+        .DataValueField(MTV8888.COL_GROUPID)
+        .DataTextField(MTV8888.COL_GROUPNAME)
+        .Enable(Model.Enabled));
+
+    if (!string.IsNullOrEmpty(Model.SelectedIndexChanged))
+    {
+        comboBox.Events(model => model.Change(Model.SelectedIndexChanged));
+    }
+    if (Model.List != null && Model.List.Count > 0)
+    {
+        if (Model.SelectedFirst)
+        {
+            comboBox.SelectedIndex(0);
+        }
+
+        //Hiển thị giá trị %
+        if (Model.ShowAll)
+        {
+            Model.List.Insert(0, new MTV8888()
+            {
+                GroupId = "%",
+                GroupName = ASOFTLanguage.FindWordA00("A00.All")
+            });
+        }
+
+        comboBox.BindTo(Model.List);
+    }
+}
+
+
+@comboBox

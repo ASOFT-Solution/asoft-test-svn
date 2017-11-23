@@ -1,0 +1,251 @@
+﻿@using ASOFT.ERP.A00.Core
+@using Kendo.Mvc.UI.Fluent;
+
+@model List<ASOFT.ERP.A00.Core.Control.ASOFTMenuItem>
+@{
+    var mnuLevel0 = Model.Where(x => x.Level == 0).ToList();
+    var mnuLevel1 = Model.Where(x => x.Level == 1).ToList();
+    var mnuLevel2 = Model.Where(x => x.Level == 2).OrderBy(m => m.MenuOder).ToList();
+    var mnuLevelN = Model.Where(x => x.Level > 1).OrderBy(m => m.MenuOder).ToList();
+    var IDMenuLevel1 = "";
+}
+@(Html.Kendo().Window()
+    .Name("Config_win")
+    .Content(Html.Partial("~/Views/Shared/Menu/MenuConfig.cshtml").ToHtmlString())
+    .HtmlAttributes(new { style = "width:auto;overflow: hidden;", @class = "asf-windown" })
+    .Visible(false)
+    .Title(false)
+    .Animation(false)
+)
+
+@(Html.Kendo().Window()
+    .Name("MenuPopup_win")
+    .Content(Html.Partial("~/Views/Shared/Menu/MenuPopup.cshtml",Model).ToHtmlString())
+    .HtmlAttributes(new { style = "width:auto;overflow: hidden;", @class = "asf-windown" })
+    .Visible(false)
+    .Title(false)
+    .Animation(false)
+)
+<script type="text/javascript">
+    var listMenu = @Html.Raw(Json.Encode(Model)) ,
+     listMenuLevel0=@Html.Raw(Json.Encode(mnuLevel0)) ,
+     listMenuLevel1=@Html.Raw(Json.Encode(mnuLevel1)) ,
+     listMenuLevel2=@Html.Raw(Json.Encode(mnuLevel2)) ;
+</script>
+<div id="TopMenu_div" class="asf-menu">
+    <div class="asf-menu-prev" id="imgPrev" onclick="DisplayItemPre()">
+        <img src="/Content/Images/navigate.previous.png" alt="prev" title="previous" style="height: 28px"/>
+    </div>
+    <ul id="TopMenu">
+        @*@foreach (var item in mnuLevel0)
+        {
+            if (item.Enable)
+            {
+                if (!string.IsNullOrEmpty(item.Url))
+                {
+                  <li id="@item.Name" style="display: inline-block;">
+                        <a href="@item.Url">@string.Format("{0}. {1}", ASOFTEnvironment.MenuIndex[index++], item.Text)</a>
+                    </li>  
+                }
+                else
+                {
+                    <li id="@item.Name" style="display: inline-block;">
+                        @string.Format("{0}. {1}", ASOFTEnvironment.MenuIndex[index++], item.Text)
+                    </li>
+                }
+            }
+            else
+            {
+                 <li id="@item.Name" style="display: inline-block;color:#6E6E6E;">
+                        @string.Format("{0}. {1}", ASOFTEnvironment.MenuIndex[index++], item.Text)
+                 </li>
+            }
+
+        }*@
+    </ul>
+    <div class="asf-menu-next" id="imgNext" onclick="DisplayItemNext()">
+        <img src="/Content/Images/navigate.next.png" alt="next" title="next" style="height: 28px"/>
+    </div>
+</div>  
+<div id="BlockMenu" class="asf-menu-sub">
+@Html.ASOFTHidden("currMenuLevel2")
+    @{
+        
+        IDMenuLevel1 = "MenuLevel2_div";
+        <div id=@IDMenuLevel1 style="height: 100%; margin-top:4px;" >
+            <ul style="text-decoration:none;">
+                @{
+                    foreach (var item1 in mnuLevel1)
+                    {
+                        if (item1.Visible)
+                        {                             
+                            if (!item1.Enable)
+                            {
+                                    <li id="@item1.Name"><a style="color:#6E6E6E">@item1.Text</a></li>
+                            }
+                            else
+                            {
+                                if (!string.IsNullOrEmpty(item1.Target))
+                                {
+                                        <li id="@item1.Name" class="asf-menu-active" ><a href="@item1.Url" target="@item1.Target">@item1.Text</a></li> 
+                                }
+                                else
+                                {
+                                    <li id="@item1.Name" class="asf-menu-active" ><a href="@item1.Url">@item1.Text</a></li> 
+                                }
+                            }
+                        }                          
+                    }
+                }
+            </ul>
+        </div>
+    }
+</div>
+
+@{
+        int i = 3;
+        var mnuLevelN1 = mnuLevelN.Where(x => x.Level.Equals(i)).ToList();
+        while (mnuLevelN1.Count > 0)
+        {
+            List<List<ASOFT.ERP.A00.Core.Control.ASOFTMenuItem>> list = new List<List<ASOFT.ERP.A00.Core.Control.ASOFTMenuItem>>();
+            var mnuParent = mnuLevelN.Where(x => x.Level.Equals(i - 1)).ToList();
+            list.Add(mnuParent);
+            list.Add(mnuLevelN1);
+            
+            @(Html.Kendo().Window()
+            .Name("MenuPopup_win" + i)
+            .Content(Html.Partial("~/Views/Shared/Menu/MenuPopupN.cshtml", list).ToHtmlString())
+            .HtmlAttributes(new { style = "width:auto;overflow: hidden;", @class = "asf-windown" })
+            .Visible(false)
+            .Title(false)
+            .Animation(false)
+            )
+            
+            i++;
+            mnuLevelN1 = mnuLevelN.Where(x => x.Level.Equals(i)).OrderBy(m => m.ModuleID).ToList();
+        }
+        @Html.ASOFTHidden("countLevelMenu", i)
+}
+
+
+@*<div class="asf-menu-rwd">
+@(Html.Kendo().Menu()
+    .Name("Menu_Mobile").HtmlAttributes(new { style = "background: #FFF; border: 1px solid #FFF; width: 0px; border-radius: 10px" })
+    .Items(items => {
+        items.Add().ImageUrl("~/Content/Images/icon_menu.png")
+                  .HtmlAttributes(new { @class = "menuParent" })
+        .Items(menu =>
+        {
+            foreach (var item in Model.FindAll(m => m.ParentID == ""))
+            {
+                var builder = menu.Add().Text(item.Text).HtmlAttributes(new { style = "background: #FFF; width: 200px; border-radius: 200px; border: 1px solid #FFF;" });
+                addChildren(builder, item, Model).ToHtmlString();
+            }
+        });
+    })
+)
+
+    
+
+@helper addChildren(MenuItemBuilder builder, ASOFT.ERP.A00.Core.Control.ASOFTMenuItem item, List<ASOFT.ERP.A00.Core.Control.ASOFTMenuItem> items)
+{
+    var children = items.FindAll(m => m.ParentID == item.Name);
+    if (children != null)
+    {
+        string url = string.Empty;
+        if (!string.IsNullOrEmpty(item.Url) && !item.Url.Equals("#"))
+        {
+            if (item.Url.Split('/').Contains("Contentmaster"))
+            {
+                url = this.Url.Action("Index", "Contentmaster", null, this.Request.Url.Scheme) + "/Index/" + item.Url.Split('/')[3] + "/" + item.Controller;
+            }
+            else
+            {
+                url = this.Url.Action("Index", item.Controller, new { Area = item.Url.Split('/')[1] }, this.Request.Url.Scheme);
+            }
+        }
+        
+        builder.Items(menuItemsMB =>
+        {
+            foreach (var child in children)
+            {
+                var menuItem = menuItemsMB.Add().Text(child.Text).HtmlAttributes(new { style = "background: #FFF; width: 200px; border-radius: 10px; border: 1px solid #FFF;" });
+                addChildren(menuItem, child, items).ToHtmlString();
+            }
+        }).Url(url).Enabled(item.Enable);
+    }
+}
+    </div>*@
+
+<div id="Menu_Mobile" style="padding-left: 10px;"><a href="#"><img src="~/Content/Images/icon_menu.png"></a></div>
+
+<div class="asf-menu-rwd">
+@(Html.Kendo().TreeView()
+    .Name("Menu_Mobile1").HtmlAttributes(new { style = "height: 100%; width: 250px; overflow: hidden;" })
+    .Items(items => {
+        //items.Add().Text("MENU")
+        //          .HtmlAttributes(new { @class = "asf-treeview", style = "font-size: 14px;" })
+        //          .Expanded(true)
+        //.Items(menu =>
+        //{
+        //items.Add().Text(ASOFTLanguage.FindWordA00("A00.btnSell")).HtmlAttributes(new { style = "height: auto; font-size: 10px; text-align: left", @class = "btnSell_Mobile" }).ImageUrl("/Content/Images/cart.png");
+        
+        //items.Add().Text(ASOFTLanguage.FindWordA00("A00.btnWarehouse")).HtmlAttributes(new { style = "height: auto; font-size: 10px; text-align: left", @class = "btnWarehouse_Mobile" }).ImageUrl("/Content/Images/warehouse.png");
+
+        //items.Add().Text(ASOFTLanguage.FindWordA00("A00.btnExWarehouse")).HtmlAttributes(new { style = "height: auto; font-size: 10px; text-align: left", @class = "btnExWarehouse_Mobile" }).ImageUrl("/Content/Images/exwarehouse.png");
+            foreach (var item in Model.FindAll(m => m.ParentID == ""))
+            {
+                var builder = items.Add().Text(item.Text).HtmlAttributes(new { style = "height: auto; font-size: 10px; text-align: left", @class = "asf-treeview" });
+                addChildren(builder, item, Model).ToHtmlString();
+            }
+            //items.Add().Text(ASOFTLanguage.FindWordA00("A00.btnReport")).HtmlAttributes(new { style = "height: auto; font-size: 10px; text-align: left", @class = "btnReport_Mobile" }).ImageUrl("/Content/Images/Report.png");
+        //});
+    })
+)
+
+    
+
+@helper addChildren(TreeViewItemBuilder builder, ASOFT.ERP.A00.Core.Control.ASOFTMenuItem item, List<ASOFT.ERP.A00.Core.Control.ASOFTMenuItem> items)
+{
+    var children = items.FindAll(m => m.ParentID == item.Name);
+    if (children != null)
+    {
+        string url = string.Empty;
+        if (!string.IsNullOrEmpty(item.Url) && !item.Url.Equals("#"))
+        {
+            if (item.Url.Split('/').Contains("Contentmaster") || item.Url.Split('/').Contains("ReportLayout") || item.Url.Split('/').Contains("Dashboard"))
+            {
+                if (item.Url.Split('/').Contains("Contentmaster"))
+                {
+                    url = this.Url.Action("Index", "Contentmaster", null, null) + "/Index/" + item.Url.Split('/')[3] + "/" + item.Controller;
+                }
+                else
+                {
+                    if (item.Url.Split('/').Contains("ReportLayout"))
+                    {
+                        url = this.Url.Action("Index", "ReportLayout", null, null) + "/Index/" + item.Url.Split('/')[3] + "/" + item.Controller;
+                    }
+                    else
+                    {
+                        url = this.Url.Action("Dashboard", item.Url.Split('/')[1], null, null);
+                    }
+                }
+            }
+            else
+            {
+                url = this.Url.Action("Index", item.Controller, new { Area = item.Url.Split('/')[1] }, null);
+            }
+        }
+        
+        builder.Items(menuItemsMB =>
+        {
+            foreach (var child in children)
+            {
+                var menuItem = menuItemsMB.Add().Text(child.Text).HtmlAttributes(new { style = "height: auto; font-size: 10px;", @class = "asf-treeview" });
+                addChildren(menuItem, child, items).ToHtmlString();
+            }
+        }).Url(url).Enabled(item.Enable);
+    }
+}
+    </div>
+

@@ -1,0 +1,137 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     18/06/2014      Chánh Thi      Tạo Mới
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.ViewModel.POS
+@using ASOFT.ERP.POS.Entities
+
+@model POSF0032ViewModel
+
+@{  
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "POSF0032AGrid", 
+        Scrollable = true, 
+        ControllerName = "POSF0032",
+        ActionName = "GridData1",
+        NameEventPost = "sendDataFilter",
+        IsShowCheck = false,
+        IsAutoHeight = false,
+        HtmlAttribute = new
+        {
+            style = "height:200px;", 
+            @class = "asf-grid"
+        },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                ClientTemplate = "#= renderNumber(data) #",
+                TitleColumn = ASOFTLanguage.FindWordA00("A00.Number"),
+                Width = 50,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "InventoryID",
+                TitleColumn = Html.ASOFTRaw(model => model.InventoryID),
+                Width = 100,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "InventoryName",
+                TitleColumn = Html.ASOFTRaw(model => model.InvetoryName),
+                Width = 150,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "ActualQuantity",
+                TitleColumn = Html.ASOFTRaw(model => model.ActualQuantity),
+                Width = 50,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "UnitPrice",
+                TitleColumn = Html.ASOFTRaw(model => model.UnitPrice),
+                Width = 150,
+                VisibleColumn = true
+            },
+              new ASOFTGridColumnSetting
+            {
+                IDColumn = "DiscountRate",
+                TitleColumn = Html.ASOFTRaw(model => model.DiscountRate),
+                Width = 50,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "DiscountAmount",
+                TitleColumn = Html.ASOFTRaw(model => model.DiscountAmount),
+                Width = 100,
+                VisibleColumn = true
+            },
+            
+              new ASOFTGridColumnSetting
+            {
+                IDColumn = "VATPercent",
+                TitleColumn = Html.ASOFTRaw(model => model.VATPercent),
+                Width = 50,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "TaxAmount",
+                TitleColumn = Html.ASOFTRaw(model => model.TaxAmount),
+                Width = 150,
+                VisibleColumn = true
+            },
+            
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "InventoryAmount",
+                TitleColumn = Html.ASOFTRaw(model => model.InventoryAmount),
+                Width = 150,
+                VisibleColumn = true
+            },
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "StatusRecordID",
+                TitleColumn = Html.ASOFTRaw(model => model.StatusRecordID),
+                Width = 30,
+                VisibleColumn = false
+            },
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "InventoryTypeID",
+                TitleColumn = Html.ASOFTRaw(model => model.InventoryTypeID),
+                Width = 30,
+                VisibleColumn = false
+            },
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "APK",
+                TitleColumn = Html.ASOFTRaw(model => model.APK),
+                Width = 30,
+                VisibleColumn = false
+            },
+        }
+    };
+}
+
+@(Html.ASOFTCreateGridNotPagging<POSF0032>(gridsetting))

@@ -1,0 +1,14 @@
+﻿@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Common;
+@{
+    ViewBag.Title = "Index";
+    string lang = "dashboardPOS_" + ASOFTEnvironment.Language;
+
+}
+<div id='contentMaster'>
+     <div class="container_12">
+        <img class="dashboard grid_12" src="~/Content/Images/@(lang).png"/>
+    </div>
+</div>
+
+<link  href="@Url.Content("~/Content/Styles/RWD/DashBoard/DashBoardRWD.css")" rel="stylesheet" type="text/css" />

@@ -1,0 +1,207 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     21/04/2014      Minh Lam        Add heading
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.POS.Entities
+@using ASOFT.ERP.ViewModel.POS
+@model POSF0016ViewModel
+
+@{
+    string buttonTemplate = @"<a data-pvoucher-no='{4}' data-cvoucher-no='{5}' class='asf-button k-button asf-btn-plus' data-role='button' role='button' aria-disabled='false' data-event-handler='{1}' data-apk={2} data-status={3}>
+<span class='asf-button-text'>{0}</span>
+</a> ";
+    string btnChange = ASOFTLanguage.FindWordA00("A00.btnChangeInventory");//"Đổi hàng";
+    string btnReturn = ASOFTLanguage.FindWordA00("A00.btnReturnInventory");//"Trả hàng";
+
+}
+
+@{  
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "POSF0016Grid",
+        Scrollable = true,
+        ControllerName = "POSF0016",
+        ActionName = "GetGridData",
+        NameEventPost = "sendDataFilter",
+        HtmlAttribute = new
+        {
+            @class = "asf-grid"
+        },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = POSP0016.COL_ROWNUM,
+                TitleColumn = ASOFTLanguage.FindWordA00("A00.Number"),
+                Width = 50,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "",
+                TitleColumn = Html.ASOFTRaw(model => model.ReturnInventory),
+                Width = 120,
+                ClientTemplate = string.Format(buttonTemplate, "&nbsp;", "btnReturn_Click", "#=APK#", 1, "#=PVoucherNo#", "#=CVoucherNo#"),
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "",
+                TitleColumn = Html.ASOFTRaw(model => model.ChangeInventory),
+                Width = 120,
+                ClientTemplate = string.Format(buttonTemplate, "&nbsp;", "btnChange_Click", "#=APK#", 2, "#=PVoucherNo#", "#=CVoucherNo#"),
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+                
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "",
+                TitleColumn = Html.ASOFTRaw(model => model.Receipt),
+                Width = 100,
+                ClientTemplate = @"<a class='asf-button k-button asf-btn-plus' data-role='button' role='button' aria-disabled='false' data-receipt='#=ReceiptStatus#' data-vouchertype='#=IsVoucherTypeID#' data-apk='#=APK#'><span class='asf-button-text'>&nbsp;</span></a>",
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+                
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "",
+                TitleColumn = Html.ASOFTRaw(model => model.ExportPrints),
+                Width = 120,
+                 ClientTemplate = @"<a class='asf-button k-button asf-btn-plus' data-role='button' role='button' aria-disabled='false' data-exportstatus='#=ExportStatus#' data-vouchertype='#=IsVoucherTypeID#' data-apk='#=APK#'><span class='asf-button-text'>&nbsp;</span></a>",
+                //ClientTemplate = @"<a class='asf-button k-button asf-btn-plus' data-role='button' role='button' aria-disabled='false' data-vouchertype='#=IsVoucherTypeID#' data-exportstatus='#=ExportStatus#' data-apk='#=APK#'><span class='asf-button-text'>" + ASOFTLanguage.FindWordA00("A00.btnPrint") + "</span></a>",
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+                
+            },  
+            
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = POSP0016.COL_DIVISIONID,
+                TitleColumn = Html.ASOFTRaw(model => model.DivisionIDFilter),
+                Width = 60,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = POSP0016.COL_SHOPID,
+                TitleColumn = Html.ASOFTRaw(model => model.ShopIDFilter),
+                Width = 100,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = POSP0016.COL_VOUCHERTYPEID,
+                TitleColumn = Html.ASOFTRaw(model => model.VoucherTypeIDFilter),
+                Width = 100,
+                VisibleColumn = true
+            },
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = POSP0016.COL_VOUCHERDATE,
+                TitleColumn = Html.ASOFTRaw(model => model.VoucherDateFilter),
+                Width = 110,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = POSP0016.COL_VOUCHERNO,
+                TitleColumn = Html.ASOFTRaw(model => model.VoucherNoFilter),
+                ClientTemplate = "<a class='asf-grid-link' onclick='detail_Click(this,\"#=APK#\",\"#=EVoucherNo2#\",\"#=PVoucherNo#\",\"#=CVoucherNo#\")'>#=VoucherNo#</a>",
+                Width = 160,
+                VisibleColumn = true
+            },
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "EVoucherNo2",
+                TitleColumn = Html.ASOFTRaw(model => model.EVoucherNoFilter),
+                Width = 160,
+                VisibleColumn = true
+            },
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "PVoucherNo",
+                TitleColumn = Html.ASOFTRaw(model => model.PVoucherType),
+                Width = 160,
+                VisibleColumn = false
+            },
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "CVoucherNo",
+                TitleColumn = Html.ASOFTRaw(model => model.CVoucherType),
+                Width = 160,
+                VisibleColumn = false
+            },
+            // new ASOFTGridColumnSetting
+            //{
+            //    IDColumn = POSP0016.COL_MEMBERNAME,
+            //    TitleColumn = Html.ASOFTRaw(model => model.MemberNameFilter),
+            //    Width = 120,
+            //    VisibleColumn = true
+            //},
+            // new ASOFTGridColumnSetting
+            //{
+            //    IDColumn = POSP0016.COL_PAYMENTID,
+            //    TitleColumn = Html.ASOFTRaw(model => model.PaymentNameFilter),
+            //    Width = 80,
+            //    VisibleColumn = true
+            //},
+            // new ASOFTGridColumnSetting
+            //{
+            //    IDColumn = POSP0016.COL_TOTALREDUREAMOUNT,
+            //    TitleColumn = Html.ASOFTRaw(model => model.TotalRedureAmountFilter),
+            //    Width = 120,
+            //    VisibleColumn = true
+            //},
+            // new ASOFTGridColumnSetting
+            //{
+            //    IDColumn = POSP0016.COL_TOTALDISCOUNTAMOUNT,
+            //    TitleColumn = Html.ASOFTRaw(model => model.TotalDiscountAmountFilter),
+            //    Width = 120,
+            //    VisibleColumn = true
+            //},
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = POSP0016.COL_TOTALINVENTORYAMOUNT,
+                TitleColumn = Html.ASOFTRaw(model => model.TotalAmountFilter),
+                Width = 120,
+                VisibleColumn = true
+            },
+        
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "ReceiptStatus",
+                Width = 160,
+                VisibleColumn = false
+            },
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "IsVoucherTypeID",
+                Width = 160,
+                VisibleColumn = false
+            },
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "ExportStatus",
+                Width = 160,
+                VisibleColumn = false
+            },
+        }
+    };
+}
+
+@(Html.ASOFTCreateGrid<POSP0016>(gridsetting))
+

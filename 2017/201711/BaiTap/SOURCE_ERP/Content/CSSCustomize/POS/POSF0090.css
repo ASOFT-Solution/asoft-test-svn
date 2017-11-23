@@ -1,0 +1,18 @@
+﻿button[data-styles='btn-red'] {
+    background-color: coral !important;
+    color: white !important;
+    border-radius: 2px !important;
+    border-color: coral !important;
+}
+
+button[data-styles='btn-green'] {
+    background-color: green !important;
+    color: white !important;
+    border-radius: 2px !important;
+    border-color: green !important;
+}
+
+.position-middle {
+    display: block !important;
+    margin: auto !important;
+}

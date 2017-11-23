@@ -1,0 +1,100 @@
+﻿@model ASOFT.ERP.ViewModel.POS.POSF0060ViewModel
+
+<div class="asf-panel-no-detail-header">
+    <div class="asfbtn asfbtn-right">
+        @Html.Partial("~/Views/Shared/EditorTemplates/Toolbar.cshtml", @Model.Toolbar1)  
+    </div>
+</div>
+
+@helper CourseInfo(){
+<div id="viewPartial">
+    <div class="asf-master-content">
+        <div class="asf-content-block first">
+           <table class="asf-table-view">
+                <tr >
+                    <td class="content-label">@Html.DisplayNameFor(model=>model.TimeID)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model=>model.TimeID)</td>
+                </tr>
+                <tr >
+                    <td class="content-label">@Html.DisplayNameFor(model=>model.TimeName)</td>
+                    <td class="dot"></td>
+                    <td class="content-text" title="@Model.TimeName">@Html.DisplayFor(model=>model.TimeName)</td>
+                </tr>
+                <tr >
+                    <td class="content-label">@Html.DisplayNameFor(model => model.TimeNameE)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.TimeNameE)</td>
+                </tr>
+            </table>
+          </div>
+        <div class="asf-content-block middle">
+           <table class="asf-table-view">
+                <tr >
+                    <td class="content-label">@Html.DisplayNameFor(model=>model.DivisionID)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model=>model.DivisionID)</td>
+                </tr>
+               <tr >
+                   <td class="content-label">@Html.DisplayNameFor(model=>model.ShopID)</td>
+                   <td class="dot"></td>
+                   <td class="content-text">@Html.DisplayFor(model=>model.ShopID)</td>
+               </tr>
+               <tr >
+                   <td class="content-label">@Html.DisplayNameFor(model => model.BeginTime)</td>
+                   <td class="dot"></td>
+                   <td class="content-text">@Html.DisplayFor(model=>model.BeginTime)</td>
+               </tr>
+            </table>
+        </div>
+        <div class="asf-content-block last">
+             <table class="asf-table-view">
+                 <tr >
+                    <td class="content-label">@Html.DisplayNameFor(model => model.EndTime)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">
+                        <div class='content-ellipsis'>@Html.DisplayFor(model => model.EndTime)</div>
+                    </td>
+                </tr>
+                <tr >
+                    <td class="content-label">@Html.DisplayNameFor(model => model.Disabled)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">
+                         @{ var disabled = Model.Disabled ? ASOFTLanguage.FindWordA00("A00.Yes") : ASOFTLanguage.FindWordA00("A00.No"); }
+                            @disabled
+                     </td>
+                </tr>
+                <tr >
+                    <td class="content-label" title="@Model.Description">@Html.DisplayNameFor(model => model.Description)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">
+                        <div class='content-ellipsis'>@Html.DisplayFor(model => model.Description)</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>  
+</div>
+}
+
+@(Html.ASOFTPanel()
+.Name("panelbar")
+.Events(m => m.Activate("ASOFT.panelFormat.fitColumnHeight"))
+.HtmlAttributes(new { @class = "block-panel-master" })
+//.Animation(animation => animation.Enable(true))
+.Items(panelbar =>
+{
+    panelbar.Add().Text(Html.ASOFTRaw(model=>model.POSF0062Title))
+        .HtmlAttributes(new {@class = "block-panel-master-header"})
+        .Expanded(true).Content(this.CourseInfo().ToHtmlString());
+
+    panelbar.Add().Text(ASOFTLanguage.FindWordA00("A00.SystemInfo")).HtmlAttributes(new { @class = "block-panel-master-header" })
+            .Content(Html.Partial("~/Views/Shared/EditorTemplates/SystemInfo.cshtml", Model.SystemInfo).ToHtmlString());
+
+    panelbar.Add().Text(ASOFTLanguage.FindWordA00("A00.History"))
+        .HtmlAttributes(new { @class = "block-panel-master-header" }).Content(ASOFTLanguage.FindWordA00("A00.History"));
+
+    panelbar.Add().Text(ASOFTLanguage.FindWordA00("A00.Attach"))
+        .HtmlAttributes(new { @class = "block-panel-master-header" }).Content(ASOFTLanguage.FindWordA00("A00.Attach"));
+
+}))

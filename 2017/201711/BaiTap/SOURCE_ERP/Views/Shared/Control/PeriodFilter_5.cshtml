@@ -1,0 +1,44 @@
+﻿@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Entities.Infrastructure;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel;
+@using ASOFT.ERP.ViewModel.Helper;
+@model ASOFT.ERP.ViewModel.ASOFTSysFieldsViewModel
+
+@*
+    Dành cho màn hình xin phép
+    GoFromDate
+    GoToDate
+
+    OOF2020
+*@
+
+<div class="asf-filter-main" id="FromToDate">
+    @if(ASOFTEnvironment.Language==ASOFTConstants.LANGUAGE_VN){
+<div class="asf-filter-main">
+            @LocalizedHelper.GetLocalizedResourceString("A00.rdoFilterGoFromDateTitle","A00","00")
+        </div>
+}
+    <div class="block-left"> 
+        <div class="asf-filter-label">
+            @LocalizedHelper.GetLocalizedResourceString("A00.rdoFilterGoFromDate","A00","00")
+        </div>
+        <div class="asf-filter-input">
+            @(Html.ASOFTDateEdit(model => model.TypeDateTimePicker, htmlAttributes: new {@id = "GoFromDate", @name = "GoFromDate" })
+                    .Enable(true).Value(string.Empty)
+                    )
+        </div>
+    </div>
+    <div class="block-right">
+        <div class="asf-filter-label">
+            @LocalizedHelper.GetLocalizedResourceString("A00.rdoFilterGoToDate","A00","00")
+        </div>
+        <div class="asf-filter-input">
+            @(Html.ASOFTDateEdit(model => model.TypeDateTimePicker,htmlAttributes: new {@id = "GoToDate", @name = "GoToDate"})
+                    .Enable(true).Value(string.Empty)
+                    )
+        </div>
+    </div>
+</div>

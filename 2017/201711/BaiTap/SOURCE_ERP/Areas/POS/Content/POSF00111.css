@@ -1,0 +1,22 @@
+﻿/*/
+//####################################################################
+//# Copyright (C) 2010-2011, ASOFT JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     20/05/2014      Thai Son        Tao moi
+//####################################################################
+/*/
+
+.left00111 {
+    width: 60%
+}
+
+.right00111 {
+    width: 40%;
+    text-align:right;
+}
+
+.asf-table-view td {
+    vertical-align: middle;
+}

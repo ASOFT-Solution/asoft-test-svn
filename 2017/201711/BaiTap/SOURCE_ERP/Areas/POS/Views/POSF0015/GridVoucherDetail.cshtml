@@ -1,0 +1,133 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     18/03/2014      Minh Lâm      Tạo mới
+//#     07/04/2016      Quang Hoàng   Cập nhật
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Entities.Database
+@using ASOFT.ERP.ViewModel.POS
+@model POSF00151ViewModel
+
+@{
+    bool isAddNew = (Model.FormStatus == ASOFTFormActionType.AddNew);
+}
+
+
+@{  
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "POSF00151Grid", 
+        Scrollable = true, 
+        ControllerName = "POSF0015",
+        NameEventPost = "SendDataMaster",
+        ActionName = "GetGridDetailData",
+        IsShowCheck = false,
+        IsAutoHeight = false,
+        HtmlAttribute = new
+        {
+            style = "height:370px;", 
+            @class = "asf-grid",
+        },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "RowNum",
+                ClientTemplate = "#= renderNumber(data) #",
+                TitleColumn = ASOFTLanguage.FindWordA00("A00.Number"),
+                Width = 50,
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "InventoryID",
+                TitleColumn = Html.ASOFTRaw(model => model.InventoryID),
+                Width = 140,
+                EditColumn = !Model.IsConnectERP,
+                VisibleColumn = true,
+                EditorTemplateName = "POSInventory"
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "InventoryName",
+                TitleColumn = Html.ASOFTRaw(model => model.InventoryName),
+                Width = 120,
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "UnitID",
+                TitleColumn = Html.ASOFTRaw(model => model.UnitID),
+                Width = 60,
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "EVoucherNo",
+                TitleColumn = Html.ASOFTRaw(model => model.EVoucherNo),
+                Width = 140,
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "MarkQuantity",
+                TitleColumn = Html.ASOFTRaw(model => model.MarkQuantity),
+                Width = 80,
+                ClientTemplate = @"#=genMarkQuantity(data)#",
+                VisibleColumn = true,
+                FormatType = EnumFormatType.QuantityDecimals
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "ActualQuantity",
+                TitleColumn = Html.ASOFTRaw(model => model.ActualQuantity),
+                Width = 100,
+                VisibleColumn = true,
+                EditColumn = true,
+                EditorTemplateName ="Integer",
+                FormatType = EnumFormatType.QuantityDecimals
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "UnitPrice",
+                TitleColumn = Html.ASOFTRaw(model => model.UnitPrice),
+                Width = 80,
+                VisibleColumn = !Model.IsConnectERP,
+                EditColumn = true,
+                EditorTemplateName ="Integer",
+                FormatType = EnumFormatType.UnitCostDecimals
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = POST00151.COL_STATUS,
+                TitleColumn = Html.ASOFTRaw(model => model.Status),
+                ClientTemplate = @"<input type='checkbox' #= (Status == 1) ? checked='checked': '' # class='chkbx' />",
+                HtmlAttrCoulmns = (new {@class = "asf-cols-align-center"}),
+                Width = 150,
+                VisibleColumn = true,
+                EditColumn = false
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "APK",
+                Width = 36,
+                ClientTemplate = @"#=genDeleteBtn(data)#",
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+        }
+    };
+}
+
+@(Html.ASOFTCreateGridEdit<POST00151>(gridsetting)
+    .Events(e=>e.Save("Grid_Save").DataBinding("Grid_DataBind")
+    )
+    )
+
+

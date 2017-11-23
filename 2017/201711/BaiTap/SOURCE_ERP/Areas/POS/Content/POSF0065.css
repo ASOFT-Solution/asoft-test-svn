@@ -1,0 +1,39 @@
+﻿/*//
+//####################################################################
+//# Copyright (C) 2010-2011, ASOFT JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     26/07/2014      Thai Son        New
+//####################################################################
+/*/
+/*.search-area {
+    position:relative;
+}
+    .search-area input {
+        position:absolute;
+        top:0;
+        left:0;
+    }
+    .search-area a {
+        position:absolute;
+        top:0;
+        right:0;
+    }
+
+#GridInventorySearch {
+    margin-top: 10px;
+}*/
+
+
+.asf-form-button ul li, .asf-li-container li {
+    float: right;
+    padding-left: 15px;
+}
+
+.asf-form-button, .asf-li-container {
+    float: left;
+    margin-bottom: 15px;
+    text-align: right;
+    width: 100%;
+}

@@ -1,0 +1,68 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     10/04/2014      Minh Lâm      Tạo mới
+//####################################################################
+*@
+@model string
+@using System.Collections
+
+@*@(Html.Kendo().DropDownList().DataValueField(POSF001511.COL_INVENTORYID)
+                .DataTextField(POSF001511.COL_INVENTORYID)
+                .AutoBind(true)
+                .Value(@Model)
+                .Name("CboInventoryName")
+                .BindTo((IEnumerable)ViewBag.Inventories))*@
+@{
+    //string headerTemplate = ASOFTBussinessControl.CreateHeaderTemplate(Model.InventoryColumn);
+    string headerTemplate = @"<ul class='k-list asf-combo-item-header'><li class='k-item asf-combo-item-header-text'><div class='asf-combo-item'><div style='width:200px' class='k-state-default asf-combo-item-col-value'>Mã hàng hóa</div><div style='width:400px' class='k-state-default asf-combo-item-col-text'>Tên hàng hóa</div></div></div></ul>";
+    //string itemTemplate = ASOFTBussinessControl.CreateItemTemplate(Model.InventoryColumn);  
+    string itemTemplate = @"<div class='asf-combo-item'><div style='width:200px' class='k-state-default asf-combo-item-col-value'>${InventoryID}</div><div style='width:340px' class='k-state-default asf-combo-item-col-text'>${InventoryName}</div></div>";
+
+    string sysComboBoxID = ASOFT.ERP.A00.Business.Common.ASOFTSysAdminBL.GetsysIDByID(ASOFT.ERP.A00.Business.Common.ASOFTTableSysAdmin.sysComboBox, "CB_InventoryID").ToString();
+    string url = Request.Url.LocalPath;
+    
+}
+<div id="autocomplete-box">
+    <span id="kendo-native-widget">
+        <span id="pseudo-input">
+            <input type="text" value="" />
+
+        </span>
+        <span id="k-auto-complete">
+            @(Html.Kendo().AutoComplete().HighlightFirst(true)
+                    //.HighlightFirst(true)
+                    //.Animation(animation => animation.Enable(false))
+                      .HtmlAttributes(new Dictionary<string, Object> {
+                          //{"class","post-autocomplete"}, 
+                          {"height","24px"},
+                          {"listWidth", "600"},
+                          {"style", "font-size: 14px; width:auto"},
+                          {"Module", url.Split('/')[3]},
+                          {"ScreenID", url.Split('/')[4]},
+                          {"sysComboBoxID", sysComboBoxID}
+                      })
+                    //.MinLength(0)
+                    //.DataTextField(ASOFT.ERP.POS.Entities.POSF001711.COL_INVENTORYID)
+                    //.DataValueField(POSF001511.COL_INVENTORYID)
+                      .DataTextField("InventorySearch")
+                      .Filter("contains")
+                      .HeaderTemplate(headerTemplate)
+                      .Template(itemTemplate)
+                    //.AutoBind(true)
+                      .Value(@Model)
+                      .Name("CboInventoryID")
+                      .Events(e => e.DataBound("ASOFT.asoftComboBox.dataBound"))
+                      
+                      )
+        </span>
+    </span>
+    <span id="custom-control-button">
+        <button id="control-button" name="btnControl" class="k-sprite asf-icon asf-icon-24 asf-i-search-24"></button>
+    </span>
+</div>
+
+

@@ -1,0 +1,39 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     07/07/2014      Thai Son        Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.POS.Entities
+@using ASOFT.ERP.A00.Entities.Database
+
+@model ASOFT.ERP.ViewModel.POS.POSF0040ViewModel
+
+<div class="grid_4_1 omega float_right addObject">
+    @(Html.Kendo().AutoCompleteFor(model => model.MemberID)
+            .Animation(animation => animation.Enable(false))
+            .HtmlAttributes(new Dictionary<string, Object> {
+                {"class","post-add-autocomplete"}, 
+                {"height","32px"},
+                {"data-bind", "value: MemberID"}
+            })
+            .DataTextField(POST0011.COL_MEMBERNAME)
+            .Placeholder(Html.ASOFTRaw(model => model.SearchMemberID))
+            .Filter("contains")
+            .Name("MemberID")
+            .Events(e => e.Select("MemberID_Change").DataBound("MemberID_DataBound"))
+            .DataSource(source => source.Read(read => read.Action("GetMembers", "POSF0016",
+                new
+                {
+                    area = "POS"
+                })).ServerFiltering(true))
+            )
+    @(Html.ASOFTAddBlueButton(Model.AddObject)
+            .Name(Model.AddObject ?? "btnAddObject")
+            .Events(e => e.Click("MemberID_Click"))
+            )
+
+</div>

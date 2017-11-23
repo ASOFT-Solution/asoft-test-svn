@@ -1,0 +1,148 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     27/03/2013      Thai Son        Add heading
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.ViewModel.POS;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using System.Web.UI.WebControls;
+@model ASOFT.ERP.ViewModel.POS.POSF0070ViewModel
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "POSF0071" }))
+{
+    <div class="asf-form-container">
+        <div class="mtf0061-form-content">
+          <fieldset>
+                 <legend><b>@Html.ASOFTRaw(model => model.POSF0074Title)</b></legend>
+                  <table style="width:100%">
+                    <tr>
+                        <td class="content-label" style="width:28%">@Html.ASOFTLabel(model => model.ReportTitle)</td>
+                        <td class="asf-td-field" style="width:30%">
+                             @(Html.ASOFTTextBox(model => model.ReportID, null, new { width = Unit.Percentage(100) }).ReadOnlyIf(true))
+                        </td>
+                        <td class="asf-td-field">
+                             @(Html.ASOFTTextBox(model => model.ReportName, null, new { width = Unit.Percentage(100) }).ReadOnlyIf(true))
+                        </td>
+                   </tr>
+                   <tr>
+                         <td class="content-label">@Html.ASOFTLabel(model => model.Title)</td>
+                         <td class="asf-td-field" colspan="2">@(Html.ASOFTTextBox(model => model.Title, null, new { width = Unit.Percentage(100) }))</td>
+                   </tr>
+                 </table>
+            </fieldset>
+            <fieldset>
+                <legend><b>Chi Nhánh</b></legend>
+                <table style="width:100%">
+                    <tr>
+                        <td class="content-label"style="width:28%">@Html.ASOFTLabel(model => model.DivisionID)</td>
+                        <td class="asf-td-field" style="width:30%">
+                             @(Html.ASOFTBussinessComboBox().ASOFTDivisionID(model => model.DivisionID, true).SelectedIndex(0).DataTextField(AT1101.COL_DIVISIONID))
+                        </td>
+                        <td class="asf-td-field">@Html.ASOFTTextBox(model => model.DivisionName, null, new { width = Unit.Percentage(100) }).ReadOnlyIf(true)</td>
+                    </tr>
+                    <tr>
+                        <td class="content-label"style="width:28%">@Html.ASOFTLabel(model => model.ShopID)</td>
+                        <td class="asf-td-field" style="width:30%">
+                             @(Html.ASOFTBussinessComboBox().ASOFTShopID(model => model.ShopID, true).SelectedIndex(0))
+                        </td>
+                        <td class="asf-td-field">@Html.ASOFTTextBox(model => model.ShopName, null, new { width = Unit.Percentage(100) }).ReadOnlyIf(true)</td>
+                    </tr>
+                </table>
+            </fieldset>
+            <fieldset>
+               <legend><b>Thông tin hàng hóa</b></legend>
+               <table style="width:100%">
+                    <tr>
+                         <td class="content-label">@Html.ASOFTLabel(model => model.InventoryID)</td>
+                         <td class="asf-td-field" style="width:72%">
+                                @(Html.ASOFTBussinessComboBox().ASOFTInventoryIDList(model => model.InventoryID))
+                        </td>
+                    </tr>
+               </table>
+            </fieldset>
+             <fieldset>
+                <legend><b>Thời gian</b></legend>
+                <div class="asf-filter-main">
+                    <div class="block-left" style="width:51%"> 
+                        <div class="asf-filter-label" style="width:55%">
+                                @Html.ASOFTRadioButton(model=>model.IsDate, 1, new { id = "rdoDate", }).CheckedIf(true)
+                                @Html.ASOFTLabel(model => model.FromDate)
+                        </div>
+                        <div class="asf-filter-input" style="width:45%">
+                            @(Html.ASOFTDateEdit(model => model.FromDate, htmlStyle: new { width = Unit.Percentage(100) })
+                                    .Value(ASOFTEnvironment.WorkingDate)
+                                    .Enable(true)
+                                    )
+                        </div>
+                    </div>
+                    <div class="block-right" style="width:45%">
+                        <div class="asf-filter-label"style="width:50%">
+                            @Html.ASOFTLabel(model=>model.ToDate)
+                        </div>
+                        <div class="asf-filter-input" style="width:50%">
+                            @(Html.ASOFTDateEdit(model => model.ToDate, htmlStyle: new { width = Unit.Percentage(100) })
+                                    .Value(ASOFTEnvironment.WorkingDate)
+                                    .Enable(true)
+                                    )
+                        </div>
+                    </div>
+                </div>
+                <div class="asf-filter-main">
+                    <div class="block-left" style="width:51%">
+                        <div class="asf-filter-label" style="width:55%">
+                            <span>
+                                @Html.ASOFTRadioButton(model => model.IsDate, 0, new { id = "rdoPeriod" })
+                            </span>
+                            @Html.ASOFTLabel(model=>model.FromPeriod)
+                        </div>
+                        <div class="asf-filter-input" style="width:45%">
+                            @(Html.ASOFTBussinessComboBox()
+                                    .ASOFTPeriod(model => model.FromPeriod, htmlStyle: new { width = Unit.Percentage(100) }).Enable(false))
+                        </div>
+                    </div>
+                    <div class="block-right" style="width:45%">
+                        <div class="asf-filter-label" style="width:50%">
+                            @Html.ASOFTLabel(model=>model.ToPeriod)
+                        </div>
+                        <div class="asf-filter-input" style="width:50%">
+                            @(Html.ASOFTBussinessComboBox()
+                                    .ASOFTPeriod(model => model.ToPeriod, htmlStyle: new { width = Unit.Percentage(100) }).Enable(false))
+                        </div>
+                    </div>
+                </div>  
+            </fieldset>
+        </div>
+        <div class="asf-form-button">
+             <table class="asf-table-view">
+                <tr>
+                    <td align="right">
+                        <div class="asf-popup-button-container">
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                                    .Name("btnClosePOSF0074").Events(e => e.Click("btnClosePOSF0074Click")))
+                            </div>
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnPrint"))
+                                            .Name("btnPrintPOSF0074").Events(e => e.Click("ViewReportPOSF0004"))
+                                 )
+                            </div>
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnExcel"))
+                                            .Name("btnExcelPOSF0074").Events(e => e.Click("btnPrintPOSF0074Click"))
+                                 )
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+}

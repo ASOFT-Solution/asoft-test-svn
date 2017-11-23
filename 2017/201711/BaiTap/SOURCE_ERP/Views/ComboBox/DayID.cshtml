@@ -1,0 +1,28 @@
+﻿@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Entities.Database
+
+@model ASOFT.ERP.A00.Entities.Common.DayComboboxModel
+@{
+    var comboBox = (Html.ASOFTCombobox(model => model.DayID, htmlStyle: Model.Style)
+        .Name(Model.Name)
+        .DataValueField(MTT0099.COL_ID)
+        .DataTextField(MTT0099.COL_DESCRIPTION)
+        .Enable(Model.Enabled));
+
+    if (!string.IsNullOrEmpty(Model.SelectedIndexChanged))
+    {
+        comboBox.Events(model => model.Change(Model.SelectedIndexChanged));
+    }
+    if (Model.List != null && Model.List.Count > 0)
+    {
+        if (Model.SelectedFirst)
+        {
+            comboBox.SelectedIndex(0);
+        }
+       
+        comboBox.BindTo(Model.List);
+    }
+}
+
+
+@comboBox

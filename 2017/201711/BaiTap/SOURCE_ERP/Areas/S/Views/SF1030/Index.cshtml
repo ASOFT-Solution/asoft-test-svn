@@ -1,0 +1,82 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     27/11/2014      Như Huyên       Tạo mới
+//####################################################################
+*@
+
+@using System.Web.UI.WebControls
+@using ASOFT.ERP.ViewModel
+@using ASOFT.ERP.ViewModel.S;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Common;
+
+@model SF1030ViewModel
+
+@{
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.SF1030Title, "SF1030").ToHtmlString();
+    Layout = "~/Views/Shared/_ContentMaster.cshtml";
+    ViewData.Add("MainView", this);
+}
+
+@section Header {
+    <!-- Header BreakCrumb -->
+    @Html.ASOFTHeader(new HeaderModel
+                          {
+                              Title = Html.ASOFTPageTitle(m => m.SF1030Title, "SF1030").ToHtmlString(),
+                              Breakcrumb = true
+                          })
+}
+
+@Html.Partial("FormFilter")
+
+<!-- Filter buttons -->
+@section FilterButtons {
+    <!-- Search button -->
+    <li>
+        @(Html.ASOFTSearchButton()
+              .Name("BtnFilterSF1030")
+              .Events(e => e.Click("SF1030.btnFilter_Click"))
+              )
+    </li>
+    
+    <!-- Reset button -->
+    <li>
+        @(Html.ASOFTSearchResetButton()
+            .Name("BtnResetFilterSF1030")
+            .Events(e => e.Click("SF1030.btnClearFilter_Click"))
+            )
+    </li>
+}
+
+@section GridToolBar {
+    <!-- Toolbar buttons -->
+    @Html.Partial("~/Views/Shared/EditorTemplates/Toolbar.cshtml", Model.Toolbar1 ?? new ASOFTToolBarViewModel())
+}
+
+@section Grid {
+    <!-- Grid master -->
+    @Html.Partial("GridMessage")
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/S/Scripts/SF1030.js?v=" + ASOFTEnvironment.Version)"></script>
+    <script src="@Url.Content("~/Areas/S/Scripts/SF0005.js?v=" + ASOFTEnvironment.Version)"></script>
+    
+}
+
+@section styleFeature {
+    <link href="@Url.Content("~/Areas/S/Content/Common.css")" rel="stylesheet" type="text/css" />
+}
+
+
+@Html.ASOFTHidden("UrlDelete", Url.Action("Delete"))
+@Html.ASOFTHidden("UrlSF1031", Url.Action("SF1031"))
+@Html.ASOFTHidden("UpdateRecord", Url.Action("HideOrUnhide"))
+@Html.ASOFTHidden("UrlUpdate", Url.Action("Update"))
+@Html.ASOFTHidden("UrlSF0005", Url.Action("Index", "SF0005", new { area = "S" }))
+@Html.ASOFTHidden("UrlDownload", Url.Action("Download"))
+@Html.ASOFTHidden("UrlGetReportFile", Url.Action("GetReportFile"))

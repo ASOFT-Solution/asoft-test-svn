@@ -1,0 +1,102 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     27/11/2014      Quang Đăng      Tạo mới
+//####################################################################
+*@
+@model SF1021ViewModel
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.SF1021Title, "SF1021").ToHtmlString();
+    ViewBag.Width = 500;
+    bool isInsert = Model.FormStatus.Equals(ASOFTFormActionType.AddNew);
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new {id = "SF1021"}))
+{
+        <div class="asf-form-container">
+            <div class="form-content">
+                <table class="asf-table-view">
+                        <tr>
+                            <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.LanguageID)</td>
+                            <td class="asf-td-field" colspan="2">@Html.ASOFTBussinessComboBox().ASOFTLanguageID(model => model.LanguageID).Enable(Model.FormStatus.Equals(ASOFTFormActionType.AddNew))</td>
+                        </tr>
+                        <tr>
+                            <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.Module)</td>
+                            <td class="asf-td-field" colspan="2">@Html.ASOFTBussinessComboBox().ASOFTModuleForLangID(model => model.Module).Enable(Model.FormStatus.Equals(ASOFTFormActionType.AddNew))</td>
+                        </tr>
+                        <tr>
+                            <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.FormID)</td>
+                            <td class="asf-td-field" colspan="2">@Html.ASOFTTextBox(model => model.FormID).ReadOnlyIf(!Model.FormStatus.Equals(ASOFTFormActionType.AddNew))</td>
+                        </tr>
+                        <tr>
+                            <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.ID)</td>
+                            <td class="asf-td-field" colspan="2">@Html.ASOFTTextBox(model => model.ID,checkRegularExp:true).ReadOnlyIf(!Model.FormStatus.Equals(ASOFTFormActionType.AddNew))</td>
+                        </tr>
+                        <tr>
+                            <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.Name)</td>
+                            <td class="asf-td-field" colspan="2">@Html.ASOFTTextBox(model => model.Name)</td>
+                        </tr>
+                        <tr>
+                            <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.CustomName)</td>
+                            <td class="asf-td-field" colspan="2">@Html.ASOFTTextBox(model => model.CustomName)</td>
+                        </tr>
+                    </table>
+            </div>          
+            <div class="asf-form-button">
+            <table class="asf-table-view">
+                <tr>
+                    <td align="right">
+                        <div class="asf-popup-button-container">
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                                        .Name("BtnClose")
+                                        .Events(e => e.Click("SF1021.btnClose_Click"))
+                                        )
+                            </div>
+                            <div >
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSaveCopy"))
+                                        .Name("BtnSaveCopy")
+                                        .Events(e => e.Click("SF1021.btnSaveCopy_Click"))
+                                        .HideIf(!isInsert)
+                                        )
+                            </div>
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSaveNew"))
+                                        .Name("btnSaveDRF2021")
+                                        .Events(e => e.Click("SF1021.btnSaveNext_Click"))
+                                        .HideIf(!isInsert)
+                                        )
+                            </div> 
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSave"))
+                                        .Name("BtnSaveClose")
+                                        .Events(e => e.Click("SF1021.btnSave_Click"))
+                                        .HideIf(isInsert)
+                                        )
+                            </div>     
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        </div>
+
+}
+
+    
+    
+@*@section styleFeature{
+    <link href="@Url.Content("~/Areas/DRM/Content/Common.css")" rel="stylesheet" type="text/css" />
+}*@
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/S/Scripts/SF1021.js?v=" + ASOFTEnvironment.Version)"></script>
+}
+
+@Html.ASOFTHidden("urlUpdate", Url.Action("AddOrUpDate"))
+@Html.ASOFTHidden("UrlSF1021", Url.Action("SF1021"))
+@Html.ASOFTHidden("UrlSF1022M", Url.Action("SF1022M"))

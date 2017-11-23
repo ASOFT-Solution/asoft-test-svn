@@ -1,0 +1,97 @@
+﻿@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.ViewModel.POS
+@using ASOFT.ERP.A00.Entities.Database
+
+@model ASOFT.ERP.ViewModel.POS.POSF0055ViewModel
+@{
+var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "POSF0055Grid",
+        Scrollable = true,
+        ControllerName = "POSF0054",
+        ActionName = "GetGridDetailDataEdit",
+        NameEventPost = "sendDataFilterEdit",
+        IsShowCheck = false,
+        IsAutoHeight = false,
+        HtmlAttribute = new
+        {
+            style = "height:370px;",
+            @class = "asf-grid"
+        },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "RowNum",
+                TitleColumn = ASOFTLanguage.FindWordA00("A00.Number"),
+                Width = 30,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"}),
+                ClientTemplate = "#= renderNumber1(data) #",
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "InventoryID",
+                TitleColumn = Html.ASOFTRaw(model => model.InventoryID),
+                Width = 120,
+                EditColumn = true,
+                VisibleColumn = true,
+                EditorTemplateName = "POSInventory"
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "InventoryName",
+                TitleColumn = Html.ASOFTRaw(model => model.InventoryName),
+                Width = 190,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "UnitID",
+                TitleColumn = Html.ASOFTRaw(model => model.UnitName),
+                Width = 75,
+                HtmlAttrCoulmns = (new {style = "text-align:right"}),
+                VisibleColumn = true
+            }, 
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "Quantity",
+                TitleColumn = Html.ASOFTRaw(model => model.Quantity),
+                Width = 75,
+                HtmlAttrCoulmns = (new {style = "text-align:right"}),
+                VisibleColumn = true,
+                EditColumn = true,
+                FormatType = EnumFormatType.QuantityDecimals
+            },            
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "UnitPrice",
+                TitleColumn = Html.ASOFTRaw(model => model.UnitPrice),
+                Width = 110,
+                HtmlAttrCoulmns = (new {style = "text-align:right"}),
+                EditColumn = true,
+                VisibleColumn = true,
+                FormatType = EnumFormatType.UnitCostDecimals
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "Description",
+                TitleColumn = Html.ASOFTRaw(model => model.Description),
+                Width = 110,
+                HtmlAttrCoulmns = (new {style = "text-align:right"}),
+                EditColumn = true,
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "APK",
+                Width = 36,
+                ClientTemplate = @"#=genDeleteBtn(data)#",
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            }
+        }
+    };
+
+}
+@(Html.ASOFTCreateGridEdit<ASOFT.ERP.POS.Entities.POSP0052>(gridsetting))

@@ -1,0 +1,131 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     13/06/2013      Thai Son        Tạo mới
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.ViewModel.POS
+@using ASOFT.ERP.POS.Entities
+
+@model POSF0012ViewModel
+
+
+@{  
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "GridPromotionInventories", 
+        Scrollable = true,
+        IsShowCheck = false, 
+        ControllerName = "POSF0012",
+        ActionName = "GetPromotionInventories",
+        NameEventPost = "filterData",
+        IsAutoHeight = false,
+        HtmlAttribute = new
+        {
+            style = "height:340px;", 
+            @class = "asf-grid"
+        },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "RowNum",
+                 TitleColumn = ASOFTLanguage.FindWordA00("A00.Number"),
+                Width = 30,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "PromoteID",
+                TitleColumn = Html.ASOFTRaw(model => model.PromoteID),
+                Width = 150,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "PromoteInventoryID",
+                TitleColumn = Html.ASOFTRaw(model => model.PromoteInventoryID),
+                Width = 140,
+                HtmlAttrCoulmns = (new {style = "text-align:center"}),
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "UnitID",
+                TitleColumn = Html.ASOFTRaw(model => model.UnitID),
+                Width = 80,
+                HtmlAttrCoulmns = (new {style = "text-align:center"}),
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "FromQuantity",
+                TitleColumn = Html.ASOFTRaw(model => model.FormQuantity),
+                Width = 100,
+                HtmlAttrCoulmns = (new {style = "text-align:center"}),
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "ToQuantity",
+                TitleColumn = Html.ASOFTRaw(model => model.ToQuantity),
+                Width = 100,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:right"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "PromoteTypeID",
+                TitleColumn = Html.ASOFTRaw(model => model.PromoteTypeID),
+                Width = 140,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            }
+            ,
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "PromoteQuantity",
+                TitleColumn = Html.ASOFTRaw(model => model.PromoteQuantity),
+                Width = 140,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = POSP00121.COL_PROMOTEPERCENT,
+                TitleColumn = Html.ASOFTRaw(model => model.PromoteRate),
+                Width = 120,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "FromDate",
+                TitleColumn = Html.ASOFTRaw(model => model.FromDate),
+                Width = 100,
+                Format = "{0:dd/MM/yyyy}",
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "ToDate",
+                TitleColumn = Html.ASOFTRaw(model => model.ToDate),
+                Width = 130,
+                Format = "{0:dd/MM/yyyy}",
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            }
+        }
+    };
+}
+
+@(Html.ASOFTCreateGrid<POSP00121>(gridsetting))
+

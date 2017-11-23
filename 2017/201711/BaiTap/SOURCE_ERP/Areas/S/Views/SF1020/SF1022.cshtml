@@ -1,0 +1,47 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     16/10/2014      Quang Đăng        Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Infrastructure;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel;
+@using System.Web.UI.WebControls;
+@using Kendo.Mvc;
+@model ASOFT.ERP.ViewModel.S.SF1022ViewModel
+@{
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.SF1022Title, "SF1022").ToHtmlString();
+}
+
+@Html.ASOFTHidden("UrlSF1020", Url.Action("Index"))
+@Html.ASOFTHidden("UrlSF1021", Url.Action("SF1021"))
+@Html.ASOFTHidden("UrlDelete", Url.Action("Delete"))
+@Html.ASOFTHidden("ID", Model.ID)
+@Html.ASOFTHidden("LangID", Model.LanguageID)
+@Html.ASOFTHidden("ModuleID", Model.Module)
+
+<div id="contentMaster">
+    @Html.ASOFTHeader(new HeaderModel {Title = Html.ASOFTPageTitle(m => m.SF1022Title, "SF1022").ToHtmlString(), Breakcrumb = true})
+    <div id="ViewMaster" class="asf-panel-view-master" >
+        <div class="asf-panel-master-header">
+            <div class="asfbtn asfbtn-right">
+                @Html.Partial("~/Views/Shared/EditorTemplates/Toolbar.cshtml", Model.Toolbar1 ?? new ASOFTToolBarViewModel())
+            </div>
+        </div>
+        <div id="viewPartial">
+            @Html.Partial("SF1022M")
+        </div>
+    </div>
+</div>
+
+@section jsFeature{
+    <script src="@Url.Content("~/Areas/S/Scripts/SF1020.js?v=" + ASOFTEnvironment.Version)"></script>
+}
+

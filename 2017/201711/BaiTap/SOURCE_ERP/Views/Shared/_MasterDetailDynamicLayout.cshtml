@@ -1,0 +1,43 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     18/11/2015      Quang Hoàng   Tạo Mới
+//####################################################################
+*@
+@using ASOFT.ERP.A00.Entities.Common
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.ViewModel.POS
+@using ASOFT.ERP.A00.Entities.Database
+@using ASOFT.ERP.ViewModel
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new
+{
+    id = "ScreenID"
+}))
+{
+    <div id='contentMaster'>
+
+        @RenderBody()
+
+        <div class="container_12 asf-form-button">
+            <ul class="empty">
+                <li></li>
+            </ul>
+        </div>
+
+    </div>
+}
+
+<link id="RWDMasterDetail400" href="@Url.Content("~/Content/Styles/RWD/ViewMasterDetail/asoftRWD480pxViewMaster.css")" rel="stylesheet" type="text/css" />
+<link id="RWDMasterDetail600" href="@Url.Content("~/Content/Styles/RWD/ViewMasterDetail/asoftRWD600pxViewMaster.css")" rel="stylesheet" type="text/css" />
+@RenderSection("jsFeature", required: false)
+@RenderSection("styleFeature", required: false)

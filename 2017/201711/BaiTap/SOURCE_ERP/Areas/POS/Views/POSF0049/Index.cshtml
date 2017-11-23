@@ -1,0 +1,118 @@
+﻿@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using System.Web.UI.WebControls;
+@model ASOFT.ERP.ViewModel.POS.POSReportViewModel
+
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.POSF0049Title, "POSR0049").ToString(); //ASOFTLanguage.FindWordA00("POSF0026.PopupAddTitle"); //
+    ViewBag.Width = 500;
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "POSF0049" }))
+{
+    <div class="asf-form-container">
+        <div class="mtf0061-form-content">
+            <div class="asf-filter-main">
+                <div class="block-left"> 
+                    <div class="asf-filter-label">
+                            @Html.ASOFTRadioButton(model=>model.IsPeriod, 0, new { id = "rdoDate", }).CheckedIf(true)
+                            @Html.ASOFTLabel(model => model.FromDate)
+                    </div>
+                    <div class="asf-filter-input">
+                        @(Html.ASOFTDateEdit(model => model.FromDate, htmlStyle: new { width = Unit.Percentage(100) })
+                                .Value(DateTime.Now)
+                                .Enable(true)
+                                )
+                    </div>
+                </div>
+                <div class="block-right">
+                    <div class="asf-filter-label">
+                        @Html.ASOFTLabel(model=>model.ToDate)
+                    </div>
+                    <div class="asf-filter-input">
+                        @(Html.ASOFTDateEdit(model => model.ToDate, htmlStyle: new { width = Unit.Percentage(100) })
+                                .Value(DateTime.Now)
+                                .Enable(true)
+                                )
+                    </div>
+                </div>
+            </div>
+            <div class="asf-filter-main">
+                <div class="block-left">
+                    <div class="asf-filter-label">
+                        <span>
+                            @Html.ASOFTRadioButton(model => model.IsPeriod, 1, new { id = "rdoPeriod" })
+                        </span>
+                        @Html.ASOFTLabel(model=>model.FromPeriod)
+                    </div>
+                    <div class="asf-filter-input">
+                        @(Html.ASOFTBussinessComboBox()
+                                .ASOFTPeriod(model => model.FromPeriod, htmlStyle: new { width = Unit.Percentage(100) })//.Events(e => e.Change("MTF0060.fromPeriod_Changed").DataBound("MTF0060.fromPeriod_Bound")
+                                .Enable(false))
+                    </div>
+                </div>
+                <div class="block-right">
+                    <div class="asf-filter-label">
+                        @Html.ASOFTLabel(model=>model.ToPeriod)
+                    </div>
+                    <div class="asf-filter-input">
+                        @(Html.ASOFTBussinessComboBox()
+                                .ASOFTPeriod(model => model.ToPeriod, htmlStyle: new { width = Unit.Percentage(100) })//.Events(e => e.Change("MTF0060.toPeriod_Changed").DataBound("MTF0060.toPeriod_Bound")
+                                .Enable(false))
+                    </div>
+                </div>
+            </div>
+            <div class="asf-filter-main label-min">
+                <div class="asf-filter-label posf-label">
+                    @Html.ASOFTLabel(model => model.DivisionID)
+                </div>
+                <div class="asf-filter-input posf-input">
+                    @(Html.ASOFTBussinessComboBox().ASOFTDivisionID(model => model.DivisionID).SelectedIndex(0))
+                </div>
+            </div>
+             <div class="asf-filter-main label-min">
+                <div class="asf-filter-label posf-label">
+                    @Html.ASOFTLabel(model => model.ShopID)
+                </div>
+                <div class="asf-filter-input posf-input">
+                    @(Html.ASOFTBussinessComboBox().ASOFTShopIDList(model => model.ShopID).SelectedIndex(0))
+                </div>
+            </div>
+            <div class="asf-form-button">
+                    <table class="asf-table-view">
+                    <tr>
+                        <td align="right">
+                            <div class="asf-popup-button-container">
+                                <div>
+                                    @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                                            .Name("btnPOSF0049Close").Events(e => e.Click("btnPOSF0049Close_Click")))
+                                </div>
+                                <div>
+                                    @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnPrint"))
+                                           .Name("btnPOSF0049Print").Events(e => e.Click("btnPOSF0049Print_Click")))
+                                </div>
+                                <div>
+                                    @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnExcel"))
+                                            .Name("btnPOSF0049Export").Events(e => e.Click("btnPOSF0049Export_Click")))
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+
+@Html.ASOFTHidden("UrlDoPrint", Url.Action("DoPrintOrExport", "POSF0049"))
+@Html.ASOFTHidden("UrlExportReport", Url.Action("ExportReport", "POSF0049"))
+@Html.ASOFTHidden("UrlReportViewer", Url.Action("ReportViewer", "POSF0049"))
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF0049.js")" type="text/javascript"></script>
+}
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/POS/Content/POSFCommon.css")" rel="stylesheet" type="text/css" />
+}

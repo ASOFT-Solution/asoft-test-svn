@@ -1,0 +1,118 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     27/03/2013      Thai Son        Add heading
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.ViewModel.POS
+@model POSF00171ViewModel
+
+@{  
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "POSF00171Grid", 
+        Scrollable = true, 
+        ControllerName = "POSF0017",
+        ActionName = "GetGridDetailData",
+        NameEventPost = "SendDataMaster",
+        //AddNewRowDisabled = true,
+        IsShowCheck = false,
+
+        HtmlAttribute = new
+        {
+            style = "height:400px;", 
+            @class = "asf-grid",
+            AddNewRowDisabled = "true"          
+        },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "RowNum",
+                ClientTemplate = "#= renderNumber(data) #",
+                TitleColumn = ASOFTLanguage.FindWordA00("A00.Number"),
+                Width = 30,
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "InventoryID",
+                TitleColumn = Html.ASOFTRaw(model => model.InventoryID),
+                Width = 100,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:left"}),
+                EditorTemplateName = "POSInventory"
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "InventoryName",
+                TitleColumn = Html.ASOFTRaw(model => model.InventoryName),
+                Width = 150,
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "UnitName",
+                TitleColumn = Html.ASOFTRaw(model => model.UnitID),
+                Width = 100,
+                HtmlAttrCoulmns = (new {style = "text-align:left"}),
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "BooksQuantity",
+                TitleColumn = Html.ASOFTRaw(model => model.BooksQuantity),
+                Width = 90,
+                ClientTemplate = @"#=getBooksQuantity(data)#",
+                HtmlAttrCoulmns = (new {style = "text-align:right"}),
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "ActualQuantity",
+                TitleColumn = Html.ASOFTRaw(model => model.ActualQuantity),
+                Width = 90,
+                ClientTemplate = @"#=getActualQuantity(data)#",
+                HtmlAttrCoulmns = (new {style = "text-align:right"}),
+                VisibleColumn = true,
+                EditorTemplateName = "Number",
+                EditColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "AdjustQuantity",
+                TitleColumn = Html.ASOFTRaw(model => model.AdjustQuantity),
+                Width =90,
+                VisibleColumn = true,
+                ClientTemplate = @"#=getAdjustQuantity(data)#",
+                HtmlAttrCoulmns = (new {style = "text-align:right"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "Description",
+                TitleColumn = Html.ASOFTRaw(model => model.Description),
+                EditColumn = true,
+                Width = 150,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:left"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "APK",
+                Width = 36,
+                ClientTemplate = @"#=genDeleteBtn(data)#",
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+        }
+    };
+}
+
+@(Html.ASOFTCreateGridEdit<ASOFT.ERP.A00.Entities.Database.POST00171>(gridsetting)
+.Events(e=>e.Save("Grid_Save")))
+

@@ -1,0 +1,87 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     27/03/2013      Thai Son        Add heading
+//####################################################################
+*@
+
+@using System.Web.UI.WebControls
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel.POS
+@model POSF0070ViewModel
+@{
+    ViewBag.Title = "Báo cáo biểu đồ";
+}
+
+@section jsFeature{
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF0070.js")"></script>
+}
+
+<div id="contentMaster">
+      @Html.ASOFTHeader(new HeaderModel() { Title = Html.ASOFTRaw(m => m.POSF0070Title), Breakcrumb = true })
+      <div class="full-fieldset">
+          <div class="block-left">
+              @(Html.ASOFTPanel()
+                    .Name("panelbar")
+                    .HtmlAttributes(new { @class = "block-panel-master" })
+                    .Animation(animation =>
+                    {
+                        animation.Enable(true);
+                    })
+                    .Items(panelbar =>
+                    {
+                        panelbar.Add().Text(Html.ASOFTRaw(model => model.ReportSaleTitle))
+                            .HtmlAttributes(new { @class = "block-panel-master-header" })
+                            .Expanded(true).Content(Html.Partial("GridSale").ToHtmlString());
+                    }))
+          </div>
+          
+          <div class="block-right">
+               @(Html.ASOFTPanel()
+                    .Name("panelbarrigth")
+                    .HtmlAttributes(new { @class = "block-panel-master" })
+                    .Animation(animation =>
+                    {
+                        animation.Enable(true);
+                    })
+                    .Items(panelbar =>
+                    {
+                        panelbar.Add().Text(Html.ASOFTRaw(model => model.ReportImportExportSurvivalTitle))
+                            .HtmlAttributes(new { @class = "block-panel-master-header" })
+                            .Expanded(true).Content(Html.Partial("GridSurvival").ToHtmlString());
+                    }))
+          </div>
+      </div>
+</div>
+@Html.ASOFTHidden("UrlReport", Url.Action("GetFileReport"))
+@Html.ASOFTHidden("UrlReportViewer", Url.Action("ViewReport"))
+@Html.ASOFTHidden("UrlDoPrintOrExport", Url.Action("DoPrintOrExport", "POSF0075"))
+<!-- Popup -->
+    @(Html.ASOFTPopup()
+        .Name("POSF0071Popup")
+        .Width(600)
+        .Title(Html.ASOFTPageTitle(model => model.POSF0071Title, "POSF0071").ToHtmlString()))
+     @(Html.ASOFTPopup()
+        .Name("POSF0072Popup")
+        .Width(600)
+        .Title(Html.ASOFTPageTitle(model => model.POSF0071Title, "POSF0072").ToHtmlString()))
+     @(Html.ASOFTPopup()
+        .Name("POSF0073Popup")
+        .Width(600)
+        .Title(Html.ASOFTPageTitle(model => model.POSF0071Title, "POSF0073").ToHtmlString()))
+     @(Html.ASOFTPopup()
+        .Name("POSF0074Popup")
+        .Width(600)
+        .Title(Html.ASOFTPageTitle(model => model.POSF0071Title, "POSF0074").ToHtmlString()))
+     @(Html.ASOFTPopup()
+        .Name("POSF0075Popup")
+        .Width(600)
+        .Title(Html.ASOFTPageTitle(model => model.POSF0071Title, "POSF0075").ToHtmlString()))
+
+
+

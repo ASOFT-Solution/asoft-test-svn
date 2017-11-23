@@ -1,0 +1,131 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     13/03/2017      Quang Hoàng     Tạo mới
+//####################################################################
+*@
+
+@using ASOFT.ERP.ViewModel;
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Infrastructure;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using System.Web.UI.WebControls;
+@using Kendo.Mvc;
+@model IEnumerable<ASOFTSysFieldsViewModel>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string DivisionID = ViewBag.DivisionID;
+    string Header = ViewBag.Header;
+    string ScreenPopup = ViewBag.ScreenPopup;
+    string key = ViewBag.Key;
+    string pk = ViewBag.PKParent;
+    string ScreenID = ViewBag.ScreenID;
+    List<string> listjava = new List<string>();
+    listjava = ViewBag.Java;
+    List<string> listcss = new List<string>();
+    listcss = ViewBag.CSS;
+    string RefLink = ViewBag.RefLink;
+    string module = ViewBag.Module;
+    int sysCategoryBusinessID = ViewBag.sysCategoryBusinessID;
+    string urledit = string.Empty;
+    string urldel = string.Empty;
+
+    ViewBag.Title = Html.ASOFTPageTitle(Header, ScreenID).ToHtmlString();
+    int typeinput = ViewBag.TypeInput;
+
+    if (typeinput == 1)
+    {
+        urledit = "/PopupLayout/Index/" + ViewBag.Module + "/" + ScreenPopup + "?Pk=" + pk + "&Table=" + Model.ElementAt(0).sysTable + "&key=" + key + "&DivisionID=" + DivisionID;
+    }
+    if (typeinput == 2)
+    {
+        urledit = "/PopupMasterDetail/Index/" + ViewBag.Module + "/" + ScreenPopup + "?Pk=" + pk + "&Table=" + Model.ElementAt(0).sysTable + "&key=" + key + "&DivisionID=" + DivisionID;
+    }
+    
+    urldel = "/GridCommon/DeleteViewMaster2/" + module + "/" + ScreenID +"?Type=" + sysCategoryBusinessID;
+
+    string hide = string.Empty;
+    
+    List<ASOFTSysFieldsViewModel> divisionId = Model.ToList().FindAll(m => m.ViewVisible == 0) ?? new List<ASOFTSysFieldsViewModel>();
+
+    foreach(var itemHide in divisionId) 
+    {
+        hide = hide + "<div class='" + itemHide.ColumnName + "' hidden>" + itemHide.Data + "</div>";
+    }
+}
+
+@Html.ASOFTHidden("EnvironmentDivisionID", ASOFTEnvironment.DivisionID)
+@Html.ASOFTHidden("urlParentContent", Request.Url.PathAndQuery)
+@Html.ASOFTHidden("sysTable", Model.ElementAt(0).sysTable)
+@Html.ASOFTHidden("PK", pk)
+@Html.ASOFTHidden("Key", key)
+@Html.ASOFTHidden("urlEdit", urledit)
+@Html.ASOFTHidden("urlDel", urldel)
+@Html.ASOFTHidden("Module", (string)ViewBag.Module)
+@Html.ASOFTHidden("sysScreenID", ScreenID)
+@Html.ASOFTHidden("DivisionIDMaster", DivisionID)
+@Html.ASOFTHidden("typeinput", typeinput)
+@Html.ASOFTHidden("RefLink", RefLink)
+@Html.Raw(hide)
+
+
+<div id="contentMaster">
+
+@Html.ASOFTHeader(new HeaderModel { Title = Html.ASOFTPageTitle((string)ViewBag.ScreenName, (string)ViewBag.ScreenID).ToHtmlString(), Breakcrumb = true })
+    <div id="ViewMaster" class="asf-panel-view-master" >
+        <div class="asf-panel-master-header">                     
+            <div class="asfbtn asfbtn-right">         
+                        @if (Model.ElementAt(0).Toolbar1 != null)
+                        {
+                            Model.ElementAt(0).Toolbar1.EventEdit = "BtnEdit_Click";
+                            Model.ElementAt(0).Toolbar1.EventDelete = "BtnDelete_Click";
+                            Model.ElementAt(0).Toolbar1.EventPrint = "BtnPrint_Click";              
+                        }
+                        @Html.Partial("~/Views/Shared/EditorTemplates/Toolbar.cshtml", Model.ElementAt(0).Toolbar1)                                    
+                 </div>
+                 <div class="asfbtn"> 
+                    @{
+                        if (Model.ElementAt(0).Action != null && Model.ElementAt(0).Action.ListAction != null)
+                        {
+                            @Html.Partial("~/Views/Shared/Action/Action.cshtml", Model.ElementAt(0).Action)
+                        }
+                    }     
+                </div>   
+             </div>
+           <div id="viewPartial">
+            @Html.Partial("ViewMasterDetail", Model)
+        </div>
+    </div>
+</div>
+
+@Html.ASOFTHidden("ParentID", (string)ViewBag.ParentID)
+
+@section jsFeature {
+    @if (listjava.Count > 0)
+    {
+        foreach (string jv in listjava)
+        {
+        <script src="@Url.Content("~/Scripts/JavaCustomize/"+ module + "/" + jv+"?v="+ASOFTEnvironment.Version)" type="text/javascript"></script>
+        }
+    }
+}
+
+@section styleFeature {
+    @if (listcss.Count > 0)
+    {
+        foreach(string css in listcss)
+        {
+            <link  href="@Url.Content("~/Content/CSSCustomize/"+ module + "/" + css + "?v="+ASOFTEnvironment.Version)" rel="stylesheet" type="text/css" />
+        }
+    }
+}
+<script src="@Url.Content("~/Scripts/viewmasterdetail2.js" +"?v="+ASOFTEnvironment.Version)" type="text/javascript"></script>
+
+<link id="RWDNoDetail400" href="@Url.Content("~/Content/Styles/RWD/ViewNoDetail/asoftRWD480pxViewNo.css" +"?v="+ASOFTEnvironment.Version)" rel="stylesheet" type="text/css" />
+<link id="RWDNoDetail600" href="@Url.Content("~/Content/Styles/RWD/ViewNoDetail/asoftRWD600pxViewNo.css" +"?v="+ASOFTEnvironment.Version)" rel="stylesheet" type="text/css" />

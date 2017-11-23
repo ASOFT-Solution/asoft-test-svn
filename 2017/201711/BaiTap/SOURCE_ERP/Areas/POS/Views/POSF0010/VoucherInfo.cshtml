@@ -1,0 +1,209 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     18/03/2014      Minh Lâm      Tạo mới
+//####################################################################
+*@
+
+@model ASOFT.ERP.ViewModel.POS.POSF00101ViewModel
+
+@*<span class="asf-disabled-visibility">
+        @Html.ASOFTTextBox(model => model.LastModifyDateTicks)
+</span>*@
+    <div class="container_12">
+        <div class="grid_6 line_right" >
+            <table class="asf-table-view">
+                <tr>
+                    <td>@Html.ASOFTLabel(model => model.VoucherType01)</td>
+                    <td>
+                        @(Html.ASOFTBussinessComboBox()
+                        .ASOFTVoucherTypeID(model =>
+                            model.VoucherType01, false,
+                            htmlStyle: new
+                            {
+                                width = Unit.Percentage(100)
+                            }
+                        ))
+                          @*dataSourceDisabled: true.BindTo((System.Collections.IEnumerable)ViewBag.VoucherTypes))*@
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.ASOFTLabel(model => model.VoucherType02)
+
+                    </td>
+                    <td>
+                        @(Html.ASOFTBussinessComboBox().ASOFTVoucherTypeID(model => model.VoucherType02, 
+                        htmlStyle: new { width = Unit.Percentage(100)}
+                         ))
+                        @* //.BindTo((System.Collections.IEnumerable)ViewBag.VoucherTypes))*@
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.ASOFTLabel(model => model.VoucherType03)
+
+                    </td>
+                    <td>
+                        @(Html.ASOFTBussinessComboBox().ASOFTVoucherTypeID(model => model.VoucherType03,
+                        htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        }))
+                        @*.BindTo((System.Collections.IEnumerable)ViewBag.VoucherTypes))*@
+                    </td>
+                </tr>
+               
+               @* <tr>
+                    <td>@Html.ASOFTLabel(model => model.VoucherType04)
+                    </td>
+                    <td>
+                        @(Html.ASOFTBussinessComboBox().ASOFTVoucherTypeID(model => model.VoucherType04,
+                        htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        }))
+                        .BindTo((System.Collections.IEnumerable)ViewBag.VoucherTypes))
+                    </td>
+                </tr>*@
+                <tr>
+                    <td>@Html.ASOFTLabel(model => model.VoucherType09)
+
+                    </td>
+                    <td>
+                        @(Html.ASOFTBussinessComboBox().ASOFTVoucherTypeID(model => model.VoucherType09,
+                        htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        }))
+                      @*  .BindTo((System.Collections.IEnumerable)ViewBag.VoucherTypes))*@
+                    </td>
+                </tr>
+                 <tr>
+                    <td>@Html.ASOFTLabel(model => model.VoucherType11)
+
+                    </td>
+                    <td>
+                        @(Html.ASOFTBussinessComboBox().ASOFTVoucherTypeID(model => model.VoucherType11,
+                        htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        }))
+                    @*    .BindTo((System.Collections.IEnumerable)ViewBag.VoucherTypes))*@
+                    </td>
+                </tr>
+                 <tr>
+                    <td>@Html.ASOFTLabel(model => model.VoucherType13)
+
+                    </td>
+                    <td>
+                        @(Html.ASOFTBussinessComboBox().ASOFTVoucherTypeID(model => model.VoucherType13,
+                        htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        }))
+                    @*    .BindTo((System.Collections.IEnumerable)ViewBag.VoucherTypes))*@
+                    </td>
+                </tr>
+                 <tr>
+                    <td>@Html.ASOFTLabel(model => model.VoucherType14)
+
+                    </td>
+                    <td>
+                        @(Html.ASOFTBussinessComboBox().ASOFTVoucherTypeID(model => model.VoucherType14,
+                        htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        }))
+                    @*    .BindTo((System.Collections.IEnumerable)ViewBag.VoucherTypes))*@
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="grid_6">
+            <table class="asf-table-view">
+                <tr>
+                    <td>@Html.ASOFTLabel(model => model.VoucherType05)
+
+                    </td>
+                    <td>
+                        @(Html.ASOFTBussinessComboBox().ASOFTVoucherTypeID(model => model.VoucherType05,
+                        htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        }))
+                   @*     //.BindTo((System.Collections.IEnumerable)ViewBag.VoucherTypes))*@
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>@Html.ASOFTLabel(model => model.VoucherType06)
+
+                    </td>
+                    <td>
+                        @(Html.ASOFTBussinessComboBox().ASOFTVoucherTypeID(model => model.VoucherType06,
+                        htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        }))
+                    @*    //.BindTo((System.Collections.IEnumerable)ViewBag.VoucherTypes)//)*@
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.ASOFTLabel(model => model.VoucherType07)
+
+                    </td>
+                    <td>
+                        @(Html.ASOFTBussinessComboBox().ASOFTVoucherTypeID(model => model.VoucherType07,
+                        htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        }))
+                       @* .BindTo((System.Collections.IEnumerable)ViewBag.VoucherTypes))*@
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.ASOFTLabel(model => model.VoucherType08)
+
+                    </td>
+                    <td>
+                        @(Html.ASOFTBussinessComboBox().ASOFTVoucherTypeID(model => model.VoucherType08,
+                        htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        }))
+                      @*  .BindTo((System.Collections.IEnumerable)ViewBag.VoucherTypes))*@
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.ASOFTLabel(model => model.VoucherType10)
+
+                    </td>
+                    <td>
+                        @(Html.ASOFTBussinessComboBox().ASOFTVoucherTypeID(model => model.VoucherType10,
+                        htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        }))
+                    @*    .BindTo((System.Collections.IEnumerable)ViewBag.VoucherTypes))*@
+                    </td>
+                </tr>
+                 <tr>
+                    <td>@Html.ASOFTLabel(model => model.VoucherType12)
+
+                    </td>
+                    <td>
+                        @(Html.ASOFTBussinessComboBox().ASOFTVoucherTypeID(model => model.VoucherType12,
+                        htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        }))
+                    @*    .BindTo((System.Collections.IEnumerable)ViewBag.VoucherTypes))*@
+                    </td>
+                </tr>               
+            </table>
+        </div>
+</div>
+

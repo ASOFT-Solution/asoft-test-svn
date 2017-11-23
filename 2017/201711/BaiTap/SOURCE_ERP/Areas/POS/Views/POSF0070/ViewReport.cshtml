@@ -1,0 +1,33 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     27/03/2013      Thai Son        Add heading
+//####################################################################
+*@
+@using System.Web.UI.WebControls
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel.POS
+@model POSF0070ViewModel
+@{
+    ViewBag.Title = "Báo cáo biểu đồ";
+}
+
+@section jsFeature{
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF0070.js")"></script>
+}
+
+<div id="contentMaster">
+      @Html.ASOFTHeader(new HeaderModel() { Title = Html.ASOFTRaw(m => m.POSF0070Title), Breakcrumb = true })
+      <div id="ViewMaster" class="asf-panel-view-master" >
+        <object data="@Url.Action("GetFileReport", "POSF0070", new{
+                                                                            reportid = ViewBag.ReportID, 
+                                                                            option = ViewBag.Option
+                                                                        })"
+                        type="application/pdf" width="100%" height="700px"></object>
+     </div>
+</div>

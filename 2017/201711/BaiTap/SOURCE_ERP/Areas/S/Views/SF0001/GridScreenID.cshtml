@@ -1,0 +1,125 @@
+﻿@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Core;
+@model SF0001ViewModel
+
+@{
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "SF0001Grid",
+        NameEventPost = "SF0001.gridSendData",
+        Scrollable = true,
+        IsShowCheck = false,
+        ActionName = "GetGridData",
+        ControllerName = "SF0001",
+        IsAutoHeight = false,
+        HtmlAttribute = new { @class = "asf-grid", style = "height:350px" },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = SF0001.COL_ROWNUM,
+                TitleColumn = ASOFTLanguage.FindWordA00("A00.Order"),
+                ClientTemplate = "#= SF0001.renderNumber() #",
+                Width = 50,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = SF0001.COL_SCREENID,
+                TitleColumn = Html.DisplayNameFor(model => model.ScreenID).ToHtmlString(),
+                Width = 100,
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = SF0001.COL_SCREENNAME,
+                TitleColumn = Html.DisplayNameFor(model => model.ScreenName).ToHtmlString(),
+                Width = 250,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = SF0001.COL_SCREENNAMEE,
+                TitleColumn = Html.DisplayNameFor(model => model.ScreenNameE).ToHtmlString(),
+                Width = 200,
+                VisibleColumn = false,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = SF0001.COL_ISADDNEW,
+                 TitleColumn = string.Format("<input id='{0}' name='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='SF0001.checkBox_ChangedAll(this)' /> {1}",
+                                                                                SF0001.COL_ISADDNEW,Html.DisplayNameFor(model => model.IsAddNew).ToHtmlString()),
+                                                                                
+                //TitleColumn = Html.DisplayNameFor(model => model.IsAddNew).ToHtmlString(),
+                Width = 100,
+                VisibleColumn = true,
+                ClientTemplate = string.Format("<input id='{0}' type='checkbox' #= {0} == 1 ? 'checked' : '' # onchange='SF0001.checkBox_Changed(this)' style='width:100%' />",
+                    SF0001.COL_ISADDNEW),
+                HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = SF0001.COL_ISVIEW,
+                TitleColumn = string.Format("<input id='{0}' name='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='SF0001.checkBox_ChangedAll(this)' /> {1}",
+                                                                                SF0001.COL_ISVIEW,Html.DisplayNameFor(model => model.IsView).ToHtmlString()),
+                //TitleColumn = Html.DisplayNameFor(model => model.IsView).ToHtmlString(),
+                Width = 100,
+                VisibleColumn = true,
+                ClientTemplate = string.Format("<input id='{0}' type='checkbox' #= {0} == 1 ? 'checked' : '' # onchange='SF0001.checkBox_Changed(this)' style='width:100%' />",
+                    SF0001.COL_ISVIEW),
+                HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+            },            
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = SF0001.COL_ISUPDATE,
+                TitleColumn = string.Format("<input id='{0}' name='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='SF0001.checkBox_ChangedAll(this)' /> {1}",
+                                                                                SF0001.COL_ISUPDATE,Html.DisplayNameFor(model => model.IsUpdate).ToHtmlString()),
+                //TitleColumn = Html.DisplayNameFor(model => model.IsUpdate).ToHtmlString(),
+                Width = 100,
+                VisibleColumn = true,
+                ClientTemplate = string.Format("<input id='{0}' type='checkbox' #= {0} == 1 ? 'checked' : '' # onchange='SF0001.checkBox_Changed(this)' style='width:100%' />",
+                    SF0001.COL_ISUPDATE),
+                HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = SF0001.COL_ISDELETE,
+                TitleColumn = string.Format("<input id='{0}' name='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='SF0001.checkBox_ChangedAll(this)' /> {1}",
+                                                                                SF0001.COL_ISDELETE,Html.DisplayNameFor(model => model.IsDelete).ToHtmlString()),
+                //TitleColumn = Html.DisplayNameFor(model => model.IsDelete).ToHtmlString(),
+                Width = 100,
+                VisibleColumn = true,
+                ClientTemplate = string.Format("<input id='{0}' type='checkbox' #= {0} == 1 ? 'checked' : '' # onchange='SF0001.checkBox_Changed(this)' style='width:100%' />",
+                    SF0001.COL_ISDELETE),
+                HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = SF0001.COL_ISPRINT,
+                TitleColumn = string.Format("<input id='{0}' name='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='SF0001.checkBox_ChangedAll(this)' /> {1}",
+                                                                                SF0001.COL_ISPRINT,Html.DisplayNameFor(model => model.IsPrint).ToHtmlString()),
+                //TitleColumn = Html.DisplayNameFor(model => model.IsPrint).ToHtmlString(),
+                Width = 100,
+                VisibleColumn = true,
+                ClientTemplate = string.Format("<input id='{0}' type='checkbox' #= {0} == 1 ? 'checked' : '' # onchange='SF0001.checkBox_Changed(this)' style='width:100%' />",
+                    SF0001.COL_ISPRINT),
+                HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = SF0001.COL_ISEXPORTEXCEL,
+                TitleColumn = string.Format("<input id='{0}' name='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='SF0001.checkBox_ChangedAll(this)' /> {1}",
+                                                                                SF0001.COL_ISEXPORTEXCEL,Html.DisplayNameFor(model => model.IsExportExcel).ToHtmlString()),
+                //TitleColumn = Html.DisplayNameFor(model => model.IsExportExcel).ToHtmlString(),
+                Width = 100,
+                VisibleColumn = true,
+                ClientTemplate = string.Format("<input id='{0}' type='checkbox' #= {0} == 1 ? 'checked' : '' # onchange='SF0001.checkBox_Changed(this)' style='width:100%' />",
+                    SF0001.COL_ISEXPORTEXCEL),
+                HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+            },
+        }
+    };
+}
+
+@(Html.ASOFTCreateGridNotPagging<SF0001>(gridsetting))
+

@@ -1,0 +1,76 @@
+﻿
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Entities.Database
+@using ASOFT.ERP.ViewModel.CI
+@using ASOFT.ERP.CI.Entities
+@model CIF1030ViewModel
+@{
+    var gridsetting = new ASOFTGridSetting
+                          {
+                              NameGrid = "CIF1030Grid",
+                              NameEventPost = "CIF1030.sendDataFilter",
+                              Scrollable = true,
+                              ActionName = "GetGridData",
+                              ControllerName = "CIF1030",
+                              HtmlAttribute = new {style = "height:590px;", @class = "asf-grid"},
+                              IsShowCheck = true,
+                              ListGridColumn = new List<ASOFTGridColumnSetting>{
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = "RowNum",
+                                                               TitleColumn = ASOFTLanguage.FindWordA00("A00.Order"),
+                                                               Width = 50,
+                                                               VisibleColumn = true,
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = CIP1030.COL_DIVISIONID,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.DivisionID),
+                                                               Width = 100,
+                                                               VisibleColumn = true,
+                                                           },    
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = CIP1030.COL_ANAID,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.AnaID),
+                                                               Width = 150,
+                                                               VisibleColumn = true,       
+                                                               ClientTemplate = string.Format("<a href='{0}'>#:{1}#</a>", //{0:link; 1:bien hien thi
+                                                                        Url.Content(string.Format("~/CI/CIF1030/CIF1032/?AnaID=#:{0}#", CIP1030.COL_ANAID)),
+                                                                        CIP1030.COL_ANAID),    
+                                                           },  
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = CIP1030.COL_ANANAME,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.AnaName),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = CIP1030.COL_ISCOMMON,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.IsCommon),
+                                                               Width = 150,
+                                                               VisibleColumn = true,       
+                                                               ClientTemplate= "<input type='checkbox' #= IsCommon ? 'checked' : '' # onclick='return false;' disabled=disabled />",
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center" }
+
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = CIP1030.COL_DISABLED,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.Disabled),
+                                                               Width = 150,
+                                                               VisibleColumn = true,       
+                                                               ClientTemplate= "<input type='checkbox' #= Disabled ? 'checked' : '' # onclick='return false;' disabled=disabled />",
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center" }
+
+                                                           },   
+                                       
+                                
+                              }
+                          };
+}
+
+@(Html.ASOFTCreateGrid<ASOFT.ERP.CI.Entities.CIP1030>(gridsetting,false))

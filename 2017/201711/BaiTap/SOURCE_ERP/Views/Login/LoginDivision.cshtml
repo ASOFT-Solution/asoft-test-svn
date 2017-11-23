@@ -1,0 +1,115 @@
+﻿@using System.Web.Optimization
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.ViewModel;
+@using XCaptcha.Web.Mvc;
+@model ASOFT.ERP.ViewModel.A00.LoginViewModel
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = @Html.ASOFTPageTitle(model => model.Title, "AS0074").ToHtmlString();
+    //ViewBag.Title = @Html.ASOFTPageTitle(model => model.SystemConfig, "POSF0000").ToHtmlString();
+    ViewBag.Width = 600;
+}
+
+@*<body class="@this.ViewContext.Controller.ValueProvider.GetValue("controller").RawValue">*@
+@using (@Html.BeginForm(null, null, FormMethod.Post, new
+{
+    id = "LoginDivision"
+}))
+{
+    //@(Html.ASOFTHidden("urlLoginSuccess", Model.ReturnUrl ?? Url.Action("Index", new { area = "RD", controller = "DashBoard" })))
+    //@Html.RenderScripts()
+
+    //@Html.EnableClientValidation()
+    //Model.UserID = "ASOFTADMIN";
+    //Model.GroupID = "ADMIN";
+    @Html.ASOFTHidden(model => model.ReturnUrl)
+    <table class="asf-table-view">
+        <thead>
+            <tr>
+                <td class="td-one"></td>
+                <td class="td-two"></td>
+                <td class="td=three"></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.LogonDivisionID)</td>
+                <td class="fixWidthPopup">
+                    @(Html.ASOFTBussinessComboBox()
+                              .ASOFTDivisionIDLogin(model => model.LogonDivisionID,
+                               htmlAttributes: new Dictionary<string, object> 
+                                {
+                                    {"data-bind","value:LogonDivisionID"}
+                                })
+                              .DataTextField(Login.COL_LOGONDIVISIONID)
+        //.Events( e => e.Change("divisionID_Change"))
+                              .SelectedIndex(0)
+                               )
+                </td>
+                <td class="space"></td>
+                <td class="fixWidth">
+                    @Html.ASOFTTextBox(model => model.LogonDivisionName, htmlStyle: new
+               {
+                   height = "25px"
+               }).ReadOnlyIf(true)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.ASOFTLabel(model => model.DateWork)
+                </td>
+                <td>
+                    @(Html.ASOFTDateEdit(model => model.DateWork,
+                             htmlAttributes: new Dictionary<string, object> {
+                                                    {"data-bind","value:DateWork"}}
+                                                )
+                            .Value(DateTime.Now))
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+        
+    <div class="clearfix"></div>
+    <div class="asf-form-button">
+        <table class="asf-table-view">
+            <tr>
+                <td>@*align="right"*@
+                    <div class="asf-popup-button-container">
+                        <div>
+                            @(Html
+                            .ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                            .Name("btnClose")
+        //.Events(e => e.Click("btnClose"))
+                            )
+                        </div>
+                        <div>
+                            @(Html
+                            .ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSave"))
+                            .Name("btnLogin")
+        //.Events(e => e.Click("btnLoginClick"))
+                            )
+
+                        </div>
+
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+}
+<!--Dialog confirm and message-->
+@Html.Partial("~/Views/Shared/EditorTemplates/Dialog.cshtml")
+
+@section styleFeature{
+    <link 
+        href="@Url.Content("~/Content/Styles/Login.css")" 
+        rel="stylesheet" type="text/css" />
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Scripts/loginDivision.js?v="+ASOFTEnvironment.Version)" type="text/javascript"></script>
+}
+

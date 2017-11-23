@@ -1,0 +1,105 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     23/07/2014      Đức Quý         Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.A00.Core
+
+@model ASOFT.ERP.ViewModel.POS.POSF0060ViewModel
+
+@{
+    Layout = "~/Views/Shared/_ContentMaster.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(model => model.Title, "POSF0060").ToHtmlString();
+}
+
+@Html.ASOFTHidden("UpdateRecord", Url.Action("UpdateRecord"))
+@Html.ASOFTHidden("UrlInsert", Url.Action("Insert"))
+@Html.ASOFTHidden("UrlUpdate", Url.Action("Update"))
+@Html.ASOFTHidden("UrlPOSF0061", Url.Action("POSF0061"))
+@Html.ASOFTHidden("UrlDelete", Url.Action("Delete"))
+@section Header {
+        @Html.ASOFTHeader(new HeaderModel {  Title = Html.ASOFTPageTitle(model => model.Title, "POSF0060").ToHtmlString(), 
+       Breakcrumb = true })
+}
+@section FilterCol1 {
+                    <tr>
+                        <td>@Html.ASOFTLabel(model => model.DivisionID)</td>
+                        <td>
+                            @(Html.ASOFTBussinessComboBox().
+                            ASOFTDivisionIDList(model => model.DivisionID))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@Html.ASOFTLabel(model => model.ShopID)</td>
+                        <td>
+                            @(Html.ASOFTBussinessComboBox().
+                            ASOFTShopIDLST(model => model.ShopID))
+                        </td>
+                    </tr>                   
+}
+@section FilterCol2 {
+                    <tr>
+                        <td>@Html.ASOFTLabel(model => model.TimeIDFilter)</td>
+                        <td>
+                            @Html.ASOFTTextBox(model => model.TimeIDFilter)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@Html.ASOFTLabel(model => model.TimeNameFilter)</td>
+                        <td>
+                            @Html.ASOFTTextBox(model => model.TimeNameFilter)
+                        </td>
+                    </tr>
+}
+@section FilterCol3 {
+                    <tr>
+                         <td>@Html.ASOFTLabel(model => model.DisabledFilter)</td>
+                        <td>
+                            @(Html.ASOFTBussinessComboBox().ASOFTCiCodeMasterDisabled(model => model.DisabledFilter, htmlStyle: new
+                                    {
+                                        width = Unit.Percentage(100)
+                                    }))
+                        </td>    
+                    </tr> 
+                    <tr>
+                         <td>@Html.ASOFTLabel(model => model.IsCommonFilter)</td>
+                        <td>
+                            @(Html.ASOFTBussinessComboBox().ASOFTCiCodeMasterDisabled(model => model.IsCommonFilter, htmlStyle: new
+                                    {
+                                        width = Unit.Percentage(100)
+                                    }))
+                        </td>    
+                    </tr> 
+            
+        }
+@section GridToolBar {
+            @if (Model.Toolbar1 != null)
+            {
+                Model.Toolbar1.EventPrint = "btnPrint_Click";
+                Model.Toolbar1.DisplayPrint = true;         
+            }
+            @Html.Partial("~/Views/Shared/EditorTemplates/Toolbar.cshtml", 
+            Model.Toolbar1 ?? new ASOFTToolBarViewModel())
+}
+@section FilterButtons {
+                <li>
+                    @(Html.ASOFTSearchButton()
+                          .Name("POSF0060BtnFilter").Events(e => e.Click("filterData")))
+
+                </li>
+                <li>
+                    @(Html.ASOFTSearchResetButton()
+                          .Name("POSF0060BtnClearFilter").Events(e => e.Click("resetForm")))
+                </li>
+}
+@section Grid {
+    @Html.Partial("GridTime")
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF0060.js")" type="text/javascript"></script>
+}
