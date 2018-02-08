@@ -35,6 +35,27 @@ SET @Description = N'Báo giá'
 SET @DescriptionE = N'Quotation' 
 SET @Disabled = 0 
 IF NOT EXISTS (SELECT TOP 1 1 FROM CRMT0099 WHERE CodeMaster = @CodeMaster AND ID = @ID) INSERT INTO CRMT0099 (CodeMaster, OrderNo, ID, [Description],DescriptionE, [Disabled]) VALUES (@CodeMaster, @OrderNo, @ID, @Description, @DescriptionE, @Disabled) ELSE UPDATE CRMT0099 SET OrderNo = @OrderNo, [Description] = @Description,DescriptionE = @DescriptionE, [Disabled] =@Disabled WHERE CodeMaster = @CodeMaster AND ID = @ID 
+----------
+SET @OrderNo = 3  
+SET @ID = '6' 
+SET @Description = N'Đối tác' 
+SET @DescriptionE = N'Partner' 
+SET @Disabled = 0 
+IF NOT EXISTS (SELECT TOP 1 1 FROM CRMT0099 WHERE CodeMaster = @CodeMaster AND ID = @ID) INSERT INTO CRMT0099 (CodeMaster, OrderNo, ID, [Description],DescriptionE, [Disabled]) VALUES (@CodeMaster, @OrderNo, @ID, @Description, @DescriptionE, @Disabled) ELSE UPDATE CRMT0099 SET OrderNo = @OrderNo, [Description] = @Description,DescriptionE = @DescriptionE, [Disabled] =@Disabled WHERE CodeMaster = @CodeMaster AND ID = @ID 
+----------
+SET @OrderNo = 4  
+SET @ID = '7' 
+SET @Description = N'Nhu cầu SME' 
+SET @DescriptionE = N'Demand SME' 
+SET @Disabled = 0 
+IF NOT EXISTS (SELECT TOP 1 1 FROM CRMT0099 WHERE CodeMaster = @CodeMaster AND ID = @ID) INSERT INTO CRMT0099 (CodeMaster, OrderNo, ID, [Description],DescriptionE, [Disabled]) VALUES (@CodeMaster, @OrderNo, @ID, @Description, @DescriptionE, @Disabled) ELSE UPDATE CRMT0099 SET OrderNo = @OrderNo, [Description] = @Description,DescriptionE = @DescriptionE, [Disabled] =@Disabled WHERE CodeMaster = @CodeMaster AND ID = @ID 
+----------
+SET @OrderNo = 5  
+SET @ID = '8' 
+SET @Description = N'Nhu cầu ERP' 
+SET @DescriptionE = N'Demand ERP' 
+SET @Disabled = 0 
+IF NOT EXISTS (SELECT TOP 1 1 FROM CRMT0099 WHERE CodeMaster = @CodeMaster AND ID = @ID) INSERT INTO CRMT0099 (CodeMaster, OrderNo, ID, [Description],DescriptionE, [Disabled]) VALUES (@CodeMaster, @OrderNo, @ID, @Description, @DescriptionE, @Disabled) ELSE UPDATE CRMT0099 SET OrderNo = @OrderNo, [Description] = @Description,DescriptionE = @DescriptionE, [Disabled] =@Disabled WHERE CodeMaster = @CodeMaster AND ID = @ID 
 
 ----------Phân loại Bug
 SET @CodeMaster = 'CRMT00000026' 

@@ -18,7 +18,8 @@ GO
 --- Modify by Thị Phượng, Date 08/05/2017: Bổ sung phân quyền
 --- Modify by Thị Phượng, Date 30/08/2017: Thay đổi cách sắp xếp order by theo CreateDate
 --- Modify by Thị Phượng, Date 08/11/2017: Bổ sung thêm xử lý search nâng cao
---- Modify by Tấn Đạt, Date 08/02/2018: Bổ sung thêm các trường: RequestTypeID, BugTypeID, DeadlineExpect, CompleteDate, DurationTime, RealTime
+--- Modify by Tấn Đạt, Date 08/02/2018: Bổ sung thêm các trường: RequestTypeID, RequestTypeName, BugTypeID, BugTypeName, DeadlineExpect, CompleteDate, DurationTime, RealTime
+--- Modify by Tấn Đạt, Date 08/02/2018: Bổ sung thêm các trường: ProjectID, ProjectName
 -- <Example>
 /*
 --Lưu y chưa xử lý: Phân quyền xem dữ liệu người khác, phân quyền chi tiết dữ liệu
@@ -44,7 +45,8 @@ CREATE PROCEDURE CRMP20801 (
   --@DeadlineExpect VARCHAR(50), 
   --@CompleteDate VARCHAR(50),
   --@DurationTime VARCHAR(50), 
-  --@RealTime VARCHAR(50)
+  --@RealTime VARCHAR(50),
+  --@projectID varchar(50)
 ) 
 AS 
 DECLARE @sSQL NVARCHAR (MAX),
@@ -91,6 +93,8 @@ Begin
 	--	SET @sWhere = @sWhere + ' AND ISNULL(M.DurationTime,'''') LIKE N''%'+@DurationTime+'%'' '
 	--IF Isnull(@RealTime, '') != ''
 	--	SET @sWhere = @sWhere + ' AND ISNULL(M.RealTime,'''') LIKE N''%'+@RealTime+'%'' '
+	--IF Isnull(@ProjectID, '') != ''
+	--	SET @sWhere = @sWhere + ' AND ISNULL(M.ProjectID,'''') LIKE N''%'+@ProjectID+'%'' '
 End
 IF isnull(@SearchWhere,'') !=''
 Begin
@@ -114,6 +118,7 @@ SET @sSQL = ' SELECT  M.APK, M.DivisionID, M.RequestID, M.RequestSubject, M.Rela
 					--, M.DeadlineExpect, M.CompleteDate, M.DurationTime, M.RealTime
 					--, M.RequestTypeID, C03.Description as RequestTypeName
 					--, M.BugTypeID, C04.Description as BugTypeName
+					--, M.ProjectID, A1.AnaName as ProjectName
 					Into #CRMT20801
 					From CRMT20801 M With (Nolock)
 					Left join AT1103 A With (Nolock) On  A.EmployeeID = M.AssignedToUserID
@@ -121,6 +126,7 @@ SET @sSQL = ' SELECT  M.APK, M.DivisionID, M.RequestID, M.RequestSubject, M.Rela
 					Left join CRMT0099 C02 With (Nolock) On C02.ID = M.PriorityID and C02.CodeMaster =''CRMT00000006''		
 					Left join CRMT0099 C03 With (Nolock) On C03.ID = M.RequestTypeID and C03.CodeMaster =''CRMT00000025''			  
 					Left join CRMT0099 C04 With (Nolock) On C04.ID = M.BugTypeID and C04.CodeMaster =''CRMT00000026''			  	 
+					Left join AT1015 A1 With (Nolock) On A1.AnaID = M.ProjectID 
 			WHERE '+@sWhere+'
 
 			DECLARE @Count int
@@ -137,6 +143,7 @@ SET @sSQL = ' SELECT  M.APK, M.DivisionID, M.RequestID, M.RequestSubject, M.Rela
 					--, M.DeadlineExpect, M.CompleteDate, M.DurationTime, M.RealTime
 					--, M.RequestTypeID, M.RequestTypeName
 					--, M.BugTypeID, M.BugTypeName
+					--, M.ProjectID, M.ProjectName
 					From #CRMT20801 M With (Nolock)	
 					'+Isnull(@SearchWhere,'')+'									 
 			ORDER BY '+@OrderBy+'

@@ -95,5 +95,13 @@ END
 
 /*===============================================END RealTime===============================================*/ 
 
+IF EXISTS (SELECT TOP 1 1 FROM sysobjects WHERE [name] = 'CRMT20801' AND xtype = 'U')
+BEGIN 
+   IF NOT EXISTS (SELECT TOP 1 1 FROM syscolumns col INNER JOIN sysobjects tab 
+   ON col.id = tab.id WHERE tab.name = 'CRMT20801' AND col.name = 'ProjectID') 
+   ALTER TABLE CRMT20801 ADD ProjectID VARCHAR(50) NULL 
+END
+
+/*===============================================END ProjectID===============================================*/ 
 
 
