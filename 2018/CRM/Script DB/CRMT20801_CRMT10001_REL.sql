@@ -1,5 +1,4 @@
-﻿
----- Create by Tấn Đạt on 02/02/2018 14:50:00 
+﻿---- Create by Đào Tấn Đạt on 2/5/2018 11:27:38 AM
 ---- Mối liên hệ giữa Yêu cầu và liên hệ
 
 IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE OBJECT_ID = OBJECT_ID(N'[dbo].[CRMT20801_CRMT10001_REL]') AND TYPE IN (N'U'))
@@ -7,7 +6,7 @@ BEGIN
 CREATE TABLE [dbo].[CRMT20801_CRMT10001_REL]
 (
   [APK] UNIQUEIDENTIFIER DEFAULT newid() NOT NULL,
-  [RequestID] int NOT NULL,
+  [RequestID] INT NOT NULL,
   [ContactID] VARCHAR(50) NOT NULL
 CONSTRAINT [PK_CRMT20801_CRMT10001_REL] PRIMARY KEY CLUSTERED
 (
