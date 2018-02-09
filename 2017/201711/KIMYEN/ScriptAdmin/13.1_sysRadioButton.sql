@@ -19,3 +19,12 @@ set @RadioButtonID=N'Rdo_SuggestType'
 If not exists(select top 1 1 from [dbo].[sysRadioButton] where  [RadioButtonID] = N'Rdo_InformType')Begin 
 insert into sysRadioButton(StoreName,StoreParameter,SQLQuery,RadioButtonID)values(@StoreName,@StoreParameter,@SQLQuery,@RadioButtonID)
 End
+
+set @StoreName=null 
+set @StoreParameter=null 
+set @SQLQuery=N'Select N''OOF2101.ProjectType1'' as IDLanguage, ''1'' as Value, N''Dự án'' as Text
+union all select N''OOF2101.ProjectType2'' as IDLanguage, ''2'' as Value, N''Nhóm công việc'' as Text'
+set @RadioButtonID=N'Rdo_ProjectType' 
+If not exists(select top 1 1 from [dbo].[sysRadioButton] where  [RadioButtonID] = N'Rdo_ProjectType')Begin 
+insert into sysRadioButton(StoreName,StoreParameter,SQLQuery,RadioButtonID)values(@StoreName,@StoreParameter,@SQLQuery,@RadioButtonID)
+End

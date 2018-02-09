@@ -8,9 +8,9 @@
 --End
 
 set @ScreenID=N'OOF1051'
-set @ColumnName=N'Content'
-set @IDLanguage=N'OOF1051.Content'
-If not exists(select top 1 1 from [dbo].[sysLanguage] where  [ScreenID] = N'OOF1051' and ColumnName = N'Content' and IDLanguage = N'OOF1051.Content')Begin 
+set @ColumnName=N'Description'
+set @IDLanguage=N'OOF1051.Description'
+If not exists(select top 1 1 from [dbo].[sysLanguage] where  [ScreenID] = N'OOF1051' and ColumnName = N'Description' and IDLanguage = N'OOF1051.Description')Begin 
 insert into sysLanguage(ScreenID,ColumnName,IDLanguage)values(@ScreenID,@ColumnName,@IDLanguage)
 End
 

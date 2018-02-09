@@ -35,3 +35,9 @@ If not exists(select top 1 1 from [dbo].[sysLanguage] where  [ScreenID] = N'OOF1
 insert into sysLanguage(ScreenID,ColumnName,IDLanguage)values(@ScreenID,@ColumnName,@IDLanguage)
 End
 
+set @ScreenID=N'OOF1021'
+set @ColumnName=N'Disabled'
+set @IDLanguage=N'OOF1021.Disabled'
+If not exists(select top 1 1 from [dbo].[sysLanguage] where  [ScreenID] = N'OOF1021' and ColumnName = N'Disabled' and IDLanguage = N'OOF1021.Disabled')Begin 
+insert into sysLanguage(ScreenID,ColumnName,IDLanguage)values(@ScreenID,@ColumnName,@IDLanguage)
+End

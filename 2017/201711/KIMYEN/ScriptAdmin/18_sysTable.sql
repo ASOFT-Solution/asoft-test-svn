@@ -89,3 +89,98 @@ set @RefScreenMainID=N'OOF1041'
 If not exists(select top 1 1 from [dbo].[sysTable] where  [TableName] = N'OOT1040')Begin 
 insert into sysTable(TableName,Description,PK,ModuleID,ParentTable,RefLink,RefUrl,RelTable,RelColumn,TableDelete,TypeREL,RealRelColumn,StartRowImport,RefScreenMainID)values(@TableName,@Description,@PK,@ModuleID,@ParentTable,@RefLink,@RefUrl,@RelTable,@RelColumn,@TableDelete,@TypeREL,@RealRelColumn,@StartRowImport,@RefScreenMainID)
 End
+
+set @TableName=N'OOT1031'
+set @Description=N'Cập nhật mẫu công việc theo bước'
+set @PK=N'APK'
+set @ModuleID=N'AsoftOO'
+set @ParentTable=N'OOT1030'
+set @RefLink=null
+set @RefUrl=null
+set @RelTable=null
+set @RelColumn=null 
+set @TableDelete=null 
+set @TypeREL=null
+set @RealRelColumn=null
+set @StartRowImport=null 
+set @RefScreenMainID=N'OOF1031'
+If not exists(select top 1 1 from [dbo].[sysTable] where  [TableName] = N'OOT1031')Begin 
+insert into sysTable(TableName,Description,PK,ModuleID,ParentTable,RefLink,RefUrl,RelTable,RelColumn,TableDelete,TypeREL,RealRelColumn,StartRowImport,RefScreenMainID)values(@TableName,@Description,@PK,@ModuleID,@ParentTable,@RefLink,@RefUrl,@RelTable,@RelColumn,@TableDelete,@TypeREL,@RealRelColumn,@StartRowImport,@RefScreenMainID)
+End
+
+set @TableName=N'OOT2090'
+set @Description=N'Danh sách mẫu dự án/nhóm công việc'
+set @PK=N'APK'
+set @ModuleID=N'AsoftOO'
+set @ParentTable=null
+set @RefLink=N'TaskSampleID'
+set @RefUrl=null
+set @RelTable=null
+set @RelColumn=null 
+set @TableDelete=null 
+set @TypeREL=N'55'
+set @RealRelColumn=null
+set @StartRowImport=null 
+set @RefScreenMainID=N'OOF2091'
+If not exists(select top 1 1 from [dbo].[sysTable] where  [TableName] = N'OOT2090')Begin 
+insert into sysTable(TableName,Description,PK,ModuleID,ParentTable,RefLink,RefUrl,RelTable,RelColumn,TableDelete,TypeREL,RealRelColumn,StartRowImport,RefScreenMainID)values(@TableName,@Description,@PK,@ModuleID,@ParentTable,@RefLink,@RefUrl,@RelTable,@RelColumn,@TableDelete,@TypeREL,@RealRelColumn,@StartRowImport,@RefScreenMainID)
+End
+
+set @TableName=N'OOT2091'
+set @Description=N'Quy trình làm việc'
+set @PK=N'APK'
+set @ModuleID=N'AsoftOO'
+set @ParentTable=N'OOT2090'
+set @RefLink=null
+set @RefUrl=null
+set @RelTable=null
+set @RelColumn=null 
+set @TableDelete=null 
+set @TypeREL=N'55'
+set @RealRelColumn=null
+set @StartRowImport=null 
+set @RefScreenMainID=N'OOF2091'
+If not exists(select top 1 1 from [dbo].[sysTable] where  [TableName] = N'OOT2091')Begin 
+insert into sysTable(TableName,Description,PK,ModuleID,ParentTable,RefLink,RefUrl,RelTable,RelColumn,TableDelete,TypeREL,RealRelColumn,StartRowImport,RefScreenMainID)values(@TableName,@Description,@PK,@ModuleID,@ParentTable,@RefLink,@RefUrl,@RelTable,@RelColumn,@TableDelete,@TypeREL,@RealRelColumn,@StartRowImport,@RefScreenMainID)
+End
+
+--update sysFields set GroupOnGrid = '"#= value #"' where FieldID = '{ProcessID}' 
+--------------------------------------------
+----OOT2100 Bảng của màn hình danh sách dự án-----------------------------
+
+set @TableName=N'OOT2100'
+set @Description=N'Danh sách dự án/nhóm công việc'
+set @PK=N'APK'
+set @ModuleID=N'AsoftOO'
+set @ParentTable=null
+set @RefLink=N'ProjectID'
+set @RefUrl=null
+set @RelTable=null
+set @RelColumn=null 
+set @TableDelete=null 
+set @TypeREL=N'47'
+set @RealRelColumn=null
+set @StartRowImport=null 
+set @RefScreenMainID=N'OOF2101'
+If not exists(select top 1 1 from [dbo].[sysTable] where  [TableName] = N'OOT2100')Begin 
+insert into sysTable(TableName,Description,PK,ModuleID,ParentTable,RefLink,RefUrl,RelTable,RelColumn,TableDelete,TypeREL,RealRelColumn,StartRowImport,RefScreenMainID)values(@TableName,@Description,@PK,@ModuleID,@ParentTable,@RefLink,@RefUrl,@RelTable,@RelColumn,@TableDelete,@TypeREL,@RealRelColumn,@StartRowImport,@RefScreenMainID)
+End
+-----------Bảng chính của màn hình chọn hợp đồng
+set @TableName=N'AT1020'
+set @Description=N'Hợp đồng'
+set @PK=N'APK'
+set @ModuleID=N'AsoftOO'
+set @ParentTable=null
+set @RefLink=null
+set @RefUrl=null
+set @RelTable=null
+set @RelColumn=null 
+set @TableDelete=null 
+set @TypeREL=null
+set @RealRelColumn=null
+set @StartRowImport=null 
+set @RefScreenMainID=null
+If not exists(select top 1 1 from [dbo].[sysTable] where  [TableName] = N'AT1020')Begin 
+insert into sysTable(TableName,Description,PK,ModuleID,ParentTable,RefLink,RefUrl,RelTable,RelColumn,TableDelete,TypeREL,RealRelColumn,StartRowImport,RefScreenMainID)values(@TableName,@Description,@PK,@ModuleID,@ParentTable,@RefLink,@RefUrl,@RelTable,@RelColumn,@TableDelete,@TypeREL,@RealRelColumn,@StartRowImport,@RefScreenMainID)
+End
+

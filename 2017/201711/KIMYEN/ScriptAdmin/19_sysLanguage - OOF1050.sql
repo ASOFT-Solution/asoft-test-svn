@@ -97,3 +97,4 @@ set @IDLanguage=N'OOF1050.LastModifyUserID'
 If not exists(select top 1 1 from [dbo].[sysLanguage] where  [ScreenID] = N'OOF1050' and ColumnName = N'LastModifyUserID' and IDLanguage = N'OOF1050.LastModifyUserID')Begin 
 insert into sysLanguage(ScreenID,ColumnName,IDLanguage)values(@ScreenID,@ColumnName,@IDLanguage)
 End
+

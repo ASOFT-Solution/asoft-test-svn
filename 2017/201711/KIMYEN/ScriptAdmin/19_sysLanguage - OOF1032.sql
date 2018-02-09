@@ -83,3 +83,38 @@ set @IDLanguage=N'OOF1032.StepName'
 If not exists(select top 1 1 from [dbo].[sysLanguage] where  [ScreenID] = N'OOF1032' and ColumnName = N'StepName' and IDLanguage = N'OOF1032.StepName')Begin 
 insert into sysLanguage(ScreenID,ColumnName,IDLanguage)values(@ScreenID,@ColumnName,@IDLanguage)
 End
+
+set @ScreenID=N'OOF1032'
+set @ColumnName=N'WorkID'
+set @IDLanguage=N'OOF1032.WorkID'
+If not exists(select top 1 1 from [dbo].[sysLanguage] where  [ScreenID] = N'OOF1032' and ColumnName = N'WorkID' and IDLanguage = N'OOF1032.WorkID')Begin 
+insert into sysLanguage(ScreenID,ColumnName,IDLanguage)values(@ScreenID,@ColumnName,@IDLanguage)
+End
+
+set @ScreenID=N'OOF1032'
+set @ColumnName=N'WorkName'
+set @IDLanguage=N'OOF1032.WorkName'
+If not exists(select top 1 1 from [dbo].[sysLanguage] where  [ScreenID] = N'OOF1032' and ColumnName = N'WorkName' and IDLanguage = N'OOF1032.WorkName')Begin 
+insert into sysLanguage(ScreenID,ColumnName,IDLanguage)values(@ScreenID,@ColumnName,@IDLanguage)
+End
+
+set @ScreenID=N'OOF1032'
+set @ColumnName=N'DescriptionW'
+set @IDLanguage=N'OOF1032.DescriptionW'
+If not exists(select top 1 1 from [dbo].[sysLanguage] where  [ScreenID] = N'OOF1032' and ColumnName = N'DescriptionW' and IDLanguage = N'OOF1032.DescriptionW')Begin 
+insert into sysLanguage(ScreenID,ColumnName,IDLanguage)values(@ScreenID,@ColumnName,@IDLanguage)
+End
+
+set @ScreenID=N'OOF1032'
+set @ColumnName=N'ExecutionTime'
+set @IDLanguage=N'OOF1032.ExecutionTime'
+If not exists(select top 1 1 from [dbo].[sysLanguage] where  [ScreenID] = N'OOF1032' and ColumnName = N'ExecutionTime' and IDLanguage = N'OOF1032.ExecutionTime')Begin 
+insert into sysLanguage(ScreenID,ColumnName,IDLanguage)values(@ScreenID,@ColumnName,@IDLanguage)
+End
+
+set @ScreenID=N'OOF1032'
+set @ColumnName=N'Notes'
+set @IDLanguage=N'OOF1032.Notes'
+If not exists(select top 1 1 from [dbo].[sysLanguage] where  [ScreenID] = N'OOF1032' and ColumnName = N'Notes' and IDLanguage = N'OOF1032.Notes')Begin 
+insert into sysLanguage(ScreenID,ColumnName,IDLanguage)values(@ScreenID,@ColumnName,@IDLanguage)
+End
