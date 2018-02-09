@@ -1,5 +1,5 @@
-IF EXISTS (SELECT TOP 1 1 FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'CIP11201') AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
-DROP PROCEDURE CIP11201
+IF EXISTS (SELECT TOP 1 1 FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'CIP1120') AND OBJECTPROPERTY(ID, N'IsProcedure') = 1)
+DROP PROCEDURE CIP1120
 GO
 SET QUOTED_IDENTIFIER ON
 GO
@@ -15,9 +15,9 @@ GO
 ---- 
 -- <History>
 ----Created by: Thao Phuong, Date: 22/01/2018
--- <Example> EXEC CIP11201 'AS', '', '', '', '', '', '', '', '', '', 1, 20
+-- <Example> EXEC CIP1120 'AS', '', '', '', '', '', '', '', '', '', 1, 20
 
-CREATE PROCEDURE CIP11201 ( 
+CREATE PROCEDURE CIP1120( 
           @DivisionID VARCHAR(50),  
 		  @DivisionIDList NVARCHAR(2000), 
 		  @DivisionName nvarchar(250),
@@ -41,9 +41,9 @@ DECLARE @sSQL NVARCHAR (MAX),
 
 		--Check Para DivisionIDList null then get DivisionID 
 	IF Isnull(@DivisionIDList, '') != ''
-		SET @sWhere = @sWhere + ' (M.DivisionID IN ('''+@DivisionIDList+''', ''@@@'')) '
+		SET @sWhere = @sWhere + ' (M.DivisionID IN ('''+@DivisionIDList+''')) '
 	Else 
-		SET @sWhere = @sWhere + ' (M.DivisionID in ('''+@DivisionID+''', ''@@@'')) '
+		SET @sWhere = @sWhere + ' (M.DivisionID in ('''+@DivisionID+''')) '
 		
 		
 	IF Isnull(@DivisionName, '') != ''
