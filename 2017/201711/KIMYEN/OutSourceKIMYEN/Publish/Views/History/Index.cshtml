@@ -1,0 +1,54 @@
+﻿@using ASOFT.ERP.A00.Core
+@model ASOFT.ERP.ViewModel.A00.HistoryViewModel
+@{
+    ViewBag.Title = "HistoryDetails";
+    Layout = "";
+}
+<style>
+    #tableborder {
+        border-radius: 5px;
+        background-color: #dddddd;
+    }
+</style>
+@if (!ViewBag.lstcheck)
+{ 
+    <div class="asf-master-content">
+        <div style="text-align: center">
+            <label>@ViewBag.Nolanguage</label>
+        </div>
+    </div>
+}
+
+@if (ViewBag.lstcheck)
+{
+   <div class="asf-master-content">
+        <div class="asf-content-block-sys">
+    @foreach (var item in ViewBag.Html)
+    {
+        string userName = @item.UserName;
+ 
+            <div style="height: auto">
+                <div style="background-color: #dddddd; margin-bottom: 5px">
+                    <table id="tableborder">
+                        <tr>
+                            <td rowspan="2" style="padding-right: 25px">
+                                <a href="/DRM/DRF1000/DRF1002/?EmployeeID=@item.UserID")>
+                                    @Html.ASOFTLogoHistory("History", "Avatar", new { Area = "", id = @item.UserID }, width: 30, height: 40, title: userName)
+                                </a>
+                            <td style="padding-right: 25px">@item.ScreenName </td>
+                            <td>@item.ActionTypeName </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-right: 25px">@item.UserName </td>
+                            <td>@item.CreateDate1</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+    }
+                   </div>
+    </div>
+}
+
+
+

@@ -1,0 +1,59 @@
+﻿
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Infrastructure;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel;
+@using System.Web.UI.WebControls;
+@using  ASOFT.ERP.ViewModel.CRM;
+@using Kendo.Mvc;
+@model ASOFT.ERP.ViewModel.DRM.DRF2040ViewModel
+
+@helper FilterCol1(){
+    <tr>
+        <td  class="asf-td-align">@Html.ASOFTLabel(model => model.BranchID)</td>
+        <td colspan="4"> @(Html.ASOFTBussinessComboBox().ASOFTDRMBranchIDList(model => model.BranchID))</td>
+    </tr>
+    <tr>
+        <td class="asf-td-align">@Html.ASOFTLabel(model => model.EmployeeID)</td>
+        <td class="container_period_control">@Html.ASOFTTextBox(model => model.EmployeeID)</td>
+    </tr>
+}
+
+@helper FilterCol2(){
+    <tr>
+        <td class="asf-td-align">@Html.ASOFTLabel(model => model.EmployeeName)</td>
+        <td class="container_period_control">@Html.ASOFTTextBox(model => model.EmployeeName)</td>
+    </tr>
+    <tr>
+        <td class="asf-td-align">@Html.ASOFTLabel(model => model.DutyID)</td>
+        <td>@(Html.ASOFTBussinessComboBox()
+                        .ASOFTDRMDutyID(model => model.DutyID, true)
+                        .SelectedIndex(0))
+        </td>
+    </tr>
+}
+
+@helper FilterCol3(){
+    <tr>
+        <td class="asf-td-align">@Html.ASOFTLabel(model => model.TeamID)</td>
+        <td>@(Html.ASOFTBussinessComboBox()
+                   .ASOFTDRMTeamID(model => model.TeamID, true).SelectedIndex(0))
+        </td>
+    </tr>
+    <tr>
+        <td class="asf-td-align">@Html.ASOFTLabel(model => model.EmployeeGroupID)</td>
+        <td>@(Html.ASOFTBussinessComboBox()
+                        .ASOFTDRMDepartmentID(model => model.EmployeeGroupID, true)
+                        .SelectedIndex(0))
+        </td>
+    </tr>
+}
+
+@{
+    Html.RenderSection("MainView", new Dictionary<string, object>() { 
+        { "FilterCol1", this.FilterCol1().ToHtmlString() },     
+        { "FilterCol2", this.FilterCol2().ToHtmlString() },     
+        { "FilterCol3", this.FilterCol3().ToHtmlString() }   
+    });
+}

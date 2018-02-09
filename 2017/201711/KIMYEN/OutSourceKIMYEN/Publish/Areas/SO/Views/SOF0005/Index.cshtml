@@ -1,0 +1,104 @@
+﻿@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Business
+@using ASOFT.ERP.ViewModel
+@using ASOFT.ERP.ViewModel.SO
+@using Kendo.Mvc;
+@using Kendo.Mvc.UI
+@model SOF0005ViewModel
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.SOF0005Title, "SOF0005").ToHtmlString();
+    ViewBag.Width = 1000;
+    
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new{ id = "SOF0005"}))
+{  
+    <table class="asf-table-view">
+        <thead>
+            <tr class="tr-zero-height">
+                @*<td class ="width150px"></td>
+                <td class ="width350px"></td>*@
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                    <div class="asf-common-search popup-input">
+                        <span class="k-textbox k-space-right">
+                            @Html.ASOFTTextBox(model => model.TextSearch)
+                            @(Html.ASOFTButton("", htmlStyle: new { width = "24px", height = "24px" })
+                                  .Name("btnSOF0005")
+                                  .HtmlAttributes(new { Class = "k-icon asf-i-search-24" })
+                                  .Events(e => e.Click("SOF0005.btnFilter_Click")))
+                        </span>
+                    </div>
+                
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="clearfix"></div>
+    <div style="overflow: hidden; width: 100%; float: left">
+        <div style="width: 420px; float: left">
+            @Html.Partial("SOF0005Grid",new SOF0005GridViewModel())
+        </div>
+        <div class="asf-button-tranfer">
+            <ul class="middle-buttons">
+                <li>@(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnChangeSingle"))
+                              .Name("BtnchangeSingle")
+                              .Events(e => e.Click("SOF0005.btn_ChangeSingle")))
+                </li>
+
+                <li>@(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnChangeReturn"))
+                               .Name("BtnUnChaneSingle")
+                               .Events(e => e.Click("SOF0005.btn_UnChangeSingle")))
+                </li>
+            </ul>
+            <ul class="middle-buttons-bottom">
+                <li>@(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnChangeAll"))
+                               .Name("BtnChangeAll")
+                               .Events(e => e.Click("SOF0005.btn_ChangeAll")))
+                </li>
+                <li>@(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnReturnAll"))
+                               .Name("BtnUnChangeAll")
+                               .Events(e => e.Click("SOF0005.btn_ReturnAll")))
+                </li>
+           </ul>
+        </div>
+        <div style="width: 420px; float: right">
+            @Html.Partial("SOF0005GridChoose", new SOF0005GridViewModel())
+        </div>
+    </div>
+    <div class="asf-form-button">
+        <table class="asf-table-view">
+            <tr>
+                <td>@*align="right"*@
+                    <div class="asf-popup-button-container">
+                        <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnCancel"))
+                                      .Name("btnCancel")
+                                      .Events(e => e.Click("SOF0005.btnCancel_Click")))
+                            </div>
+                           <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnChoose"))
+                                        .Name("btnChoose").Enable(true)
+                                        .Events(e => e.Click("SOF0005.btnChoose_Click")))
+                            </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+            
+    
+}
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/SO/Scripts/SOF0005/SOF0005.js")"></script>
+}
+
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/SO/Content/Common.css")" rel="stylesheet" type="text/css" />
+}
+
+@Html.ASOFTHidden(model => model.VoucherTypeID)
+@Html.ASOFTHidden(model => model.UserList)

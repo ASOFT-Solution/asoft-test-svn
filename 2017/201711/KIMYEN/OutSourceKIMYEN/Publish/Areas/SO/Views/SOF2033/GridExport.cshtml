@@ -1,0 +1,101 @@
+﻿    
+@model SOF2033ViewModel
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.ViewModel.SO
+@using ASOFT.ERP.SO.Entities
+
+@{  
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "GridExport", 
+        Scrollable = true,
+        ControllerName = "SOF2033",
+        ActionName = "GetGridProductData",
+        NameEventPost = "GetBarcode",
+        IsShowCheck = false,
+        IsAutoHeight = false,
+        HtmlAttribute = new
+        {
+            style = "height:300px;",
+            @class = "asf-grid",
+            @AddNewRowDisabled = "true"
+        },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "TransactionID",
+                TitleColumn = Html.ASOFTRaw(m=>m.InventoryID),
+                Width = 80,
+                EditColumn = false,
+                VisibleColumn = false,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "VoucherID",
+                Width = 80,
+                EditColumn = false,
+                VisibleColumn = false,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "InventoryID",
+                TitleColumn = Html.ASOFTRaw(m=>m.InventoryID),
+                Width = 80,
+                EditColumn = false,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "InventoryName",
+                TitleColumn = Html.ASOFTRaw(m=>m.InventoryName),
+                Width = 80,
+                EditColumn = false,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "UnitID",
+                TitleColumn = Html.ASOFTRaw(m=>m.UnitID),
+                Width = 50,
+                EditColumn = false,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "IsBorrow",
+                Width = 50,
+                EditColumn = false,
+                VisibleColumn = false,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "ActualQuantity",
+                TitleColumn = Html.ASOFTRaw(m=>m.RefQuantity),
+                Width = 80,
+                EditColumn = false,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "MarkQuantity",
+                TitleColumn = Html.ASOFTRaw(m=>m.ActualQuantity),
+                Width = 100,
+                EditColumn = true,
+                VisibleColumn = true,
+                ClientTemplate = "<span>#=genMarkQuantity(data)#</span> <input onclick='GridExportbtnPlus_Click()' type='button' value='&plus;'/> <input onclick='GridExportbtnMinus_Click()' type='button' value='&minus;'/>",
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "",
+                TitleColumn = "",
+                Width = 25,
+                VisibleColumn = true,
+                ClientTemplate = "<a onclick='GridExportbtnDel_Click()' href='\\#' class='asf-i-delete-24 asf-icon-24'><span>Del</span></a>",
+            },
+        }
+    };
+}
+
+@(Html.ASOFTCreateGridEdit<SOF2033>(gridsetting))

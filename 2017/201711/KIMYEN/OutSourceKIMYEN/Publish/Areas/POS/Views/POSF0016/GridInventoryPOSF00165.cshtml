@@ -1,0 +1,78 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     14/12/2015      Quang Hoàng       Tạo mới
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.POS.Entities
+@using ASOFT.ERP.ViewModel.POS
+@model POSF00165ViewModel
+@{
+    var gridsetting = new ASOFTGridSetting
+                          {
+                              NameGrid = "GridInventoryPOSF00165",
+                              NameEventPost = "GridDataPOSF00165",
+                              Scrollable = true,
+                              ActionName = "GridDataPOSF00165",
+                              ControllerName = "POSF0016",
+                              HtmlAttribute = new { @class = "asf-grid", style = "height:450px;" },
+                              IsShowCheck = false,
+                              IsAutoHeight = false,
+                              ListGridColumn = new List<ASOFTGridColumnSetting>
+                                                   {
+                                                        new ASOFTGridColumnSetting
+                                                        {
+                                                           IDColumn = "RowNum",
+                                                          TitleColumn = ASOFTLanguage.FindWordA00("A00.Number"),
+                                                            Width = 50,
+                                                            VisibleColumn = true,
+                
+                                                        },
+                                                       new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = POSF00165.COL_WAREHOUSEID,
+                                                               TitleColumn = Html.ASOFTRaw(model => model.WareHouseID),
+                                                               Width = 120,
+                                                               VisibleColumn = true,
+                                                           },
+                                                                                                                                                                            new ASOFTGridColumnSetting
+                                                        {
+                                                             IDColumn = POSF00165.COL_WAREHOUSENAME,
+                                                               TitleColumn = Html.ASOFTRaw(model => model.WareHouseName),
+                                                               Width = 130,
+                                                               VisibleColumn = true,
+                                                        },
+                                                       new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = POSF00165.COL_ENDQUANTITY,
+                                                               TitleColumn = Html.ASOFTRaw(model => model.EndQuantity),
+                                                               Width = 150,
+                                                               FormatType = EnumFormatType.ConvertedDecimals,
+                                                               VisibleColumn = true,
+                                                           },
+                                                       new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = POSF00165.COL_PQUANTITY,                                                                                              TitleColumn = Html.ASOFTRaw(model => model.PQuantity),
+                                                               FormatType = EnumFormatType.ConvertedDecimals,
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                           },
+                                                       new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = POSF00165.COL_SQUANTITY,
+                                                               TitleColumn = Html.ASOFTRaw(model => model.SQuantity),
+                                                               FormatType = EnumFormatType.ConvertedDecimals,
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                           }
+                                                   }
+                          };
+}
+
+@(Html.ASOFTCreateGrid<POSF00165>(gridsetting))

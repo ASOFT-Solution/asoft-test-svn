@@ -1,0 +1,12 @@
+@using ASOFT.ERP.A00.Core.Control
+@model DateTime?
+
+@{
+    ASOFTDateEditSettings dateEditSettings = new ASOFTDateEditSettings(null, null);
+}
+@(Html.Kendo()
+        .DateTimePickerFor(m => m)
+        .HtmlAttributes(dateEditSettings.Attributes)
+        .Format(ASOFTEnvironment.FormatShortDateTime)
+        .Events(e=>e.Change("MTF0090.DateEdit_Changed"))
+)

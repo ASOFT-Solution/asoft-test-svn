@@ -1,0 +1,18 @@
+﻿.asf-button,.asf-button.k-state-disabled, .k-button.k-upload-button {
+     min-width: 60px;
+}
+.top-div {
+    display: table-cell;
+    height: 100px;
+    vertical-align: bottom;
+}
+
+.middle-buttons {
+    padding: 10px;
+}
+
+.container_12 .grid_6 {
+    width: 45%;
+    margin-left: 0;
+    margin-right: 0;
+}

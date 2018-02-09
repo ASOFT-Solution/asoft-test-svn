@@ -1,0 +1,43 @@
+﻿@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Infrastructure;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel;
+@using System.Web.UI.WebControls;
+@using  ASOFT.ERP.ViewModel.CRM;
+@using Kendo.Mvc;
+@model ASOFT.ERP.ViewModel.S.SF1030ViewModel
+
+@helper FilterCol1(){
+    <tr>
+        <td  class="asf-td-align">@Html.ASOFTLabel(model => model.LanguageID)</td>
+        <td>@Html.ASOFTBussinessComboBox().ASOFTLanguageID(model => model.LanguageID)</td>
+    </tr>
+    <tr>
+        <td class="asf-td-align">@Html.ASOFTLabel(model => model.Module)</td>
+        <td>@Html.ASOFTBussinessComboBox().ASOFTModuleForLangID(model => model.Module)</td>
+    </tr>
+}
+
+@helper FilterCol2(){
+    <tr>
+        <td class="asf-td-align">@Html.ASOFTLabel(model => model.ID)</td>
+        <td>@Html.ASOFTTextBox(model => model.ID)</td>
+    </tr>
+}
+
+@helper FilterCol3(){
+     <tr>
+        <td class="asf-td-align">@Html.ASOFTLabel(model => model.Name)</td>
+         <td>@Html.ASOFTTextBox(model => model.Name)</td>
+    </tr>
+}
+
+
+@{
+    Html.RenderSection("MainView", new Dictionary<string, object>() { 
+        { "FilterCol1", this.FilterCol1().ToHtmlString() },     
+        { "FilterCol2", this.FilterCol2().ToHtmlString() },     
+        { "FilterCol3", this.FilterCol3().ToHtmlString() }   
+    });
+}

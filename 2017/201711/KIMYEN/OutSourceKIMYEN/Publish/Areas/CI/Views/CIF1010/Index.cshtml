@@ -1,0 +1,116 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Created           Comment
+//#     07/10/2014      Hồ Hoàng Tú       Tạo mới
+//####################################################################
+*@
+@using System.Web.UI.WebControls
+@using ASOFT.ERP.A00.Core
+@model ASOFT.ERP.ViewModel.CI.CIF1010ViewModel
+@using ASOFT.ERP.A00.Entities.Common
+@using ASOFT.ERP.A00.Entities.Database
+@using ASOFT.ERP.ViewModel
+@{
+    Layout = "~/Views/Shared/_ContentMaster.cshtml";
+    ViewBag.Title = @Html.ASOFTRaw(m => m.Title);
+}
+@Html.ASOFTHidden("EnableRecord", Url.Action("SetEnabled"))
+@Html.ASOFTHidden("DisableRecord", Url.Action("SetDisabled"))
+@section Header
+{
+    @Html.ASOFTHeader(new HeaderModel { Title = Html.ASOFTPageTitle(model => model.Title, "CIF1010").ToHtmlString(), Breakcrumb = true })
+}
+@section FilterCol1
+{
+    <tr>
+        <td>@Html.ASOFTLabel(model => model.DivisionIDFilter)</td>
+        <td>
+            @Html.ASOFTBussinessComboBox().ASOFTDivisionIDList(model => model.DivisionIDFilter, htmlStyle: new { width = Unit.Percentage(100) })
+        </td>
+    </tr>
+    <tr>
+        <td>@Html.ASOFTLabel(model => model.DepartmentID)</td>
+        <td>@Html.ASOFTTextBox(model => model.DepartmentID, htmlStyle: new { width = Unit.Percentage(100) })</td>
+    </tr>
+   
+   
+}
+@section FilterCol2
+{
+         <tr>
+
+        <tr>
+        <td>@Html.ASOFTLabel(model => model.TeamID)</td>
+        <td>@Html.ASOFTTextBox(model => model.TeamID, htmlStyle: new { width = Unit.Percentage(100) }) </td>
+
+    </tr>
+    <tr>
+        <td>@Html.ASOFTLabel(model => model.TeamName)</td>
+        <td>@Html.ASOFTTextBox(model => model.TeamName, htmlStyle: new { width = Unit.Percentage(100) })</td>
+    </tr>
+    
+    
+}
+@section FilterCol3
+{
+    
+    
+    <tr>
+        <td>@Html.ASOFTLabel(model => model.Disabled)</td>
+        <td>
+            @(Html.ASOFTBussinessComboBox().ASOFTCiCodeMasterDisabled(model => model.Disabled, htmlStyle: new
+                       {
+                           width = Unit.Percentage(100)
+                       }))
+        </td>
+    </tr> 
+    @if (ASOFTEnvironment.CustomerIndex == ASOFTConstants.CUSTOMERINDEX_XUONGRONG)
+    {
+    <tr>
+        <td  class="asf-td-align">@Html.ASOFTLabel(model => model.BranchID)</td>
+        <td colspan="4"> @(Html.ASOFTBussinessComboBox().ASOFTDRMBranchIDList(model => model.BranchID))</td>
+    </tr>
+    }
+}
+@section GridToolBar{
+    @if (Model.Toolbar1 != null)
+    {
+        Model.Toolbar1.EventAdd = "ShowEditorFrame";
+        Model.Toolbar1.EventDelete = "btnDelete_Click";
+        Model.Toolbar1.EventShow = "btnEnable_Click";
+        Model.Toolbar1.EventHide = "btnDisable_Click";
+        Model.Toolbar1.DisplayShow = true;
+    }
+    @Html.Partial("~/Views/Shared/EditorTemplates/Toolbar.cshtml", Model.Toolbar1 ?? new ASOFTToolBarViewModel())
+}
+@section FilterButtons{
+    <li>
+        @(Html.ASOFTSearchButton()
+                          .Name("CIF1010BtnFilter")
+                          .Events(e => e.Click("CIF1010BtnFilter_Click")))
+    </li>
+    <li>
+        @(Html.ASOFTSearchResetButton()
+                          .Name("CIF1010BtnClearFilter")
+                         .Events(e => e.Click("CIF1010BtnClearFilter_Click")))
+    </li>
+}
+@section Grid {
+    @Html.Partial("GridGroupCategory")
+}
+@(Html.ASOFTPopup()
+    .Name("CIF1011Popup")
+    .Width(800)
+    .Title(String.Format(Html.ASOFTRaw(model => model.Title), "thêm"))
+)
+@section jsFeature 
+{
+    <script src="@Url.Content("~/Areas/CI/Scripts/CIF1010.js?v=" + ASOFTEnvironment.Version)" type="text/javascript"></script>
+}
+@section styleFeature
+ {
+    <link href="@Url.Content("~/Areas/CI/Content/CIF1010.css")" rel="stylesheet" type="text/css" />
+}

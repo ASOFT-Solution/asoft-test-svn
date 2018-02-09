@@ -1,0 +1,23 @@
+﻿
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Entities.Database
+@using ASOFT.ERP.ViewModel.DRM
+@using ASOFT.ERP.DRM.Entities
+@{
+    var gridsetting = new ASOFTGridSetting
+                          {
+                              NameGrid = "DRF2006Grid",
+                              NameEventPost = "DRF2006.sendDataFilter",
+                              Scrollable = true,
+                              ActionName = "GetGridData",
+                              ControllerName = "DRF2006",
+                              IsAutoHeight = false,
+                              IsShowCheck = false,
+                              HtmlAttribute = new {style = "height:400px;", @class = "asf-grid"},             
+                          };
+    //var model = Model.GetType();
+    //Html.ASOFTGridAutoBind<model>(gridsetting);
+}
+
+@(Html.ASOFTGridAutoBind<DRF2006GridViewModel>(gridsetting))

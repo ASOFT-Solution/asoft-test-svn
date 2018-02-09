@@ -1,0 +1,108 @@
+﻿.full {
+    width: 100%;
+    float: left;
+    overflow: hidden;
+}
+
+.asf-td-caption-40{
+    width: 40%;
+    padding-top: 5px;
+}
+
+.asf-td-caption-50{
+    width: 50%;
+    padding-top: 5px;
+}
+
+table.full .asf-td-caption { width: 14%; }
+
+.right-fieldset.format { height: 380px; }
+.right-fieldset.format fieldset { height: 376px; }
+
+.asf-filter-main.label-min > .asf-filter-label {
+    width: 19%;
+}
+.asf-filter-main.label-min > .asf-filter-input {
+    width: 81%;
+}
+
+.buttonColumn {
+    float: right;
+    height: auto;
+}
+
+.inputColumn {
+    float: left;
+    width: 80%;
+}
+
+.asf-button.min {
+    min-width: 45px !important;
+    width: 45px;
+}
+
+.asf-grid.drop { /**Sử dụng cho grid trên view details*/
+    margin-top: 30px;
+}
+
+.OverallAssess {
+    width:110px;
+}
+
+.asf-td-field.radio-checkbox {
+    padding-top: 8px;
+    height: 12px !important;
+}
+.asf-td-caption.radio-checkbox {
+    padding-bottom: 8px;
+    height: 16px !important;
+}
+
+/*#CourseID-list,
+#CourseIDFilter-list,
+#ClassID-list,
+#ClassIDFilter-list,
+#NextClassID-list,
+#NextClassIDFilter-list,
+#StopReasonID-list {
+    min-width: 350px;
+    height: auto !important;
+    display: block;
+}
+
+#CourseID_listbox,
+#CourseIDFilter_listbox,
+#ClassID_listbox,
+#ClassIDFilter_listbox,
+#NextClassID_listbox,
+#NextClassIDFilter_listbox,
+#StopReasonID_listbox {
+    width: auto;
+    height: 100% !important;
+    max-height: 300px;
+    display: block;
+}*/
+/*************************************************************
+                STYLE TEXTBOX BUTTON CHOOSE
+**************************************************************/
+.asf-common-search.popup-input-text,
+.asf-common-search.popup-input-text > .k-textbox.k-space-right {
+    width: 100%;
+}
+.asf-common-search.popup-input-text > span.k-textbox.k-space-right > .k-button,
+.asf-common-search.popup-input-text > span.k-textbox.k-space-right > .k-button:hover,
+.asf-common-search.popup-input-text > span.k-textbox.k-space-right > .k-button:focus {
+    background-image: url("/Content/Images/icon-pdf-24x24.png");
+    border: none;
+    background-color: transparent; 
+}
+
+.asf-common-search.popup-input-text > span.k-textbox {
+    background-color: #ffffff !important;
+}
+
+.asf-common-search.popup-input-text span.k-textbox.k-space-right {
+    border-bottom: 1px solid #AAAAAA !important;
+    border-width: 0 0 1px 0 !important;
+}
+

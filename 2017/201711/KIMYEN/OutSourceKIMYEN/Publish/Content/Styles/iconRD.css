@@ -1,0 +1,253 @@
+﻿/*----------------------ICON--------------------------*/
+span.asf-icon {
+    cursor: pointer;
+    height: 24px;
+    position: absolute;
+    width: 24px;
+}
+
+.asf-icon {
+    background-position: center;
+    background-repeat: no-repeat;
+    border-color: rgba(0, 0, 0, 0);
+    position: absolute;
+}
+
+.asf-icon-24 {
+    background-size: 24px 24px;
+    height: 24px;
+    width: 24px;
+}
+
+.asf-icon-32 {
+    background-size: 32px 32px;
+    height: 32px;
+    padding: 5px;
+    width: 32px;
+}
+
+.asf-icon:hover { background-color: #8bd6ff; }
+/*----------------------ICON DISABLED STATE--------------------------*/
+
+a.k-button.k-state-disabled.k-button-icon > span.asf-icon { opacity: 0.3; }
+
+a.k-button.k-state-disabled.k-button-icon > span.asf-icon:hover {
+    background-color: transparent;
+    cursor: default;
+}
+/*----------------------ICON 24X24/32X32--------------------------*/
+
+.asf-i-search-24 { background: url("/Content/Images/search.png") no-repeat scroll 50% 50% rgba(0, 0, 0, 0); }
+
+.asf-i-add-search-24 { background: url("/Content/Images/icon-add-24x24.png") no-repeat scroll 50% 50% rgba(0, 0, 0, 0); }
+
+.asf-i-tool-24 { background: url(/Content/Images/tools.png) no-repeat; }
+
+.asf-i-delete-24 { background-image: url(/Content/Images/icon-delete-24x24.png); }
+
+.asf-i-check-24 { background-image: url(/Content/Images/icon-check-24x24.png); }
+
+.asf-i-uncheck-24 { background-image: url(/Content/Images/icon-uncheck-24x24.png); }
+
+/*.asf-i-delete-24:hover{ background-image: url(../Images/icon-delete-24x24-hover.png); }*/
+
+.asf-i-delete { background-image: url(/Content/Images/delete.png); }
+
+.asf-i-delete-32 { background-image: url(/Content/Images/icon-delete-32x32.png); }
+/*.asf-i-delete-32:hover{ background-image: url(../Images/icon-delete-32x32-hover.png); }*/
+
+.asf-i-add-24 { background-image: url(/Content/Images/icon-add-24x24.png); }
+/*.asf-i-add-24:hover { background-image: url(../Images/icon-add-24x24-hover.png); }*/
+
+.asf-i-add-32 { background-image: url(/Content/Images/icon-add-32x32.png); }
+/*.asf-i-add-32:hover { background-image: url(../Images/icon-add-32x32-hover.png); }*/
+
+.asf-i-edit-24 { background-image: url(/Content/Images/icon-edit-24x24.png); }
+/*.asf-i-edit-24:hover { background-image: url(../Images/icon-edit-24x24-hover.png); }*/
+
+.asf-i-edit-32 { background-image: url(/Content/Images/icon-edit-32x32.png); }
+/*.asf-i-edit-32:hover { background-image: url(../Images/icon-edit-32x32-hover.png); }*/
+
+.asf-i-excel-24 { background-image: url(/Content/Images/icon-excel-24x24.png); }
+/*.asf-i-excel-24:hover { background-image: url(../Images/icon-excel-24x24-hover.png); }*/
+
+.asf-i-emp-to-team-24 { background-image: url(/Content/Images/icon-add-user-team-24x24.png); }
+
+.asf-i-add-user-group-24 { background-image: url(/Content/Images/icon-add-user-group-24x24.png); }
+
+.asf-i-excel-32 { background-image: url(/Content/Images/icon-excel-32x32.png); }
+/*.asf-i-excel-32:hover { background-image: url(../Images/icon-excel-32x32-hover.png); }*/
+
+.asf-i-printer-24 { background-image: url(/Content/Images/icon-printer-24x24.png); }
+/*.asf-i-printer-24:hover { background-image: url(../Images/icon-printer-24x24-hover.png); }*/
+
+.asf-i-printer-32 { background-image: url(/Content/Images/icon-printer-32x32.png); }
+
+.asf-i-refresh-24 { background-image: url(/Content/Images/icon-refresh-24x24.png); }
+/*.asf-i-refresh-24:hover { background-image: url(../Images/icon-refresh-24x24-hover.png); }*/
+
+.asf-i-refresh-32 { background-image: url(/Content/Images/icon-refresh-32x32.png); }
+/*.asf-i-refresh-32:hover { background-image: url(../Images/icon-refresh-32x32-hover.png); }*/
+
+.asf-i-pdf-24 { background-image: url(/Content/Images/icon-pdf-24x24.png); }
+/*.asf-i-pdf-24:hover { background-image: url(../Images/icon-pdf-24x24-hover.png); }*/
+
+.asf-i-show-32 { background-image: url(/Content/Images/icon-active-32x32.png); }
+
+.asf-i-hide-32 { background-image: url(/Content/Images/icon-inactive-32x32.png); }
+
+.asf-i-active-32 { background-image: url(/Content/Images/icon-active-32x32.png); }
+
+.asf-i-inactive-32 { background-image: url(/Content/Images/icon-inactive-32x32.png); }
+
+.asf-i-add-to-campaign-32 { background-image: url(/Content/Images/icon-add-to-campaign-32x32.png); }
+
+.asf-i-add-to-receiver-32 { background-image: url(/Content/Images/icon-add-to-receiver-32x32.png); }
+
+.asf-i-send-email-32 { background-image: url(/Content/Images/icon-send-email-32x32.png); }
+
+.asf-i-import-32 { background-image: url(/Content/Images/icon-import-32x32.png); }
+
+.asf-i-import-bank-32 { background-image: url(/Content/Images/icon-import-bank-32x32.png); }
+
+.asf-i-printcv-32 { background-image: url(/Content/Images/printer-CV-32x32.png); }
+
+.asf-i-export-32 { background-image: url(/Content/Images/icon-export-32x32.png); }
+
+.asf-i-send-doc-32 { background-image: url(/Content/Images/icon-sent-doc-32x32.png);}
+
+.asf-i-change-32 { background-image: url(/Content/Images/icon-changeUnusualType-32x32.png); width:32px;height:32px; }
+
+.asf-i-cogs-32 { background-image: url(/Content/Images/cogs.png); }
+
+.asf-i-reset { background: url(/Content/Images/reset.png) no-repeat scroll 50% 50% rgba(0, 0, 0, 0); }
+
+.asf-i-close-32 { background-image: url(/Content/Images/icon-close-32x32.png); }
+
+.asf-i-open-32 { background-image: url(/Content/Images/icon-open-32x32.png); }
+
+.asf-i-doc-32 { background-image: url(/Content/Images/icon-doc-32x32.png); }
+
+.asf-i-emp-to-team-32 { background-image: url(/Content/Images/icon-add-user-team-32x32.png); }
+
+.asf-i-add-user-group-32 { background-image: url(/Content/Images/icon-add-user-group-32x32.png); }
+
+.asf-i-unlock-user-32 { background-image: url(/Content/Images/icon-unlock-user-32x32.png); }
+
+.asf-i-lock-user-32 { background-image: url(/Content/Images/icon-lock-user-32x32.png); }
+
+.asf-i-reset-pass-32 { background-image: url(/Content/Images/icon-reset-pass-32x32.png); }
+
+.asf-i-inherit-32 { background-image: url(/Content/Images/page.duplicate.png); }
+
+.asf-i-delete-all-32 { background-image: url(/Content/Images/icon-delete-all-32x32.png); }
+
+.asf-i-sql-query-export-32 { background-image: url(/Content/Images/icon-query-export-32x32.png); }
+
+.asf-i-inheriths-32 { background-image: url(/Content/Images/icon-inhert-32x32.png); }
+
+.asf-i-calvacation-32 { background-image: url(/Content/Images/Calculator-32.png); }
+
+/*----------------------ICON MENU----------------------------------*/
+
+.asf-i-menu-bussiness { background-image: url(/Content/Images/icon-menu-bussiness.png); }
+
+.asf-i-menu-bussiness:hover { background-image: url(/Content/Images/icon-menu-bussiness-hover.png); }
+
+.asf-i-menu-list { background-image: url(/Content/Images/icon-menu-list.png); }
+
+.asf-i-menu-list:hover { background-image: url(/Content/Images/icon-menu-list-hover.png); }
+
+.asf-i-menu-report { background-image: url(/Content/Images/icon-menu-report.png); }
+
+.asf-i-menu-report:hover { background-image: url(/Content/Images/icon-menu-report-hover.png); }
+
+.asf-i-menu-setting { background-image: url(/Content/Images/icon-menu-setting.png); }
+
+.asf-i-menu-setting:hover { background-image: url(/Content/Images/icon-menu-setting-hover.png); }
+
+.asf-i-setting { background-image: url("/Content/Images/settings.png"); }
+
+.asf-i-close { background-image: url("/Content/Images/close.png"); }
+
+.asf-i-user { /*background-image: url("/Content/Images/user.png");*/ }
+
+/*----------------------ICON MASTER----------------------------------*/
+
+.asf-i-add { background-image: url(/Content/Images/add.png); }
+
+.asf-i-delete { background-image: url(/Content/Images/delete.png); }
+
+.asf-i-edit { background-image: url(/Content/Images/edit.png); }
+
+.asf-i-page-delete { background-image: url(/Content/Images/page.delete.png); }
+
+.asf-i-page-duplicate { background-image: url(/Content/Images/page.duplicate.png); }
+
+.asf-i-page-edit { background-image: url(/Content/Images/page.edit.png); }
+
+.asf-i-page-excel { background-image: url(/Content/Images/page.excel.png); }
+
+.asf-i-page-file-pdf { background-image: url(/Content/Images/page.file.pdf.png); }
+
+.asf-i-page-file-pdf-tag { background-image: url(/Content/Images/page.file.pdf.tag.png); }
+
+.asf-i-printer { background-image: url(/Content/Images/printer.png); }
+
+.asf-i-printer-blank { background-image: url(/Content/Images/printer.blank.png); }
+
+.asf-i-printer-text { background-image: url(/Content/Images/printer.text.png); }
+
+.asf-i-refresh { background-image: url(/Content/Images/refresh.png); }
+
+.asf-i-settings { background-image: url(/Content/Images/settings.png); }
+
+.asf-i-tools { background-image: url(/Content/Images/tools.png); }
+
+.asf-i-user { /*background-image: url(/Content/Images/user.png);*/ }
+
+.asf-i-navigate-next { background-image: url(/Content/Images/navigate.next.png); }
+
+.asf-i-navigate-previous { background-image: url(/Content/Images/navigate.previous.png); }
+
+.asf-i-magnify { background-image: url(/Content/Images/magnify.png); }
+
+.asf-i-magnify-add { background-image: url(/Content/Images/magnify.add.png); }
+
+.asf-i-diagram { background-image: url(/Content/Images/diagram.png); }
+
+.asf-i-door-leave { background-image: url(/Content/Images/door.leave.png); }
+
+.asf-i-door-interface-list { background-image: url(/Content/Images/interface.list.png); }
+
+.asf-i-graph-histogram-description { background-image: url(/Content/Images/graph.histogram.description.png); }
+
+.asf-i-help { background: url(/Content/Images/help.png) no-repeat #006EB4 0% 55%; }
+
+.asf-i-calendar { background: url(/Content/Images/calendar-clock.png) no-repeat #006EB4 0% 55%; }
+
+.asf-i-action {
+    background: url("/Content/Images/BlueOpal/sprite.png");
+    background-position: 0 10%;
+    cursor: pointer;
+    height: 12px;
+    width: 12px;
+}
+/*/* Calendar icon!1!
+.k-i-arrow-e {
+    background: transparent url('../Images/arrow_right.png') !important;
+    -ms-background-size: 50% 50%;
+    background-size: 50% 50%;
+}
+
+.k-i-arrow-w {
+     background: transparent url('../Images/arrow_left.png')!important;
+     -ms-background-size: 50% 50%;
+     background-size: 50% 50%;
+ }*/
+
+
+.asf-i-find-barcode-32 {
+    background: url(/Content/Images/icon-find-barcode.png) no-repeat;
+    background-size: 100%;
+}

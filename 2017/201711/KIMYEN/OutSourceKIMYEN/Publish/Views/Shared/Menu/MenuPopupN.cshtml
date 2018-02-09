@@ -1,0 +1,59 @@
+﻿
+@model List<List<ASOFT.ERP.A00.Core.Control.ASOFTMenuItem>>
+@{
+    var IDDiv = "";
+    var index = 0;
+    var moduleID = string.Empty;
+    var mnuParent = Model[0];
+    var mnuLevelN1 = Model[1];   
+}
+
+
+@{
+    foreach(var item2 in mnuParent)
+    {
+            IDDiv = item2.Name + "_Level" + item2.Level;
+            var index1 = 0;
+            var mnuLevelN2 = mnuLevelN1.Where(x => x.ParentID.Equals(item2.Name)).OrderBy(m => m.MenuOder).ToList();
+            if(mnuLevelN2.Count > 0)
+            {
+                <div style="width:auto; border-right: 0px solid #B2B2B2; display:none" class="asf-menu-sub-child-left1" id="@IDDiv">
+                <ul>
+                @foreach (var item3 in mnuLevelN2)
+                {
+                    if (item3.Visible)
+                    {
+                        if (!item3.Enable)
+                        {
+                            <li style="cursor:pointer" id="@(item3.Name + "-" + item3.Level)" class="asf-menu-active">
+                                <a style="color:#6E6E6E">@string.Format("{0}.{1}", ++index1, item3.Text).Trim()</a>
+                            </li> 
+                        }
+                        else
+                        {
+                            <li style="cursor:pointer" id="@(item3.Name + "-" + item3.Level)" class="asf-menu-active">
+                                @if (item3.Controller == "HF0405")
+                                {
+                                    <a onclick="MenuShowPopup('@item3.Url')">@string.Format("{0}.{1}", ++index, item3.Text).Trim()</a>
+                                    }
+                                 @if (item3.Controller == "HF0402" && ASOFT.ERP.A00.Core.ASOFTEnvironment.TranMonth != 1)
+                                {
+                                     <a style="color:#6E6E6E">@string.Format("{0}.{1}", ++index, item3.Text).Trim()</a>
+                                    }
+                                @if (string.IsNullOrEmpty(item3.Url))
+                                {
+                                    <a><img class="arrow" src="~/Content/Images/arrow.png"/>@string.Format("{0}.{1}", ++index1, item3.Text).Trim()</a> 
+                                }
+                                else
+                                {
+                                <a href="@item3.Url" target="@item3.Target">@string.Format("{0}.{1}", ++index1, item3.Text).Trim()</a>
+                                }
+                            </li>
+                        }
+                    }
+                }
+                        </ul>
+                </div>
+            }
+    }
+}

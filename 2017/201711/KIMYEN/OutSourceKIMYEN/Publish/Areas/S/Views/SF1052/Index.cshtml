@@ -1,0 +1,119 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved.
+//#
+//# History:
+//#     Date Time       Created         Comment
+//#     09/10/2014      Hoang Tu        Tạo mới
+//####################################################################
+*@
+@using System.Web.UI.WebControls;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Database
+@model ASOFT.ERP.ViewModel.S.SF1052ViewModel
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = @Html.ASOFTPageTitle(@Html.PopupEditTitle(m => m.Title), "SF1052").ToHtmlString();
+    ViewBag.Width = 720;
+}
+@helper GroupTab()
+{
+    @Html.Partial("GroupTab")  
+}
+
+@helper UserTab()
+{
+    @Html.Partial("UserTab")  
+}
+
+
+<div class="asf-form-container">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "SF1052" }))
+    {
+        <div class="form-content">
+            <div class="container_12">
+                <table class="asf-table-view">
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.DivisionID)</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTBussinessComboBox().ASOFTDivisionIDList(model
+                                => model.DivisionID,
+                                htmlAttributes: new Dictionary<string, object> 
+                                {
+                                    {"data-bind","value:DivisionID"}
+                                }))
+                        </td>
+                    </tr>
+                </table>
+             </div>
+            <div class="clearfix"></div>
+
+             @(Html.ASOFTTab()
+              .Name("SF1052Tab")
+              //.Events(e => e.Activate("POSF00101TabActivate"))
+              .Items(tabstrip =>
+              {
+
+                  tabstrip.Add().Text(Html.ASOFTRaw(m => m.GroupTab).ToString().ToUpper())
+                      .Selected(true)
+                      .HtmlAttributes(new
+                      {
+                          @id = "TabstripMaster-1"
+                      })
+                      .ContentHtmlAttributes(new
+                      {
+                          @class = "asf-tab-content"
+                      })
+                      .Content(this.GroupTab().ToHtmlString());
+
+                  tabstrip.Add().Text(Html.ASOFTRaw(m => m.UserTab).ToString().ToUpper())
+                      .HtmlAttributes(new
+                      {
+                          @id = "TabstripMaster-2"
+                      })
+                      //.ContentHtmlAttributes(new { style = "height:792px;" })
+                      .ContentHtmlAttributes(new
+                      {
+                          @class = "asf-tab-content"
+                      })
+                      .Content(this.UserTab().ToHtmlString());
+              })
+              )
+        </div>
+        <div class="asf-form-button">
+            <table class="asf-table-view">
+                <tr>
+                    <td align="right">
+                        <div class="asf-popup-button-container">
+                            @{
+                                    bool hasPermission = false;
+                                    if (Model.CheckPermission("SF1052", ASOFTPermission.AddNew))
+                                    {
+                                        hasPermission = true;
+                                    }
+
+                                <div>
+                                    @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                                  .Name("BtnClose")
+                                 .Events(e => e.Click(hasPermission ? "popupClose_Click" : "ASOFT.asoftPopup.closeOnly")))
+                                </div>
+                                <div>
+                                    @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSave"))
+                                  .Name("SF1052btnSaveNew")
+                                  .Events(e => e.Click("SF1052btnUpdate_Click"))
+                                  .Enable(hasPermission)
+                                  )
+                                </div>
+                            }
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+</div>
+
+@section jsFeature
+    {
+    <script src="@Url.Content("~/Areas/S/Scripts/SF1052.js" +"?v="+ASOFTEnvironment.Version)" type="text/javascript"></script>
+}

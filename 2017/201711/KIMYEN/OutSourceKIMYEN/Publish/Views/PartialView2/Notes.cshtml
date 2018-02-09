@@ -1,0 +1,92 @@
+﻿
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Entities.Database
+@model CRMT90031
+@using ASOFT.ERP.ViewModel.Helper;
+
+@{
+    string DivisionID = ViewBag.DivisionID;
+    List<CRMT90031> listComment = (List<CRMT90031>)ViewBag.ListNotes;
+    bool isDivision = DivisionID == null ? true : DivisionID.Equals("@@@") || DivisionID.Equals(ASOFTEnvironment.DivisionID);
+    bool checkPermission = ViewBag.checkPermission;
+    bool checkPermissionInsert = ViewBag.checkPermissionInsert;
+    int k = 0;
+    int typeREL = ViewBag.TypeREL;
+}
+
+@Html.ASOFTHidden("TypeRELNotes", typeREL)
+
+<div class="asf-notes">
+@if (isDivision && checkPermissionInsert)
+{
+    <div class="asf-master-content-notes" id="Comment">
+        <div class="form-style-1">
+            <div class="asf-notes-description">@Html.ASOFTTextArea(m => m.Description)</div>
+            <label style="font-style: italic">@ASOFTLanguage.FindWordA00("A00.NoteMessage")</label>
+            <div class="float-right-notes">
+             @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSend"))
+                                      .Name("Send").Events(e => e.Click("btnSend_Click")))
+            </div>     
+             <div class="float-right-notes">&nbsp&nbsp</div>
+             <div class="float-right-notes">
+             @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.Clear"))
+                                      .Name("Clear").Events(e => e.Click("btnClear_Click")))
+            </div>
+        
+        </div>
+    </div>
+}
+else {
+    
+    <div class="asf-master-content-notes" style="padding-top: 20px"></div>
+}
+
+@{
+    bool isMore = false;
+    foreach (CRMT90031 item in listComment) 
+    {
+        if (k < 5)
+        {
+            <div class="asf-master-content-notes isMoreShow">
+                <div class="form-style-2">
+                    <div class="float-left-notes">@Html.ASOFTLogo("PartialView2", "Avatar", new { Area = "", UserID = item.CreateUserID },  width:70, height:62)</div>
+                    @if (isDivision && checkPermission && item.CreateUserID.Equals(ASOFTEnvironment.UserID))
+                    {
+                        <a class='close-x-notes' style='font-size: 20px; margin: -5px 3px 3px 3px' onclick='btnDelete_Click(@item.NotesID,this)'>×</a>
+                    }
+                    <div class="asf-note-create wrap-text"><span class="user-comment">@item.CreateUserID</span> - <span class="user-create">@item.CreateDate</span></div>
+                    <br />
+                    <div class="asf-note-description">@item.Description</div>
+                </div>
+            </div>
+        }   
+        else {
+            <div class="asf-master-content-notes isMoreHide">
+                <div class="form-style-2">
+                    <div class="float-left-notes">@Html.ASOFTLogo("PartialView2", "Avatar", new { Area = "", UserID = item.CreateUserID },  width:70, height:62)</div>
+                    @if (isDivision && checkPermission && item.CreateUserID.Equals(ASOFTEnvironment.UserID))
+                    {
+                        <a class='close-x-notes' style='font-size: 20px; margin: -5px 3px 3px 3px' onclick='btnDelete_Click(@item.NotesID,this)'>×</a>
+                    }
+                    <div class="asf-note-create wrap-text"><span class="user-comment">@item.CreateUserID</span> - <span class="user-create">@item.CreateDate</span></div>
+                    <br />
+                    <div class="asf-note-description">@item.Description</div>
+                </div>
+            </div>
+            isMore = true;
+        }
+
+        k++;       
+    }
+    
+    if(isMore)
+    {
+        <div class="asf-master-content-notes" id="viewmore">
+              <div class="float-right-notes"><a class='viewMore' onclick="btnViewMore_Click()">@ASOFTLanguage.FindWordA00("A00.ViewMore")</a></div>
+        </div>
+        isMore = false;
+    }
+}
+</div>
+<script src="@Url.Content("~/Scripts/notes.js" +"?v="+ASOFTEnvironment.Version)" type="text/javascript"></script>

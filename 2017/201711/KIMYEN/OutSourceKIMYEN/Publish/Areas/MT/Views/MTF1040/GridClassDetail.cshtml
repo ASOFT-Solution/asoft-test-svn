@@ -1,0 +1,87 @@
+﻿
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.ViewModel.MT;
+@using ASOFT.ERP.MT.Entities.Database;
+@using ASOFT.ERP.ViewModel;
+@model MTF1040ViewModel
+<div class="asfbtn asfbtn-right">
+    @Html.Partial("~/Views/Shared/EditorTemplates/Toolbar.cshtml", Model.Toolbar2 ?? new ASOFTToolBarViewModel())
+</div>
+@helper PanelContent()
+{
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "MTF1042Grid",
+        keyColumnID = "APK",
+        NameEventPost = "MTF1040.gridClassDetail_callback",
+        Scrollable = true,
+        ActionName = "GetListDetail",
+        ControllerName = "MTF1040",
+        HtmlAttribute = new { @class = "asf-grid"},
+        IsShowCheck = true,
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+                {
+                    IDColumn = MTF104202.COL_TEACHERID,
+                    TitleColumn = Html.ASOFTRaw(model => model.TeacherID),
+                    VisibleColumn = false,
+                    //Width = 100
+                },
+             new ASOFTGridColumnSetting
+                {
+                    IDColumn = "STT",
+                    TitleColumn = ASOFTLanguage.FindWordA00("A00.Order"),
+                    VisibleColumn = true,
+                    HtmlAttrCoulmns=new {@class="asf-cols-align-center"},
+                    Width = 70,
+                },
+            new ASOFTGridColumnSetting
+                {
+                    IDColumn = MTF104202.COL_TEACHERNAME,
+                    TitleColumn = Html.ASOFTRaw(model => model.TeacherName),
+                    ClientTemplate = "<a onClick='MTF1040.btnEditGridTeacher_Click()' class='asf-grid-link'>#:" + MTF104202.COL_TEACHERNAME + "#</a>",
+                    VisibleColumn = true,
+                    //Width = 200
+                },
+            new ASOFTGridColumnSetting
+                {
+                    IDColumn = MTF104202.COL_BEGINDATE,
+                    TitleColumn = Html.ASOFTRaw(model => model.BeginDate),
+                    VisibleColumn = true,
+                    //Width = 400,
+                },
+            new ASOFTGridColumnSetting
+                {
+                    IDColumn = MTF104202.COL_ENDDATE,
+                    TitleColumn = Html.ASOFTRaw(model => model.EndDate),
+                    VisibleColumn = true,
+                    //Width = 400,
+                }
+        }
+    };
+
+    @(Html.ASOFTCreateGridNotPagging<MTF1042GridViewModel>(gridsetting))
+}
+@(Html.ASOFTTab()
+        .Name("MTF1042Tab")
+        .Items(tabstrip =>
+        {
+
+            tabstrip.Add().Text(ASOFTLanguage.FindWordA00("A00.Details")).HtmlAttributes(new { id = "asf-detail" })
+                .Selected(true)
+                .ContentHtmlAttributes(new { @class = "asf-tab-content" })
+                .Content(this.PanelContent().ToHtmlString());
+
+            tabstrip.Add().Text(ASOFTLanguage.FindWordA00("A00.Attach"))
+                .ContentHtmlAttributes(new { style = "height:792px;" })
+                .ContentHtmlAttributes(new { @class = "asf-tab-content" })
+                .Content(ASOFTLanguage.FindWordA00("A00.Attach"));
+
+            tabstrip.Add().Text(ASOFTLanguage.FindWordA00("A00.History"))
+                .ContentHtmlAttributes(new { style = "height:792px;" })
+                .ContentHtmlAttributes(new { @class = "asf-tab-content" })
+                .Content(ASOFTLanguage.FindWordA00("A00.History"));
+        })
+)

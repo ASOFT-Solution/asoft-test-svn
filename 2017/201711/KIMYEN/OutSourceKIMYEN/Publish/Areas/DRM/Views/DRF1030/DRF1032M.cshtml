@@ -1,0 +1,61 @@
+﻿@using ASOFT.ERP.ViewModel.DRM
+@model DRF1032ViewModel
+
+@helper Group01()
+{
+    <div class="asf-master-content">
+        <div class="asf-content-block-sys left">
+            <table class="asf-table-view">
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.PortID)</td>
+                    <td class="dot"></td>
+                    <td class="content-text" id="PortID">@Html.DisplayFor(model => model.PortID)</td>
+                </tr>
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.Description)</td>
+                    <td class="dot"></td>
+                    <td class="content-text" id="InfoID">@Html.DisplayFor(model => model.Description)</td>
+                </tr>
+            </table>
+        </div>
+        <div class="asf-content-block-sys right">
+            <table class="asf-table-view">
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.Disabled)</td>
+                    <td class="dot"></td>
+                    <td class="content-text"> 
+                        @{ var disabled = Model.Disabled ? ASOFTLanguage.FindWordA00("A00.Yes") : ASOFTLanguage.FindWordA00("A00.No"); }
+                            @disabled
+
+                    </td>
+                </tr>
+                 <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.Notes)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">
+                        <div class='content-ellipsis'>@Html.DisplayFor(model => model.Notes)</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+}
+
+@(Html.ASOFTPanel()
+      .Name("panelbar")
+      .HtmlAttributes(new {@class = "block-panel-master"})
+      .Animation(animation => animation.Enable(true))
+      //.Events(m => m.Activate("CRMF2062.autoFitHeightAllColumn"))
+      .Events(events => events           
+            .Expand("DRF1031.expandPanel")
+        )
+      .Items(panelbar =>
+             {
+                 panelbar.Add().Text(Html.ASOFTRaw(m => m.DRF1032Tab01Title))
+                     .HtmlAttributes(new {@class = "block-panel-master-header"})
+                     .Expanded(true).Content(Group01().ToHtmlString());
+
+                 panelbar.Add().Text(ASOFTLanguage.FindWordA00("A00.SystemInfo")).HtmlAttributes(new {@class = "block-panel-master-header"})
+                     .Content(Html.Partial("~/Views/Shared/EditorTemplates/SystemInfo.cshtml", Model.SystemInfo).ToHtmlString());
+             })
+      )

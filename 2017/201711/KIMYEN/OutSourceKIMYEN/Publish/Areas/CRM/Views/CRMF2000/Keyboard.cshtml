@@ -1,0 +1,82 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Created         Comment
+//#     10/12/2015      Quang Hoàng         Tạo mới
+//####################################################################
+*@
+
+<div class="keyboard">
+    <table class="tb-keyboard">
+        <tr>
+            <td>
+                @(Html.ASOFTButton("1")
+                .HtmlAttributes(new { @class = "kb",@value = "1" })
+                .Name("bt1"))
+            </td>
+            <td>
+                @(Html.ASOFTButton("2")
+                .HtmlAttributes(new { @class = "kb",@value = "2" })
+                .Name("bt2"))
+            </td>
+            <td>
+                @(Html.ASOFTButton("3")
+                .HtmlAttributes(new { @class = "kb",@value = "3" })
+                .Name("bt3"))
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @(Html.ASOFTButton("4")
+                .HtmlAttributes(new { @class = "kb",@value = "4"})
+                .Name("bt4"))
+            </td>
+            <td>
+                @(Html.ASOFTButton("5")
+                .HtmlAttributes(new { @class = "kb",@value = "5" })
+                .Name("bt5"))
+            </td>
+            <td>
+                @(Html.ASOFTButton("6")
+                .HtmlAttributes(new { @class = "kb",@value = "6" })
+                .Name("bt6"))
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @(Html.ASOFTButton("7")
+                .HtmlAttributes(new { @class = "kb",@value = "7" })
+                .Name("bt7"))
+            </td>
+            <td>
+                @(Html.ASOFTButton("8")
+                .HtmlAttributes(new { @class = "kb",@value = "8" })
+                .Name("bt8"))
+            </td>
+            <td>
+                @(Html.ASOFTButton("9")
+                .HtmlAttributes(new { @class = "kb",@value = "9" })
+                .Name("bt9"))
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @(Html.ASOFTButton("*")
+                .HtmlAttributes(new { @class = "kb",@value = "*" })
+                .Name("bt*"))
+            </td>
+            <td>
+                @(Html.ASOFTButton("0")
+                .HtmlAttributes(new { @class = "kb",@value = "0" })
+                .Name("bt0"))
+            </td>
+            <td>
+                @(Html.ASOFTButton("#")
+                .HtmlAttributes(new { @class = "kb",@value = "#" })
+                .Name("btthang"))
+            </td>
+        </tr>
+    </table>
+</div>

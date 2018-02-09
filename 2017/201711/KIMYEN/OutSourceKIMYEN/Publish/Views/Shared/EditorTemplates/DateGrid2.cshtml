@@ -1,0 +1,13 @@
+@using ASOFT.ERP.A00.Core.Control
+@model DateTime?
+
+@{
+    ASOFTDateEditSettings dateEditSettings = new ASOFTDateEditSettings(null, null);
+    dateEditSettings.Attributes.Add("type", "text");
+}
+ @(Html.Kendo()
+       .DatePickerFor(m => m)
+        .HtmlAttributes(dateEditSettings.Attributes)
+          .ParseFormats(new string[] { "dd/MM/yyyy" })
+          .Format("{0:dd/MM/yyyy}")
+)

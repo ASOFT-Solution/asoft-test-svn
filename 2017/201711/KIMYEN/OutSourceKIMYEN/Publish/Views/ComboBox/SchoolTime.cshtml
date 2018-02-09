@@ -1,0 +1,38 @@
+﻿
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Entities.Database
+
+@model ASOFT.ERP.A00.Entities.Common.SchoolTimeComboboxModel
+@{
+    var comboBox = (Html.ASOFTCombobox(model => model.SchoolTimeID, htmlStyle: Model.Style)
+        .Name(Model.Name)
+        .DataValueField(MTT1020.COL_SCHOOLTIMEID)
+        .DataTextField(MTT1020.COL_SCHOOLTIMENAME)
+        .Enable(Model.Enabled));
+
+    if (!string.IsNullOrEmpty(Model.SelectedIndexChanged))
+    {
+        comboBox.Events(model => model.Change(Model.SelectedIndexChanged));
+    }
+    if (Model.List != null && Model.List.Count > 0)
+    {
+        if (Model.SelectedFirst)
+        {
+            comboBox.SelectedIndex(0);
+        }
+
+        //Hiển thị giá trị %
+        if (Model.ShowAll)
+        {
+            Model.List.Insert(0, new MTT1020()
+            {
+                SchoolTimeID = "%",
+                SchoolTimeName = ASOFTLanguage.FindWordA00("A00.All")
+            });
+        }
+        comboBox.BindTo(Model.List);
+    }
+}
+
+
+@comboBox

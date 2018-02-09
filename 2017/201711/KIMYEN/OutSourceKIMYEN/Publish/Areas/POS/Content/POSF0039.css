@@ -1,0 +1,33 @@
+﻿#PopupIframe iframe {
+    height: 100% !important;
+    width: 100% !important;
+}
+
+#PopupIframe {
+    margin: 0 !important;
+    overflow: hidden;
+    padding: 0 !important;
+}
+
+#POSF0039Grid .asf-btn-plus {
+    background-image: url("/Content/Images/icon-add-32x32.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+#POSF0039Grid .asf-btn-plus:hover, #POSF0039Grid .k-button:hover {
+     background-image: url("/Content/Images/icon-add-32x32.png");
+    background-color: #00e0ff;
+    border: 1px solid #00e0ff;
+    display: inline-block;
+    line-height: 1.66em;
+    color: #000;
+}
+
+#POSF0039Grid .asf-btn-plus-disable {
+     background-image: url("/Content/Images/icon-add-32x32.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    _min-width: 32px;
+    opacity:0.5
+}

@@ -1,0 +1,78 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     14/12/2015      Quang Hoàng       Tạo mới
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.SO.Entities
+@using ASOFT.ERP.ViewModel.SO
+@model SOF2004ViewModel
+@{
+    var gridsetting = new ASOFTGridSetting
+                          {
+                              NameGrid = "GridInventoryF2",
+                              NameEventPost = "GridDataF2",
+                              Scrollable = true,
+                              ActionName = "GridData",
+                              ControllerName = "SOF2000",
+                              HtmlAttribute = new { @class = "asf-grid", style = "height:450px;" },
+                              IsShowCheck = false,
+                              IsAutoHeight = false,
+                              ListGridColumn = new List<ASOFTGridColumnSetting>
+                                                   {
+                                                        new ASOFTGridColumnSetting
+                                                        {
+                                                           IDColumn = "RowNum",
+                                                          TitleColumn = ASOFTLanguage.FindWordA00("A00.Number"),
+                                                            Width = 50,
+                                                            VisibleColumn = true,
+                
+                                                        },
+                                                       new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = SOF2004.COL_WAREHOUSEID,
+                                                               TitleColumn = Html.ASOFTRaw(model => model.WareHouseID),
+                                                               Width = 100,
+                                                               VisibleColumn = true,
+                                                           },
+                                                       new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = SOF2004.COL_ENDQUANTITY,
+                                                               TitleColumn = Html.ASOFTRaw(model => model.EndQuantity),
+                                                               Width = 100,
+                                                               FormatType = EnumFormatType.ConvertedDecimals,
+                                                               VisibleColumn = true,
+                                                           },
+                                                       new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = SOF2004.COL_PQUANTITY,                                                                                              TitleColumn = Html.ASOFTRaw(model => model.PQuantity),
+                                                               FormatType = EnumFormatType.ConvertedDecimals,
+                                                               Width = 100,
+                                                               VisibleColumn = true,
+                                                           },
+                                                       new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = SOF2004.COL_SQUANTITY,
+                                                               TitleColumn = Html.ASOFTRaw(model => model.SQuantity),
+                                                               FormatType = EnumFormatType.ConvertedDecimals,
+                                                               Width = 100,
+                                                               VisibleColumn = true,
+                                                           },
+                                                        new ASOFTGridColumnSetting
+                                                        {
+                                                            IDColumn = SOF2004.COL_READYQUANTITY,                                                                                              TitleColumn = Html.ASOFTRaw(model => model.ReadyQuantity),
+                                                            FormatType = EnumFormatType.ConvertedDecimals,
+                                                            Width = 100,
+                                                            VisibleColumn = true,
+                                                        }
+                                                   }
+                          };
+}
+
+@(Html.ASOFTCreateGrid<SOF2004>(gridsetting))

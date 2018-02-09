@@ -1,0 +1,43 @@
+﻿@using ASOFT.ERP.A00.Entities.Database
+@using ASOFT.ERP.A00.Business.Database
+
+@{
+    ViewBag.Title = "Index";
+    List<AT1302> list = new List<AT1302>();
+    AT1302BL at1302bl = new AT1302BL();
+    list = at1302bl.GetAllEnabled();
+}
+
+@(Html.Kendo().Grid<AT1302>()
+    .Name("grid")
+    .Columns(columns =>
+    {
+        columns.Bound("InventoryTypeID").Title("InventoryTypeID").ClientGroupFooterTemplate("Count: #=count#")        
+            .ClientFooterTemplate("Total Count: #=count#");
+        columns.Bound("InventoryID").Title("InventoryID");
+        columns.Bound("DivisionID").Title("DivisionID");
+        columns.Bound("InventoryName").Title("InventoryName");
+        columns.Bound("SalePrice01").Title("SalePrice01").ClientFooterTemplate("Average: #=average# <div>Min: #= min #</div><div>Max: #= max #</div> ")
+            .ClientGroupFooterTemplate("Average: #=average#");
+    })
+    .Editable(editable => editable.Mode(GridEditMode.InCell))
+    .Sortable()
+    //.BindTo(list)
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Group(group => group.Add("InventoryTypeID", typeof(string)))
+        .Read(read => read.Action("InventoryID_Read", "CIF1300"))
+        .Aggregates(a =>
+        {
+            a.Add("SalePrice01", typeof(Decimal)).Average().Max().Min();
+            a.Add("InventoryTypeID", typeof(string)).Count();
+        })
+        .Model(model => model.Id("APK"))
+     )
+)
+
+<script>
+    $(document).ready(function () {
+
+    })
+</script>

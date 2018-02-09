@@ -1,0 +1,242 @@
+﻿@using ASOFT.ERP.ViewModel.DRM
+@model DRF1002ViewModel
+
+<script>
+    $(document).ready(function() {
+        //ASOFT.form.setSameHeight("asf-content-block");
+        ASOFT.form.setSameWidth("asf-content-block");
+    });
+</script>
+@helper Group01()
+{
+    <div class="asf-master-content">
+        <div class="asf-content-block first">
+            <table class="asf-table-view">
+                 <tr>
+                    <td style="vertical-align:top !important; border:none;">@Html.ASOFTLabel(model => model.EmployeeImage)</td>
+                    <td class="dot"></td>
+                    <td style="vertical-align:top !important; border:none;" align="right">
+                        @Html.ASOFTLogo("DRF1000", "Avatar", new { Area = "DRM", id="ABC" }, width:200, height:250)
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="asf-content-block middle">
+            <table class="asf-table-view">
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.EmployeeID)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.EmployeeID)</td>
+                </tr>
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.EmployeeName)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.EmployeeName)</td>
+                </tr>
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.EmployeeGroupID)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.EmployeeGroupID)</td>
+                </tr>
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.BranchID)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.BranchID)</td>
+                </tr>
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.TeamID)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.TeamID)</td>
+                </tr>
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.DutyID)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.DutyID)</td>
+                </tr>  
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.StartDate)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model. StartDate)</td>
+                </tr>
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.StopProbationaryDate)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.StopProbationaryDate)</td>
+                </tr>
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.Birthday)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.Birthday)</td>
+                </tr>
+            </table>
+        </div>
+        <div class="asf-content-block last">
+            <table class="asf-table-view">
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.IdentifyCardNo)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.IdentifyCardNo)</td>
+                </tr>
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.IdentifyDate)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.IdentifyDate)</td>
+                </tr>
+               <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.IndentifyPlace)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.IndentifyPlace)</td>
+                </tr>
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.Level)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.Level)</td>
+                </tr>
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.Email)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.Email)</td>
+                </tr>
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.Phone)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.Phone)</td>
+                </tr>
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.StatusID)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.StatusID)</td>
+                </tr>
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.Disabled)</td>
+                    <td class="dot"></td>
+                    <td class="content-text"> 
+                        @{ var disabled = Model.Disabled ? ASOFTLanguage.FindWordA00("A00.Yes") : ASOFTLanguage.FindWordA00("A00.No"); }
+                            @disabled
+
+                    </td>
+                </tr>
+                 <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.Note)</td>
+                    <td class="dot"></td>
+                    <td class="content-text" title="@Model.Note">
+                        <div class='content-ellipsis'>@Html.DisplayFor(model => model.Note)</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+}
+
+@helper Group02()
+{
+    <div class="asf-master-content">
+        <div class="asf-content-block first">
+            <table class="asf-table-view">
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.BaseSalary)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">
+                        @Html.DisplayFor(model => model.BaseSalary)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.InsuranceSalary)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">
+                        @Html.DisplayFor(model => model.InsuranceSalary)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.TradeUnion)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">
+                         @Html.DisplayFor(model => model.TradeUnion)
+                    </td>
+                </tr>  
+            </table>
+        </div>
+        <div class="asf-content-block middle">
+            <table class="asf-table-view">
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.RiceAllowance)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">
+                         @Html.DisplayFor(model => model.RiceAllowance)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.GasAllowance)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">
+                         @Html.DisplayFor(model => model.GasAllowance)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.PhoneAllowance)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">
+                        @Html.DisplayFor(model => model.PhoneAllowance)
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="asf-content-block last">
+            <table class="asf-table-view">
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.OnsiteFee)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">
+                        @Html.DisplayFor(model => model.OnsiteFee)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.Remuneration)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">
+                        @Html.DisplayFor(model => model.Remuneration)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.Other)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">
+                        @Html.DisplayFor(model => model.Other)
+                    </td>
+                </tr>  
+            </table>
+        </div>
+    </div>
+}
+
+
+@(Html.ASOFTPanel()
+      .Name("panelbar")
+      .HtmlAttributes(new {@class = "block-panel-master"})
+      //.Events(m => m.Activate("ASOFT.panelFormat.fitColumnHeight"))
+      .HtmlAttributes(new { @class = "block-panel-master" })
+      .Animation(animation => animation.Enable(true))
+       .Events(events => events           
+            .Expand("DRF1001.expandPanel")
+        )
+      .Items(panelbar =>
+             {
+                 panelbar.Add().Text(Html.ASOFTRaw(m => m.DRF1002Tab01Title))
+                     .HtmlAttributes(new {@class = "block-panel-master-header"})
+                     .Expanded(true).Content(Group01().ToHtmlString());
+
+                 panelbar.Add().Text(Html.ASOFTRaw(m => m.DRF1002Tab02Title))
+                     .HtmlAttributes(new {@class = "block-panel-master-header"})
+                     .Content(Group02().ToHtmlString());
+
+                 panelbar.Add().Text(ASOFTLanguage.FindWordA00("A00.SystemInfo")).HtmlAttributes(new {@class = "block-panel-master-header"})
+                     .Content(Html.Partial("~/Views/Shared/EditorTemplates/SystemInfo.cshtml", Model.SystemInfo).ToHtmlString());
+                 
+                 panelbar.Add().Text(ASOFTLanguage.FindWordA00("A00.HistoryInfo")).HtmlAttributes(new { @class = "block-panel-master-header" })
+                     .Content(
+                     @Html.Action("Index", new { controller = "History", area = "", tableID = "DRT1000",  ValueSearch = Model.EmployeeID }).ToString()
+                     );
+
+                 //Html.Partial("~/Views/Shared/EditorTemplates/AttachHistoryTabbar.cshtml", panelbar);
+             })
+      )

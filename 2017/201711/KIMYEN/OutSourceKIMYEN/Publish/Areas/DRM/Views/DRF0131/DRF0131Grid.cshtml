@@ -1,0 +1,123 @@
+﻿
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Entities.Database
+@using ASOFT.ERP.ViewModel.DRM
+@using ASOFT.ERP.DRM.Entities
+@model DRF0131ViewModel
+@{
+    var gridsetting = new ASOFTGridSetting
+                          {
+                              NameGrid = "DRF0131Grid",
+                              NameEventPost = "",
+                              Scrollable = true,
+                              ActionName = "GetGridData",
+                              ControllerName = "DRF0131",                              
+                              HtmlAttribute = new { @class = "asf-grid", style = "height:200px;" },
+                              IsShowCheck = true,
+                              IsAutoHeight = false,
+                              ListGridColumn = new List<ASOFTGridColumnSetting>{
+                                   new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = "RowNum",
+                                                               TitleColumn = ASOFTLanguage.FindWordA00("A00.Order"),
+                                                               Width = 50,
+                                                               VisibleColumn = true,
+                                                               ClientTemplate="#= DRF0131.rowNumber() #"
+                                                           },
+                                        //new ASOFTGridColumnSetting
+                                        //                   {
+                                        //                       IDColumn = DRF0131.COL_ISPERMISSION,
+                                        //                       TitleColumn = string.Format("<input id='{0}' name='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='DRF0131.checkBox_ChangedAll(this)' /> {1}",
+                                        //                                        DRF0131.COL_ISPERMISSION,Html.ASOFTRaw(model=>model.IsPermission)),
+                                        //                       Width = 150,
+                                        //                       VisibleColumn = true,
+                                        //                       ClientTemplate = string.Format("<input id='{0}' name='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='DRF0131.checkBox_Changed(this)' />",
+                                        //                                        DRF0131.COL_ISPERMISSION),
+                                        //                       HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+                                        //                   },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRF0131.COL_ADDRESSID,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.AddressID),
+                                                               Width = 150,
+                                                               VisibleColumn = true, 
+                                                           },
+                                       new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRF0131.COL_ADDRESSNAME,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.AddressName),
+                                                               Width = 150,
+                                                               VisibleColumn = true, 
+                                                           },
+                                     new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRF0131.COL_ISSEND,
+                                                               TitleColumn = string.Format("<input id='{0}' name='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='DRF0131.checkBox_IsSendChangedAll(this)' /> {1}",
+                                                                                DRF0131.COL_ISSEND,Html.ASOFTRaw(model=>model.IsSend)),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                               ClientTemplate = string.Format("<input id='{0}' name='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='DRF0131.checkBox_IsSendChanged(this)' />",
+                                                                                DRF0131.COL_ISSEND),
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+                                                           },
+                                     new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRF0131.COL_CITY,
+                                                               TitleColumn = string.Format("<input id='{0}' name='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='DRF0131.checkBox_CityChangedAll(this)' /> {1}",
+                                                                                DRF0131.COL_CITY,Html.ASOFTRaw(model=>model.City)),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                               ClientTemplate = string.Format("<input id='{0}' name='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='DRF0131.checkBox_CityChanged(this)' />",
+                                                                                DRF0131.COL_CITY),
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+                                                           },
+                                     new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRF0131.COL_DISTRICT,
+                                                               TitleColumn = string.Format("<input id='{0}' name='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='DRF0131.checkBox_DistrictChangedAll(this)' /> {1}",
+                                                                                DRF0131.COL_DISTRICT,Html.ASOFTRaw(model=>model.District)),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                               ClientTemplate = string.Format("<input id='{0}' name='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='DRF0131.checkBox_DistrictChanged(this)' />",
+                                                                                DRF0131.COL_DISTRICT),
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+                                                           },
+                                     new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRF0131.COL_WARD,
+                                                               TitleColumn = string.Format("<input id='{0}' name='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='DRF0131.checkBox_WardChangedAll(this)' /> {1}",
+                                                                                DRF0131.COL_WARD,Html.ASOFTRaw(model=>model.Ward)),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                               ClientTemplate = string.Format("<input id='{0}' name='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='DRF0131.checkBox_WardChanged(this)' />",
+                                                                                DRF0131.COL_WARD),
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+                                                           },
+                                     new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRF0131.COL_ADDRESSDESCRIPTION,
+                                                               TitleColumn = string.Format("<input id='{0}' name='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='DRF0131.checkBox_AddressDescriptionChangedAll(this)' /> {1}",
+                                                                                DRF0131.COL_ADDRESSDESCRIPTION,Html.ASOFTRaw(model=>model.AddressDescription)),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                               ClientTemplate = string.Format("<input id='{0}' name='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='DRF0131.checkBox_AddressDescriptionChanged(this)' />",
+                                                                                DRF0131.COL_ADDRESSDESCRIPTION),
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+                                                           },
+                                     new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRF0131.COL_NOTE,
+                                                               TitleColumn = string.Format("<input id='{0}' name='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='DRF0131.checkBox_NoteChangedAll(this)' /> {1}",
+                                                                                DRF0131.COL_NOTE,Html.ASOFTRaw(model=>model.Note)),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                               ClientTemplate = string.Format("<input id='{0}' name='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='DRF0131.checkBox_NoteChanged(this)' />",
+                                                                                DRF0131.COL_NOTE),
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+                                                           }
+                              }
+                          };
+}
+
+@(Html.ASOFTCreateGridEdit<DRF0131>(gridsetting,false))

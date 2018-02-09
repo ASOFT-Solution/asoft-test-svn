@@ -1,0 +1,133 @@
+﻿
+@model CRMF2011ViewModel
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.ViewModel.POS
+
+@{  
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "GridProduct", 
+        Scrollable = true,
+        ControllerName = "CRMF2011",
+        ActionName = "GetGridProductData",
+        NameEventPost = "ReadAPK",
+        //IsAutoHeight = false,
+        IsShowCheck = false,
+        HtmlAttribute = new
+        {
+            style = "height:300px;",
+            @class = "asf-grid",
+            @AddNewRowDisabled = "true",
+        },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "TransactionID",
+                TitleColumn = "",
+                Width = 50,
+                EditColumn = false,
+                VisibleColumn = false,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "APK",
+                TitleColumn = "",
+                Width = 50,
+                EditColumn = false,
+                VisibleColumn = false,
+            },
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "InventoryID",
+                TitleColumn = Html.ASOFTRaw(model => model.InventoryID),
+                Width = 50,
+                EditColumn = false,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "UnitID",
+                TitleColumn = Html.ASOFTRaw(model => model.UnitID),
+                Width = 50,
+                EditColumn = false,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "OrderQuantity",
+                TitleColumn = Html.ASOFTRaw(model => model.OrderQuantity),
+                Width = 80,
+                VisibleColumn = true,
+                EditColumn = true,
+
+                ClientTemplate = "<span>#=OrderQuantity#</span> <input type='button' onclick='btnPlus_Click(this)' value='&plus;'/> <input type='button' onclick='btnMinus_Click(this)' value='&minus;'/>",
+            },
+
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "Parameter01",
+                TitleColumn = Html.ASOFTRaw(model => model.Parameter01),
+                Width = 50,
+                VisibleColumn = true,
+                EditColumn = true,
+                FormatType = EnumFormatType.QuantityDecimals,
+            },
+            
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "Parameter02",
+                TitleColumn = Html.ASOFTRaw(model => model.Parameter02),
+                Width = 50,
+                VisibleColumn = true,
+                EditColumn = true,
+                FormatType = EnumFormatType.UnitCostDecimals
+            },
+            
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "Parameter03",
+                TitleColumn = Html.ASOFTRaw(model => model.Parameter03),
+                Width = 50,
+                VisibleColumn = true,
+                EditColumn = true,
+                FormatType = EnumFormatType.ConvertedDecimals,
+            },
+            
+                        
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "IsBorrow",
+                TitleColumn = Html.ASOFTRaw(model => model.IsBorrow),
+                Width = 50,
+                EditColumn = false,
+                VisibleColumn = true,
+                ClientTemplate  = "<input type='checkbox' #= IsBorrow == 1? 'checked' : '' # onclick='return false;' disabled=disabled />",
+            },
+            
+           
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "Description",
+                TitleColumn = Html.ASOFTRaw(model => model.Description),
+                Width = 50,
+                VisibleColumn = true,
+                EditColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "",
+                TitleColumn = "",
+                Width = 20,
+                VisibleColumn = true,
+                ClientTemplate = "<a href='\\#' onclick='btnDelete_Click()' class='asf-i-delete-24 asf-icon-24'><span>Del</span></a>",
+            },
+        }
+    };
+}
+
+@(Html.ASOFTCreateGridEdit<ASOFT.ERP.CRM.Entities.CRMF2011>(gridsetting).Events(e => e.Save("Grid2011_Save").DataBinding("GetCheckOrderQuantity")))
+
+<script src="@Url.Content("~/Areas/CRM/Scripts/CRMF2011/CRMF2011Grid.js")" type="text/javascript"></script>
+
+

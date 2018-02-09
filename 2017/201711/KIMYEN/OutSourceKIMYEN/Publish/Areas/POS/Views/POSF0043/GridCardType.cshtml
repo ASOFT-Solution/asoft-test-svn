@@ -1,0 +1,103 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     18/07/2013      Thai Son        Tạo mới
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.ViewModel.POS
+@model POSF0043ViewModel
+
+@{  
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "POSF0043Grid",
+        Scrollable = true,
+        ControllerName = "POSF0043",
+        ActionName = "GetGridData",
+        //NameEventPost = "sendData",
+        HtmlAttribute = new
+        {
+            style = "height:550px;",
+            @class = "asf-grid"
+        },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "RowNum",
+                 TitleColumn = ASOFTLanguage.FindWordA00("A00.Number"),
+                Width = 20,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "DivisionID",
+                TitleColumn = Html.ASOFTRaw(model => model.DivisionIDFilter),
+                Width = 30,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {Class="asf-cols-align-left"})
+            },
+            
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "TypeNo",
+                TitleColumn = Html.ASOFTRaw(model => model.TypeNo),
+                Width = 40,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {Class="asf-cols-align-left"}),
+                ClientTemplate = @"<a href='/POS/POSF0011/POSF00111?divisionID=#=DivisionID#&TypeNo=#=TypeNo#'
+                                    class='asf-grid-link' data-val='trigger-popup' data-url-parameter-value='#=TypeNo#'>#:TypeNo#</a>",
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "TypeName",
+                TitleColumn = Html.ASOFTRaw(model => model.TypeName),               
+                Width = 80,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "FromScore",
+                TitleColumn = Html.ASOFTRaw(model => model.FromScore),
+                Width = 30,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {Class="asf-cols-align-right"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "ToScore",
+                TitleColumn = Html.ASOFTRaw(model => model.ToScore),
+                Width = 30,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {Class="asf-cols-align-right"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "DiscountRate",
+                TitleColumn = Html.ASOFTRaw(model => model.DiscountRate),
+                Width = 30,
+                VisibleColumn = true,
+                ClientTemplate  = "#=DiscountRate#%",
+                HtmlAttrCoulmns = (new {Class="asf-cols-align-right"})
+            },            
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "Disabled",
+                TitleColumn = Html.ASOFTRaw(model => model.Disabled),
+                Width = 50,
+                VisibleColumn = true,
+                ClientTemplate  = "<input type='checkbox' #= Disabled ? 'checked' : '' # onclick='return false;' disabled=disabled />", // Readonly checkbox
+                HtmlAttrCoulmns = (new {style = "text-align:center", @class="asf-cols-align-center"})
+            }
+        }
+    };
+}
+
+@(Html.ASOFTCreateGrid<ASOFT.ERP.POS.Entities.POSP0033>(gridsetting))
+

@@ -1,0 +1,51 @@
+﻿@using System.Web.UI.WebControls
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Entities.Common
+@using ASOFT.ERP.ViewModel
+@model ASOFT.ERP.ViewModel.MT.MTF1010ViewModel
+
+<!-- Form Filter -->
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "FormFilter" }))
+{
+<div class="asf-filter-container">
+    <div class="asf-filter-content-block">
+        <div class="asf-filter-main">
+            <div class="asf-filter-label">
+                @Html.ASOFTLabel(model => model.DivisionIDFilter)
+            </div>
+            <div class="asf-filter-input">
+                @(Html.ASOFTBussinessComboBox().ASOFTDivisionIDList(model => model.DivisionIDFilter))
+            </div>
+        </div>
+     </div>
+
+    <div class="horz-line-left"></div>
+    <div class="horz-line-right"></div>
+
+    <div class="asf-filter-content-block">
+         <div class="asf-filter-main">
+            <div class="asf-filter-label">
+                @Html.ASOFTLabel(model => model.LevelIDFilter)
+            </div>
+            <div class="asf-filter-input">
+                @Html.ASOFTTextBox(model => model.LevelIDFilter)
+            </div>
+        </div>
+    </div>
+
+    <div class="horz-line-left"></div>
+    <div class="horz-line-right"></div>
+
+    <div class="asf-filter-content-block">
+        <div class="asf-filter-main">
+            <div class="asf-filter-label">
+                @Html.ASOFTLabel(model => model.LevelNameFilter)
+            </div>
+            <div class="asf-filter-input">
+                @Html.ASOFTTextBox(model=>model.LevelNameFilter)
+            </div>
+        </div>
+    </div>
+</div>
+}
+

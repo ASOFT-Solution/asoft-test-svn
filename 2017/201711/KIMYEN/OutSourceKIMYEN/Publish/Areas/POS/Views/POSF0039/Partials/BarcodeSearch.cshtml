@@ -1,0 +1,112 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     07/07/2014      Thai Son        Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.POS.Entities
+@model ASOFT.ERP.ViewModel.POS.POSF0040ViewModel
+
+@{
+    bool multiSelect = false;
+    if (ViewData["multiSelect"] != null)
+    {
+        multiSelect = Convert.ToBoolean(ViewData["multiSelect"]);
+    }
+
+    string inventoryIDCaption = Html.ASOFTRaw(m => m.InventoryID).ToString();
+    string inventoryNameCaption = Html.ASOFTRaw(m => m.InventoryName).ToString();
+}
+
+<div class="grid_8 alpha float_left">
+    @{
+        
+        string headerTemplate = string.Format(@"
+    <ul class='k-list asf-combo-item-header'>
+    <li class='k-item asf-combo-item-header-text'>
+    <div class='asf-combo-item'>
+    
+        <div style='width:211px' class='k-state-default asf-combo-item-col-value'>{0}</div>
+        <div style='width:330px' class='k-state-default asf-combo-item-col-text'>{1}</div>
+    </div>
+    </li>
+    </ul>", inventoryIDCaption, inventoryNameCaption);
+
+        string itemTemplate = @"
+    <div class='asf-combo-item k-item'>
+    
+        <div style='width:200px' class='k-state-default asf-combo-item-col-value  id-container'>${InventoryID}</div>
+        <div style='width:330px' class='k-state-default asf-combo-item-col-text  name-container'>${InventoryName}</div>
+    </div>";
+       
+        string headerTemplateWithCheck = string.Format(@"
+    <ul class='k-list asf-combo-item-header'>
+    <li class='k-item asf-combo-item-header-text'>
+    <div class='asf-combo-item'>
+        <div style='width:41px' class='k-state-default asf-combo-item-col-value'>&nbsp;</div>
+        <div style='width:200px' class='k-state-default asf-combo-item-col-value'>Mã hàng hóa</div>
+        <div style='width:330px' class='k-state-default asf-combo-item-col-text'>Tên hàng hóa</div>
+    </div>
+    </li>
+    </ul>", inventoryIDCaption, inventoryNameCaption);
+          
+        string itemTemplateWithCheck = @"
+    <div class='asf-combo-item k-item'>
+        <div style='width:30px' class='k-state-default asf-combo-item-col-value checkbox-container' >
+            <input type='checkbox' name='${InventoryID}' class='checkbox-input'>
+        </div>
+        <div style='width:200px' class='k-state-default asf-combo-item-col-value  id-container'>${InventoryID}</div>
+        <div style='width:330px' class='k-state-default asf-combo-item-col-text  name-container'>${InventoryName}</div>
+    </div>";      
+        
+    }
+    <div class="asf-barcode-multiselect" id="asf-barcode-multiselect">
+
+        @(Html.Kendo().AutoCompleteFor(model => model.InventoryID)
+                      .HighlightFirst(true)
+                      .Animation(animation => animation.Enable(false))
+                      .HtmlAttributes(new Dictionary<string, Object> {
+                          {"class","post-autocomplete"}, 
+                          {"height","32px"},
+                          {"data-bind", "value: InventoryID"},
+                          {"style", "font-size: 14px; display:none;"}
+                      })
+                      .MinLength(0)
+                      .DataTextField(ASOFT.ERP.POS.Entities.POSF001711.COL_INVENTORYID)
+                      .Filter("contains")
+                      .HeaderTemplate(headerTemplate)
+                      .Template(itemTemplate)
+                      .Name("InventoryID")
+
+                      )
+
+        @(Html.Kendo().DropDownListFor(model => model.InventoryIDBarCode)
+                      .Animation(animation => animation.Enable(false))
+                      .HtmlAttributes(new Dictionary<string, Object> {
+                          {"class","post-autocomplete"}, 
+                          {"height","32px"},
+                          {"data-bind", "value: InventoryID"},
+                          {"data-multi-select", multiSelect},
+                          {"style", "font-size: 14px"}
+                      })
+                      .DataTextField(ASOFT.ERP.POS.Entities.POSF001711.COL_INVENTORYID)
+                      .HeaderTemplate(multiSelect ? headerTemplateWithCheck : headerTemplate)
+                      .Template(multiSelect ? itemTemplateWithCheck : itemTemplate)
+                      .Name("InventoryIDBarCode")
+                      .SelectedIndex(0)
+                      )
+
+        @(Html.ASOFTTextBox(model => model.InventoryIDBarCode_input,
+                htmlStyle: new
+                {
+                    width = Unit.Percentage(100)
+                },
+                htmlAttribute: new Dictionary<string, Object> {
+                          {"data-disable-enter-for-tab", true}                          
+                      })
+         )
+    </div>
+</div>

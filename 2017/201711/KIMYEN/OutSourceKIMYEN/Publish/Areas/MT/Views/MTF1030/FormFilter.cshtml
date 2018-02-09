@@ -1,0 +1,44 @@
+﻿
+
+@model ASOFT.ERP.ViewModel.MT.MTF1030ViewModel
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new {id = "FormFilter"}))
+{
+    <div class="asf-filter-container">
+        <div class="asf-filter-content-block">
+            <div class="asf-filter-main">
+                <div class="asf-filter-label" >
+                    @Html.DisplayNameFor(model => model.DivisionIDFilter)
+                </div>
+                <div class="asf-filter-input">
+                    @(Html.ASOFTBussinessComboBox().ASOFTDivisionIDList(model => model.DivisionIDFilter, null,
+                                                                        htmlStyle: new {width = Unit.Percentage(100)}))
+                </div>
+            </div>
+        </div>
+        <div class="horz-line-left"></div>
+        <div class="horz-line-right"></div>
+        <div class="asf-filter-content-block">
+            <div class="asf-filter-main">
+                <div class="asf-filter-label" >
+                    @Html.DisplayNameFor(model => model.StopReasonIDFilter)
+                </div>
+                <div class="asf-filter-input">
+                    @Html.ASOFTTextBox(model => model.StopReasonIDFilter, null, htmlStyle: new {width = Unit.Percentage(100)})
+                </div>
+            </div>
+        </div>
+        <div class="horz-line-left"></div>
+        <div class="horz-line-right"></div>
+        <div class="asf-filter-content-block">
+            <div class="asf-filter-main">
+                <div class="asf-filter-label" >
+                    @Html.DisplayNameFor(model => model.StopReasonNameFilter)
+                </div>
+                <div class="asf-filter-input">
+                    @Html.ASOFTTextBox(model => model.StopReasonNameFilter, null, htmlStyle: new {width = Unit.Percentage(100)})
+                </div>
+            </div>
+        </div>
+    </div>
+}

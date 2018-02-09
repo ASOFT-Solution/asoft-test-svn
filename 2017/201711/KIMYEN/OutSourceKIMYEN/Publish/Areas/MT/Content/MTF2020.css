@@ -1,0 +1,60 @@
+﻿.asf-filter-main.label-min > .asf-filter-label {
+    width: 19%;
+}
+.asf-filter-main.label-min > .asf-filter-input {
+    width: 81%;
+}
+
+.buttonColumn {
+    float: right;
+    height: auto;
+}
+
+.inputColumn {
+    float: left;
+    width: 80%;
+}
+
+.asf-button.min {
+    min-width: 45px !important;
+    width: 45px;
+}
+
+/*#StopReasonID-list,
+#StopReasonIDFilter-list {
+    min-width: 300px;
+    height: auto !important;
+    display: block;
+}
+
+#StopReasonID_listbox,
+#StopReasonIDFilter_listbox {
+    width: auto;
+    height: 100% !important;
+    max-height: 300px;
+    display: block;
+}*/
+
+/*************************************************************
+                STYLE TEXTBOX BUTTON CHOOSE
+**************************************************************/
+.asf-common-search.popup-input-text,
+.asf-common-search.popup-input-text > .k-textbox.k-space-right {
+    width: 100%;
+}
+.asf-common-search.popup-input-text > span.k-textbox.k-space-right > .k-button,
+.asf-common-search.popup-input-text > span.k-textbox.k-space-right > .k-button:hover,
+.asf-common-search.popup-input-text > span.k-textbox.k-space-right > .k-button:focus {
+    background-image: url("/Content/Images/icon-pdf-24x24.png");
+    border: none;
+    background-color: transparent; 
+}
+
+.asf-common-search.popup-input-text > span.k-textbox {
+    background-color: #ffffff !important;
+}
+
+.asf-common-search.popup-input-text span.k-textbox.k-space-right {
+    border-bottom: 1px solid #AAAAAA !important;
+    border-width: 0 0 1px 0 !important;
+}

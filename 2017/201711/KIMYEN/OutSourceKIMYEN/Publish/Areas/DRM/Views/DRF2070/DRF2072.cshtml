@@ -1,0 +1,81 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     11/09/2014      Đức Quý         Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Infrastructure;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel;
+@using System.Web.UI.WebControls;
+@using Kendo.Mvc;
+@model ASOFT.ERP.ViewModel.DRM.DRF2072ViewModel
+@{
+    Layout = "~/Areas/DRM/Views/Shared/_CustomerContentDetail.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.DRF2072Title, "DRF2072").ToHtmlString();
+}
+
+@Html.ASOFTHidden("UrlDRF2070", Url.Action("Index"))
+
+@(Html.ASOFTHeader(new HeaderModel
+{
+    Title = Html.ASOFTPageTitle(m => m.DRF2072Title, "DRF2072").ToHtmlString(),
+    Breakcrumb = true,
+    QuickSearch = false
+}))
+
+<div id="ViewMaster" class="asf-panel-view-master">
+    <div class="asf-panel-master-header">
+        <div class="asfbtn asfbtn-right">
+            <a class="asfbtn-item-32  k-button k-button-icon" href="@Url.Action("Index", "DRF2070")">&larr;&nbsp;@Html.ASOFTPageTitle(m => m.DRF2070Title, "DRF2070").ToHtmlString()</a>
+        </div>
+    </div>
+    <div id="viewPartial">
+        @Html.Partial("DRF2072M")
+    </div>
+</div>
+
+@section customBanner {
+    <div id="InfoSet" class="asf-custom-banner">
+        <div class="asf-custom-banner-icon-logo">@Html.ASOFTLogo("DRF2070", "Logo", new { Area = "DRM" })</div>
+        <div class="asf-custom-banner-white-line"></div>
+        <div class="asf-custom-banner-content">
+            <div class="info">
+                <div class="row">
+                    <span style="font-size: 14px"><b>@ASOFTEnvironment.CompanyName</b></span>
+                </div>
+                <div class="row">
+                    <span>[A] @ASOFTEnvironment.CompanyAddress</span>
+                </div>
+                <div class="row">
+                    <span>[T] @ASOFTEnvironment.CompanyTel</span>
+                </div>
+                <div class="row">
+                    <span>[F] @ASOFTEnvironment.CompanyFax</span>
+                </div>
+                <div class="row">
+                    <span>[S] <a href="@string.Format("{0}", ASOFTEnvironment.CompanySite)">@ASOFTEnvironment.CompanySite</a></span>
+                </div>
+                <div class="row">
+                    <span>[E] <a href="@string.Format("mailto:{0}", ASOFTEnvironment.CompanyEmail)">@ASOFTEnvironment.CompanyEmail</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section jsFeature{
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF2070/DRF2070.js?v=" + ASOFTEnvironment.Version)"></script>
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF2070/DRF2072.js?v=" + ASOFTEnvironment.Version)"></script>
+}
+
+@section styleFeature {
+    <link href="@Url.Content("~/Areas/DRM/Content/Common.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Areas/DRM/Content/DRF2070.css")" rel="stylesheet" type="text/css" />
+}

@@ -1,0 +1,55 @@
+﻿
+#RouteName {
+    background-color:#d0c9c9;
+}
+#ContactName {
+    background-color:#d0c9c9;
+}
+#VATAccountName {
+    background-color:#d0c9c9;
+}
+#btnChooseVATAccountID{
+    margin-left:5px;
+}
+.k-button {
+    margin-bottom:2px;
+}
+.k-state-disabled {
+    margin-bottom:2px !important;
+}
+span.asf-icon {
+    height: 17px;
+}
+#left2{
+    margin-left:-8px;
+}
+#right2{
+    margin-right:-8px;
+}
+#left2 .asf-td-caption{
+    width:40%;
+}
+#right2 .asf-td-caption{
+    width:40%;
+}
+#GroupAccountInfo{
+    margin-bottom:15px;
+}
+#GroupAccountInfo .asf-td-caption {
+    width:35%;
+}
+#left2 .k-combobox{
+    width:250px !important;
+}
+#right2 .k-combobox{
+    width:250px !important;
+}
+#RouteName {
+    width:75% !important;
+}
+#VATAccountName {
+    width:75% !important;
+}
+#ContactName {
+    width:70% !important;
+}

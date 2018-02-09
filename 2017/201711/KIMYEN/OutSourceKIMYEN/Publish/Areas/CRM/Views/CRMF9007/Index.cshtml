@@ -1,0 +1,84 @@
+﻿@using Kendo.Mvc.UI;
+@using Kendo.Mvc.Extensions;
+@model ASOFT.ERP.A00.Entities.Common.HeaderModel
+@{
+    ViewBag.Title = "Quản lý lịch - CRMF9007";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<ASOFT.ERP.A00.Entities.Common.CalendarCommon> list = (List<ASOFT.ERP.A00.Entities.Common.CalendarCommon>)ViewBag.BinTo;
+}
+@Html.ASOFTHidden("AllDay", ASOFTLanguage.FindWordA00("A00.AllDay"))
+@Html.ASOFTHidden("ToDay", ASOFTLanguage.FindWordA00("A00.ToDay"))
+<div id="contentMaster">
+
+    <div class="asf-panel-filter container_12">
+        <div class="asf-headerpage">
+            @*<input type="hidden" id="Breakcrumb" value='@Model.Breakcrumb.ToString()' />*@
+            <div id="Breakcrumb_div" class="asf-breakcumb" style="display:none">
+            </div>
+            <div class="asf-headerpage-title">
+                <div id="HeaderLabel">
+                    <h3>Quản lý lịch - CRMF9007</h3>
+                </div>
+                <div class="asf-common-search">
+                    <span class="k-textbox k-space-right">
+                        <div class="asf-box-button-search">
+                            @(Html.ASOFTButtonIcon("", htmlStyle: new { width = "24px", height = "24px" })
+                                .Name("btnFilter").Events(e => e.Click("btnFilter_Click1"))
+                                .SpriteCssClass("k-sprite asf-icon asf-icon-24 asf-i-search-24"))
+                        </div>    
+                         @Html.ASOFTTextBox(model=>model.HeaderFilter, htmlStyle: new { width = "250px"})                        
+                    </span>
+                    @(Html.ASOFTButtonIcon("", htmlAttributes: new { Class = "asf-button-common-custom-search" }, htmlStyle: new { width = "24px", height = "24px" })
+                            .Name("btnCustom")
+                            .SpriteCssClass("k-sprite asf-icon asf-icon-24 asf-i-tool-24"))
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <div class="container_12 asf-button-filter-container">
+        <div class="grid_6 alpha float_left">
+        </div>
+
+        <div class="grid_6 omega float_right">
+            <ul class="vertical float_right">
+                <li>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.AddEvent"))
+                              .Name("BtnAddEvent")
+                              .Events(e => e.Click("add_Event")))
+                    </li>
+                    @*<li>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.AddTask"))
+                              .Name("BtnAddTask")
+                              .Events(e => e.Click("add_Task")))
+                    </li>*@
+            </ul>
+        </div>
+    </div>       
+     <div class="clearfix"></div>
+    @(Html.Kendo().Scheduler<ASOFT.ERP.A00.Entities.Common.CalendarCommon>()
+        .Name("scheduler")
+        .Date(DateTime.Now.Date).Events(e => e.Navigate("change_Navigate").Add("add_Click").Edit("edit_Click").DataBound("dataBound_Calendar").MoveEnd("MoveEnd_Click").ResizeEnd("resize_Click").Remove("remove_Click"))
+         //.StartTime(new DateTime())
+        .Height(600).HtmlAttributes(new { @class = "asf-grid" })
+        .Views(views =>
+        {
+            views.DayView(dayView => dayView.Title(ASOFTLanguage.FindWordA00("A00.DayCalendar")));
+            views.WorkWeekView(workWeekView => workWeekView.Selected(true).Title(ASOFTLanguage.FindWordA00("A00.WorkWeekCalendar")));
+            views.WeekView(weekView => weekView.Title(ASOFTLanguage.FindWordA00("A00.WeekCalendar")));
+            views.MonthView(MonthView => MonthView.Title(ASOFTLanguage.FindWordA00("A00.MonthCalendar")));
+        })
+            //.Timezone("Etc/UTC")
+            .EventTemplate("<div class='event-title'>" +
+                        "<p>#=StartHour# - #=EndHour#</p><p>#=title#</p></div>")
+            .DataSource(d => d.Read(r => r.Action("Read", "CRMF9007", new { area = "CRM" }).Data("CalendarRead"))
+            .Model(m =>
+            {
+                m.Id(f => f.APK);
+            })
+        )
+        //.BindTo(list).AutoBind(true)
+    )
+</div>
+
+<script src="@Url.Content("~/Scripts/calendar.js")" type="text/javascript"></script>

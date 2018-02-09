@@ -1,0 +1,115 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     09/10/2014      Chánh Thi       Tạo mới
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core;
+
+
+@model ASOFT.ERP.ViewModel.S.SF1013ViewModel
+
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+
+    ViewBag.Title = Html.ASOFTPageTitle(model => model.Title, "SF1013").ToHtmlString();
+    ViewBag.Width = 1000;
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new
+{
+    id = "SF1013"
+}))
+{  
+    <table class="asf-table-view">
+        <thead>
+            <tr class="tr-zero-height">
+                @*<td class ="width150px"></td>
+                <td class ="width350px"></td>*@
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="width: 150px">@Html.ASOFTLabel(model => model.GroupID)</td>
+                <td>
+                    @(Html.ASOFTTextBox(model => model.GroupID).ReadOnlyIf(true))
+                </td>
+                <td style="width:120px"></td>
+                <td style="width: 150px">@Html.ASOFTLabel(model => model.GroupName)</td>
+                <td>
+                    @(Html.ASOFTTextBox(model => model.GroupName).ReadOnlyIf(true))
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="clearfix"></div>
+    <div style="overflow: hidden; width: 100%; float: left">
+        <div style="width: 420px; float: left">
+            @Html.Partial("GridUserID")
+        </div>
+        <div class="asf-button-tranfer">
+            <ul class="middle-buttons">
+                <li>@(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnChangeSingle"))
+                              .Name("BtnchangeSingle")
+                              .Events(e => e.Click("SF1013.btn_ChangeSingle")))
+                </li>
+
+                <li>@(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnChangeReturn"))
+                               .Name("BtnUnChaneSingle")
+                               .Events(e => e.Click("SF1013.btn_UnChangeSingle")))
+                </li>
+            </ul>
+            <ul class="middle-buttons-bottom">
+                <li>@(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnChangeAll"))
+                               .Name("BtnChangeAll")
+                               .Events(e => e.Click("SF1013.btn_ChangeAll")))
+                </li>
+                <li>@(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnReturnAll"))
+                               .Name("BtnUnChangeAll")
+                               .Events(e => e.Click("SF1013.btn_ReturnAll")))
+                </li>
+           </ul>
+        </div>
+        <div style="width: 420px; float: right">
+            @Html.Partial("GridUserGroup")
+        </div>
+    </div>
+    <div class="asf-form-button">
+        <table class="asf-table-view">
+            <tr>
+                <td>@*align="right"*@
+                    <div class="asf-popup-button-container">
+                        <div>
+                            @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                                      .Name("BtnCloseUpdate")
+                                      .Events(e => e.Click("SF1013.btnClose_Click")))
+                        </div>
+                        <div>
+                            @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSave"))
+                                      .Name("BtnSave")
+                                      .Events(e => e.Click("SF1013.btn_SaveUserGroup")))
+                        </div>
+                        @*   <div>
+                                    @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnPassword"))
+                                      .Name("BtnPassword").Events(e => e.Click("btnChangePassword")))
+                                </div>*@
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+            
+    
+}
+@Html.ASOFTHidden("UrlUpdate", Url.Action("SF1013Update"))
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/S/Content/Common.css")" rel="stylesheet" type="text/css" />
+}
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/S/Scripts/SF1013.js?v=" + ASOFTEnvironment.Version)" type="text/javascript"></script>
+}

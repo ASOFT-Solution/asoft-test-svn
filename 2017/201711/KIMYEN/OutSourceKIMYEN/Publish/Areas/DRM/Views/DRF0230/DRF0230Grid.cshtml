@@ -1,0 +1,56 @@
+﻿
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Entities.Database
+@using ASOFT.ERP.ViewModel.DRM
+@using ASOFT.ERP.DRM.Entities
+@model DRF0230ViewModel
+@{
+    List<string> lstPort = ViewBag.ListPort;
+    List<ASOFTGridColumnSetting> lst = new List<ASOFTGridColumnSetting>();
+    
+    ASOFTGridColumnSetting column1 = new ASOFTGridColumnSetting();
+    column1.IDColumn = "CustomerID";
+    column1.TitleColumn = Html.ASOFTRaw(model => model.CustomerID);
+    column1.EditorTemplateName = "String";
+    column1.Width = 50;
+    column1.VisibleColumn = true;
+    column1.ClientTemplate = "";
+    lst.Add(column1);
+
+    ASOFTGridColumnSetting column2 = new ASOFTGridColumnSetting();
+    column2.IDColumn = "CustomerName";
+    column2.TitleColumn = Html.ASOFTRaw(model => model.CustomerName);
+    column2.Width = 50;
+    column2.EditorTemplateName = "String";
+    column2.VisibleColumn = true;
+    column2.ClientTemplate = "";
+    lst.Add(column2);  
+    
+    foreach(string item in lstPort){
+        ASOFTGridColumnSetting column = new ASOFTGridColumnSetting();
+        column.IDColumn = string.Format("P{0:00}",item.ToString());
+        column.TitleColumn = string.Format("<input id='P{0}' name='P{0}' type='checkbox' #=P{0} == 1 ? 'checked' : '' # onchange='DRF0230.checkBox_ChangedAll(this)' />  {1} {0:00}", item.ToString(), Html.ASOFTRaw(model => model.PortID));
+        column.Width = 50;
+        column.VisibleColumn = true;
+        column.EditorTemplateName = "Byte";
+        column.ClientTemplate = string.Format("<input id='{0}' type='checkbox' #={0} ==1 ? 'checked' : '' # onchange='DRF0230.checkBox_Changed(this)' />", string.Format("P{0:00}", item.ToString()));
+        column.HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" };
+        lst.Add(column);
+    }
+                                                          
+    var gridsetting = new ASOFTGridSetting
+                          {
+                              NameGrid = "DRF0230Grid",
+                              NameEventPost = "DRF0230.sendEventPost",
+                              Scrollable = true,
+                              ActionName = "GetGridData",
+                              ControllerName = "DRF0230",
+                              HtmlAttribute = new { @class = "asf-grid" },
+                              IsShowCheck = true,
+                              IsAutoHeight = false,
+                              ListGridColumn = lst
+                          };
+}
+
+@(Html.ASOFTCreateGridEdit<dynamic>(gridsetting,false))

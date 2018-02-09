@@ -1,0 +1,71 @@
+﻿
+@model SOF2033ViewModel
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.ViewModel.SO
+@using ASOFT.ERP.SO.Entities
+
+@{  
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "GridImport", 
+        Scrollable = true,
+        ControllerName = "SOF2033",
+        ActionName = "GetGridProductData",
+        //NameEventPost = "GetBarcode",
+        IsShowCheck = false,
+        //IsAutoHeight = false,
+        HtmlAttribute = new
+        {
+            style = "height:300px;",
+            @class = "asf-grid"
+        },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "InventoryID",
+                TitleColumn = Html.ASOFTRaw(m=>m.InventoryID),
+                Width = 100,
+                EditColumn = true,
+                VisibleColumn = true,
+                EditorTemplateName = "SOInventory",
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "InventoryName",
+                TitleColumn = Html.ASOFTRaw(m=>m.InventoryName),
+                Width = 100,
+                EditColumn = false,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "UnitID",
+                TitleColumn = Html.ASOFTRaw(m=>m.UnitID),
+                Width = 50,
+                EditColumn = false,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "ActualQuantity",
+                TitleColumn = ASOFT.ERP.ViewModel.Helper.LocalizedHelper.GetLocalizedResourceString("SOF2033.ActualQuantityIn", "SOF2033"),
+                Width = 100,
+                EditColumn = true,
+                VisibleColumn = true,
+                ClientTemplate = "<span>#=genActualQuantity(data)#</span> <input onclick='GridImportbtnPlus_Click()' type='button' value='&plus;'/> <input onclick='GridImportbtnMinus_Click()' type='button' value='&minus;'/>",
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "",
+                TitleColumn = "",
+                Width = 25,
+                VisibleColumn = true,
+                ClientTemplate = "<a onclick='GridImportbtnDel_Click()' href='\\#' class='asf-i-delete-24 asf-icon-24'> <span>Del</span> </a>",
+            },
+        }
+    };
+}
+
+@(Html.ASOFTCreateGridEdit<SOF2033>(gridsetting))

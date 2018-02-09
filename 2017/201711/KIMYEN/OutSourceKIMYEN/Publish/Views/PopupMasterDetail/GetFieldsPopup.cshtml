@@ -1,0 +1,576 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Created                Comment
+//#     23/10/2017      Quang Hoàng            Tạo mới
+//####################################################################
+*@
+@using System.Web.Optimization
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.A00.Core.MapperHelper;
+@using ASOFT.ERP.ViewModel;
+@using System.Web.UI.WebControls;
+@using ASOFT.ERP.ViewModel.Helper;
+@model List<ASOFTSysFieldsViewModel>
+
+
+@{
+    string ScreenID = ViewBag.ScreenID;
+    string module = ViewBag.Module;
+    string table = ViewBag.Table;
+    List<ASOFTSysFieldsViewModel> list = Model.ToList();
+}
+
+@helper parseControl(ASOFTSysFieldsViewModel item, string ScreenID, string module)
+{
+    item.ColumnName = item.ColumnName + "_" + item.sysTable;
+    if (item.UniqueField == 1)
+    {
+        @Html.ASOFTHidden("Unique", item.ColumnName);
+    }
+    if (item.PopupVisible == 0)
+    {               
+        @Html.ASOFTHidden(item.ColumnName, item.Data);
+        @Html.ASOFTHidden(item.ColumnName + "_Content_DataType", item.sysDataTypeID);
+        @Html.ASOFTHidden(item.ColumnName + "_Type_Fields", item.Type);
+    }
+    else
+    {
+        switch (item.Type)
+        {
+            case 1:
+                @Html.ASOFTHidden(item.ColumnName + "_Content_DataType", item.sysDataTypeID);
+                @Html.ASOFTHidden(item.ColumnName + "_Type_Fields", item.Type);
+                                                                              bool readol = false;
+                                                                              if (item.ReadOnly == 1)
+                                                                              {
+                                                                                  readol = true;
+                                                                              }
+                                                                              if (item.Pattern != null)
+                                                                              {
+                                                                                  if (item.Pattern.Equals("Email"))
+                                                                                  {
+                                                                                      item.Pattern = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
+                                                                                      item.Message = "CFML000077";
+                                                                                  }
+                                                                              }
+                <tr class = @item.ColumnName>
+                    <td class="asf-td-caption">@Html.Label(item.language, htmlAttributes: new { @for = item.ColumnName })
+                     @if (item.AllowNull == 0)
+                     {
+                         <span class="asf-label-required">*</span>
+                     }
+                    </td>
+                   @if(item.sysDataTypeID == 8)
+                   {
+                       <td class="asf-td-field" colspan="2" >@Html.ASOFTConvertedDecimal(itemModel => item.Data, htmlAttribute: new { @id = item.ColumnName, @requaird = item.AllowNull, @maxlength = item.MaxLenght, @regular = item.Pattern, @message = item.Message, isNumberic = true }).ReadOnlyIf(readol)</td>      
+                   }
+                    else
+                   {
+                    bool checkRegularExp = item.UniqueField == 1;
+                    <td class="asf-td-field" colspan="2" >@Html.ASOFTTextBox(itemModel => item.Data, htmlAttribute: new { @id = item.ColumnName, @requaird = item.AllowNull, @maxlength = item.MaxLenght, @regular = item.Pattern, @message = item.Message}, checkRegularExp: checkRegularExp).ReadOnlyIf(readol)</td>        
+                   }                                             
+                </tr>
+                     break;
+                case 2:
+               bool readol1 = false;
+                if (item.ReadOnly == 1)
+                {
+                    readol1 = true;
+                }
+            @Html.ASOFTHidden(item.ColumnName + "_Content_DataType", item.sysDataTypeID);
+            @Html.ASOFTHidden(item.ColumnName + "_Type_Fields", item.Type);
+            <tr class = @item.ColumnName>
+                <td class="asf-td-caption"></td>
+                <td class="asf-td-field" colspan="3" style="padding-top: 8px">@Html.ASOFTCheckbox(itemModel => item.TypeCheckBox, htmlAttributes: new { @id = item.ColumnName }, dynamiclabel: item.language).DisabledIf(readol1)</td>                                                     
+            </tr>               
+            break;
+
+            case 3:
+                @Html.ASOFTHidden("CheckInList", item.ColumnName);
+                @Html.ASOFTHidden(item.ColumnName + "_Content_DataType", item.sysDataTypeID);
+                @Html.ASOFTHidden(item.ColumnName + "_Type_Fields", item.Type);
+                <tr class = @item.ColumnName>
+                    <td class="asf-td-caption">@Html.Label(item.language, htmlAttributes: new { @for = item.ColumnName })
+                        @if (item.AllowNull == 0)
+                        {
+                            <span class="asf-label-required">*</span>
+                        }
+                    </td>
+                    <td>
+                     @{  
+                         ComboBoxDynamic DynamicComboModel = new ComboBoxDynamic();
+                         DynamicComboModel.sysComboBoxID = item.sysComboBoxID;
+                         DynamicComboModel.ScreenID = ViewBag.ScreenID;
+                         DynamicComboModel.Module = ViewBag.Module;
+                         DynamicComboModel.ColumName = item.ColumnName;
+                         string ParentCombo = ASOFT.ERP.Controllers.ComboBoxController.GetParentColumname(DynamicComboModel, Model);
+                         if (!string.IsNullOrEmpty(ParentCombo))
+                         {
+                            @Html.ASOFTBussinessComboBox().ASOFTComboBoxMultiColumn(itemModel => item.Data, DynamicComboModel, true, htmlAttributes: new { @id = item.ColumnName, @Module = ViewBag.Module, @ScreenID = ViewBag.ScreenID, @sysComboBoxID = item.sysComboBoxID,  @requaird = item.AllowNull, @ParentCombo = ParentCombo, @readOL = item.ReadOnly == 1}).Events(e => e.Open("OpenComboDynamic"))
+                                                                              }
+                                                                              else
+                                                                              {
+                        @Html.ASOFTBussinessComboBox().ASOFTComboBoxMultiColumn(itemModel => item.Data, DynamicComboModel, false, htmlAttributes: new { @id = item.ColumnName, @requaird = item.AllowNull, @readOL = item.ReadOnly == 1 })
+                                                                              }
+                    }</td>                                                     
+                </tr>
+                                                                              break;
+
+            case 4:
+                @*@Html.ASOFTHidden("CheckInList", item.ColumnName);*@
+                @Html.ASOFTHidden(item.ColumnName + "_Content_DataType", item.sysDataTypeID);
+                @Html.ASOFTHidden(item.ColumnName + "_Type_Fields", item.Type);
+                <tr class = @item.ColumnName>
+                    <td class="asf-td-caption">@Html.Label(item.language, htmlAttributes: new { @for = item.ColumnName })
+                        @if (item.AllowNull == 0)
+                        {
+                            <span class="asf-label-required">*</span>
+                        }
+                    </td>
+                    <td>
+                     @{  
+                         ComboBoxDynamic DynamicComboModel1 = new ComboBoxDynamic();
+                         DynamicComboModel1.sysComboBoxID = item.sysComboBoxID;
+                         DynamicComboModel1.ScreenID = ViewBag.ScreenID;
+                         DynamicComboModel1.Module = ViewBag.Module;
+                         DynamicComboModel1.ColumName = item.ColumnName;
+                         if (ASOFT.ERP.Controllers.ComboBoxController.CheckDynamicData(DynamicComboModel1, Model))
+                         {
+                            @Html.ASOFTBussinessComboBox().ASOFTDynamicMultiCheckList(itemModel => item.Data, DynamicComboModel1, true, htmlAttributes: new { @id = item.ColumnName, @Module = ViewBag.Module, @ScreenID = ViewBag.ScreenID, @sysComboBoxID = item.sysComboBoxID, @requaird = item.AllowNull, @readOL = item.ReadOnly == 1 }).Events(e => e.Open("OpenMultiCheckListDynamic"))
+                                                                              }
+                                                                              else
+                                                                              {
+                        @Html.ASOFTBussinessComboBox().ASOFTDynamicMultiCheckList(itemModel => item.Data, DynamicComboModel1, false, htmlAttributes: new { @id = item.ColumnName, @requaird = item.AllowNull, @readOL = item.ReadOnly == 1 })
+                                                                              }
+                    }</td>                                                     
+                </tr>
+                                                                              break;
+
+            case 5:
+            @Html.ASOFTHidden(item.ColumnName + "_Content_DataType", item.sysDataTypeID);
+            @Html.ASOFTHidden(item.ColumnName + "_Type_Fields", item.Type);
+            <tr class = @item.ColumnName>
+                <td class="asf-td-caption">@Html.Label(item.language, htmlAttributes: new { @for = item.ColumnName })
+                        @if (item.AllowNull == 0)
+                        {
+                            <span class="asf-label-required">*</span>
+                        }
+                </td>
+                <td>
+                    @Html.ASOFTDateEdit(itemModel => item.TypeDateTimePicker, htmlAttributes: new { @id = item.ColumnName, @name = item.ColumnName, @value = item.TypeDateTimePicker.ToString(), @requaird = item.AllowNull })
+                </td>
+            </tr>
+                                                                          break;
+
+            case 6:
+            @Html.ASOFTHidden(item.ColumnName + "_Content_DataType", item.sysDataTypeID);
+            @Html.ASOFTHidden(item.ColumnName + "_Type_Fields", item.Type);
+            <tr class = @item.ColumnName>
+                <td class="asf-td-caption">@Html.Label(item.language, htmlAttributes: new { @for = item.ColumnName })
+                        @if (item.AllowNull == 0)
+                        {
+                            <span class="asf-label-required">*</span>
+                        }
+                </td>
+                <td>
+                    @Html.ASOFTDateEdit(itemModel => item.TypeDateTimePicker, htmlAttributes: new { @id = item.ColumnName, @name = item.ColumnName, @value = item.TypeDateTimePicker.ToString(), @requaird = item.AllowNull })
+                </td>
+            </tr>
+                                                                          break;
+            case 7:
+            @Html.ASOFTHidden(item.ColumnName + "_Content_DataType", item.sysDataTypeID);
+            @Html.ASOFTHidden(item.ColumnName + "_Type_Fields", item.Type);
+            <tr class = @item.ColumnName>
+                <td class="asf-td-caption">@Html.Label(item.language, htmlAttributes: new { @for = item.ColumnName })
+                        @if (item.AllowNull == 0)
+                        {
+                            <span class="asf-label-required">*</span>
+                        }
+                </td>
+                <td>
+                    @Html.ASOFTDateEditLongTime(itemModel => item.TypeDateTimePicker, htmlAttributes: new { @id = item.ColumnName, @name = item.ColumnName, @value = item.TypeDateTimePicker.ToString(), @requaird = item.AllowNull }).Events(e => e.Open("LongDateTime"))
+
+                </td>
+            </tr>
+                                                                          break;
+            case 8:
+            @Html.ASOFTHidden(item.ColumnName + "_Content_DataType", item.sysDataTypeID);
+            @Html.ASOFTHidden(item.ColumnName + "_Type_Fields", item.Type);
+            @Html.ASOFTHidden(item.ColumnName, "");
+            <tr class = @item.ColumnName style="vertical-align:top">
+                        <td style="vertical-align:top">@Html.Label(item.language, htmlAttributes: new { @for = item.ColumnName })</td>
+                        <td>
+                            @Html.ASOFTLogo("GridCommon", "Avatar", new { Column = @item.ColumnName + "_" + item.sysTable }, width:140, height:160)
+                           @(Html.Kendo().Upload()
+                                  .Name("upload").HtmlAttributes(new { id = @item.ColumnName + "_" + item.sysTable })
+                                  .Messages(m => m.Select(ASOFTLanguage.FindWordA00("A00.btnUpload")))
+                                  .Multiple(false)
+                                  .ShowFileList(true)
+                                  .Async(a => a.Save("Save", "GridCommon", new { Column = item.ColumnName + "_" + item.sysTable }).AutoUpload(true)
+                                ).Events(e => e.Success("onImageSuccess")
+                                                .Upload("onImageUpload"))
+                            )
+                            <div style="padding-left: 9px;">
+                                 @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnDeleteImages"))
+                                        .Name("btn-" + item.ColumnName + "_" + item.sysTable).Events(e => e.Click("btnDeleteImages_Click"))
+                                     )
+                            </div>
+                        </td>
+                        <td style="vertical-align:top">
+
+                        </td>
+                    </tr>
+                                                                          break; 
+            case 9:
+            bool readol2 = false;
+                if (item.ReadOnly == 1)
+                {
+                    readol2 = true;
+                }
+            ComboBoxDynamic DynamicRadioModel = new ComboBoxDynamic();
+            DynamicRadioModel.sysComboBoxID = item.sysRadioButtonID;
+            DynamicRadioModel.ScreenID = ViewBag.ScreenID;
+            DynamicRadioModel.Module = ViewBag.Module;
+            string ParentRadio = ASOFT.ERP.Controllers.ComboBoxController.GetParentColumnameRadio(DynamicRadioModel, Model);
+            var listRadio =  new List<Dictionary<string, string>>();
+                                                                          if(!string.IsNullOrEmpty(ParentRadio))
+                                                                          {
+            listRadio = ASOFT.ERP.ViewModel.ASOFTBussinessRadioButton.ASOFTDynamicRadioButton(item.sysRadioButtonID, Model);
+                                                                          }
+                                                                          else{
+                                                                              listRadio = ASOFT.ERP.ViewModel.ASOFTBussinessRadioButton.ASOFTDynamicRadioButton(item.sysRadioButtonID);
+                                                                          }
+            @Html.ASOFTHidden(item.ColumnName + "_Content_DataType", item.sysDataTypeID);
+            @Html.ASOFTHidden(item.ColumnName + "_Type_Fields", item.Type);
+
+                foreach(var radio in listRadio)
+                {
+                    bool check = false;
+                    if (radio.ContainsKey("IDLanguage"))
+                    {
+                        radio["Text"] = LocalizedHelper.GetLocalizedResourceString(radio["IDLanguage"], ScreenID, module);
+                    }
+                    if (item.Data != null)
+                    {
+                        if (radio["Value"].Equals(item.Data.ToString()))
+                        {
+                            check = true;
+                        }
+                    }
+                <tr>
+                    <td class="asf-td-caption"></td>
+                    <td class="asf-td-field" colspan="3">@Html.ASOFTRadioButton(itemModel => item.Data, radio["Value"], htmlAttributes: new { @id = item.ColumnName }).CheckedIf(check).DisabledIf(readol2) @radio["Text"]</td> 
+                </tr>                      
+                }                               
+            break;     
+            case 10:
+            List<ASOFTSysFields> listFields = new ASOFT.ERP.A00.Business.Common.ComboBoxBL().ComboBoxMultiColumn(item.sysComboBoxID).FindAll(m => m.Visible == 1);
+            string headerTemplate = string.Empty;
+            string itemTemplate = string.Empty;
+            int listWidth = 150;
+            if (listFields.Count > 1)
+            {
+                headerTemplate = @"<ul class='k-list asf-combo-item-header'><li class='k-item asf-combo-item-header-text'><div class='asf-combo-item'>{0}</div></div></ul>";
+                itemTemplate = @"<div class='asf-combo-item'>{0}</div>";
+                string header = "";
+                string tempalteA = "";
+                foreach(var itemF in listFields)
+                {
+                    header = header + "<div style='width: " + itemF.GridWidth + "px' class='k-state-default asf-combo-item-col-value'>" + LocalizedHelper.GetLocalizedResourceString(ScreenID + "." + itemF.ColumnName + ".Auto", ScreenID, module) + "</div>";
+                    tempalteA = tempalteA + "<div style='width:" + itemF.GridWidth + "px' class='k-state-default asf-combo-item-col-value'>${" + itemF.ColumnName + "}</div>";
+                    listWidth = listWidth + itemF.GridWidth;            
+                }
+                headerTemplate = string.Format(headerTemplate, header);
+                itemTemplate = string.Format(itemTemplate, tempalteA);
+            }
+            @Html.ASOFTHidden(item.ColumnName + "_Content_DataType", item.sysDataTypeID);
+            @Html.ASOFTHidden(item.ColumnName + "_Type_Fields", item.Type);
+            <tr class = @item.ColumnName style="vertical-align:top">
+            <td>@Html.Label(item.language, htmlAttributes: new { @for = item.ColumnName })
+                    @if (item.AllowNull == 0)
+                    {
+                        <span class="asf-label-required">*</span>
+                    }
+                </td>
+                <td class ="addObject-auto">
+                    @(Html.Kendo().AutoCompleteFor(itemModel => item.Data)
+                      .Animation(animation => animation.Enable(false))
+                      .HtmlAttributes(new Dictionary<string, Object> {
+                          {"class","post-add-autocomplete"}, 
+                          {"height","10px"},
+                          {"data-bind", "value: " + item.ColumnName},
+                          { "Module" , ViewBag.Module },
+                          { "ScreenID", ViewBag.ScreenID },
+                          { "sysComboBoxID",  item.sysComboBoxID },
+                          { "requaird", item.AllowNull},
+                          {"listWidth", listWidth}
+                      })
+                      .DataTextField(item.ColumnName)
+                      //.Placeholder(Html.ASOFTRaw(model => model.SearchMemberID))
+                      .Filter("contains")
+                      .Name(item.ColumnName)
+                      .Events(e => e.Select("Auto_Change").DataBound("ASOFT.asoftComboBox.dataBound")) 
+                      .HeaderTemplate(headerTemplate)   
+                      .Template(itemTemplate)
+                      )
+                    <span class="asf-button-special"><a id='btnOpenSearch_@item.ColumnName' class="btnOpenSearch k-button k-button-icontext asf-button asf-icon-24 asf-i-search-24" style="width: 25px; height: 25px" data-role="button" role="button" aria-disabled="false" onclick="OpenSearchClick('@item.ColumnName')" tabindex="0">&nbsp;</a></span>
+                </td>       
+                </tr>      
+             break;
+             
+             case 11:
+            @Html.ASOFTHidden(item.ColumnName + "_Content_DataType", item.sysDataTypeID);
+            @Html.ASOFTHidden(item.ColumnName + "_Type_Fields", item.Type);
+            <tr class = @item.ColumnName>
+                <td class="asf-td-caption">@Html.Label(item.language, htmlAttributes: new { @for = item.ColumnName })
+                        @if (item.AllowNull == 0)
+                        {
+                            <span class="asf-label-required">*</span>
+                        }
+                </td>
+                <td>
+                    @Html.ASOFTTimeEditControl(itemModel => item.TypeTime, htmlAttributes: new { @id = item.ColumnName, @name = item.ColumnName, @value = item.TypeTime.ToString(), @requaird = item.AllowNull, @regular = item.Pattern }).Events(e => e.Open("LongDateTime"))
+
+                </td>
+            </tr>
+                                                                          break;
+                                                                          case 12:
+                 @Html.ASOFTHidden(item.ColumnName + "_Content_DataType", item.sysDataTypeID);
+                @Html.ASOFTHidden(item.ColumnName + "_Type_Fields", item.Type);
+                                                        
+                <tr class = @item.ColumnName>
+                <td class="asf-td-caption">@Html.Label(item.language, htmlAttributes: new { @for = item.ColumnName })
+                    @if (item.AllowNull == 0)
+                    {
+                        <span class="asf-label-required">*</span>
+                    }
+                </td>
+                    <@if(item.sysDataTypeID == 5)
+                    {
+                        int MaxValue = !string.IsNullOrEmpty(item.MaxValue) ? Int32.Parse(item.MaxValue) : Int32.MaxValue;
+                        int MinValue = !string.IsNullOrEmpty(item.MinValue) ? Int32.Parse(item.MinValue) : Int32.MinValue; 
+                        <td class="asf-td-field" colspan="2" >@Html.ASOFTSpinEdit(itemModel => item.ValueSpin, htmlAttributes: new { @id = item.ColumnName, @name = item.ColumnName, @requaird = item.AllowNull }).Format("#,0.").Max(MaxValue).Min(MinValue).Spinners(MaxValue >= 0 && MaxValue <= 10000)</td>     
+                    }     
+                    @if(item.sysDataTypeID == 8)
+                    {
+                        decimal MaxValue = !string.IsNullOrEmpty(item.MaxValue) ? decimal.Parse(item.MaxValue) : decimal.MaxValue;
+                        decimal MinValue = !string.IsNullOrEmpty(item.MinValue) ? decimal.Parse(item.MinValue) : decimal.MinValue; 
+                        <td class="asf-td-field" colspan="2" >@Html.ASOFTSpinEdit(itemModel => item.ValueSpin, htmlAttributes: new { @id = item.ColumnName, @name = item.ColumnName, @requaird = item.AllowNull }).Format(ASOFTEnvironment.NumberFormat.ConvertedDecimalsFormatString).Max(MaxValue).Min(MinValue)</td>
+                    }                                                                          
+            </tr>
+            break;
+
+            @*
+            case 13:
+                 @Html.ASOFTHidden(item.ColumnName + "_Content_DataType", item.sysDataTypeID);
+                @Html.ASOFTHidden(item.ColumnName + "_Type_Fields", item.Type);
+                                                        
+                <tr class = @item.ColumnName>
+                <td class="asf-td-caption">@Html.Label(item.language, htmlAttributes: new { @for = item.ColumnName })
+                    @if (item.AllowNull == 0)
+                    {
+                        <span class="asf-label-required">*</span>
+                    }
+                </td>
+                     <td class="asf-td-field" colspan="2" >@Html.ASOFTTextBox(itemModel => item.Data, new { @id = item.ColumnName + "Name", @name = item.ColumnName + "Name"}).DisabledIf(true) 
+                    @Html.ASOFTHidden(item.ColumnName, item.Data)
+
+                     <span class="asf-button-special"><a id='btbpopup_@item.ColumnName' class="btnOpenSearch k-button k-button-icontext asf-button asf-icon-24 asf-i-search-24" style="width: 25px; height: 25px" data-role="button" role="button" aria-disabled="false" onclick="OpenPopupSearch('@item.sysComboBoxID')" tabindex="0">&nbsp;</a></span>
+                    </td>                                                            
+            </tr>
+            break;*@
+            case 13:
+                 @Html.ASOFTHidden(item.ColumnName + "_Content_DataType", item.sysDataTypeID);
+                @Html.ASOFTHidden(item.ColumnName + "_Type_Fields", item.Type);
+                                                        
+                <tr class = @item.ColumnName>
+                <td class="asf-td-caption">@Html.Label(item.language, htmlAttributes: new { @for = item.ColumnName })
+                    @if (item.AllowNull == 0)
+                    {
+                        <span class="asf-label-required">*</span>
+                    }
+                <td class="asf-td-field" colspan="2" >@Html.ASOFTTextArea(itemModel => item.Data, htmlAttribute: new { @id = item.ColumnName, @requaird = item.AllowNull, @maxlength = item.MaxLenght, @regular = item.Pattern, @message = item.Message }).ReadOnlyIf(item.ReadOnly == 1)</td>                                                         
+            </tr>
+            break;
+             case 14:
+                @Html.ASOFTHidden(item.ColumnName + "_Content_DataType", item.sysDataTypeID);
+                @Html.ASOFTHidden(item.ColumnName + "_Type_Fields", item.Type);
+                @Html.ASOFTHidden(item.ColumnName, string.IsNullOrEmpty(item.Data == null ? string.Empty : item.Data.ToString()) ? 1 : item.Data);
+                                                        
+                <tr class = @item.ColumnName>
+                <td class="asf-td-caption">@Html.Label(item.language, htmlAttributes: new { @for = item.ColumnName })
+                    @if (item.AllowNull == 0)
+                    {
+                        <span class="asf-label-required">*</span>
+                    }
+                <td class="asf-td-field" colspan="2" >
+                    @{
+                    item.Data = string.IsNullOrEmpty(item.Data == null ? string.Empty : item.Data.ToString()) ? 1 : item.Data;
+                        for (int i = 1; i <= 4; i++)
+                        {
+                            string classS = "st" + @item.ColumnName + i;
+                            string imageStar = int.Parse(item.Data.ToString()) >= i ? "star.png" : "starnone.png";
+                            <a onclick="Priority_Click('@item.ColumnName','@i')"><img class="@classS" src="/Content/Images/@imageStar"/></a>
+                        }
+                    }
+                </td>                                                         
+            </tr>
+                        break;
+                         case 15:
+            @Html.ASOFTHidden(item.ColumnName + "_Content_DataType", item.sysDataTypeID);
+            @Html.ASOFTHidden(item.ColumnName + "_Type_Fields", item.Type);
+            <tr class = @item.ColumnName>
+                <td>@Html.Label(item.language, htmlAttributes: new { @for = item.ColumnName })
+                    @if (item.AllowNull == 0)
+                    {
+                        <span class="asf-label-required">*</span>
+                    }
+                </td>
+                <td  colspan="2">
+                    @{  
+                        ComboBoxDynamic DynamicMultiModel = new ComboBoxDynamic();
+                        DynamicMultiModel.sysComboBoxID = item.sysComboBoxID;
+                        DynamicMultiModel.ScreenID = ViewBag.ScreenID;
+                        DynamicMultiModel.Module = ViewBag.Module;
+                        DynamicMultiModel.ColumName = item.ColumnName;
+                        string ParentMulti = ASOFT.ERP.Controllers.ComboBoxController.GetParentColumname(DynamicMultiModel, Model);
+                        if (!string.IsNullOrEmpty(ParentMulti))
+                        {
+                        @Html.ASOFTBussinessComboBox().ASOFTMultiSelectDynamic(itemModel => item.DataSelect, DynamicMultiModel, true, htmlAttributes: new { @id = item.ColumnName, @Module = ViewBag.Module, @ScreenID = ViewBag.ScreenID, @sysComboBoxID = item.sysComboBoxID, @requaird = item.AllowNull, @ParentCombo = ParentMulti, @readOL = item.ReadOnly == 1}).Events(e => e.Open("OpenMultiSelectDynamic"))
+                                                                          }
+                                                                          else
+                                                                          {
+                    @Html.ASOFTBussinessComboBox().ASOFTMultiSelectDynamic(itemModel => item.DataSelect, DynamicMultiModel, false, htmlAttributes: new { @id = item.ColumnName, @Module = ViewBag.Module, @ScreenID = ViewBag.ScreenID, @sysComboBoxID = item.sysComboBoxID,  @requaird = item.AllowNull, @readOL = item.ReadOnly == 1 })
+                                                                          }
+                }</td>                                                     
+            </tr>
+                                                                          break;
+                                                                          case 16:
+            @Html.ASOFTHidden(item.ColumnName + "_Content_DataType", item.sysDataTypeID);
+            @Html.ASOFTHidden(item.ColumnName + "_Type_Fields", item.Type);
+             <tr class = @item.ColumnName>
+                <td class="asf-td-caption">@Html.Label(item.language, htmlAttributes: new { @for = item.ColumnName })
+                    @if (item.AllowNull == 0)
+                    {
+                        <span class="asf-label-required">*</span>
+                    }
+                </td>
+              
+                    <td class="asf-td-field" colspan="2" >@Html.ASOFTTextBox(itemModel => item.Data, htmlAttribute: new { @id = item.ColumnName }, htmlStyle: new { width = "85% !important" }).DisabledIf(true)
+                              @(Html.ASOFTButton("...").HtmlAttributes(new { style = "z-index:10001; position: absolute; right: 28px; height: 25px; min-width: 27px; border: 1px solid #dddddd", @class = "k-button-icontext asf-button" }).Name("btn" + item.ColumnName))
+                               @(Html.ASOFTButton("").HtmlAttributes(new { style = "z-index:10001; position: absolute; right: 0px; height: 25px; min-width: 27px; border: 1px solid #dddddd", @class = "asf-i-delete-32 k-button-icontext" })
+                                  .Name("btnDelete" + item.ColumnName))
+                    </td>                                                             
+            </tr>
+                    break;
+                    case 17: 
+                    
+            <tr class="@item.ColumnName">
+                <td class="asf-td-caption">
+                    @Html.Label(item.language, htmlAttributes: new { @for = item.ColumnName })
+                    @if(item.AllowNull == 0)
+                    {
+                        <span class="asf-label-required">*</span>
+                    }
+                </td>
+                <td class="asf-td-field" colspan="2">
+                    @Html.Partial("~/Views/Shared/Attach/AttachFile.cshtml", item)
+                </td>
+            </tr>                                
+            break;  
+        }
+    }
+}
+
+
+@helper tabHeader(List<ASOFTSysFieldsViewModel> list, string ScreenID, string module)
+{
+    if (list.Find(m => m.LayoutPosition != null) != null)
+    {
+        <div class="asf-filter-main">
+            <table class="asf-table-view">              
+                @foreach (var item in list.FindAll(m => (m.LayoutPosition == 0 || m.LayoutPosition == null ) && m.PopupVisible == 1))
+                {
+                    @parseControl(item, ScreenID, module);
+                }
+            </table>
+        </div>
+         <div class="grid_6_1 alpha float_left">
+                <table class="asf-table-view">              
+                @foreach (var item in list.FindAll(m => m.LayoutPosition == 1 && m.PopupVisible == 1))
+                {
+
+                    @parseControl(item, ScreenID, module);
+                }
+            </table>
+        </div>
+         <div class="grid_6 omega float_right line_left_with_grid">
+                <table class="asf-table-view">
+                    @foreach (var item in list.FindAll(m => m.LayoutPosition == 2 && m.PopupVisible == 1))
+                    {
+                        @parseControl(item, ScreenID, module);
+                    }
+                </table>
+        </div>
+        <div class="asf-filter-main">
+            <table class="asf-table-view">              
+                @foreach (var item in list.FindAll(m => m.LayoutPosition == 3 && m.PopupVisible == 1))
+                {
+
+                    @parseControl(item, ScreenID, module);
+                }
+            </table>
+        </div>
+        foreach (var it in list.FindAll(m => m.PopupVisible == 0))
+        {
+            if (it.UniqueField == 1)
+            {
+                @Html.ASOFTHidden("Unique", it.ColumnName);
+            }
+            @Html.ASOFTHidden(it.ColumnName, it.Data);
+            @Html.ASOFTHidden(it.ColumnName + "_Content_DataType", it.sysDataTypeID);
+            @Html.ASOFTHidden(it.ColumnName + "_Type_Fields", it.Type);
+        }
+    }
+    else
+    {
+        int count = list.FindAll(m => m.PopupVisible == 1).Count;
+        int i = 0;
+        <div class="grid_6_1 alpha float_left">
+            <table class="asf-table-view">
+                @foreach (var item in list.FindAll(m => m.PopupVisible == 1))
+                {
+                    @parseControl(item, ScreenID, module);
+                                       list.Remove(item);
+                                       i++;
+                                       if (i > count / 2)
+                                       {
+                                           break;
+                                       }
+                }
+            </table>
+        </div>
+        <div class="grid_6 omega float_right line_left_with_grid">
+            <table class="asf-table-view">
+                @foreach (var item in list.FindAll(m => m.PopupVisible == 1))
+                {
+                    @parseControl(item,ScreenID, module);
+                }
+            </table>
+            @foreach (var item in list.FindAll(m => m.PopupVisible == 0))
+            {
+                @parseControl(item, ScreenID, module);
+            }
+        </div>
+    }
+}
+
+
+<div class="asf-form-container container_12 pagging_bottom ">
+            @tabHeader(list, ScreenID, module)
+</div>
+

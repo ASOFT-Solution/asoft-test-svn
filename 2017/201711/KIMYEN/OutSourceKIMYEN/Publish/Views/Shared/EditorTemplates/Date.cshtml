@@ -1,0 +1,2 @@
+@model DateTime?
+@(Html.Kendo().DatePicker().Name("DatePicker").Events(e => { e.Close("ChangePicker"); e.Change("ChangePicker"); }).HtmlAttributes(new { style = "type: text" }))

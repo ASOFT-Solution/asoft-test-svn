@@ -1,0 +1,140 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     27/10/2014      Trí Thiện       Tạo mới
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.ViewModel.DRM;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using System.Web.UI.WebControls;
+
+@model DRF0190ViewModel
+
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(model => model.DRF0190Title, "DRF0190").ToHtmlString();
+    ViewBag.Width = 600;
+}
+
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/DRM/Content/Common.css")" rel="stylesheet" type="text/css" />
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF0190/DRF0190.js?v=" + ASOFTEnvironment.Version)"></script>
+}
+
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "DRF0190" }))
+{
+    <div class="asf-form-container">
+        <div class="DRF0190-form-content">
+          
+        <fieldset>
+            <legend><b>@Html.ASOFTRaw(model => model.Group01Title)</b></legend>
+            <table style="width:100%">
+                <tr>
+                    <td class="content-label" style="width:20%">@Html.ASOFTLabel(model => model.Period)</td>
+                    <td class="asf-td-field">
+                            @(Html.ASOFTBussinessComboBox()
+                                .ASOFTPeriod(model => model.Period, htmlStyle: new { width = Unit.Percentage(25) })
+                                )
+                    </td>
+                </tr>
+                <tr>
+                        <td class="content-label">@Html.ASOFTLabel(model => model.CustomerID)</td>
+                        <td class="asf-td-field">
+                            @(Html.ASOFTBussinessComboBox()
+                                    .ASOFTDRMCustomerID(model => model.CustomerID, false, new ComboOption(){ SelectedFirst = true })
+                                    .Events(e => e.Change("DRF0190.onCustomer_Changed").DataBound("DRF0190.onCustomer_Bound")))
+                        @Html.ASOFTHidden(model => model.CustomerName)</td>
+                </tr>
+            </table>
+            @*<div class="asf-filter-main">
+                <div class="block-left" style="width:51%"> 
+                    <div class="asf-filter-label" style="width:55%">
+                           @Html.ASOFTLabel(model => model.Period)
+                    </div>
+                    <div class="asf-filter-input" style="width:45%">
+                            @(Html.ASOFTBussinessComboBox()
+                                .ASOFTPeriod(model => model.Period, htmlStyle: new { width = Unit.Percentage(100) })
+                                )
+                    </div>
+                </div>
+                <div class="block-right" style="width:45%">
+                    <div class="asf-filter-label"style="width:50%">
+                         @Html.ASOFTLabel(model => model.CustomerID)
+                    </div>
+                    <div class="asf-filter-input" style="width:50%">
+                         @(Html.ASOFTBussinessComboBox()
+                                    .ASOFTDRMCustomerID(model => model.CustomerID, false, new ComboOption(){ SelectedFirst = true })
+                                    .Events(e => e.Change("DRF0190.onCustomer_Changed").DataBound("DRF0190.onCustomer_Bound")))
+                        @Html.ASOFTHidden(model => model.CustomerName)
+                    </div>
+                </div>
+            </div>*@
+        </fieldset>
+            <fieldset>
+                 <legend><b>@Html.ASOFTRaw(model => model.Group02Title)</b></legend>
+                 <table style="width:100%">
+                    <tr>
+                        <td class="content-label" style="width:20%">@Html.ASOFTLabel(model => model.ReportID)</td>
+                        <td class="asf-td-field" style="width:20%">
+                             @(Html.ASOFTBussinessComboBox()
+                                    .ASOFTDRMReportID(model => model.ReportID, new ComboOption())
+                                    .Events(e => e.Change("DRF0190.onReport_Changed").DataBound("DRF0190.onReport_Bound")))
+                        </td>
+                        <td class="asf-td-field">
+                             @(Html.ASOFTTextBox(model => model.ReportName, null, new { width = Unit.Percentage(100) }).ReadOnlyIf(true))
+                        </td>
+                   </tr>
+                   <tr>
+                         <td class="content-label">@Html.ASOFTLabel(model => model.Title)</td>
+                         <td class="asf-td-field" colspan="2">@(Html.ASOFTTextBox(model => model.Title, null, new { width = Unit.Percentage(100) }))</td>
+                   </tr>
+                 </table>
+        </fieldset>
+        
+        <div class="asf-form-button">
+             <table class="asf-table-view">
+                <tr>
+                    <td align="right">
+                        <div class="asf-popup-button-container">
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                                      .Name("btnDRF0190Close").Events(e => e.Click("DRF0190.btnClose_Click"))
+                                 )
+                            </div>
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnPrint"))
+                                        .Name("btnDRF0190Print")
+                                        .Events(e => e.Click("DRF0190.btnPrint_Click"))
+                                        .Enable(ASOFTEnvironment.CheckPermission("DRF0190", ASOFTConstants.MODULE_DRM, ASOFTPermission.Print))
+                                )
+                            </div>
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnExcel"))
+                                        .Name("btnDRF0190Export")
+                                        .Events(e => e.Click("DRF0190.btnExport_Click"))
+                                        .Enable(ASOFTEnvironment.CheckPermission("DRF0190", ASOFTConstants.MODULE_DRM, ASOFTPermission.IsExportExcel))
+                                )
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        </div>
+    </div>
+}
+
+@Html.ASOFTHidden("UrlDoPrintOrExport", Url.Action("DoPrintOrExport", "DRF0190"))
+@Html.ASOFTHidden("UrlGetReportFile", Url.Action("GetReportFile", "DRF0190"))
+@Html.ASOFTHidden("UrlReportViewer", Url.Action("ReportViewer", "DRF0190"))

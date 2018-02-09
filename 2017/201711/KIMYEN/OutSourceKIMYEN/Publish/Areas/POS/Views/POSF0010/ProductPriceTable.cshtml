@@ -1,0 +1,252 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     28/03/2014      Chánh Thi       Tạo mới
+//####################################################################
+*@
+
+@model ASOFT.ERP.ViewModel.POS.POSF00101ViewModel
+
+<div class="asf-form-container container_12">
+    @Html.ASOFTHidden(model => model.WareHouseName)
+    @Html.ASOFTHidden(model => model.ComWarehouseName)
+    <div class="grid_12">
+        <table class="asf-table-view">
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.InventoryTypeName)</td>
+                <td colspan="2">
+                    @(Html.ASOFTBussinessComboBox().ASOFTInventoryTypeIDList(model => model.InventoryTypeID,
+                         @Model.InventoryTypeID,
+                          htmlAttributes: new Dictionary<string, object> {
+                              {"data-bind","value:InventoryTypeID"}},
+                          htmlStyle: new
+                          {
+                              width = Unit.Percentage(100)
+                    }))
+                </td>
+
+                    @*@(Html.ASOFTBussinessComboBox().ASOFTInventoryTypeID(model => model.InventoryTypeID,
+                          htmlAttributes: new Dictionary<string, object> {
+                              {"data-bind","value:InventoryTypeID"}},
+                          htmlStyle: new
+                          {
+                              width = Unit.Percentage(100)
+                          }).SelectedIndex(0).Events(e => e.Change("Combobox_Change")))*@
+                     
+                @*<td>@Html.ASOFTLabel(model => model.InventoryTypeName)</td>
+                <td>
+                    @(Html.ASOFTBussinessComboBox().ASOFTInventoryTypeID(model => model.InventoryTypeID,
+                          htmlAttributes: new Dictionary<string, object> {
+                              {"data-bind","value:InventoryTypeID"}},
+                          htmlStyle: new
+                          {
+                              width = Unit.Percentage(100)
+                          }))
+                </td>*@
+            </tr>
+            <tr>
+                <td class="container_label">@Html.ASOFTLabel(model => model.Price)</td>
+                <td class="container_quarter">
+                    @Html.ASOFTCheckbox(model => model.IsColumn).DisabledIf(true).CheckedIf(true)
+                </td>
+                <td class="container_control_half">
+                    @(Html.ASOFTBussinessComboBox().ASOFTSalePricesID(model => model.PriceColumn,
+                    htmlAttributes: new Dictionary<string, object> {
+                                                    {"data-bind","value:ID"}},
+                    htmlStyle: new
+                    {
+                        width = Unit.Percentage(100)
+                    }))
+                </td>
+            </tr>
+
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.PriceTable)</td>
+                <td>
+                    @Html.ASOFTCheckbox(model => model.IsTable).CheckedIf(Model.IsTable)
+                </td>
+                  @* @if (Model.IsKINGCOM())
+                   {
+                     *@
+                <td>
+                     @if (Model.FormStatus == ASOFTFormActionType.AddNew)
+                                        {
+                                            @(Html.ASOFTBussinessComboBox().ASOFTTablePricesID(model => model.PriceValue,
+                    htmlAttributes: new
+                    {
+                        listWidth = 700,
+                        disabled = "disabled"
+                    }, htmlStyle: new
+                    {
+                        width = Unit.Percentage(100)
+                    }).SelectedIndex(0))
+                                        }
+                                        @if (((Model.PriceValue == null) && (Model.FormStatus != ASOFTFormActionType.AddNew)) ||
+                      (Model.PriceValue != null))
+                                        {
+                                            @(Html.ASOFTBussinessComboBox().ASOFTTablePricesID(model => model.PriceValue,
+                    htmlAttributes: new
+                    {
+                        listWidth = 700
+                    }, htmlStyle: new
+                    {
+                        width = Unit.Percentage(100)
+                    }).Enable(Model.IsTable))
+                                        }
+                    </td>
+                   @*}*@
+                @*</td>*@
+            </tr>
+            <tr>
+                                <td class="container_label">@Html.ASOFTLabel(model => model.PackagePriceID)</td>
+                                <td class="container_quarter">@Html.ASOFTCheckbox(model => model.IsPackage).CheckedIf(Model.IsPackage)</td>
+                                
+                                <td colspan="2" class="container_control_half">
+                   
+                            @(Html.ASOFTBussinessComboBox().ASOFTPackagePriceID(model => model.PackagePriceID,
+                htmlAttributes: new
+                {
+                listWidth = 700
+                }, htmlStyle: new
+                {
+                width = Unit.Percentage(100)
+                }).Enable(Model.IsPackage).Value(Model.PackagePriceID))
+                                </td>
+                            </tr>
+              <tr>
+                <td>@Html.ASOFTLabel(model => model.PromotePriceTable)</td>
+                   @*@if (Model.IsKINGCOM())
+                   {
+                     *@
+                  <td colspan="2">
+                     @if (Model.FormStatus == ASOFTFormActionType.AddNew)
+                                        {
+                                            @(Html.ASOFTBussinessComboBox().ASOFTTablePricesID(model => model.PromotePriceTable,
+                    htmlAttributes: new
+                    {
+                        listWidth = 700
+                    }, htmlStyle: new
+                    {
+                        width = Unit.Percentage(100)
+                    }).SelectedIndex(0))
+                                        }
+                                        @if (((Model.PriceValue == null) && (Model.FormStatus != ASOFTFormActionType.AddNew)) ||
+                      (Model.PriceValue != null))
+                                        {
+                                            @(Html.ASOFTBussinessComboBox().ASOFTTablePricesID(model => model.PromotePriceTable,
+                    htmlAttributes: new
+                    {
+                        listWidth = 700
+                    }, htmlStyle: new
+                    {
+                        width = Unit.Percentage(100)
+                    }))
+                                        }
+                    </td>
+                   @*}*@
+                @*</td>*@
+            </tr>
+            <tr>
+                <td class="container_label">@Html.ASOFTLabel(model => model.IsDiscountKINGCOM)</td>
+                <td class="container_quarter">@Html.ASOFTCheckbox(model => model.IsPromote)</td>
+                <td class="container_control_half" colspan="2">
+                    @(Html.ASOFTBussinessComboBox().ASOFTPromoteID(model => model.PromoteID,
+                                  htmlStyle: new
+                                  {
+                                      width = Unit.Percentage(100)
+                                  }
+                                  //htmlAttributes: new Dictionary<string, object> {
+                                  //    {"data-bind","value:PromoteID"}}
+                                  //
+                                  )
+                                  .Name("PromoteID")
+                                  .DataSource(source =>
+                                  {
+                                      source.Read(read =>
+                                      {
+                                          read.Action("S1", "ComboBox", new
+                                          {
+                                              area = ""
+                                          }).Data("filterPromoteID1");
+                                      })
+                                          .ServerFiltering(true);
+                                  })
+                                  //.CascadeFrom("InventoryTypeID")
+                                  .Events(e => e.Change("Combobox_Change"))
+                    )
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.WareHouseID)</td>
+                <td colspan="2">
+                    @(Html.ASOFTBussinessComboBox().ASOFTWareHouseID(model => model.WareHouseID,
+                                          htmlStyle: new
+                                          {
+                                              width = Unit.Percentage(100)
+                                          },
+                                          htmlAttributes: new Dictionary<string, object> {
+                                              {"data-bind","value:WareHouseID"}}
+                                          )
+                                          .Name("WareHouseID").Events(e => e.Change("warehouseID_Change"))
+                                          )
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.ComWarehouseID)</td>
+                <td colspan="2">
+                    @(Html.ASOFTBussinessComboBox().ASOFTWareHouseID(model => model.ComWarehouseID,
+                                          htmlStyle: new
+                                          {
+                                              width = Unit.Percentage(100)
+                                          },
+                                          htmlAttributes: new Dictionary<string, object> {
+                                              {"data-bind","value:ComWarehouseID"}}
+                                          )
+                                          .Name("ComWarehouseID").Events(e => e.Change("comWarehouseID_Change"))
+                                          )
+                </td>
+            </tr>
+            @if(ASOFTEnvironment.CustomerIndex == ASOFTConstants.CUSTOMERINDEX_OKIA)
+            {
+                <tr>
+                    <td>@Html.ASOFTLabel(model => model.DisplayWareHouseID)</td>
+                    <td>
+                        @Html.ASOFTCheckbox(model => model.IsDisplay).CheckedIf(Model.IsDisplay)
+                    </td>
+                    <td>
+                      @(Html.ASOFTBussinessComboBox().ASOFTWareHouseID(model => model.DisplayWareHouseID,
+                                              htmlStyle: new
+                                              {
+                                                  width = Unit.Percentage(100)
+                                              },
+                                              htmlAttributes: new Dictionary<string, object> {
+                                                  {"data-bind","value:DisplayWareHouseID"}}
+                                              )
+                                              .Name("DisplayWareHouseID").Enable(Model.IsDisplay))
+                        </td>
+                </tr>
+                <tr>
+                    <td>@Html.ASOFTLabel(model => model.BrokenWareHouseID)</td>
+                    <td>
+                        @Html.ASOFTCheckbox(model => model.IsBroken).CheckedIf(Model.IsBroken)
+                    </td>
+                    <td>
+                      @(Html.ASOFTBussinessComboBox().ASOFTWareHouseID(model => model.BrokenWareHouseID,
+                                              htmlStyle: new
+                                              {
+                                                  width = Unit.Percentage(100)
+                                              },
+                                              htmlAttributes: new Dictionary<string, object> {
+                                                  {"data-bind","value:BrokenWareHouseID"}}
+                                              )
+                                              .Name("BrokenWareHouseID").Enable(Model.IsBroken))
+                        </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+

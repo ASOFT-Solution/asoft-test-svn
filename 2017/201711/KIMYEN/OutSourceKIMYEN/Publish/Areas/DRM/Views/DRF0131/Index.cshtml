@@ -1,0 +1,102 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#    03/09/2015      Quang Chiến      Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.ViewModel.DRM
+@model DRF0131ViewModel
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.DRF0131Title, "DRF0131").ToHtmlString();
+    ViewBag.Width = 900;
+}
+
+
+@Html.ASOFTHidden("UrlUpdate", Url.Action("Update"))
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "DRF0131" }))
+{
+    <div class="asf-form-container">
+    <div class="form-content">
+
+        <table class="asf-table-view">
+            <tr>
+                <td class="asf-td-caption">@Html.ASOFTLabel(model => model.GroupID)</td>
+                <td class="asf-td-field" colspan="2">
+                    @Html.ASOFTTextBox(model => model.GroupID)
+                </td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+    
+   <div class="asf-form-container">
+    @(Html.ASOFTTab()
+          .Name("DRF0131Tab")
+          .Items(tabstrip =>
+          {
+              tabstrip.Add().Text(Html.ASOFTRaw(model => model.DRF0131Tab01Title))
+                  .Selected(true)
+                  .HtmlAttributes(new { @id = "TabMaster01" })
+                  .ContentHtmlAttributes(new { @class = "asf-tab-content" })
+                  .Content(Tab01().ToHtmlString());
+
+              tabstrip.Add().Text(Html.ASOFTRaw(model => model.DRF0131Tab02Title))
+                  .HtmlAttributes(new { @id = "TabMaster02" })
+                  .ContentHtmlAttributes(new { @class = "asf-tab-content" })
+                  .Content(Tab02().ToHtmlString());
+
+          })
+    )
+    </div>
+}
+<div class="asf-form-button">
+    <table class="asf-table-view">
+        <tr>
+            <td align="right">
+                <div class="asf-popup-button-container">
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                              .Name("BtnClose")
+                                .Events(e => e.Click("DRF0131.btnClose_Click"))
+                              )
+                    </div>
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnConfig"))
+                                .Name("BtnSaveClose")
+                                .Events(e => e.Click("DRF0131.btnSave_Click"))
+                                )
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+@helper Tab01()
+{
+    <div class="asf-filter-main">
+        @Html.Partial("DRF0131Grid")
+    </div>
+}
+
+
+@helper Tab02()
+{
+    <div class="asf-form-container">
+        @Html.ASOFTCheckbox(model => model.EditAllContactInfo)
+    </div>
+}
+
+
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/DRM/Content/Common.css")" rel="stylesheet" type="text/css" />
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF0131/DRF0131.js?v=" + ASOFTEnvironment.Version)"></script>
+}

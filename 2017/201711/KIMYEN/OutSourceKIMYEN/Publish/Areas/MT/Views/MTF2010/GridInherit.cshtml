@@ -1,0 +1,60 @@
+﻿
+
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.MT.Entities
+@using ASOFT.ERP.ViewModel.MT
+@model ASOFT.ERP.ViewModel.MT.MTF2012GridViewModel
+@{
+    var gridsetting = new ASOFTGridSetting
+                          {
+                              NameGrid = "MTF2012GridInherit",
+                              keyColumnID = "VoucherNo",
+                              NameEventPost = "MTF2010Param.inheritSendFilter",
+                              Scrollable = true,
+                              ActionName = "GridInherit",
+                              ControllerName = "MTF2010",
+                              IsShowCheck = false,
+                              IsAutoHeight = false,
+                              HtmlAttribute = new {@class = "asf-grid drop"},
+                              ListGridColumn = new List<ASOFTGridColumnSetting>
+                                                   {
+                                                       new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = "RowNum",
+                                                               TitleColumn = ASOFTLanguage.FindWordA00("A00.Order"),
+                                                               Width = 70,
+                                                               VisibleColumn = true,
+                                                           },
+                                                       new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = MTP2014.COL_VOUCHERNO,
+                                                               TitleColumn = Html.ASOFTRaw(m => m.VoucherNo),
+                                                               VisibleColumn = true,
+                                                               Width = 200,
+                                                           },
+                                                       new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = MTP2014.COL_VOUCHERDATE,
+                                                               TitleColumn = Html.ASOFTRaw(m => m.VoucherDate),
+                                                               VisibleColumn = true,
+                                                               Width = 150,
+                                                           },
+                                                       new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = MTP2014.COL_CONVERTEDAMOUNT,
+                                                               TitleColumn = Html.ASOFTRaw(m => m.ConvertedAmount),
+                                                               VisibleColumn = true,
+                                                               Width = 200,
+                                                               //Format = "{0:#.##0,00}",
+                                                           },
+                                                       new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = MTP2014.COL_BDESCRIPTION,
+                                                               TitleColumn = Html.ASOFTRaw(m => m.BDescription),
+                                                               VisibleColumn = true,
+                                                           },
+                                                   }
+                          };
+}
+
+@(Html.ASOFTCreateGridNotPagging<MTF2012GridViewModel>(gridsetting))

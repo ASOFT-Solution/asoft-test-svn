@@ -1,0 +1,11 @@
+﻿
+@Html.ASOFTButton("Upload").Name("btnUpload").HtmlAttributes(new
+{
+    @class = "k-button k-button-icontext asf-button",
+    @style = "min-width:35px"
+}).Events(e => e.Click("btnUpload_click"))
+
+@Html.ASOFTDeleteButton("btnDeleteUpload_click").Name("btnDeleteUpload").HtmlAttributes(new
+{
+    @style = "height: 16px",
+})

@@ -1,0 +1,52 @@
+﻿/*===================================================*\
+            Màn hình thiết lập hệ thống
+\*===================================================*/
+.full {
+    width: 100%;
+    float: left;
+    display: block;
+    overflow: hidden;
+}
+.sub-content {
+    padding: 10px 0 40px 20px;
+    display: block;
+}
+.sub-content-key {
+    font-weight: bolder;
+}
+
+.asf-filter-input-full 
+{
+    width: 100%;
+    float: left;
+    min-height: 26px;
+    vertical-align: top;
+}
+.asf-filter-radio {
+    vertical-align: middle;
+}
+.asf-filter-radio-caption {
+    vertical-align: bottom;
+    padding-left: 5px;
+}
+
+.asf-filter-radio-checkbox {
+    width: 33%;
+    float: left;
+    vertical-align: top;
+}
+
+
+/*===================================================*\
+            Button block - Hiển thị trên page
+\*===================================================*/
+
+.asf-button-right-page {
+    float: right;
+    margin: 8px 0 0;
+}
+
+.asf-button-right-page > div {
+    float: left;
+    margin: 0 0 0 5px;
+}

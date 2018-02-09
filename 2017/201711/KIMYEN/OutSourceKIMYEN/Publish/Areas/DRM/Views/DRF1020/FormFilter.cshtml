@@ -1,0 +1,42 @@
+﻿@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Infrastructure;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel;
+@using System.Web.UI.WebControls;
+@using  ASOFT.ERP.ViewModel.CRM;
+@using Kendo.Mvc;
+@model ASOFT.ERP.ViewModel.DRM.DRF1020ViewModel
+
+@helper FilterCol1(){
+    <tr>
+        <td  class="asf-td-align">@Html.ASOFTLabel(model => model.InfoTypeID)</td>
+        <td colspan="4">
+            @(Html.ASOFTBussinessComboBox()
+                    .ASOFTDRMCodeMaster(model => model.InfoTypeID, "CommonInformation", true)
+                    .SelectedIndex(0))
+        </td>
+    </tr>
+}
+
+@helper FilterCol2(){
+    <tr>
+        <td  class="asf-td-align">@Html.ASOFTLabel(model => model.InfoID)</td>
+        <td colspan="4"> @(Html.ASOFTTextBox(model => model.InfoID))</td>
+    </tr>
+}
+
+@helper FilterCol3(){
+     <tr>
+        <td  class="asf-td-align">@Html.ASOFTLabel(model => model.VDescription)</td>
+        <td colspan="4"> @(Html.ASOFTTextBox(model => model.VDescription))</td>
+    </tr>
+}
+
+@{
+    Html.RenderSection("MainView", new Dictionary<string, object>() { 
+        { "FilterCol1", this.FilterCol1().ToHtmlString() },     
+        { "FilterCol2", this.FilterCol2().ToHtmlString() },     
+        { "FilterCol3", this.FilterCol3().ToHtmlString() }   
+    });
+}

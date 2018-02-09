@@ -1,0 +1,22 @@
+﻿.template-email-body
+{
+     width:99%;
+     border:2px solid;
+     border-radius:25px;
+     float:left;
+     border-color:#DDDDDD;
+}
+.email-tr
+{
+    width:15%;
+}
+.space-20
+{
+    width:6px;
+}
+
+.k-upload-button
+{
+    width:auto !important;
+}
+

@@ -1,0 +1,72 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     04/12/2015      Quang Chiến     Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.ViewModel.DRM
+@model DRF2010ViewModel
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.DRF2004Title, "DRF2004").ToHtmlString();
+    ViewBag.Width = 600;
+
+    // Form Status
+    bool isExport = Model.FormStatus.Equals(ASOFTFormActionType.ExportExcel);
+    int doPrintType = Model.DoPrintType;
+    var initData = new JavaScriptSerializer().Serialize(Model);
+    
+    }
+@Html.ASOFTHidden("initData", initData)
+@Html.ASOFTHidden(model=>model.DoPrintType)
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "DRF2004" }))
+{
+   <div class="asf-form-container">
+        <div class="form-content">            
+                <table class="asf-table-view">
+                    <tr>
+                        <td class="asf-td-align">@Html.ASOFTLabel(model => model.Type)</td>
+                        <td >@Html.ASOFTBussinessComboBox().ASOFTDRMPrintExport(model => model.Type,doPrintType).SelectedIndex(0)</td>
+                    </tr>
+                </table>
+        
+       </div>
+    </div>
+}
+<div class="asf-form-button">
+    <table class="asf-table-view">
+        <tr>
+            <td align="right">
+                <div class="asf-popup-button-container">
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                              .Name("BtnClose")
+                              .Events(e => e.Click("DRF2004.btnClose_Click")))
+                    </div>
+                    <div>
+                        @(Html.ASOFTButton(isExport?ASOFTLanguage.FindWordA00("A00.btnExcel"):ASOFTLanguage.FindWordA00("A00.btnPrint"))   
+                        .Name("BtnPrintExport")                       
+                                .Events(e => e.Click("DRF2004.btnPrintExport_Click"))
+                                )
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/DRM/Content/Common.css")" rel="stylesheet" type="text/css" />
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF2000/DRF2000.js?v=" + ASOFTEnvironment.Version)"></script>
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF2010/DRF2010.js?v=" + ASOFTEnvironment.Version)"></script>
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF2000/DRF2004.js?v=" + ASOFTEnvironment.Version)"></script>
+    @* @Html.RenderScripts(files: new[] { "CRMF2061" })*@
+}

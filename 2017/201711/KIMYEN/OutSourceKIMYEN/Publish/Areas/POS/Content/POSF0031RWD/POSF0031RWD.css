@@ -1,0 +1,108 @@
+﻿@media (max-width: 480px) {
+    .top-div {
+        display: none;
+    }
+
+    .container_12 .grid_1 {
+        width: 100%;
+    }
+
+    .asf-combobox ul, li {
+        float: left;
+        margin-left: 24px;
+    }
+
+
+    .grid_1 .asf-button {
+        transform: rotate(90deg);
+        min-width: 30px !important;
+        width: 30px;
+        min-height: 52px;
+        line-height: 3.5em;
+    }
+
+     .middle-buttons {
+        padding-left: 3%;
+    }
+
+    .k-grid-content {
+        height: 170px !important;
+    }
+
+    .asf-grid {
+        height: 210px !important;
+    }
+
+}
+
+@media (min-width: 481px) and (max-width: 660px) {
+    .top-div {
+        display: none;
+    }
+
+    .container_12 .grid_1 {
+        width: 100%;
+    }
+
+    .asf-combobox ul, li {
+        float: left;
+        margin-left: 24px;
+    }
+
+
+    .grid_1 .asf-button {
+        transform: rotate(90deg);
+        min-width: 30px !important;
+        width: 40px;
+        min-height: 50px;
+        line-height: 5.5em;
+    }
+
+    .middle-buttons {
+        padding-left: 80px;
+    }
+
+    .k-grid-content {
+        height: 170px !important;
+    }
+
+    .asf-grid {
+        height: 210px !important;
+    }
+}
+
+@media (min-width: 661px) and (max-width: 800px) {
+
+    .grid_1 .asf-button {
+        min-width: 40px !important;
+    }
+
+    .middle-buttons {
+        padding: 0px;
+    }
+}
+
+@media (min-width: 801px) and (max-width: 1024px) {
+
+    .grid_1 .asf-button {
+        min-width: 50px !important;
+    }
+
+    .middle-buttons {
+        padding: 0px;
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1200px) {
+     .k-window  {
+        width: 1024px !important;
+    }
+
+    .grid_1 .asf-button {
+        min-width: 60px !important;
+    }
+
+    .middle-buttons {
+        padding: 0px;
+    }
+}

@@ -1,0 +1,78 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#    10/09/2015       Quang Chiến         Tạo mới
+//####################################################################
+*@
+
+@using System.Web.UI.WebControls
+@using ASOFT.ERP.ViewModel
+@using ASOFT.ERP.ViewModel.CI;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Common;
+
+@model CIF1060ViewModel
+
+@{
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.Title, "CIF1060").ToHtmlString();
+    Layout = "~/Views/Shared/_ContentMaster.cshtml";
+    ViewData.Add("MainView", this);
+}
+
+@section Header {
+    <!-- Header BreakCrumb -->
+    @Html.ASOFTHeader(new HeaderModel
+                          {
+                              Title = Html.ASOFTPageTitle(m => m.Title, "CIF1060").ToHtmlString(),
+                              Breakcrumb = true
+                          })
+}
+
+@Html.Partial("FormFilter")
+
+<!-- Filter buttons -->
+@section FilterButtons {
+    <!-- Search button -->
+    <li>
+        @(Html.ASOFTSearchButton()
+              .Name("BtnFilterCIF1060")
+              .Events(e => e.Click("CIF1060.btnFilter_Click"))
+              )
+    </li>
+    
+    <!-- Reset button -->
+    <li>
+        @(Html.ASOFTSearchResetButton()
+            .Name("BtnResetFilterCIF1060")
+            .Events(e => e.Click("CIF1060.btnClearFilter_Click"))
+            )
+    </li>
+}
+
+@section GridToolBar {
+    <!-- Toolbar buttons -->
+    @Html.Partial("~/Views/Shared/EditorTemplates/Toolbar.cshtml", Model.Toolbar1 ?? new ASOFTToolBarViewModel())
+}
+
+@section Grid {
+    <!-- Grid master -->
+    @Html.Partial("GetCIF1060GridData")
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/CI/Scripts/CIF1060.js")"></script>
+    <script src="@Url.Content("~/Areas/CI/Scripts/CIF1061.js")"></script>
+}
+
+@section styleFeature {
+    <link href="@Url.Content("~/Areas/CI/Content/Common.css")" rel="stylesheet" type="text/css" />
+}
+
+
+@Html.ASOFTHidden("UpdateRecord", Url.Action("UpdateRecord"))
+@Html.ASOFTHidden("UrlDelete", Url.Action("Delete"))
+@Html.ASOFTHidden("UrlCIF1061", Url.Action("CIF1061"))
+@Html.ASOFTHidden("urlInsert", Url.Action("Insert"))

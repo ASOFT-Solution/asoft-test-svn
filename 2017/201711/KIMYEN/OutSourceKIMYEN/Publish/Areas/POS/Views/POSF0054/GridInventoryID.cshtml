@@ -1,0 +1,78 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     06/05/2013      Dam Mo          Tao moi
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.ViewModel.POS
+@using ASOFT.ERP.POS.Entities
+@using ASOFT.ERP.A00.Entities
+
+@model POSF0057ViewModel
+
+@{  
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "GridInventoryID",
+        Scrollable = true,
+        ControllerName = "POSF0012",
+        ActionName = "GetSelectInventories",
+        NameEventPost = "sendDataSearch",
+        IsShowCheck = false,
+        IsAutoHeight = false,
+        HtmlAttribute = new
+        {
+            style = "height:400px;",
+            @class = "asf-grid"
+        },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "",
+                TitleColumn = "",
+                Width = 20,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"}),
+                 ClientTemplate  = "<input type='radio' name='radio-check'  data-unit-id='#=UnitID#'  data-unit-name='#=UnitName#'  data-member-name='#=InventoryName#' data-member-id='#=InventoryID#' value='#=InventoryID#' />",
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "InventoryID",
+                TitleColumn = Html.ASOFTRaw(model => model.InventoryID),
+                Width = 140,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "InventoryName",
+                TitleColumn = Html.ASOFTRaw(model => model.InventoryName),
+                Width = 140,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:right"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "UnitID",
+                TitleColumn = Html.ASOFTRaw(model => model.UnitID),
+                Width = 140,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "UnitName",
+                TitleColumn = Html.ASOFTRaw(model => model.UnitName),
+                Width = 140,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:right"})
+            }
+        }
+    };
+}
+
+@(Html.ASOFTCreateGrid<POSP00123>(gridsetting))

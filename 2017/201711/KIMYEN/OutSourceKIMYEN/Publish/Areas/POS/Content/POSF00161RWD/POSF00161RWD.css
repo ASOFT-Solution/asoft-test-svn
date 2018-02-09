@@ -1,0 +1,564 @@
+﻿@media (max-width: 359px) {
+    .k-window  {
+        width: 300px !important;
+    }
+
+    .asf-button{
+        min-width: 50px;
+    }
+
+    #bodyMaster .asf-header {
+        display: none;
+    }
+
+    body {
+       min-width: 300px !important;
+       font-size: 11px;
+    }
+
+    #contentMaster {
+       padding: 0 10px 0;
+    }
+
+    .container_12 {
+        width: 100%;
+    }
+
+    .container_12 .grid_8 {
+         width: 60.667%;
+    }
+
+    .gift_container {
+        width: 100%;
+    }
+
+    .full_height {
+        width: 100%;
+    }
+
+    .container_12 .grid_5 {
+        width: 100%;
+        margin-left: 0%;
+    }
+
+    .full_height .grid_2 {
+        width: 100%;
+    }
+
+    .pos_button.grid_12 {
+        width: 50% !important;
+    }
+
+    .pos_button.grid_12:nth-child(2) {
+        float: right;
+    }
+
+    .container_12 .grid_7 {
+         width: 100%;
+    }
+
+    .pos_button .control2 {
+        height: 95px;
+    }
+
+     .asf-grid {
+        font-size: 11px;
+        height: 300px !important;
+    }
+      .k-grid-content {
+         height: 250px !important;
+    }
+
+
+    .pos_inner {
+        display: none;
+    }
+
+    #arrow-2 {
+        display: block;
+    }
+
+    #arrow-1 {
+        display: block;
+    }
+
+    #pos_controls input {
+        height: 20px !important;
+        font-size: 12px !important;
+    }
+
+    #payment_container span {
+        font-size: 12px !important;
+    }
+
+    .asf-combobox .k-dropdown-wrap .k-select .k-i-arrow-s {
+        height: 25px;
+    }
+
+    .pos_inner span {
+        line-height: 25px;
+    }
+
+    #btnSave .k-image {
+        zoom: 50%;
+    }
+
+    .pos_button .pay a {
+        font-size: 11px;
+    }
+
+    .asf-header-icon-logo {
+       width: 60px;
+        margin-right: 5px;
+    }
+
+    .asf-header {
+        min-width: 0px;
+        padding-left: 10px;
+    }
+
+    .asf-header .right {
+        padding: 0 20px 0 0;
+        width: 70%;
+        font-size: 10px;
+    }
+
+    .asf-header-user {
+        padding: 0px;
+    }
+
+    .asf-header-system-text {
+        display: none;
+    }
+
+    .asf-i-user {
+        background-image: url(/Content/Images/user.png);
+    }
+
+    .asf-i-close {
+         width: 30px;
+    }
+
+    #Header a {
+        font-size: 10px;
+    }
+
+
+    .asf-combo-item .asf-combo-item-col-value {
+        width: 30px !important;
+    }
+    .asf-combo-item .asf-combo-item-col-text {
+        width: 100px !important;
+    }
+
+    .k-list-container {
+         width: 300px !important;
+    }
+}
+
+
+@media (min-width: 360px) and (max-width: 480px) {
+     .k-window  {
+        width: 340px !important;
+    }
+
+     .asf-button {
+        min-width: 50px;
+    }
+
+    #bodyMaster .asf-header {
+        display: none;
+    }
+
+    body {
+       min-width: 300px !important;
+       font-size: 11px;
+    }
+
+    #contentMaster {
+       padding: 0 10px 0;
+    }
+
+    .container_12 {
+        width: 100%;
+    }
+
+    .container_12 .grid_8 {
+         width: 60.667%;
+    }
+
+    .gift_container {
+        width: 100%;
+    }
+
+    .full_height {
+        width: 100%;
+    }
+
+    .container_12 .grid_5 {
+        width: 100%;
+        margin-left: 0%;
+    }
+
+    .full_height .grid_2 {
+        width: 100%;
+    }
+
+    .pos_button.grid_12 {
+        width: 50% !important;
+    }
+
+    .pos_button.grid_12:nth-child(2) {
+        float: right;
+    }
+
+    .container_12 .grid_7 {
+         width: 100%;
+    }
+
+    .pos_button .control2 {
+        height: 95px;
+    }
+
+     .asf-grid {
+        font-size: 11px;
+        height: 250px !important;
+    }
+
+    .pos_inner {
+        display: none;
+    }
+
+    #arrow-2 {
+        display: block;
+    }
+
+    #arrow-1 {
+        display: block;
+    }
+
+    #pos_controls input {
+        height: 20px !important;
+        font-size: 12px !important;
+    }
+
+    #payment_container span {
+        font-size: 12px !important;
+    }
+
+    .asf-combobox .k-dropdown-wrap .k-select .k-i-arrow-s {
+        height: 25px;
+    }
+
+    .pos_inner span {
+        line-height: 25px;
+    }
+
+    #btnSave .k-image  {
+        zoom: 50%;
+    }
+
+    .pos_button .pay a {
+        font-size: 11px;
+    }
+
+    .asf-header-icon-logo {
+       width: 80px;
+        margin-right: 5px;
+    }
+
+    .asf-header {
+        min-width: 0px;
+        padding-left: 10px;
+    }
+
+    .asf-header .right {
+        padding: 0 20px 0 0;
+        width: 60%;
+        font-size: 10px;
+    }
+
+    .asf-header-user {
+        padding: 0px;
+    }
+
+    .asf-header-system-text {
+        display: none;
+    }
+
+    .asf-i-user {
+        background-image: url(/Content/Images/user.png);
+    }
+
+    .asf-i-close {
+         width: 30px;
+    }
+
+    #Header a {
+        font-size: 10px;
+    }
+
+     .asf-combo-item .asf-combo-item-col-value {
+        width: 50px !important;
+        font-size:10px;
+    }
+    .asf-combo-item .asf-combo-item-col-text {
+        width: 100px !important;
+        font-size:10px;
+    }
+
+    .k-list-container {
+         width: 340px !important;
+    }
+
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+     .k-window  {
+        width: 500px !important;
+    }
+
+        #bodyMaster .asf-header {
+        display: none;
+    }
+
+    body {
+       min-width: 300px !important;
+       font-size: 12px;
+    }
+
+    #contentMaster {
+       padding: 0 10px 0;
+    }
+
+    .container_12 {
+        width: 100%;
+    }
+
+    .container_12 .grid_8 {
+         width: 60.667%;
+    }
+
+    .gift_container {
+        width: 100%;
+    }
+
+    .full_height {
+        width: 100%;
+    }
+
+    .container_12 .grid_5 {
+        width: 100%;
+        margin-left: 0%;
+    }
+
+    .full_height .grid_2 {
+        width: 100%;
+    }
+
+    .pos_button.grid_12 {
+        width: 50% !important;
+    }
+
+    .pos_button.grid_12:nth-child(2) {
+        float: right;
+    }
+
+    .container_12 .grid_7 {
+         width: 100%;
+    }
+
+    .pos_button .control2 {
+        height: 95px;
+    }
+
+     .asf-grid {
+        font-size: 12px;
+        height: 250px !important;
+    }
+
+    .pos_inner {
+        display: none;
+    }
+
+    #arrow-2 {
+        display: block;
+    }
+
+    #arrow-1 {
+        display: block;
+    }
+
+    #pos_controls input {
+        height: 20px !important;
+        font-size: 14px !important;
+    }
+
+    #payment_container span {
+        font-size: 14px !important;
+    }
+
+    .asf-combobox .k-dropdown-wrap .k-select .k-i-arrow-s {
+        height: 25px;
+    }
+
+    .pos_inner span {
+        line-height: 25px;
+    }
+
+    #btnSave .k-image {
+        zoom: 50%;
+    }
+
+    .pos_button .pay a {
+        font-size: 12px;
+    }
+
+    .asf-header-icon-logo {
+       width: 100px;
+        margin-right: 5px;
+    }
+
+    .asf-header {
+        min-width: 0px;
+        padding-left: 10px;
+    }
+
+    .asf-header .right {
+        padding: 0 20px 0 0;
+        width: 45%;
+        font-size: 12px;
+    }
+
+    .asf-header-user {
+        padding: 0px;
+    }
+
+
+    .asf-i-user {
+        background-image: url(/Content/Images/user.png);
+    }
+
+    .asf-i-close {
+        width: 35px;
+    }
+
+    #Header a {
+        font-size: 12px;
+    }
+
+    .asf-combo-item .asf-combo-item-col-value {
+        width: 80px !important;
+    }
+    .asf-combo-item .asf-combo-item-col-text {
+        width: 150px !important;
+    }
+
+    .k-list-container {
+         width: 540px !important;
+    }
+}
+
+
+@media (min-width: 769px) and (max-width: 1000px) {
+
+      .k-window  {
+        width: 750px !important;
+    }
+
+        #bodyMaster .asf-header {
+        display: none;
+    }
+
+    body {
+       min-width: 300px !important;
+       font-size: 13px;
+    }
+
+    #contentMaster {
+       padding: 0 10px 0;
+    }
+
+    .container_12 {
+        width: 100%;
+    }
+
+    .container_12 .grid_8 {
+         width: 60.667%;
+    }
+
+    .gift_container {
+        width: 100%;
+    }
+
+    .full_height {
+        width: 100%;
+    }
+
+    .container_12 .grid_5 {
+        width: 100%;
+        margin-left: 0%;
+    }
+
+    .full_height .grid_2 {
+        width: 100%;
+    }
+
+    .pos_button.grid_12 {
+        width: 50% !important;
+    }
+
+    .pos_button.grid_12:nth-child(2) {
+        float: right;
+    }
+
+    .container_12 .grid_7 {
+         width: 100%;
+    }
+
+    .pos_button .control2 {
+        height: 95px;
+    }
+
+     .asf-grid {
+        font-size: 14px;
+        height: 250px !important;
+    }
+
+    .pos_inner {
+        display: none;
+    }
+
+    #arrow-2 {
+        display: block;
+    }
+
+    #arrow-1 {
+        display: block;
+    }
+
+    #btnSave .k-image {
+        zoom: 50%;
+    }
+
+    .pos_button .pay a {
+        font-size: 14px;
+    }
+
+    .asf-header-icon-logo {
+        margin-right: 5px;
+    }
+
+    .asf-header {
+        min-width: 0px;
+        padding-left: 10px;
+    }
+
+    .asf-i-user {
+        background-image: url(/Content/Images/user.png);
+    }
+
+    #Header a {
+        font-size: 13px;
+    }
+}

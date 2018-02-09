@@ -1,0 +1,18 @@
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.ViewModel
+@using Kendo.Mvc.UI
+@model string
+@(Html.ASOFTBussinessComboBox()
+            .ASOFTGridCityID(m=>m,  
+                                ASOFTLanguage.FindWordA00("A00.AT1002_CityID"), 
+                                  ASOFTLanguage.FindWordA00("A00.AT1002_CityName"),
+                            option: new ComboOption() { EventRequestEnd = "comboBox_RequestEnd"
+                                                            
+                                })
+                                .Events(e=>{
+                                    e.Open("comboBox_Opened");
+                                    e.Close("comboBox_Closed");
+                                    e.Change("comboBox_Changed");
+                                }
+                                ))

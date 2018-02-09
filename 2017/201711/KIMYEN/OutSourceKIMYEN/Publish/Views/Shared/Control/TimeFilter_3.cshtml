@@ -1,0 +1,167 @@
+﻿@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Entities.Infrastructure;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel;
+@using ASOFT.ERP.ViewModel.Helper;
+@model ASOFT.ERP.ViewModel.ASOFTSysFieldsViewModel
+
+<!-- Filter báo cáo -->
+<fieldset id='OOR' style='margin-top: 20px; margin-bottom: 10px;'>
+    <legend>
+        <label>@LocalizedHelper.GetLocalizedResourceString("AF3007.FilterReport", "AF3007", "T")</label>
+    </legend>
+    <div class="asf-filter-main" id="ReportCode001">
+        <div class="block-left">
+            <div class="asf-filter-label">
+            </div>
+            <div class="asf-filter-input">
+            </div>
+        </div>
+        <div class="block-right">            
+            <div class="asf-filter-input" style ="width:100%;">
+            </div>
+        </div>
+    </div>
+    <div class="asf-filter-main" id="CurrencyID001">
+        <div class="block-left">
+            <div class="asf-filter-label">
+            </div>
+            <div class="asf-filter-input">
+            </div>
+        </div>
+    </div>
+    <div class="asf-filter-main" id="FromToAccountID001">
+        <div class="block-left">
+            <div class="asf-filter-label">
+            </div>
+            <div class="asf-filter-input">
+            </div>
+        </div>
+        <div class="block-right">
+            <div class="asf-filter-label">
+            </div>
+            <div class="asf-filter-input">
+            </div>
+        </div>
+    </div>
+    <div class="asf-filter-main" id="FromToObjectID001">
+        <div class="block-left">
+            <div class="asf-filter-label">
+            </div>
+            <div class="asf-filter-input">
+            </div>
+        </div>
+        <div class="block-right">
+            <div class="asf-filter-label">
+            </div>
+            <div class="asf-filter-input">
+            </div>
+        </div>
+    </div>
+</fieldset>
+
+<fieldset id='OORDate' style='margin-top: 20px; margin-bottom: 10px;'>
+    <legend>
+        <label>@LocalizedHelper.GetLocalizedResourceString("AF3007.FilterReportDate", "AF3007", "T")</label>
+    </legend>
+
+    <!-- Filter Date1 -->
+    <div id="DateFilter">
+        <div class="asf-filter-main" id="BeforDate1">
+            <div class="block-left">
+                <div class="asf-filter-label">
+                    <span>
+                        @Html.ASOFTRadioButton(model => model.Data, 1, new { id = "rdoTimeFilter" }).CheckedIf(true)
+                    </span>
+                    @LocalizedHelper.GetLocalizedResourceString("A00.FromDate", "A00", "00")
+                </div>
+                <div class="asf-filter-input">
+                    @(Html.ASOFTDateEdit(model => model.TypeDateTimePicker, htmlAttributes: new { @id = "ReportDate1", @name = "ReportDate1" }))
+                </div>
+            </div>
+            <div class="block-right">
+                @LocalizedHelper.GetLocalizedResourceString("A00.Before", "A00", "00")
+            </div>
+        </div>
+
+        <div class="asf-filter-main" id="AfterDate1">
+            <div class="block-left">
+                <div class="asf-filter-label">
+                    <span>
+                        @Html.ASOFTRadioButton(model => model.Data, 2, new { id = "rdoTimeFilter" })
+                    </span>
+                    @LocalizedHelper.GetLocalizedResourceString("A00.FromDate", "A00", "00")
+                </div>
+                <div class="asf-filter-input">
+                    @(Html.ASOFTDateEdit(model => model.TypeDateTimePicker, htmlAttributes: new { @id = "ReportDate2", @name = "ReportDate2" }))
+                </div>
+            </div>
+            <div class="block-right">
+                @LocalizedHelper.GetLocalizedResourceString("A00.After", "A00", "00")
+            </div>
+        </div>
+        <div class="asf-filter-main" id="Date01">
+            <div class="block-left">
+                <div class="asf-filter-label">
+                    <span>
+                        @Html.ASOFTRadioButton(model => model.Data, 3, new { id = "rdoTimeFilter" })
+                    </span>
+                    @LocalizedHelper.GetLocalizedResourceString("A00.Date", "A00", "00")
+                </div>
+                <div class="asf-filter-input">
+                    @(Html.ASOFTDateEdit(model => model.TypeDateTimePicker, htmlAttributes: new { @id = "ReportDate3", @name = "ReportDate3" }))
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>
+
+<fieldset id='OORFilter' style='margin-top: 20px; margin-bottom: 10px;'>
+    <legend>
+        <label>@LocalizedHelper.GetLocalizedResourceString("AF3007.FilterGroupReport", "AF3007", "T")</label>
+    </legend>
+    <div class="asf-filter-main" id="FromToFilter01">
+        <div class="block-left">
+            <div class="asf-filter-label">
+            </div>
+            <div class="asf-filter-input">
+            </div>
+        </div>
+        <div class="block-right">
+            <div class="asf-filter-label">
+            </div>
+            <div class="asf-filter-input">
+            </div>
+        </div>
+    </div>
+    <div class="asf-filter-main" id="FromToFilter02">
+        <div class="block-left">
+            <div class="asf-filter-label">
+            </div>
+            <div class="asf-filter-input">
+            </div>
+        </div>
+        <div class="block-right">
+            <div class="asf-filter-label">
+            </div>
+            <div class="asf-filter-input">
+            </div>
+        </div>
+    </div>
+    <div class="asf-filter-main" id="FromToFilter03">
+        <div class="block-left">
+            <div class="asf-filter-label">
+            </div>
+            <div class="asf-filter-input">
+            </div>
+        </div>
+        <div class="block-right">
+            <div class="asf-filter-label">
+            </div>
+            <div class="asf-filter-input">
+            </div>
+        </div>
+    </div>
+</fieldset>

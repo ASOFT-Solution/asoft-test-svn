@@ -1,0 +1,48 @@
+﻿@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.MT.Entities;
+@using ASOFT.ERP.ViewModel.MT
+@using ASOFT.ERP.A00.Entities.Database
+@model MTF0090ViewModel
+@{
+   
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "MTF0090GridCurClass",
+        keyColumnID = MTF0090.COL_CLASSID, 
+        Scrollable = true, 
+        IsShowCheck = false,
+        ActionName = "GetCurrentClass", 
+        ControllerName = "MTF0090", 
+        IsAutoHeight = false,
+        HtmlAttribute = new { @class = "asf-grid", style = "height:400px" }, 
+        
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "RowNum",
+                TitleColumn = ASOFTLanguage.FindWordA00("A00.Order"),
+                ClientTemplate = "#= MTF0090.renderNumber() #",
+                Width = 50,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = MTF0090.COL_CLASSID,
+                TitleColumn = Html.DisplayNameFor(model => model.ClassID).ToHtmlString(),
+                Width = 150,
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = MTF0090.COL_CLASSNAME,
+                TitleColumn = Html.ASOFTRaw(model=>model.ClassName),
+                Width = 150,
+                VisibleColumn = true,
+            },
+        }
+    };
+}
+
+@(Html.ASOFTCreateGridNotPagging<MTF0090>(gridsetting))

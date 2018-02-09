@@ -1,0 +1,49 @@
+﻿
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.ViewModel;
+@model ASOFT.ERP.ViewModel.ASOFTSysFieldsViewModel
+
+@{
+    string contactID = ViewBag.ContactID;
+    //bool enable = contactID == null ? false : true;
+    //bool disable = contactID == null ? true : false;
+}
+
+<tr class="ContactIDPartial">
+    @Html.ASOFTHidden("ContactID", contactID);
+    @Html.ASOFTHidden("ContactID_Content_DataType", "7");
+    @Html.ASOFTHidden("ContactID_Type_Fields", "1");
+    @Html.ASOFTHidden("ContactName_Content_DataType", "7");
+    @Html.ASOFTHidden("ContactName_Type_Fields", "1");
+    <td class="asf-td-caption">@Html.Label(Model.language, htmlAttributes: new { @for = "ContactName" })
+    </td>
+    <td>@(Html.ASOFTTextBox(model => model.Data, htmlAttribute: new { Disabled = "Disabled", @id = "ContactName"}))
+
+        @(Html.ASOFTButton("...")
+        .Name("btnChooseContact")
+        .HtmlAttributes(new { style = "width : 26px; height: 26px; background-repeat: no-repeat" })
+        .Enable(true)
+        .Events(e => e.Click("btnChooseContact_Click")))
+
+        @(Html.ASOFTButton("")
+        .Name("btnAddContact")
+        .HtmlAttributes(new { style = "width : 26px; height: 26px; background-image: url(/Content/Images/icon-add-24x24.png); background-repeat: no-repeat" })
+        .Enable(true)
+        .Events(e => e.Click("btnAddContact_Click")))
+
+        @(Html.ASOFTButton("")
+        .Name("btnDeleteContact")
+        .HtmlAttributes(new { style = "width : 26px; height: 26px; background-image: url(/Content/Images/icon-delete-24x24.png); background-repeat: no-repeat" })
+        .Enable(true)
+        .Events(e => e.Click("btnDeleteContact_Click")))
+    </td>
+</tr>
+
+<script>
+    $("#ContactName").css("width", "150px");
+    $("#ContactName").attr("name", "ContactName");
+    $(document).ready(function () {
+        var textContactID = $("label[for|='ContactName']").text();
+        $("#ContactID").after("<label for = 'ContactID' hidden>" + textContactID + "</label>");
+    })
+</script>

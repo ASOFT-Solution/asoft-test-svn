@@ -1,0 +1,67 @@
+﻿@model DRF2013ViewModel
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.DRF2013Title, "DRF2013").ToHtmlString();
+    ViewBag.Width = 500;
+    var initData = new JavaScriptSerializer().Serialize(Model);
+}
+
+@Html.ASOFTHidden("initData", initData)
+@using (Html.BeginForm(null, null, FormMethod.Post, new {id = "DRF2013"}))
+{
+ <div class="asf-form-container">
+    <div class="form-content">
+       <table class="asf-table-view">
+            <tr>
+                <td class="asf-td-caption">@Html.ASOFTLabel(model => model.Content)</td>
+            </tr>
+            <tr>
+                <td class="asf-td-field">
+                    @(Html.ASOFTTextArea(model=>model.Content))
+                    @(Html.ASOFTHidden(model=>model.TableName))
+                    @*@(Html.ASOFTHidden(model=>model.IsSendVPL))
+                    @(Html.ASOFTHidden(model=>model.IsSendXR))
+                    @(Html.ASOFTHidden(model=>model.IsClose))
+                    @(Html.ASOFTHidden(model=>model.SuggesstType))
+                   
+                    @(Html.ASOFTHidden(model=>model.APK))
+                    @(Html.ASOFTHidden(model=>model.ContractNo))
+                    @(Html.ASOFTHidden(model=>model.TeamID))*@
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="asf-form-button">
+    <table class="asf-table-view">
+        <tr>
+            <td align="right">
+                <div class="asf-popup-button-container">
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                              .Name("BtnClose")
+                              .Events(e => e.Click("DRF2013.btnClose_Click")))
+                    </div>
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSave"))
+                                .Name("BtnSaveClose")
+                                .Events(e => e.Click("DRF2013.btnSave_Click")))
+                    </div>        
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+}
+
+@section styleFeature{
+@*    <link href="@Url.Content("~/Areas/DRM/Content/DRF2001.css")" rel="stylesheet" type="text/css" />*@
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF2013/DRF2013.js?v=" + ASOFTEnvironment.Version)"></script>
+   @* @Html.RenderScripts(files: new[] { "CRMF2061" })*@
+}
+
+@Html.ASOFTHidden("URLUpdate", Url.Action("Update"))
+@Html.ASOFTHidden("UrlGetDataCV", Url.Action("GetDataCV"))

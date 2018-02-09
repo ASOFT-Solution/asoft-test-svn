@@ -1,0 +1,66 @@
+﻿@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Infrastructure;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel;
+@using System.Web.UI.WebControls;
+@using Kendo.Mvc;
+@model ASOFT.ERP.ViewModel.S.SF1040ViewModel
+
+@helper FilterCol1(){
+    <tr>
+        <td  class="asf-td-align">@Html.ASOFTLabel(model => model.TableID)</td>
+        <td>@(Html.ASOFTBussinessComboBox().ASOFTTableCombo(model => model.TableID)
+                                                            .SelectedIndex(0)
+                                                            .Events(e=>e.Close("SF1040.CloseCombo")))</td>
+    </tr>
+    <tr>
+        <td class="asf-td-align">@Html.ASOFTLabel(model => model.UserID)</td>
+        <td> @(Html.ASOFTBussinessComboBox().ASOFTUserList(model => model.UserID,null,true)
+                              .SelectedIndex(0))</td>
+    </tr>
+   
+}
+
+@helper FilterCol2(){
+     <tr>
+        <td class="asf-td-align">@Html.ASOFTLabel(model => model.UserName)</td>
+        <td>@Html.ASOFTTextBox(model => model.UserName)</td>
+    </tr>
+    <tr>
+        <td class="asf-td-align">@Html.ASOFTLabel(model => model.ID)</td>
+        <td colspan="3">@Html.ASOFTTextBox(model => model.ID)</td>
+    </tr>
+  
+}
+
+@helper FilterCol3(){
+  <tr>
+        <td  class="asf-td-align">@Html.ASOFTLabel(model => model.ActionType)</td>
+        <td colspan="3">@(Html.ASOFTBussinessComboBox().ASOFTActionTypeCombo(model => model.ActionType,true).SelectedIndex(0))</td>
+    </tr>
+      <tr>
+        <td class="container_period_label">@Html.ASOFTLabel(model => model.FromDate)</td>
+          <td>
+              <table>
+<td class="container_period_control">
+            @(Html.ASOFTDateEdit(model=>model.FromDate).Value(Model.FromDate))
+        </td>
+        
+        <td class="container_period_control">
+            @(Html.ASOFTDateEdit(model=>model.ToDate).Value(Model.ToDate))
+        </td>
+              </table>
+          </td>
+        
+    </tr>
+}
+
+
+@{
+    Html.RenderSection("MainView", new Dictionary<string, object>() { 
+        { "FilterCol1", this.FilterCol1().ToHtmlString() },     
+        { "FilterCol2", this.FilterCol2().ToHtmlString() },   
+        { "FilterCol3", this.FilterCol3().ToHtmlString() }   
+    });
+}

@@ -1,0 +1,138 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2014, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     07/07/2014      Thai Son        Tạo mới
+//####################################################################
+*@
+
+@model ASOFT.ERP.ViewModel.POS.POSF0040ViewModel
+@{
+    string CLICK_EVENT_HANDLER = "ASOFTCORE.events.button_Clicked";   
+}
+<ul>
+    @*<li>
+        <div class="control-middle">@(Html.ASOFTButton(caption: Html.ASOFTRaw(model => model.ChooseTable))
+                            .Name("btnChooseTable")
+                            .Icon("asf-i-return")
+                            .Events(e => e.Click("ASOFTCORE.events.button_Clicked"))
+                            .HtmlAttributes(new Dictionary<string, Object> {
+                                {"class", "asf-button"},
+                                {"data-asf-event-handler", "btnChooseTable_Click"}
+                            }))
+        </div>
+    </li>*@
+    <li>
+        <div class="control-middle">@(Html.ASOFTButton(caption: Html.ASOFTRaw(model => model.ChooseDish))
+                            .Name("btnChooseDish")
+                            .Icon("asf-i-return-1")
+                            .Events(e => e.Click(CLICK_EVENT_HANDLER))
+                            .HtmlAttributes(new Dictionary<string, Object> {
+                                {"class", "asf-button"},
+                                {"data-asf-event-handler", "btnChooseDish_Click"},
+                                {"data-asf-enable-bubbling", true}
+                            }))
+        </div>
+    </li>
+    <li>
+        <div class="control-middle">@(Html.ASOFTButton(caption: Html.ASOFTRaw(model => model.MergeSplitTable))
+                            .Name("btnMergeSplitTable")
+                            .Icon("asf-i-return-2")
+                            .Events(e => e.Click(CLICK_EVENT_HANDLER))
+                            .HtmlAttributes(new Dictionary<string, Object> {
+                                {"class", "asf-button"},
+                                {"data-asf-event-handler", "btnMergeSplitTable_Click"}
+                            }))
+        </div>
+    </li>
+    <li>
+        <div class="control-middle">@(Html.ASOFTButton(caption: Html.ASOFTRaw(model => model.MergeSplitBill))
+                            .Name("btnMergeSplitBill")
+                            .Icon("asf-i-return-3")
+                            .Events(e => e.Click(CLICK_EVENT_HANDLER))
+                            .HtmlAttributes(new Dictionary<string, Object> {
+                                {"class", "asf-button"},
+                                {"data-asf-event-handler", "btnMergeSplitBill_Click"}
+                            }))
+        </div>
+    </li>
+    <li>
+        <div class="control-middle">@(Html.ASOFTButton(caption: Html.ASOFTRaw(model => model.CancelledDish))
+                            .Name("btnReturnedInventory")
+                            .Icon("asf-i-return-4")
+                            .Events(e => e.Click(CLICK_EVENT_HANDLER))
+                            .HtmlAttributes(new Dictionary<string, Object> {
+                                {"class", "asf-button"},
+                                {"data-asf-event-handler", "btnReturnedInventory_Click"}
+                            }))
+        </div>
+    </li>
+    <li>
+        <div class="control-middle special-button-container">@(Html.ASOFTButton(caption: Html.ASOFTRaw(model => model.Promotion))
+                            .Name("btnPromotion")
+                            .Icon("asf-i-return-5")
+                            .Events(e => e.Click(CLICK_EVENT_HANDLER))
+                            .HtmlAttributes(new Dictionary<string, Object> {
+                                {"class", "asf-button"},
+                                {"data-asf-event-handler", "btnPromotion_Click"}
+                            }))
+            <div id="floating-buttons-container" class="asf-disabled-visibility">
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="control-middle">@(Html.ASOFTButton(caption: Html.ASOFTRaw(model => model.PrintProcessDish))
+                        .Name("btnPrintProcessDish")
+                        .Icon("asf-i-return-6")
+                        .Events(e => e.Click(CLICK_EVENT_HANDLER))
+                            .HtmlAttributes(new Dictionary<string, Object> {
+                                {"class", "asf-button"},
+                                {"data-asf-event-handler", "btnPrintProcessDish_Click"}
+                            }))
+        </div>
+    </li>
+    <li>
+        <div class="control-middle">@(Html.ASOFTButton(caption: Html.ASOFTRaw(model => model.PrintBill))
+                                .Name("btnPrintBill")
+                                .Icon("asf-i-return-7")
+                                .Events(e => e.Click(CLICK_EVENT_HANDLER))
+                                .HtmlAttributes(new Dictionary<string, Object> {
+                                    {"class", "asf-button"},
+                                    {"data-asf-event-handler",  Model.FormStatus == ASOFTFormActionType.AddNew ? "btnPrintBill_Click" : "btnPrintBill_OnEdit_Click"}
+                                }))
+
+        </div>
+    </li>
+    <li>
+        <div class="control-middle">@(Html.ASOFTButton(caption: Html.ASOFTRaw(model => model.FinishShift))
+                            .Name("btnFinishShift")
+                            .Icon("asf-i-return-8")
+                            .Events(e => e.Click(CLICK_EVENT_HANDLER))
+                            .HtmlAttributes(new Dictionary<string, Object> {
+                                {"class", "asf-button"},
+                                {"data-asf-event-handler", "btnFinishShift_Click"}
+                            }))
+        </div>
+    </li>
+</ul>
+
+<script id="template" type="text/x-kendo-template">
+                 @(Html.ASOFTButton(caption: Html.ASOFTRaw(model => model.PromotionBDiscountAmount))
+                                          .Name("btnUpdatePromotionByDiscountAmount")
+                                          .Events(e => e.Click(CLICK_EVENT_HANDLER))
+                                          .HtmlAttributes(new Dictionary<string, Object> {
+                                {"class", "asf-button"},
+                                {"data-asf-event-handler", "btnUpdatePromotionByDiscountAmount_Click"}
+                            }).Deferred(true))
+
+                @(Html.ASOFTButton(caption: Html.ASOFTRaw(model => model.PromotionByDiscountPercent))
+                                          .Name("btnUpdatePromotionByDiscountPercent")
+                                          .Events(e => e.Click(CLICK_EVENT_HANDLER))
+                                          .HtmlAttributes(new Dictionary<string, Object> {
+                                {"class", "asf-button"},
+                                {"data-asf-event-handler", "btnUpdatePromotionByDiscountPercent_Click"}
+                            }).Deferred(true))
+</script>
+

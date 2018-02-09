@@ -1,0 +1,189 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     19/07/2014      Thai Son        Tạo Mới
+//####################################################################
+*@
+
+
+@model ASOFT.ERP.ViewModel.POS.POSF0057ViewModel
+@using ASOFT.ERP.A00.Entities.Database;
+
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(model => model.Title, "POSF0057").ToHtmlString();
+    ViewBag.Width = 900;
+}
+@using (Html.BeginForm(null, null, FormMethod.Post, new
+{
+    id = "POSF0057"
+}))
+{
+    <div class="asf-disabled-visibility">
+        @Html.ASOFTTextBox(model => model.APK)
+        @Html.ASOFTTextBox(model => model.WarehouseName)
+        @Html.ASOFTTextBox(model => model.APKMaster)
+        @Html.ASOFTTextBox(model => model.UnitName)
+        </div>
+<div class="container_12">
+    <div class="grid_6 line_right">
+        <table class="asf-table-view">
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.WarehouseID)
+
+                </td>
+                <td>
+                   @(Html.ASOFTBussinessComboBox().ASOFTWareHouseID(model => model.WarehouseID,
+                                          htmlStyle: new
+                                          {
+                                              width = Unit.Percentage(100)
+                                          },
+                                          htmlAttributes: new Dictionary<string, object> {
+                                              {"data-bind","value:WarehouseID"}}
+                                          )
+                                          .Name("WareHouseID").SelectedIndex(0).Events(e => e.Change("wareHouseID_Change"))
+                                          )
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.InventoryID)
+
+                </td>
+                <td class ="addObject">
+                    @*@(Html.ASOFTTextBox(model => model.InventoryID))*@
+                    @(Html.Kendo().AutoCompleteFor(model => model.InventoryID)
+                      .Animation(animation => animation.Enable(false))
+                      .HtmlAttributes(new Dictionary<string, Object> {
+                          {"class","post-add-autocomplete"}, 
+                          {"height","10px"},
+                          {"data-bind", "value: InventoryID"}
+                      })
+                      .DataTextField(POST0039.COL_INVENTORYID)
+                      //.Placeholder(Html.ASOFTRaw(model => model.SearchMemberID))
+                      .Filter("contains")
+                      .Name("InventoryID")
+                      .Events(e => e.Select("InventoryID_Change")) 
+                      .DataSource(source => source.Read(read => read.Action("GetBarCode", "POSF0054",
+                          new
+                          {
+                              area = "POS"
+                          })).ServerFiltering(true))
+                      )
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.InventoryName)
+
+                </td>
+                <td>
+                    @Html.ASOFTTextBox(model => model.InventoryName).ReadOnlyIf(true)
+                </td>
+            </tr>            
+        </table>
+    </div>
+    <div class="grid_6">
+        <table class="asf-table-view">
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.UnitID)
+
+                </td>
+                <td>
+                    @Html.ASOFTTextBox(model => model.UnitID).ReadOnlyIf(false)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.Quantity)
+
+                </td>
+                <td>
+                    @Html.ASOFTDecimalBoxFor(model => model.Quantity).ReadOnlyIf(false)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.Description)
+
+                </td>
+                <td>
+                    @Html.ASOFTTextBox(model => model.Description)
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="asf-form-button">
+        <table class="asf-table-view">
+            <tr>
+                <td>
+                    <div class="asf-popup-button-container">
+                        @if (Model.FormStatus == ASOFTFormActionType.AddNew)
+                        {
+                            bool hasPermission = true;
+                            //if (Model.AllowAdd())
+                            //{
+                            //    hasPermission = true;
+                            //}                                           
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                                          .Name("btnClose")
+                                          .Events(e =>
+                                              e.Click(hasPermission ? "btnSaveClose_Click" : "ASOFT.asoftPopup.closeOnly")))
+                            </div>
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSaveCopy"))
+                                          .Name("btnSaveCopy")
+                                          .Events(e => e.Click("btnSaveCopy_Click"))
+                                          .Enable(hasPermission)
+                                          )
+
+                            </div>
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSaveNew"))
+                                          .Name("btnSaveContinue")
+                                          .Events(e => e.Click("btnSaveContinue_Click"))
+                                          .Enable(hasPermission))
+
+                            </div>
+                        }
+                        else
+                        {
+
+                            bool hasPermission = false;
+                            if (Model.CheckPermission("POSF00111", ASOFTPermission.Update))
+                            {
+                                hasPermission = true;
+                            }                                
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                                          .Name("btnClose")
+                                          .Events(e =>
+                                              e.Click(hasPermission ? "btnClose_Click" : "ASOFT.asoftPopup.closeOnly")))
+                            </div>
+                                
+                                
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSave"))
+                                          .Name("btnSave")
+                                          .Events(e => e.Click("btnSave_Click"))
+                                          .Enable(hasPermission))
+
+
+                            </div>
+                        }
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+}
+<link href="@Url.Content("~/Areas/POS/Content/POSF0057.css")" rel="stylesheet" type="text/css" />
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF0057.js")" type="text/javascript"></script>
+    @Html.Kendo().DeferredScripts()
+}
+
+

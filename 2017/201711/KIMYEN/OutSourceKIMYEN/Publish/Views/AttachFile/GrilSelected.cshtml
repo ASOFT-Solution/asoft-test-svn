@@ -1,0 +1,68 @@
+﻿@*//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Created                Comment
+//#     08/03/2017      Quang Hoàng           Tạo mới
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core.Control
+@model ASOFT.ERP.ViewModel.A00.AttachFileViewModel
+@using ASOFT.ERP.A00.Core
+
+@{
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "GrilSelected",
+        Scrollable = true,
+        ControllerName = "AttachFile",
+        ActionName = "GridData",
+        NameEventPost = "sendDataFilter",
+        IsShowCheck = true,
+        HtmlAttribute = new { style = "height:250px;", @class = "asf-grid" },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+               IDColumn = "AttachID",
+                Width = 50,
+                VisibleColumn = false,
+                
+            },
+            new ASOFTGridColumnSetting
+            {
+               IDColumn = "APK",
+                Width = 50,
+                VisibleColumn = false,
+                
+            },
+            new ASOFTGridColumnSetting
+            {
+               TitleColumn = Html.ASOFTRaw(model=>model.AttachName),
+               IDColumn = "AttachName",
+                Width = 50,
+                VisibleColumn = true,
+                
+            },
+             new ASOFTGridColumnSetting
+            {
+                TitleColumn = Html.ASOFTRaw(model=>model.CreateUserID),
+               IDColumn = "CreateUserID",
+                Width = 50,
+                VisibleColumn = true,
+                
+            },
+            new ASOFTGridColumnSetting
+            {
+                TitleColumn = Html.ASOFTRaw(model=>model.CreateDate),
+               IDColumn = "CreateDate",
+                Width = 50, 
+                VisibleColumn = true,
+                
+            }
+        }
+    };
+}
+
+@(Html.ASOFTCreateGrid<ASOFT.ERP.A00.Entities.Database.CRMT00002>(gridsetting,false)) 

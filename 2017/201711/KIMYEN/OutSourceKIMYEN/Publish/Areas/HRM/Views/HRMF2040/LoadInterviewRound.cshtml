@@ -1,0 +1,278 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Created           Comment
+//#     2017/10/04      Kim Vu            Tạo mới
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.ViewModel;
+@model List<ASOFT.ERP.HRM.Entities.HRMF2041>
+@{
+    var group1 = new List<ASOFT.ERP.HRM.Entities.HRMF2041>();
+    var group2 = new List<ASOFT.ERP.HRM.Entities.HRMF2041>();
+    var group3 = new List<ASOFT.ERP.HRM.Entities.HRMF2041>();
+    var group4 = new List<ASOFT.ERP.HRM.Entities.HRMF2041>();
+    var group5 = new List<ASOFT.ERP.HRM.Entities.HRMF2041>();
+    string comment01 = "";
+    string comment02 = "";
+    string comment03 = "";
+    string comment04 = "";
+    string comment05 = "";
+    string status01 = "";
+    string status02 = "";
+    string status03 = "";
+    string status04 = "";
+    string status05 = "";
+    if (Model != null && Model.Count() > 0)
+    {
+        group1 = Model.Where(x => x.InterviewLevel == 1).ToList();
+        group2 = Model.Where(x => x.InterviewLevel == 2).ToList();
+        group3 = Model.Where(x => x.InterviewLevel == 3).ToList();
+        group4 = Model.Where(x => x.InterviewLevel == 4).ToList();
+        group5 = Model.Where(x => x.InterviewLevel == 5).ToList();
+    }
+}
+<div style="display: none;">
+    <div id="tblDetailTypeID01">
+        <div class="asf-content-block first" style="width: 100%; margin-left: 50px;">
+            <table class="asf-table-view">
+
+                <tbody>
+                    @if (group1 != null && group1.Count() > 0)
+                    {
+                        foreach (var item in group1)
+                        {
+                            if (!string.IsNullOrEmpty(item.DetailTypeID))
+                            {
+                        <tr>
+                            <td class="content-label" style="white-space: pre-line">@Html.Label(item.DetailTypeName)</td>
+                            <td class="dot" style="width: 2%;"></td>
+                            <td class="@item.DetailTypeID content-text"  style ="white-space:pre-line">@Html.DisplayFor(itemodel => item.InterviewResult)</td>
+                        </tr>
+                            }
+
+                        }
+                        comment01 = group1[0].Comment;
+                        status01 = group1[0].InterviewStatusName;
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div style="clear: both"></div>
+
+        <div class="asf-content-block last" style="width: 94%;">
+            <table class="asf-table-view">
+                <tbody>
+                    <tr>
+                            <td class="content-label"style="width: 15%;">@ASOFT.ERP.ViewModel.Helper.LocalizedHelper.GetLocalizedResourceString("HRMF2042.InterviewStatus", "HRMF2042", "HRM")</td>
+                            <td class="dot" style="width: 2%;"></td>
+                            <td class="@status01 content-text"style ="width:80%;" >@status01</td>
+                        </tr>
+                    <tr>
+                        
+                        <td class="content-label" style="width: 15%;">@ASOFT.ERP.ViewModel.Helper.LocalizedHelper.GetLocalizedResourceString("HRMF2042.Comment", "HRMF2042", "HRM")</td>
+                        <td class="dot" style="width: 2%;"></td>
+                        <td class="@comment01 content-text" style ="width:80%;">@comment01</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div id="tblDetailTypeID02">
+        <div class="asf-content-block first" style="width: 100%; margin-left: 50px;">
+            <table class="asf-table-view">
+
+                <tbody>
+                    @if (group2 != null && group2.Count() > 0)
+                    {
+                        foreach (var item in group2)
+                        {
+                            if (!string.IsNullOrEmpty(item.DetailTypeID))
+                            {
+                        <tr>
+                            <td class="content-label" style="white-space: pre-line">@Html.Label(item.DetailTypeName)</td>
+                            <td class="dot" style="width: 2%;"></td>
+                            <td class="@item.DetailTypeID content-text" style ="white-space:pre-line">@Html.DisplayFor(itemodel => item.InterviewResult)</td>
+                        </tr>
+                            }
+
+                        }
+                        comment02 = group2[0].Comment;
+                        status02 = group2[0].InterviewStatusName;
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div style="clear: both"></div>
+       
+        <div class="asf-content-block last" style="width: 94%;">
+            <table class="asf-table-view">
+                <tbody>
+                    <tr>
+                        <td class="content-label" style="width: 15%;">@ASOFT.ERP.ViewModel.Helper.LocalizedHelper.GetLocalizedResourceString("HRMF2042.InterviewStatus", "HRMF2042", "HRM")</td>
+                        <td class="dot" style="width: 2%;"></td>
+                        <td class="@status02 content-text"style ="width:80%;" >@status02</td>
+                    </tr>
+                    <tr>
+                        <td class="content-label" style="width: 15%;">@ASOFT.ERP.ViewModel.Helper.LocalizedHelper.GetLocalizedResourceString("HRMF2042.Comment", "HRMF2042", "HRM")</td>
+                        <td class="dot" style="width: 2%;"></td>
+                        <td class="@comment02 content-text" style ="width:80%;">@comment02</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+    <div id="tblDetailTypeID03">
+        <div class="asf-content-block first" style="width: 100%; margin-left: 50px;">
+            <table class="asf-table-view">
+
+                <tbody>
+                    @if (group3 != null && group3.Count() > 0)
+                    {
+                        foreach (var item in group3)
+                        {
+                            if (!string.IsNullOrEmpty(item.DetailTypeID))
+                            {
+                        <tr>
+                            <td class="content-label" style="white-space: pre-line">@Html.Label(item.DetailTypeName)</td>
+                            <td class="dot" style="width: 2%;"></td>
+                            <td class="@item.DetailTypeID content-text" style ="white-space:pre-line">@Html.DisplayFor(itemodel => item.InterviewResult)</td>
+                        </tr>
+                            }
+
+                        }
+                        comment03 = group3[0].Comment;
+                        status03 = group3[0].InterviewStatusName;
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div style="clear: both"></div>        
+        <div class="asf-content-block last" style="width: 94%;">
+            <table class="asf-table-view">
+                <tbody>
+                    <tr>
+                        <td class="content-label"style="width: 15%;">@ASOFT.ERP.ViewModel.Helper.LocalizedHelper.GetLocalizedResourceString("HRMF2042.InterviewStatus", "HRMF2042", "HRM")</td>
+                        <td class="dot" style="width: 2%;"></td>
+                        <td class="@status03 content-text"style ="width:80%;">@status03</td>
+                    </tr>
+                    <tr>
+                        <td class="content-label" style="width: 15%;">@ASOFT.ERP.ViewModel.Helper.LocalizedHelper.GetLocalizedResourceString("HRMF2042.Comment", "HRMF2042", "HRM")</td>
+                        <td class="dot" style="width: 2%;"></td>
+                        <td class="@comment03 content-text" style ="width:80%;">@comment03</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+    <div id="tblDetailTypeID04">
+        <div class="asf-content-block first" style="width: 100%; margin-left: 50px;">
+            <table class="asf-table-view">
+
+                <tbody>
+                    @if (group4 != null && group4.Count() > 0)
+                    {
+                        foreach (var item in group4)
+                        {
+                            if (!string.IsNullOrEmpty(item.DetailTypeID))
+                            {
+                        <tr>
+                            <td class="content-label" style="white-space: pre-line">@Html.Label(item.DetailTypeName)</td>
+                            <td class="dot" style="width: 2%;"></td>
+                            <td class="@item.DetailTypeID content-text" style ="white-space:pre-line">@Html.DisplayFor(itemodel => item.InterviewResult)</td>
+                        </tr>
+                            }
+
+                        }
+                        comment04 = group4[0].Comment;
+                        status04 = group4[0].InterviewStatusName;
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div style="clear: both"></div>        
+        <div class="asf-content-block last" style="width: 94%;">
+            <table class="asf-table-view">
+                <tbody>
+                    <tr>
+                        <td class="content-label"style="width: 15%;">@ASOFT.ERP.ViewModel.Helper.LocalizedHelper.GetLocalizedResourceString("HRMF2042.InterviewStatus", "HRMF2042", "HRM")</td>
+                        <td class="dot" style="width: 2%;"></td>
+                        <td class="@status04 content-text"style ="width:80%;">@status04</td>
+                    </tr>
+                    <tr>
+                        <td class="content-label" style="width: 15%;">@ASOFT.ERP.ViewModel.Helper.LocalizedHelper.GetLocalizedResourceString("HRMF2042.Comment", "HRMF2042", "HRM")</td>
+                        <td class="dot" style="width: 2%;"></td>
+                        <td class="@comment04 content-text" style ="width:80%;">@comment04</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+    <div id="tblDetailTypeID05">
+
+        <div class="asf-content-block first" style="width: 100%; margin-left: 50px;">
+            <table class="asf-table-view">
+                <tbody>
+                    @if (group5 != null && group5.Count() > 0)
+                    {
+                        foreach (var item in group5)
+                        {
+                            if (!string.IsNullOrEmpty(item.DetailTypeID))
+                            {
+                        <tr>
+                            <td class="content-label" style="white-space: pre-line">@Html.Label(item.DetailTypeName)</td>
+                            <td class="dot" style="width: 2%;"></td>
+                            <td class="@item.DetailTypeID content-text" style ="white-space:pre-line">@Html.DisplayFor(itemodel => item.InterviewResult)</td>
+                        </tr>
+                            }
+
+                        }
+                        comment05 = group5[0].Comment;
+                        status05 = group5[0].InterviewStatusName;
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div style="clear: both"></div>
+        <div class="asf-content-block last" style="width: 94%;">
+            <table class="asf-table-view">
+                <tbody>
+                    <tr>
+                        <td class="content-label"style="width: 15%;">@ASOFT.ERP.ViewModel.Helper.LocalizedHelper.GetLocalizedResourceString("HRMF2042.InterviewStatus", "HRMF2042", "HRM")</td>
+                        <td class="dot" style="width: 2%;"></td>
+                        <td class="@status05 content-text"style ="width:80%;">@status05</td>
+                    </tr>
+                    <tr>
+                        <td class="content-label" style="width: 15%;">@ASOFT.ERP.ViewModel.Helper.LocalizedHelper.GetLocalizedResourceString("HRMF2042.Comment", "HRMF2042", "HRM")</td>
+                        <td class="dot" style="width: 2%;"></td>
+                        <td class="@comment05 content-text" style ="width:80%;">@comment05</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    @if (group1.Count() > 0)
+    {        
+        @Html.ASOFTHidden("TotalLevel", group1[0].TotalLevel)
+    }
+    else
+    {
+        @Html.ASOFTHidden("TotalLevel", 0)
+    }
+</div>

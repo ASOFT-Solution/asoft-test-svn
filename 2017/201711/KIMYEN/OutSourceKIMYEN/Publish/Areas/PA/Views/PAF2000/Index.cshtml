@@ -1,0 +1,23 @@
+﻿@using Kendo.Mvc.UI;
+
+@{
+    Layout = null;
+}
+
+@(Html.Kendo().Window()
+    .Name("PrintPopup")
+    .Content(Html.Partial("Print").ToHtmlString())
+    .HtmlAttributes(new { style = "width:auto;overflow: hidden;", @class = "asf-windown" })
+    .Visible(false)
+    .Title(false)
+    .Animation(false)
+)
+
+<script>
+    $(document).ready(function () {
+        $("#PrintPopup").mouseleave(function () {
+            $("#PrintPopup").data("kendoWindow").close();
+        });
+    });
+
+</script>

@@ -1,0 +1,25 @@
+﻿@using ASOFT.ERP.A00.Core;
+
+@{
+    Layout = null;
+    if (ViewBag.ActionPrint == 1)
+    {
+        ViewBag.Action = Url.Action("ExportReport", "CIF1180", new
+        {
+            id = ViewBag.APK,
+            viewer = ViewBag.Viewer,
+            actionPrint = "1"
+        });
+    }
+    else
+    {
+    ViewBag.Action = Url.Action("ExportReport", "CIF1180", new
+                                                              {
+                                                                  id = ViewBag.APK,
+                                                                  viewer = ViewBag.Viewer,
+                                                                  actionPrint = "2"
+                                                              });
+    }
+}  
+
+@Html.Partial("~/Views/Shared/_ReportLayout.cshtml")

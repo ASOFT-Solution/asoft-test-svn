@@ -1,0 +1,96 @@
+﻿@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Entities.Common
+@{
+    ViewBag.Title = ASOFTLanguage.FindWordA00("A00.ConfigSystem");
+}
+
+@section jsFeature{
+ 
+    <script src="@Url.Content(contentPath: "~/Areas/DRM/Scripts/DRF0020/DRF0020.js?v=" + ASOFTEnvironment.Version)"></script>
+    <script src="@Url.Content(contentPath: "~/Areas/DRM/Scripts/DRF0060/DRF0060.js?v=" + ASOFTEnvironment.Version)"></script>
+    <script src="@Url.Content(contentPath: "~/Areas/DRM/Scripts/DRF0070/DRF0070.js?v=" + ASOFTEnvironment.Version)"></script>
+     <script src="@Url.Content(contentPath: "~/Areas/S/Scripts/AS0001.js?v=" + ASOFTEnvironment.Version)"></script>
+    
+}
+
+@section styleFeature{
+    <link href="@Url.Content(contentPath: "~/Areas/S/Content/AS0001.css")" rel="stylesheet" type="text/css" />
+}
+
+@Html.ASOFTHidden("UrlCloseBook", Url.Action("Index",  new { area = "", controller = "CloseOpenBook" }))
+@Html.ASOFTHidden("UrlUpdateCloseBook", Url.Action("CloseBook",  new { area = "", controller = "CloseOpenBook" }))
+@Html.ASOFTHidden("UrlUpdateOpenBook", Url.Action("OpenBook",  new { area = "", controller = "CloseOpenBook" }))
+@Html.ASOFTHidden("UrlDRF0020Update", Url.Action("Update",  new { area = "DRM", controller = "DRF0020" }))
+@Html.ASOFTHidden("UrlDRF0060Update", Url.Action("Update", new { area = "DRM", controller = "DRF0060" }))
+@Html.ASOFTHidden("UrlDRF0020", Url.Action("Index",  new { area = "DRM", controller = "DRF0020" }))
+@Html.ASOFTHidden("UrlDRF0060", Url.Action("Index",  new { area = "DRM", controller = "DRF0060" }))
+@Html.ASOFTHidden("UrlDRF0070", Url.Action("Index",  new { area = "DRM", controller = "DRF0070" }))
+@Html.ASOFTHidden("UrlDRF0080", Url.Action("Index",  new { area = "DRM", controller = "DRF0080" }))
+@Html.ASOFTHidden("UrlDRF0090", Url.Action("Index",  new { area = "DRM", controller = "DRF0090" }))
+@Html.ASOFTHidden("UrlDRF0100", Url.Action("Index",  new { area = "DRM", controller = "DRF0100" }))
+@Html.ASOFTHidden("UrlDRF0110", Url.Action("Index",  new { area = "DRM", controller = "DRF0110" }))
+@Html.ASOFTHidden("UrlDRF0120", Url.Action("Index",  new { area = "DRM", controller = "DRF0120" }))
+@Html.ASOFTHidden("UrlDRF0130", Url.Action("Index",  new { area = "DRM", controller = "DRF0130" }))
+@Html.ASOFTHidden("UrlDRF0160", Url.Action("Index",  new { area = "DRM", controller = "DRF0160" }))
+@Html.ASOFTHidden("UrlDRF0170", Url.Action("Index",  new { area = "DRM", controller = "DRF0170" }))
+@Html.ASOFTHidden("UrlDRF0180", Url.Action("Index",  new { area = "DRM", controller = "DRF0180" }))
+@Html.ASOFTHidden("UrlDRF0220", Url.Action("Index",  new { area = "DRM", controller = "DRF0220" }))
+@Html.ASOFTHidden("UrlDRF0230", Url.Action("Index",  new { area = "DRM", controller = "DRF0230" }))
+@Html.ASOFTHidden("UrlSF0001", Url.Action("Index",  new { area =  "S",  controller = "SF0001" }))
+@Html.ASOFTHidden("UrlSF0002", Url.Action("Index",  new { area =  "S",  controller = "SF0002" })) 
+@Html.ASOFTHidden("UrlSF0003", Url.Action("Index",  new { area =  "S",  controller = "SF0003" })) 
+@Html.ASOFTHidden("UrlSF0004", Url.Action("Index",  new { area =  "S",  controller = "SF0004" })) 
+@Html.ASOFTHidden("UrlSF0006", Url.Action("Index",  new { area =  "S",  controller = "SF0006" }))
+@Html.ASOFTHidden("UrlSF1040", Url.Action("Index",  new { area =  "S",  controller = "SF1040" }))  
+@Html.ASOFTHidden("UrlSF1050", Url.Action("Index",  new { area =  "S",  controller = "SF1050" })) 
+@Html.ASOFTHidden("UrlSF1052", Url.Action("Index",  new { area =  "S",  controller = "SF1052" })) 
+@Html.ASOFTHidden("UrlSF1000", Url.Action("Index",  new { area =  "S",  controller = "SF1000" }))
+@Html.ASOFTHidden("UrlSF1010", Url.Action("Index",  new { area =  "S",  controller = "SF1010" }))
+@Html.ASOFTHidden("UrlCIF0010", Url.Action("Index",  new { area = "CI", controller = "CIF0010" }))
+@Html.ASOFTHidden("UrlCIF0020", Url.Action("Index",  new { area = "CI", controller = "CIF0020" }))
+@Html.ASOFTHidden("UrlEndTransaction", Url.Action("EndTransaction",  new { area = "DRM", controller = "DRF0210" }))
+@Html.ASOFTHidden("UrlDRF0200", Url.Action("Index",  new { area = "DRM", controller = "DRF0200" }))
+@Html.ASOFTHidden("UrlCIF0030", Url.Action("Index",  new { area = "CI", controller = "CIF0030" }))
+@Html.ASOFTHidden("UrlGetdata", Url.Action("GetGridData", new { area = "CI", controller = "CIF0030" }))
+
+@Html.ASOFTHidden("UrlOOF0010", Url.Action("Index",  new { area = "HRM", controller = "OOF0010" }))
+@Html.ASOFTHidden("UrlOOF0020", Url.Action("Index", new { area = "HRM", controller = "OOF0020" }))
+@Html.ASOFTHidden("UrlSOF0000", Url.Action("Index", new { area = "SO", controller = "SOF0000" }))
+@Html.ASOFTHidden("UrlCRMF0000", "/PopupLayout/Index/CRM/CRMF0000")
+@Html.ASOFTHidden("UrlHRMF0001", "/PopupLayout/Index/HRM/HRMF0001")
+@Html.ASOFTHidden("UrlHRMF0010", "/PopupLayout/Index/HRM/HRMF0010")
+@Html.ASOFTHidden("UrlCRMF0001", "/CRM/CRMF0001?T=C%")
+@Html.ASOFTHidden("UrlHF0390", Url.Action("Index", new { area = "HRM", controller = "HF0390" }))
+
+@Html.ASOFTHidden("UrlCIF1330", "/PopupLayout/Index/CI/CIF1330?PK=AT1202&Table=AT0002&key=TableID")
+@Html.ASOFTHidden("UrlCIF1340", "/PopupLayout/Index/CI/CIF1340?PK=AT1302&Table=AT0002&key=TableID")
+@*@Html.ASOFTHidden("UrlHRMF0010", "/PopupLayout/Index/HRM/HRMF0010?PK="+ASOFTEnvironment.DivisionID+"&Table=HRMT0010&key=DivisionID")*@
+
+@Html.ASOFTHidden("UrlCIF0001", Url.Action("Index", new { area = "CI", controller = "CIF0001" }))
+@Html.ASOFTHidden("UrlPOSF0003", Url.Action("Index",  new { area =  "POS",  controller = "POSF0003" }))
+@Html.ASOFTHidden("UrlPOSF0007", Url.Action("Index",  new { area =  "POS",  controller = "POSF0007" }))
+@Html.ASOFTHidden("UrlPOSF0001", Url.Action("Index",  new { area =  "POS",  controller = "POSF0001" })) 
+@Html.ASOFTHidden("UrlPOSF0004", Url.Action("Index",  new { area =  "POS",  controller = "POSF0004" })) 
+@Html.ASOFTHidden("UrlPOSF0006", Url.Action("Index",  new { area =  "POS",  controller = "POSF0006" })) 
+
+@Html.ASOFTHidden("UrlLMF0001", Url.Action("Index", new { area = "LM", controller = "LMF0001" }))
+@Html.ASOFTHidden("UrlLMF0002",  Url.Action("Index", new { area = "LM", controller = "LMF0002" }))
+
+@Html.ASOFTHidden("UrlCSMF0001", string.Format(@"/PopupMasterDetail/Index/CSM/CSMF0001?PK={0}&Table=CSMT0000&key=DivisionID", ASOFTEnvironment.DivisionID ))
+@Html.ASOFTHidden("UrlCSMF0002", "/PopupLayout/Index/CSM/CSMF0002")
+
+
+
+<div id='contentMaster'>
+     @Html.ASOFTHeader(new HeaderModel() { Title = ASOFTLanguage.FindWordA00("A00.System"), Breakcrumb = true })
+        <div id="ViewMaster" class="asf-panel-view-master">
+            <div class="asf-master-content">
+                @Html.Partial("GeneralSettingCommon")
+            </div>
+        </div>
+</div>
+
+@(Html.ASOFTPopup()
+    .Name("AS0001Popup")
+    .Width(500))

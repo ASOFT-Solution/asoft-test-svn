@@ -1,0 +1,104 @@
+﻿@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Entities.Infrastructure;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel;
+@using ASOFT.ERP.ViewModel.Helper;
+@model ASOFT.ERP.ViewModel.ASOFTSysFieldsViewModel
+
+<div id="GroupTitle1" style="display: none">@LocalizedHelper.GetLocalizedResourceString("AF3004.GroupTitle1", "AF3004", "T")</div>
+<div id="GroupTitle2" style="display: none">@LocalizedHelper.GetLocalizedResourceString("AF3004.GroupTitle2", "AF3004", "T")</div>
+<!-- Filter Kỳ -->
+<div id="TimeFilter_1">
+    <div class="asf-filter-main" id="PeriodFilter">
+        <div class="block-left">
+            <div class="asf-filter-label">
+                <span>
+                    @Html.ASOFTRadioButton(model => model.Data, 0, new { id = "rdoTimeFilter" }).CheckedIf(true)
+                </span>
+                @LocalizedHelper.GetLocalizedResourceString("A00.FromPeriod", "A00", "00")
+            </div>
+            <div class="asf-filter-input">
+                @(Html.ASOFTBussinessComboBox().ASOFTReport_Period(model => model.Data, htmlAttributes: new { id = "fromPeriod" }))
+            </div>
+        </div>
+        <div class="block-right">
+            <div class="asf-filter-label">
+                @LocalizedHelper.GetLocalizedResourceString("A00.ToPeriod", "A00", "00")
+            </div>
+            <div class="asf-filter-input">
+                @(Html.ASOFTBussinessComboBox().ASOFTReport_Period(model => model.Data, htmlAttributes: new { id = "toPeriod" }))
+            </div>
+        </div>
+    </div>
+    <!-- Filter Năm -->
+    <div class="asf-filter-main" id="YearFilter">
+        <div class="block-left">
+            <div class="asf-filter-label">
+                <span>
+                    @Html.ASOFTRadioButton(model => model.Data, 1, new { id = "rdoTimeFilter" })
+                </span>
+                @LocalizedHelper.GetLocalizedResourceString("A00.FromYear", "A00", "00")
+            </div>
+            <div class="asf-filter-input">
+                @(Html.ASOFTBussinessComboBox().ASOFTReport_Year(model => model.Data, htmlAttributes: new { id = "fromYear" }))
+            </div>
+        </div>
+        <div class="block-right">
+            <div class="asf-filter-label">
+                @LocalizedHelper.GetLocalizedResourceString("A00.ToYear", "A00", "00")
+            </div>
+            <div class="asf-filter-input">
+                @(Html.ASOFTBussinessComboBox().ASOFTReport_Year(model => model.Data, htmlAttributes: new { id = "toYear" }))
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Quý -->
+    <div class="asf-filter-main" id="DateFilter">
+        <div class="block-left">
+            <div class="asf-filter-label">
+                <span>
+                    @Html.ASOFTRadioButton(model => model.Data, 2, new { id = "rdoTimeFilter" })
+                </span>
+                @LocalizedHelper.GetLocalizedResourceString("A00.FromDate", "A00", "00")
+            </div>
+            <div class="asf-filter-input">
+                @(Html.ASOFTDateEdit(model => model.TypeDateTimePicker,htmlAttributes: new {@id = "FromDate", @name = "FromDate"}).Value(ASOFTEnvironment.WorkingDate)
+                    .Value(ASOFTEnvironment.BeginDate)
+                    .Enable(true)
+                    )
+            </div>
+        </div>
+        <div class="block-right">
+            <div class="asf-filter-label">
+                @LocalizedHelper.GetLocalizedResourceString("A00.ToDate", "A00", "00")
+            </div>
+            <div class="asf-filter-input">
+                @(Html.ASOFTDateEdit(model => model.TypeDateTimePicker,htmlAttributes: new {@id = "ToDate", @name = "ToDate"}).Value(ASOFTEnvironment.WorkingDate)
+                    .Value(ASOFTEnvironment.EndDate)
+                    .Enable(true)
+                    )
+            </div>
+        </div>
+    </div>
+    <div class="asf-filter-main" id="chkIsNotClear">
+        <div class="asf-filter-input" style ="float:left;width:100%;">
+            @*<input type="checkbox" id = "IsNotClear" name = "IsNotClear" title="@LocalizedHelper.GetLocalizedResourceString("AF3008.IsNotClear", "AF3008", "T")"/>*@
+            @(Html.ASOFTCheckbox(model => model.TypeCheckBox, htmlAttributes: new { @id = "IsNotClear", @name = "IsNotClear" }, dynamiclabel: LocalizedHelper.GetLocalizedResourceString("AF3008.IsNotClear", "AF3008", "T")))
+        </div>
+    </div>
+
+</div>
+@{
+        @Html.ASOFTHidden("IsDate", 0)
+        @Html.ASOFTHidden("FromDate_Content_DataType", 9)
+        @Html.ASOFTHidden("ToDate_Content_DataType", 9)
+        @Html.ASOFTHidden("IsDate_Content_DataType", 5)
+        @Html.ASOFTHidden("IsNotClear_Content_DataType", 6)
+        @Html.ASOFTHidden("FromDate_Type_Fields", 5)
+        @Html.ASOFTHidden("ToDate_Type_Fields", 5)
+        @Html.ASOFTHidden("IsDate_Type_Fields", 1)
+        @Html.ASOFTHidden("IsNotClear_Type_Fields", 2)
+}

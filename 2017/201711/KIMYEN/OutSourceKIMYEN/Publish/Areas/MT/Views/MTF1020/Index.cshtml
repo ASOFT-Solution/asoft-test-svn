@@ -1,0 +1,38 @@
+﻿
+
+@model ASOFT.ERP.ViewModel.MT.MTF1020ViewModel
+@{
+    ViewBag.Title = Html.ASOFTPageTitle(model => model.MTF1020Title, "MTF1020").ToHtmlString();
+}
+
+@section jsFeature{
+    <script src="@Url.Content("~/Areas/MT/Scripts/MTF1020.js")"> </script>
+}
+
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/MT/Content/MTF1020.css")" rel="stylesheet" type="text/css" />
+}
+
+<div id="contentMaster">
+    @Html.ASOFTHeader(new HeaderModel {Title = Html.ASOFTRaw(m => m.MTF1020Title), Breakcrumb = true})
+        
+    @Html.Partial("FormFilter", Model)
+
+    <div class="asfbtn-left">
+        @Html.Partial("~/Views/Shared/EditorTemplates/Toolbar.cshtml", Model.Toolbar1 ?? new ASOFTToolBarViewModel())
+    </div>
+    @Html.Partial("GridSchoolTime", Model)
+</div>
+
+@(Html.ASOFTPopup()
+      .Name("MTF1021Popup")
+      .Width(500)
+      .Modal(true)
+      .Title(Html.ASOFTPageTitle(model => model.MTF1021Title, "MTF1021").ToHtmlString()))
+
+
+@Html.ASOFTHidden("UrlMTF1021", Url.Action("MTF1021"))
+@Html.ASOFTHidden("UrlMTF1022", Url.Action("MTF1022"))
+@Html.ASOFTHidden("UrlInsert", Url.Action("Insert"))
+@Html.ASOFTHidden("UrlUpdateRecord", Url.Action("UpdateRecord"))
+@Html.ASOFTHidden("UrlDelete", Url.Action("Delete"))

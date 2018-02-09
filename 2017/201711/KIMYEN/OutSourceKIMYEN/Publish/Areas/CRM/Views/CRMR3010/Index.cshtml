@@ -1,0 +1,202 @@
+﻿@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.ViewModel.Helper;
+@using ASOFT.ERP.ViewModel.CRM;
+@using System.Web.Optimization
+
+@model CRMR3010ViewModel
+
+@{
+    Layout = "~/Views/Shared/_EmptyLayoutChart.cshtml";
+    ViewBag.Title = string.Format("{0} - {1}", "CRMR30102", LocalizedHelper.GetLocalizedResourceString("CRMR3010.Title", "CRMR3010", "CRM"));
+
+
+    var result = Model.ListModel.GroupBy(s => s.SalemanID).Select(group => new { Word = group.Key, Count = group.Count() }).ToList();
+    //for (int i = 0; i < count; i++)
+    //{
+    //    var item = result[i];            
+    //    sumTotalLead = sumTotalLead + item.TotalLead;
+    //    sumTotalOpportunity = sumTotalOpportunity + item.TotalOpportunity;
+    //    sumTotalCustomer = sumTotalCustomer + item.TotalCustomer;
+    //    sumLeadToOpportunity = sumLeadToOpportunity + item.LeadToOpportunity;
+    //    sumLeadToCustomer = sumLeadToCustomer + item.LeadToCustomer;
+    //    sumOpportunityToCustomer = sumOpportunityToCustomer + item.OpportunityToCustomer;
+    //}
+
+    AT1101 division = ViewBag.division;
+}
+
+<div class="container_12" style="font-size: 11px;">
+    <div  style="width: 5%; float: left">&nbsp;</div>
+    <div style="width: 90%; float: left">
+    <div class="grid_12 asf-cols-align-left" style="font-weight:bold; font-size: 13px">
+        @division.DivisionName
+    </div>
+    <div class="grid_12 asf-cols-align-left" style="font-weight:bold; font-size: 13px">
+        @division.Address
+    </div>
+    <div class="grid_12 asf-cols-align-left" style="font-weight:bold; font-size: 13px">
+        @division.Tel
+    </div>
+    <div class="grid_12 asf-cols-align-center" style="font-weight:bold; font-size: 30px">
+        @LocalizedHelper.GetLocalizedResourceString("CRMR3010.Title", "CRMR3010", "CRM")
+    </div>
+    
+    @{
+        if(Model.IsDate == 0)
+        {
+            <div class="grid_12 asf-cols-align-center">
+                @ASOFTLanguage.FindWordA00("A00.rdoFilterPeriod"): @Model.PeriodIDList
+            </div>
+        }
+        else {
+            <div class="grid_12 asf-cols-align-center">
+                @ASOFTLanguage.FindWordA00("A00.rdoFilterFromDate"): @Model.FromDateJQ - @ASOFTLanguage.FindWordA00("A00.rdoFilterToDate"): @Model.ToDateJQ
+            </div>
+        }
+    }
+    </div>
+    
+@{
+    
+    foreach (var sm in result)    
+    {
+        List<CRMR3010ViewModel> listSal = Model.ListModel.FindAll(m => (m.SalemanID ?? string.Empty).Equals(sm.Word)) ?? new List<CRMR3010ViewModel>();
+        if (listSal.Count == 0)
+        {
+            continue;
+        }
+
+        decimal? sumTotalLead = 0;
+        decimal? sumTotalOpportunity = 0;
+        decimal? sumTotalCustomer = 0;
+        decimal? sumLeadToOpportunity = 0;
+        decimal? sumLeadToCustomer = 0;
+        decimal? sumOpportunityToCustomer = 0;
+
+        for (int i = 0; i < listSal.Count; i++)
+        {
+            var item1 = listSal[i];
+            sumTotalLead = sumTotalLead + item1.TotalLead;
+            sumTotalOpportunity = sumTotalOpportunity + item1.TotalOpportunity;
+            sumTotalCustomer = sumTotalCustomer + item1.TotalCustomer;
+            sumLeadToOpportunity = sumLeadToOpportunity + item1.LeadToOpportunity;
+            sumLeadToCustomer = sumLeadToCustomer + item1.LeadToCustomer;
+            sumOpportunityToCustomer = sumOpportunityToCustomer + item1.OpportunityToCustomer;
+        }
+        
+    <div class="clear" style="height: 20px">&nbsp;</div>
+    <div  style="width: 5%; float: left">&nbsp;</div>
+    <div style="width: 90%; float: left">
+        <div style="width: 30%; float:left">&nbsp;</div>
+        <div style="width: 40%; float:left">  
+            @(Html.Kendo().Chart().Name("chart" + sm.Word)
+                .Series(series =>
+                    series.Funnel(new dynamic[]{
+                        new {
+                            category= @"Leads",
+                            value= sumTotalLead,
+                            color = "rgb(3, 169, 244)"
+                        },
+                        new {
+                            category= @"Opportunity",
+                            value= sumTotalOpportunity,
+                            color = "rgb(76, 175, 80)"
+                        },
+                        new {
+                            category= @"Customer",
+                            value= sumTotalCustomer,
+                            color= "rgb(255, 141, 0)"
+                        }
+                    })
+                    .DynamicSlope(true)
+                    .SegmentSpacing(2)
+                )
+                .Legend(l => l.Visible(true).Position(ChartLegendPosition.Bottom))
+                .SeriesDefaults(sd =>
+                {
+                    sd.Funnel().Labels(lbls =>
+                    {
+                        lbls.Visible(true)
+                            .Background("transparent")
+                            .Template("#=category#")
+                            .Font("15px sans-serif")
+                            .Position(ChartFunnelLabelsPosition.Center)
+                            .Align(ChartFunnelLabelsAlign.Center)
+                            .Color("#000")
+                            .Border(b=>b.Width(1).DashType(ChartDashType.Dot).Color("#000"))
+                            .Padding(5)
+                            .Format("N0");
+                    })
+                    .DynamicHeight(false);
+                })
+                .Tooltip(tt => tt.Visible(true).Template("#=  kendo.toString(value, ASOFTEnvironment.NumberFormat.KendoConvertedDecimalsFormatString) # - #= kendo.format('{0:P}', percentage) #"))
+            )
+        </div>
+        <div class="clear">&nbsp;</div>
+        <div class="grid_12 line"></div>
+        <div class="clear">&nbsp;</div>
+        <div class="asf-grid alpha omega">
+             <table role="grid">
+                <colgroup>
+                    <col style="width: 5%">
+                    <col style="width: 13%">
+                    <col style="width: 5%">
+                    <col style="width: 8%">
+                    <col style="width: 8%">
+                    <col style="width: 10%">
+                    <col style="width: 17%">
+                    <col style="width: 17%">
+                    <col style="width: 17%">
+                </colgroup>
+                <thead class="k-grid-header">
+                    <tr>
+                        <th scope="col" class="k-header">STT</th>
+                        <th scope="col" class="k-header"><span class="k-link">@LocalizedHelper.GetLocalizedResourceString("CRMR3010.SalemanName", "CRMR3010", "CRM")</span></th>
+                        <th scope="col" class="k-header"><span class="k-link">@LocalizedHelper.GetLocalizedResourceString("CRMR3010.DivisionID", "CRMR3010", "CRM")</span></th>
+                        <th scope="col" class="k-header"><span class="k-link">@LocalizedHelper.GetLocalizedResourceString("CRMR3010.TotalLead", "CRMR3010", "CRM")</span></th>
+                         <th scope="col" class="k-header"><span class="k-link">@LocalizedHelper.GetLocalizedResourceString("CRMR3010.TotalOpportunity", "CRMR3010", "CRM")</span></th>
+                        <th scope="col" class="k-header"><span class="k-link">@LocalizedHelper.GetLocalizedResourceString("CRMR3010.TotalCustomer", "CRMR3010", "CRM")</span></th>
+                        <th scope="col" class="k-header"><span class="k-link">@LocalizedHelper.GetLocalizedResourceString("CRMR3010.LeadToOpportunity", "CRMR3010", "CRM")</span></th>
+                        <th scope="col" class="k-header"><span class="k-link">@LocalizedHelper.GetLocalizedResourceString("CRMR3010.LeadToCustomer", "CRMR3010", "CRM")</span></th>
+                        <th scope="col" class="k-header"><span class="k-link">@LocalizedHelper.GetLocalizedResourceString("CRMR3010.OpportunityToCustomer", "CRMR3010", "CRM")</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        for (int i = 0; i < listSal.Count; i++)
+                        {
+                            CRMR3010ViewModel item = listSal[i];           
+                            <tr>
+                                <td  class="asf-cols-align-center">@(i + 1)</td>
+                                <td class="asf-cols-align-left">@item.SalemanName</td>
+                                <td class="asf-cols-align-left">@item.DivisionID</td>
+                                <td class="asf-cols-align-right">@string.Format(ASOFTEnvironment.NumberFormat.ConvertedDecimalsFormatStringForSreen, item.TotalLead)</td>
+                                 <td class="asf-cols-align-right">@string.Format(ASOFTEnvironment.NumberFormat.ConvertedDecimalsFormatStringForSreen, item.TotalOpportunity)</td>
+                                 <td class="asf-cols-align-right">@string.Format(ASOFTEnvironment.NumberFormat.ConvertedDecimalsFormatStringForSreen, item.TotalCustomer)</td>
+                                 <td class="asf-cols-align-right">@string.Format(ASOFTEnvironment.NumberFormat.ConvertedDecimalsFormatStringForSreen, item.LeadToOpportunity)</td>
+                                <td class="asf-cols-align-right">@string.Format(ASOFTEnvironment.NumberFormat.ConvertedDecimalsFormatStringForSreen, item.LeadToCustomer)</td>
+                                <td class="asf-cols-align-right">@string.Format(ASOFTEnvironment.NumberFormat.ConvertedDecimalsFormatStringForSreen, item.OpportunityToCustomer)</td>
+                            </tr>
+                        }
+                
+                        <tr>
+                                <td class="asf-cols-align-right" colspan="3">@LocalizedHelper.GetLocalizedResourceString("CRMR3010.Sum", "CRMR3010", "CRM")</td>
+                                <td class="asf-cols-align-right">@string.Format(ASOFTEnvironment.NumberFormat.ConvertedDecimalsFormatStringForSreen, sumTotalLead)</td>
+                                 <td class="asf-cols-align-right">@string.Format(ASOFTEnvironment.NumberFormat.ConvertedDecimalsFormatStringForSreen, sumTotalOpportunity)</td>
+                                 <td class="asf-cols-align-right">@string.Format(ASOFTEnvironment.NumberFormat.ConvertedDecimalsFormatStringForSreen, sumTotalCustomer)</td>
+                                 <td class="asf-cols-align-right">@string.Format(ASOFTEnvironment.NumberFormat.ConvertedDecimalsFormatStringForSreen, sumLeadToOpportunity)</td>
+                                <td class="asf-cols-align-right">@string.Format(ASOFTEnvironment.NumberFormat.ConvertedDecimalsFormatStringForSreen, sumLeadToCustomer)</td>
+                                <td class="asf-cols-align-right">@string.Format(ASOFTEnvironment.NumberFormat.ConvertedDecimalsFormatStringForSreen, sumOpportunityToCustomer)</td>
+                        </tr>
+                     }
+
+           
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="page-break"></div>
+     }
+}
+</div>
+

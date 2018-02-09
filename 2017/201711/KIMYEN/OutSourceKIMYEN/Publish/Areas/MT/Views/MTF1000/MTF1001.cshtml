@@ -1,0 +1,93 @@
+﻿@using System.Web.UI.WebControls;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.A00.Entities.Database
+@using Microsoft.Ajax.Utilities
+@model ASOFT.ERP.ViewModel.MT.MTF1000ViewModel
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "MTF1001" }))
+{
+    <div class="asf-form-container">
+        <div class="form-content">
+            <table class="asf-table-view">
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.CourseID)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @Html.ASOFTTextBox(model => model.CourseID, 
+                            htmlStyle: new { width = Unit.Percentage(100) }).ReadOnlyIf(Model.FormStatus != ASOFTFormActionType.AddNew)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.CourseName)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @Html.ASOFTTextBox(model => model.CourseName, htmlStyle: new { width = Unit.Percentage(100) })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.BeginDate)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTDateEdit(model => model.BeginDate, htmlStyle: new { width = Unit.Percentage(100) })
+                                .Value(Model.BeginDate ?? DateTime.Now))
+                    </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.EndDate)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTDateEdit(model => model.EndDate, htmlStyle: new { width = Unit.Percentage(100) })
+                                .Value(Model.EndDate ?? DateTime.Now))
+                    </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.Notes)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @Html.ASOFTTextArea(model => model.Notes, htmlStyle: new { width = Unit.Percentage(98) })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption"></td>
+                    <td class="asf-td-field">
+                        @Html.ASOFTCheckbox(model => model.IsCommon)
+                    </td>
+                    <td class="asf-td-field">
+                        @Html.ASOFTCheckbox(model => model.Disabled).HideIf(Model.FormStatus == ASOFTFormActionType.AddNew)
+                        @Html.ASOFTHidden("LastModifyDate", Model.LastModifyDate.HasValue ? Model.LastModifyDate.Value.ToString("dd/MM/yyyy HH:mm:ss.fff") : "")
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="asf-form-button">
+            <table class="asf-table-view">
+                <tr>
+                    <td align="right">
+                        <div class="asf-popup-button-container">
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                                      .Name("BtnClose")
+                                      .Events(e => e.Click("MTF1000.btnCloseClick")))
+                            </div>
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSave"))
+                                        .Name("BtnSaveClose")
+                                        .Events(e => e.Click("MTF1000.btnSaveCloseClick"))
+                                        .HideIf(Model.FormStatus == ASOFTFormActionType.AddNew)
+                                )
+                            </div>
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSaveCopy"))
+                                        .Name("BtnSaveCopy")
+                                        .Events(e => e.Click("MTF1000.btnSaveCopyClick"))
+                                        .HideIf(Model.FormStatus != ASOFTFormActionType.AddNew))
+                            </div>
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSaveNew"))
+                                        .Name("btnSaveMTF1001")
+                                        .Events(e => e.Click("MTF1000.btnSaveClick"))
+                                        .HideIf(Model.FormStatus != ASOFTFormActionType.AddNew))
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+}

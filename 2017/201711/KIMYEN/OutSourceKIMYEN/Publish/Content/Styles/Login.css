@@ -1,0 +1,60 @@
+﻿
+
+.td-one {
+    width: 85px;
+}
+
+.td-two {
+    width: 110px
+}
+
+@media (min-width: 600px) and  (max-width: 767px) {
+     .k-window  {
+        width: 550px !important;
+    }
+}
+
+@media (max-width: 320px) {
+     .k-window  {
+        width: 300px !important;
+    }
+
+     
+    .asf-table-view .fixWidth {
+        display: none;
+    }
+
+    .asf-combo-item .asf-combo-item-col-value {
+        width: 50px !important;
+    }
+    .asf-combo-item .asf-combo-item-col-text {
+        width: 150px !important;
+    }
+
+    .k-list-container {
+         width: 290px !important;
+    }
+}
+
+
+@media (min-width: 330px) and (max-width: 599px) {
+     .k-window  {
+        width: 300px !important;
+    }
+
+     
+    .asf-table-view .fixWidth {
+        display: none;
+    }
+
+    .asf-combo-item .asf-combo-item-col-value {
+        width: 50px !important;
+    }
+    .asf-combo-item .asf-combo-item-col-text {
+        width: 150px !important;
+    }
+
+    .k-list-container {
+         width: 290px !important;
+    }
+}

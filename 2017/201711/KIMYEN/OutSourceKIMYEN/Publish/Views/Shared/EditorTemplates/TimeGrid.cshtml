@@ -1,0 +1,13 @@
+@using ASOFT.ERP.A00.Core.Control
+@model DateTime?
+
+@{
+    ASOFTDateEditSettings dateEditSettings = new ASOFTDateEditSettings(null, null);
+}
+@(Html.Kendo()
+        .TimePickerFor(m => m)
+        .HtmlAttributes(dateEditSettings.Attributes)
+        .Interval(5)
+        .Format("HH:mm")
+        .Events(m=>m.Open("Openview"))
+)

@@ -1,0 +1,54 @@
+﻿@model ASOFT.ERP.ViewModel.POS.POSF00152FilterViewModel
+
+<div class="grid_2 alpha line_right col_1">
+    <table class="asf-table-view">
+        <tr>
+            <td class="container_control_half">@Html.ASOFTLabel(model => model.VoucherType)</td>
+            <td class="container_control_half">
+                @(Html.ASOFTBussinessComboBox()
+                        .ASOFTVoucherTypeID(model => model.VoucherType, htmlAttributes: new Dictionary<string, object> {
+                                                    {"data-bind","value:VoucherType"}}
+                      ))
+                </td>
+        </tr>
+    </table>
+</div>
+<div class="grid_4 line_right col_2">
+    <table class="asf-table-view">
+        <tr>
+            <td class="container_control_half">@Html.ASOFTLabel(model => model.VoucherFrom)</td>
+            <td class="container_control_half">
+                 @(Html.ASOFTDateEdit(model => model.VoucherFrom,
+                             htmlAttributes: new Dictionary<string, object> {
+                                                    {"data-bind","value:VoucherFrom"}}
+                                                )
+                            )
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="grid_4 float_left col_3">
+    <table class="asf-table-view">
+        <tr>
+            <td class="container_control_half">@Html.ASOFTLabel(model => model.VoucherTo)</td>
+            <td class="container_control_half">
+                 @(Html.ASOFTDateEdit(model => model.VoucherTo,
+                             htmlAttributes: new Dictionary<string, object> {
+                                                    {"data-bind","value:VoucherTo"}}
+                                                )
+                            )
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="grid_1 omega float_right col_4">
+    <table class="asf-table-view float_right">
+        <tr>
+            <td>
+                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnRead"))
+                      .Name("btnRead")
+                      .Events(e=>e.Click("btnRead_Click")))
+            </td>
+        </tr>
+    </table>
+</div>

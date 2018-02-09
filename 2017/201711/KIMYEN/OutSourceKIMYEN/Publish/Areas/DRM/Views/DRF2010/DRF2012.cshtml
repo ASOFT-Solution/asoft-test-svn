@@ -1,0 +1,61 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     25/08/2014      Đức Quý         Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Infrastructure;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel;
+@using System.Web.UI.WebControls;
+@using Kendo.Mvc;
+@model ASOFT.ERP.ViewModel.DRM.DRF2012ViewModel
+@{
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.DRF2012Title, "DRF2012").ToHtmlString();
+}
+
+<div id="contentMaster">
+    @Html.ASOFTHeader(new HeaderModel {Title = Html.ASOFTPageTitle(m => m.DRF2012Title, "DRF2012").ToHtmlString(), Breakcrumb = true})
+    <div id="ViewMaster" class="asf-panel-view-master" >
+        <div class="asf-panel-master-header">
+            <div class="asfbtn asfbtn-right">
+                @Html.Partial("~/Views/Shared/EditorTemplates/Toolbar.cshtml", Model.Toolbar1 ?? new ASOFTToolBarViewModel())
+            </div>
+        </div>
+        <div id="viewPartial">
+            @Html.Partial("DRF2012M")
+        </div>
+    </div>
+</div>
+
+@section jsFeature{
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF2010/DRF2010.js?v=" + ASOFTEnvironment.Version)"></script>
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF2010/DRF2011.js?v=" + ASOFTEnvironment.Version)"></script>
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF2013/DRF2013.js?v=" + ASOFTEnvironment.Version)"></script>
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF2020/DRF2021.js?v=" + ASOFTEnvironment.Version)"></script>
+}
+
+@section styleFeature {
+    <link href="@Url.Content("~/Areas/DRM/Content/Common.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Areas/DRM/Content/DRF2012.css")" rel="stylesheet" type="text/css" />
+}
+@Html.ASOFTHidden("ScreenID", "DRF2012")
+@Html.ASOFTHidden("UrlDRF2010", Url.Action("Index"))
+@Html.ASOFTHidden("UrlDRF2011", Url.Action("DRF2011"))
+@Html.ASOFTHidden("UrlDRF2013", Url.Action("Index", "DRF2013", new { area = "DRM" }))
+@Html.ASOFTHidden("UrlDRF2021", Url.Action("DRF2021", "DRF2020", new { area = "DRM" }))
+@Html.ASOFTHidden("UrlInsertDRF2020", Url.Action("Insert", "DRF2020", new { area = "DRM" }))
+@Html.ASOFTHidden("UrlDeleteDRF2020", Url.Action("Delete", "DRF2020", new { area = "DRM" }))
+@Html.ASOFTHidden("UrlDRF2012M", Url.Action("DRF2012M"))
+@Html.ASOFTHidden("UrlUpdate", Url.Action("Update"))
+@Html.ASOFTHidden("UrlDelete", Url.Action("Delete"))
+@Html.ASOFTHidden("UrlCheckEdit", Url.Action("CheckEdit"))
+@Html.ASOFTHidden("UrlCreateProcessingID", Url.Action("CreateVoucherNo", "DRF2020"))
+@Html.ASOFTHidden("UrlCheckContractNo", Url.Action("CheckContractNo", "DRF2020"))
+@Html.ASOFTHidden("UrlHistory", Url.Action("Index", new { controller = "History", area = "", tableID = "DRT2010", IDSearch = "APK", ValueSearch = Model.ContractNo }))

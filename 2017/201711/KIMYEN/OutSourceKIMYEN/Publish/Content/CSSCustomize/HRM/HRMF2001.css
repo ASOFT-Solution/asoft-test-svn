@@ -1,0 +1,29 @@
+﻿
+#Attach{
+    width: 0% !important;
+}
+
+.file-templete{
+    padding: 5px;
+}
+
+.file-templete >label{
+    color: green;
+    padding-right: 5px;
+}
+
+.templeteAll{
+    overflow: auto;
+    margin-top: 5px;
+    background-color: whitesmoke;
+    max-height: 150px;
+}
+
+.x-close{
+    color: silver !important;
+    cursor: pointer;
+}
+
+.disabledButton:hover{
+    background-color: white !important;
+}

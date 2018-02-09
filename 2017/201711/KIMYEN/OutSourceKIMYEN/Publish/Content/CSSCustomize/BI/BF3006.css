@@ -1,0 +1,26 @@
+﻿.asf-btn-multi-data {
+    z-index: 10001; 
+    position: absolute; 
+    right: 58px; 
+    height: 25px;
+    min-width: 27px;
+}
+
+.asf-btn-delete-multi-data {
+    z-index: 10001; 
+    position: absolute; 
+    right: 32px; 
+    height: 25px; 
+    min-width: 27px; 
+    border: 1px solid #dddddd;
+}
+
+.block-left .asf-btn-multi-data {
+    right: 27px; 
+    height: 25px;
+}
+
+.block-left .asf-btn-delete-multi-data {
+    right: 0px; 
+    height: 25px;
+}

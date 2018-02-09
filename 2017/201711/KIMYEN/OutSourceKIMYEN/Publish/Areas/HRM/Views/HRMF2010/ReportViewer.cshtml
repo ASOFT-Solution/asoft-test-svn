@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "ReportViewer";
+}
+
+@using ASOFT.ERP.A00.Core;
+
+@{
+    Layout = null;
+    ViewBag.Action = Url.Action("ExportReport", "HRMF2010", new
+                                                              {
+                                                                  id = ViewBag.APK,
+                                                                  viewer = ViewBag.Viewer,
+                                                                  Module = ViewBag.Module,
+                                                                  ScreenID = ViewBag.ScreenID,
+                                                                  project = ViewBag.Project
+                                                              }); 
+}
+
+@Html.Partial("~/Views/Shared/_ReportLayout.cshtml")
+
+
+

@@ -1,0 +1,225 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     22/10/2014      Như Huyên       Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.ViewModel.CI
+@model CIF1031ViewModel
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.CIF1031Title, "CIF1031").ToHtmlString();
+    ViewBag.Width = 500;
+
+    // Form Status
+    bool isInsert = Model.FormStatus.Equals(ASOFTFormActionType.AddNew);
+    bool isInherit = Model.FormStatus.Equals(ASOFTFormActionType.Inherit);
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new {id = "CIF1031"}))
+{
+    @(Html.ASOFTTab()
+        .Name("CIF1031Tab")
+        .Items(tabstrip =>
+        {
+            tabstrip.Add().Text(Html.ASOFTRaw(model => model.CIF1031Title1))
+                .HtmlAttributes(new { @id = "TabMaster01" })
+                .ContentHtmlAttributes(new { @class = "asf-tab-content" })
+                .Selected(true)
+                .Content(Tab01().ToHtmlString());
+
+            tabstrip.Add().Text(Html.ASOFTRaw(model => model.CIF1031Title2))
+                .HtmlAttributes(new { @id = "TabMaster02" })
+                .ContentHtmlAttributes(new { @class = "asf-tab-content" })
+                .Content(Tab02().ToHtmlString());          
+        }))
+
+    <div class="asf-form-button">
+            <table class="asf-table-view">
+                <tr>
+                    <td align="right">
+                        <div class="asf-popup-button-container">
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                                        .Name("BtnClose")
+                                        .Events(e => e.Click("CIF1031.btnClose_Click"))
+                                        )
+                            </div>
+                            <div >
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSaveCopy"))
+                                        .Name("BtnSaveCopy")
+                                        .Events(e => e.Click("CIF1031.btnSaveCopy_Click"))
+                                        .HideIf(!isInsert)
+                                        )
+                            </div>
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSaveNew"))
+                                        .Name("btnSaveDRF1011")
+                                        .Events(e => e.Click("CIF1031.btnSaveNext_Click"))
+                                        .HideIf(!isInsert)
+                                        )
+                            </div> 
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSave"))
+                                        .Name("BtnSaveClose")
+                                        .Events(e => e.Click("CIF1031.btnSave_Click"))
+                                        .HideIf(isInsert)
+                                        )
+                                        
+                            </div>     
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+}
+
+@helper Tab01()
+{
+    <div class="asf-form-container">
+        <div class="form-content">
+                <table class="asf-table-view">
+                    <tr>
+                        <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.AnaTypeID)</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTBussinessComboBox().ASOFTAnaTypeID(model =>model.AnaTypeID)
+                            .Enable(Model.FormStatus == ASOFTFormActionType.AddNew)
+                            .Events(e=>e.Change("CIF1031.combo_Changed")))
+                            @Html.ASOFTHidden(AT1011.COL_LASTMODIFYDATE, Model.LastModifyDate != null ? Model.LastModifyDate.Value.ToString("dd/MM/yyyy HH:mm:ss.fff") : "")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.AnaID)</td>
+                        <td class="asf-td-field" colspan="2">@Html.ASOFTTextBox(model => model.AnaID, checkRegularExp:true).ReadOnlyIf(!(Model.FormStatus == ASOFTFormActionType.AddNew))</td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.AnaName)</td>
+                        <td class="asf-td-field" colspan="2">@Html.ASOFTTextBox(model => model.AnaName)</td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.RefDate)</td>
+                        <td class="asf-td-field" colspan="2">@Html.ASOFTDateEdit(model => model.RefDate)</td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.Notes)</td>
+                        <td class="asf-td-field" colspan="2">@(Html.ASOFTTextArea(model => model.Notes))</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td >@Html.ASOFTCheckbox(model => model.IsCommon)</td>
+                        <td >@Html.ASOFTCheckbox(model => model.Disabled).HideIf(Model.FormStatus==ASOFTFormActionType.AddNew)</td>
+                    </tr>
+                </table>
+        </div>
+    </div>
+    }
+
+@helper Tab02(){
+    <div class="asf-form-container">
+        <div class="form-content">
+            <div class="form-content-left">
+                <table class="asf-table-view">
+                    <tr>
+                        <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.Amount01)</td>
+                        <td class="asf-td-field" colspan="2">@Html.ASOFTSpinEdit(model => model.Amount01)</td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.Amount02)</td>
+                        <td class="asf-td-field" colspan="2">@Html.ASOFTSpinEdit(model => model.Amount02)</td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.Amount03)</td>
+                        <td class="asf-td-field" colspan="2">@Html.ASOFTSpinEdit(model => model.Amount03)</td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.Amount04)</td>
+                        <td class="asf-td-field" colspan="2">@Html.ASOFTSpinEdit(model => model.Amount04)</td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.Amount05)</td>
+                        <td class="asf-td-field" colspan="2">@Html.ASOFTSpinEdit(model => model.Amount05)</td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.Amount06)</td>
+                        <td class="asf-td-field" colspan="2">@Html.ASOFTSpinEdit(model => model.Amount06)</td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.Amount07)</td>
+                        <td class="asf-td-field" colspan="2">@Html.ASOFTSpinEdit(model => model.Amount07)</td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.Amount08)</td>
+                        <td class="asf-td-field" colspan="2">@Html.ASOFTSpinEdit(model => model.Amount08)</td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.Amount09)</td>
+                        <td class="asf-td-field" colspan="2">@Html.ASOFTSpinEdit(model => model.Amount09)</td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.Amount10)</td>
+                        <td class="asf-td-field" colspan="2">@Html.ASOFTSpinEdit(model => model.Amount10)</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="form-content-right">
+                <table class="asf-table-view">
+                    <tr>
+                        <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.Note01)</td>
+                        <td class="asf-td-field" colspan="2">@Html.ASOFTTextBox(model => model.Note01)</td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.Note02)</td>
+                        <td class="asf-td-field" colspan="2">@Html.ASOFTTextBox(model => model.Note02)</td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.Note03)</td>
+                        <td class="asf-td-field" colspan="2">@Html.ASOFTTextBox(model => model.Note03)</td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.Note04)</td>
+                        <td class="asf-td-field" colspan="2">@Html.ASOFTTextBox(model => model.Note04)</td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.Note05)</td>
+                        <td class="asf-td-field" colspan="2">@Html.ASOFTTextBox(model => model.Note05)</td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.Note06)</td>
+                        <td class="asf-td-field" colspan="2">@Html.ASOFTTextBox(model => model.Note06)</td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.Note07)</td>
+                        <td class="asf-td-field" colspan="2">@Html.ASOFTTextBox(model => model.Note07)</td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.Note08)</td>
+                        <td class="asf-td-field" colspan="2">@Html.ASOFTTextBox(model => model.Note08)</td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.Note09)</td>
+                        <td class="asf-td-field" colspan="2">@Html.ASOFTTextBox(model => model.Note09)</td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption asf-td-align">@Html.ASOFTLabel(model => model.Note10)</td>
+                        <td class="asf-td-field" colspan="2">@Html.ASOFTTextBox(model => model.Note10)</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    }
+
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/DRM/Content/Common.css")" rel="stylesheet" type="text/css" />
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/CI/Scripts/CIF1031.js?v=" + ASOFTEnvironment.Version)"></script>
+}
+
+@Html.ASOFTHidden("UrlInsert", Url.Action("Insert"))
+@Html.ASOFTHidden("UrlUpdate", Url.Action("Update"))
+@*@Html.ASOFTHidden("UrlDRF1022M", Url.Action("DRF1022M"))*@

@@ -1,0 +1,63 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     06/05/2013      Dam Mo          Tao moi
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.ViewModel.POS
+@using ASOFT.ERP.POS.Entities
+@using ASOFT.ERP.A00.Entities
+
+@model POSF00101ViewModel
+
+@{  
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "GridObjects",
+        Scrollable = true,
+        ControllerName = "POSF0010",
+        ActionName = "GridDataSearch",
+        NameEventPost = "sendDataSearch",
+        IsShowCheck = false,
+        IsAutoHeight = false,
+        HtmlAttribute = new
+        {
+            style = "height:500px;",
+            @class = "asf-grid"
+        },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "",
+                TitleColumn = "",
+                Width = 20,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"}),
+                 ClientTemplate  = "<input type='radio' name='radio-check' data-object-name='#=ObjectName#' data-object-id='#=ObjectID#' data-member-id='#=ObjectID#' value='#=ObjectID#' />",
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "ObjectID",
+                TitleColumn = Html.ASOFTRaw(model => model.ObjectID),
+                Width = 140,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "ObjectName",
+                TitleColumn = Html.ASOFTRaw(model => model.ObjectName),
+                Width = 140,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:right"})
+            }
+        }
+    };
+}
+
+@(Html.ASOFTCreateGrid<POSP0043>(gridsetting))

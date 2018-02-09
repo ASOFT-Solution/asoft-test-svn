@@ -1,0 +1,15 @@
+﻿#InventoryID {
+     display: block !important;
+}
+
+.asf-i-delete-32 span, .asf-i-add-32 span {
+    position: fixed;
+    right: -5000px;
+}
+
+
+.asf-i-delete-32, .asf-i-add-32 {
+    display: block;
+    height: 32px;
+    width: 32px;
+}

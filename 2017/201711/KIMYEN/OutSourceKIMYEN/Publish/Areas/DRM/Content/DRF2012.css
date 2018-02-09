@@ -1,0 +1,25 @@
+﻿.asf-td-contain-combo .asf-combobox span
+{
+    width:auto;
+    padding-left:0 !important;
+}
+
+.asf-td-contain-combo .asf-combobox .k-state-focused
+{
+    border-bottom:1px solid #aaa !important;
+}
+.asf-td-contain-combo .asf-combobox .k-state-border-down
+{
+     padding-left:0 !important;
+}
+.asf-table-send {
+    width: 76%;
+    font-weight: normal;
+    float: left;
+}
+.asf-table-send td {
+    border-bottom: 1px dotted #DDDDDD;
+    bottom: 0;
+    top: 10px;
+    /*vertical-align: bottom;*/
+}

@@ -1,0 +1,195 @@
+﻿
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Entities.Database
+@using ASOFT.ERP.ViewModel.DRM
+@using ASOFT.ERP.DRM.Entities
+@model DRF2050ViewModel
+@{
+    var hrefContractTM = Url.Content("~/DRM/DRF2000/DRF2002/?apk=#:APK#");
+    var hrefContractTD = Url.Content("~/DRM/DRF2010/DRF2012/?apk=#:APK#");
+    var gridsetting = new ASOFTGridSetting
+                          {
+                              NameGrid = "DRF2050Grid",
+                              NameEventPost = "DRF2050.sendDataFilter",
+                              Scrollable = true,
+                              ActionName = "GetDRF2050GridData",
+                              ControllerName = "DRF2050",
+                              HtmlAttribute = new {style = "height:590px;", @class = "asf-grid"},
+                              IsShowCheck = true,
+                              ListGridColumn = new List<ASOFTGridColumnSetting>{
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2050.COL_ROWNUM,
+                                                               TitleColumn = ASOFTLanguage.FindWordA00("A00.Order"),
+                                                               Width = 50,
+                                                               VisibleColumn = true,
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2050.COL_BRANCHID,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.BranchID),
+                                                               Width = 60,//100,
+                                                               VisibleColumn = true,
+                                                           },
+                                                           new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2050.COL_CLOSETEAMLEADERDATE,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.CloseTeamLeaderDate),
+                                                               Width = 80,//100,
+                                                               VisibleColumn = true,
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2050.COL_CLOSEMANAGERDATE,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.CloseManagerDate),
+                                                               Width = 80,//100,
+                                                               VisibleColumn = true,
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2050.COL_CLOSEDATE,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.CloseDate),
+                                                               Width = 80,//100,
+                                                               VisibleColumn = true,
+                                                           },
+                                        //new ASOFTGridColumnSetting
+                                        //                   {
+                                        //                       IDColumn = DRP2050.COL_TEAMLEADERCONFIRM,
+                                        //                       TitleColumn = Html.ASOFTRaw(model=>model.TeamLeaderConfirm),
+                                        //                       Width = 50,//100,
+                                        //                       VisibleColumn = true,
+                                        //                       ClientTemplate = string.Format("<input type='checkbox' #= {0} == 1 ? 'checked' : '' # onclick='return false;' disabled=disabled />",
+                                        //                                    DRP2050.COL_TEAMLEADERCONFIRM),
+                                        //                       HtmlAttrCoulmns = new { @class = "asf-cols-align-center" }
+                                        //                   },
+                                        //new ASOFTGridColumnSetting
+                                        //                   {
+                                        //                       IDColumn = DRP2050.COL_MANAGERCONFIRM,
+                                        //                       TitleColumn = Html.ASOFTRaw(model=>model.ManagerConfirm),
+                                        //                       Width = 50,//100,
+                                        //                       VisibleColumn = true,
+                                        //                       ClientTemplate = string.Format("<input type='checkbox' #= {0} == 1 ? 'checked' : '' # onclick='return false;' disabled=disabled />",
+                                        //                                    DRP2050.COL_MANAGERCONFIRM),
+                                        //                       HtmlAttrCoulmns = new { @class = "asf-cols-align-center" }
+                                        //                   },
+                                        //new ASOFTGridColumnSetting
+                                        //                   {
+                                        //                       IDColumn = DRP2050.COL_INFOROOMCONFIRM,
+                                        //                       TitleColumn = Html.ASOFTRaw(model=>model.InfoRoomConfirm),
+                                        //                       Width = 50,//100,
+                                        //                       VisibleColumn = true,
+                                        //                       ClientTemplate = string.Format("<input type='checkbox' #= {0} == 1 ? 'checked' : '' # onclick='return false;' disabled=disabled />",
+                                        //                                    DRP2050.COL_INFOROOMCONFIRM),
+                                        //                       HtmlAttrCoulmns = new { @class = "asf-cols-align-center" }
+                                        //                   },                                                           
+                                        //new ASOFTGridColumnSetting
+                                        //                   {
+                                        //                       IDColumn = DRP2050.COL_APK,
+                                        //                       TitleColumn = Html.ASOFTRaw(model=>model.SuggestID),
+                                        //                       Width = 200,
+                                        //                       VisibleColumn = true,
+                                        //                       ClientTemplate = string.Format("<a href='\\#' onclick='DRF2050.openDRF2051(\"{0}\")'>#:{1}#</a>", 
+                                        //                                string.Format("#:{0}#", DRP2060.COL_APK),
+                                        //                                DRP2050.COL_SUGGESTID),
+                                        //                       //ClientTemplate = string.Format("<a href='\\#' onclick='DRF2050.openDRF2051(\"{0}\")'>#:{1}# - {2:000} </a>", 
+                                        //                       //         string.Format("#:{0}#", DRP2060.COL_APK),
+                                        //                       //         DRP2050.COL_CONTRACTNO, 
+                                        //                       //         string.Format("#:{0}#", DRP2060.COL_ROWNUM)),
+                                        //                   },     
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2050.COL_CONTRACTNO,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.ContractNo),
+                                                               Width = 60,//180,
+                                                               VisibleColumn = true,
+                                                               ClientTemplate = "<a href=# if(DebtGroupID == 'NTM'){ #" + hrefContractTM + " #}else{# " + hrefContractTD + " #}#>#:ContractNo#</a>",
+                                                               //ClientTemplate = string.Format("<a href='{0}'>#:{1}#</a>", 
+                                                               //         Url.Content(string.Format("~/DRM/DRF2010/DRF2012/?apk=#:{0}#", DRP2050.COL_APK)),
+                                                               //         DRP2050.COL_CONTRACTNO),
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2050.COL_SUGGESTEMPLOYEENAME,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.SuggestEmployeeName),
+                                                               Width = 80,//200,
+                                                               VisibleColumn = true,       
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2050.COL_SUGGESTDATE,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.SuggestDate),
+                                                               Width = 80,//100,
+                                                               VisibleColumn = true,       
+                                                           },
+                                         new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2050.COL_CUSTOMERNAME,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.CustomerName),
+                                                               Width = 100,//200,
+                                                               VisibleColumn = true,       
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2050.COL_DEBTORID,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.DebtorID),
+                                                               Width = 60,//100,
+                                                               VisibleColumn = true,       
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2050.COL_DEBTORNAME,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.DebtorName),
+                                                               Width = 50,//200,
+                                                               VisibleColumn = true,
+                                                           },  
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2050.COL_TEAMID,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.TeamID),
+                                                               Width = 50,//100,
+                                                               VisibleColumn = true,
+                                                           },    
+                                        
+                                       //new ASOFTGridColumnSetting
+                                       //                    {
+                                       //                        IDColumn = DRP2050.COL_CLOSEDATE,
+                                       //                        TitleColumn = Html.ASOFTRaw(model=>model.CloseDate),
+                                       //                        Width = 80,//100,
+                                       //                        VisibleColumn = true,
+                                       //                    }
+                                
+                              }
+                          };
+}
+
+@{
+    var col = new ASOFTGridColumnSetting();
+    if(ASOFTEnvironment.CheckPermission("DRF2051", ASOFTPermission.AddNew))
+    {
+        col = new ASOFTGridColumnSetting()
+        {
+            IDColumn = DRP2050.COL_APK,
+            TitleColumn = Html.ASOFTRaw(model => model.SuggestID),
+            Width = 80,//200,
+            VisibleColumn = true,
+            ClientTemplate = string.Format("<a href='\\#' onclick='DRF2050.openDRF2051(\"{0}\")'>#:{1}#</a>",
+                    string.Format("#:{0}#", DRP2060.COL_APK),
+                    DRP2050.COL_SUGGESTID),
+        };
+    }
+    else
+    {
+        col = new ASOFTGridColumnSetting()
+        {
+            IDColumn = DRP2050.COL_APK,
+            TitleColumn = Html.ASOFTRaw(model => model.SuggestID),
+            Width = 80,
+            VisibleColumn = true,
+            ClientTemplate = string.Format("<span>#:{0}#</span>", DRP2050.COL_SUGGESTID),
+        };
+    }
+    gridsetting.ListGridColumn.Insert(2, col);
+}
+
+@(Html.ASOFTCreateGrid<ASOFT.ERP.DRM.Entities.DRP2050>(gridsetting,false))

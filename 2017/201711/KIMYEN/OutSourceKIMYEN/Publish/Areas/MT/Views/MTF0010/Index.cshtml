@@ -1,0 +1,44 @@
+﻿@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Entities.Common
+@using ASOFT.ERP.MT.Entities
+@model ASOFT.ERP.ViewModel.MT.MTF0010ViewModel
+@{
+    ViewBag.Title = "Hệ thống";
+}
+
+@section jsFeature{
+    <script src="@Url.Content(contentPath: "~/Areas/MT/Scripts/MTF0010.js")"></script>
+    <script src="@Url.Content(contentPath: "~/Areas/MT/Scripts/MTF0020.js")"></script>
+    <script src="@Url.Content(contentPath: "~/Areas/MT/Scripts/MTF0090.js")"></script>
+}
+
+@section styleFeature{
+    <link href="@Url.Content(contentPath: "~/Areas/MT/Content/MTF0010.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content(contentPath: "~/Areas/MT/Content/MTF0090.css")" rel="stylesheet" type="text/css" />
+}
+
+@Html.ASOFTHidden("UrlMtf0020", Url.Action("Index", "MTF0020"))
+@Html.ASOFTHidden("UrlMtf0090", Url.Action("Index", "MTF0090"))
+@Html.ASOFTHidden("UrlMtf0020Update", Url.Action("Update", "MTF0020"))
+@Html.ASOFTHidden("UrlCloseBook", Url.Action("Index",  new { area = "", controller = "CloseOpenBook" }))
+@Html.ASOFTHidden("UrlUpdateCloseBook", Url.Action("CloseBook",  new { area = "", controller = "CloseOpenBook" }))
+@Html.ASOFTHidden("UrlUpdateOpenBook", Url.Action("OpenBook",  new { area = "", controller = "CloseOpenBook" }))
+<div id='contentMaster'>
+     @Html.ASOFTHeader(new HeaderModel() { Title = "Hệ thống", Breakcrumb = true })
+        <div id="ViewMaster" class="asf-panel-view-master">
+            <div class="asf-master-content">
+                @Html.Partial("GeneralSetting")
+            </div>
+        </div>
+</div>
+
+@(Html.ASOFTPopup()
+    .Name("MTF0010Popup")
+    .Width(600))
+
+@(Html.ASOFTPopup()
+    .Name("MTF0090Popup")
+    .Width(1090))
+    
+

@@ -1,0 +1,1332 @@
+﻿html {
+    font-family: Tahoma, Geneva, sans-serif;
+}
+
+body {
+    height: 100%;
+    min-width: 1225px;
+    color: #000;
+    font-size: 12px;
+}
+
+.k-picker-wrap .k-select, .k-numeric-wrap .k-select, .k-dropdown-wrap .k-select {
+    width: 24px;
+}
+
+.k-textbox > input, .k-autocomplete .k-input, .k-picker-wrap .k-input, .k-numeric-wrap .k-input, .k-dropdown-wrap .k-input, .k-selectbox .k-input {
+    height: 24px;
+    padding: 0px;
+}
+
+.k-autocomplete.k-header {
+    background: none;
+}
+
+.k-autocomplete.k-state-hover, .k-autocomplete.k-state-focused {
+    border: 1px solid #AAAAAA !important;
+}
+
+.numberic {
+    text-align: right;
+}
+
+#asMainLayoutBottom {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 20px;
+    line-height: 18px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #F58634;
+    color: White;
+    font-size: 11px;
+    font-weight: bold;
+    font-family: Tahoma,Arial;
+}
+
+#popupInnerIframe {
+    padding: 10px 20px !important;
+    color: #000;
+}
+
+.popup-container {
+    margin: 0 auto;
+}
+
+#PopupIframe {
+    background: transparent;
+    padding: 0px !important;
+    margin: 0px !important;
+    overflow: hidden;
+}
+
+#PopupIframe iframe {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.asf-body-iframe {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+}
+
+.as_icon {
+    width: 34px;
+    padding: 34px 0px 0px 0px;
+    margin: 0px 2px;
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: 34px 34px;
+    font-size: 11px;
+    cursor: pointer;
+    float: right;
+    overflow: hidden;
+    text-align: center;
+}
+
+.as_icon.floatLeft {
+    float: left;
+}
+
+.as_icon.hidden {
+    display: none;
+}
+
+.as_icon.small {
+    width: 24px;
+    padding: 24px 0px 0px 0px;
+    background-size: 24px 24px;
+    font-size: 10px;
+}
+
+.as_absolute_full {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+}
+
+.space {
+    width: 10px !important;
+}
+
+.as_disable_padding {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.as_borderlabel {
+    border-style: solid;
+    border-width: 1px;
+}
+/*=====================================================================================*/
+/* Login Login Login Login Login Login Login Login Login Login Login Login */
+.Login, .Login form, .Login .outer {
+    width: 100%;
+    height: 100%;
+    background: url('/Content/Images/login_bg.png');
+}
+
+.Login .mainTable {
+    /*table-layout: fixed;*/
+    /*background-image: url('/Content/Images/login.png');*/
+    background: #f0f0f0;
+    background-repeat: no-repeat;
+    left: 50%;
+    /*margin-left: -300px;
+    margin-top: -250px;*/
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 600px;
+}
+
+
+.Login .asf-login-header {
+    width: 600px;
+    height: 75px;
+    background: url('/Content/Images/login_header.png');
+    border-bottom: 2px solid #006EB4;
+}
+
+.Login .asf-login-header-eimskip {
+    width: 600px;
+    height: 75px;
+    background: url('/Content/Images/login_header_eimskip.png');
+    border-bottom: 2px solid white;
+}
+
+.Login .asf-login-content {
+    float: left;
+    width: 100%;
+    text-align: center;
+}
+
+.Login .asf-login-content-eimskip {
+    float: left;
+    height: 228px;
+    width: 600px;
+    text-align: center;
+    background: url('/Content/Images/login_content-eimskip.png');
+    background-size: 600px 182px;
+}
+
+.Login .asf-login-form {
+    float: left;
+    width: 50%;
+}
+
+.Login .asf-login-form table {
+    margin: 20px 25px 15px;
+}
+
+.Login .asf-login-form table td {
+    padding-bottom: 10px;
+}
+
+.Login .asf-login-form-eimskip {
+    float: left;
+    width: 50%;
+    padding-left: 25%;
+}
+
+.Login .asf-login-form-eimskip table {
+    margin: 20px 25px 15px;
+}
+
+.Login .asf-login-form-eimskip table td {
+    padding-bottom: 10px;
+}
+
+.Login .asf-login-module {
+    float: left;
+    width: 45%;
+    height: 220px;
+    margin: 10px 0 0 17px;
+    background: url('/Content/Images/module.png') no-repeat;
+}
+
+.Login .asf-login-footer {
+    float: left;
+    background: #006EB4;
+    width: 100%;
+    height: 85px;
+}
+
+.Login .asf-login-footer-eimskip {
+    float: left;
+    background: #2471A8;
+    width: 600px;
+    height: 85px;
+    border-top: 2px solid white;
+}
+
+.asf-login-logo-footer {
+    float: left;
+    width: 90px;
+    height: 63px;
+    margin: 10px 0px 0px 0px;
+    background: url('/Content/Images/logo_footer.png') no-repeat;
+}
+
+.Login .asf-textbox {
+    padding: 0px 0px 0px 10px;
+    border: none !important;
+}
+
+.Login .asf-combobox {
+    padding: 0px 0px 0px 3px;
+}
+
+.Login .asf-combobox .k-dropdown-wrap {
+    border: none!important;
+}
+
+.Login .asf-combobox .k-dropdown-wrap .k-select {
+    background: #fff;
+    height: 32px;
+}
+
+.Login .asf-combobox .k-dropdown-wrap .k-select .k-i-arrow-s {
+    background-position: 0% 100%;
+    height: 32px;
+}
+
+.Login .asf-button {
+    background: #006EB4;
+    color: #fff;
+    line-height: 2.3em;
+    padding: 0 !important;
+}
+
+.Login .asf-button-active {
+    background: #004069 !important;
+    color: #fff;
+}
+
+.Login .asf-button:hover {
+    background: #00649A;
+    border: 1px solid #DCDCDC;
+}
+
+.Login .asf-login-capcha {
+    width: 136px;
+    height: 34px;
+    /*background:url('/Content/Images/login-capcha.png') no-repeat;*/
+}
+
+.Login .asf-login-capcha img {
+    float: right;
+    height: 32px;
+    width: 126px;
+}
+
+.Login #DivisionID, .Login #GroupID, .Login #UserID, .Login #Password, .Login #RePassword {
+    width: 202px;
+}
+
+.info {
+    height: 0px;
+    float: left;
+    text-align: left;
+    vertical-align: middle;
+    margin: 10px 0px 0px 25px;
+    color: #fff;
+    width: 80%;
+}
+
+.info a {
+    color: #fff;
+}
+
+.info .row {
+    margin: 0px 0px 0px 0px;
+}
+
+.info .header {
+    clear: left;
+    float: left;
+    color: #F58634;
+    font-weight: bolder;
+    width: 15px;
+}
+
+.icon-add-edit-delete {
+    width: 40px;
+    height: 40px;
+    border: 0;
+    text-decoration: none;
+}
+
+
+.non_selectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.tblLSanXuat span {
+    font-size: 13px !important;
+}
+
+.tblLSanXuat .tdTblLSanXuat {
+    width: 120px;
+    padding: 5px 0px 5px 0px;
+}
+
+.title input {
+    height: 30px !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+}
+
+/* Css cho combobbox */
+#login_division_id {
+}
+
+.value_item {
+    width: 237px;
+}
+
+input.value_item {
+    width: 235px;
+}
+
+.combo {
+    margin-left: 17px;
+    margin-top: 10px;
+    height: 30px !important;
+    width: 260px !important;
+}
+
+.combo .combo-text {
+    height: 32px !important;
+    width: 225px !important;
+}
+
+.combo-arrow {
+    width: 32px;
+    height: 32px;
+}
+
+.validatebox-text {
+    font-size: 12pt;
+    height: 30px;
+    border-style: none;
+    padding-left: 2px;
+    width: 260px !important;
+    margin-left: 17px;
+    margin-top: 10px;
+}
+
+.validatebox-invalid {
+    background-size: 32px 32px;
+}
+
+
+#login_button {
+    font-size: 10pt;
+    padding: 6px 18px;
+    position: absolute;
+    right: 321px;
+    top: 300px;
+}
+
+a.asoft-linkbutton {
+    background-color: #FF981D;
+    color: #FFFFFF;
+    display: inline-block;
+    font-size: 10pt;
+    padding: 3px 8px 5px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.t-loading {
+    background: url("../Images/BlueOpal/loading-image.gif") no-repeat scroll center;
+    margin: 0px auto;
+    height: 300px;
+    width: 50px;
+}
+
+.as-selection {
+    text-decoration: none;
+    font-weight: bold;
+    color: #000;
+}
+
+.as-selectiontop {
+    background-color: #7DD3F6;
+}
+/*Class Menu*/
+.as-menu {
+    float: left;
+    height: 100%;
+    margin: 0 auto 0 -35px;
+    overflow: hidden;
+    padding: 0;
+}
+
+.as-menu ul {
+    float: left;
+    height: 100%;
+    line-height: 30px;
+    margin: auto;
+}
+
+.as-menu ul li {
+    float: left;
+    line-height: 30px;
+    margin: 0 5px;
+}
+
+.as-menu ul li a {
+    text-decoration: none;
+    color: #000;
+}
+
+.as-menu ul li a:hover {
+    text-decoration: none;
+    font-weight: bold;
+    color: #000;
+}
+
+#ItemKeToan_Mnu_Tien_Win li {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0px;
+}
+
+#ItemKeToan_Mnu_Tien_Win li a {
+    text-decoration: none;
+    color: #000;
+}
+
+#ItemKeToan_Mnu_Tien_Win li a:hover {
+    text-decoration: none;
+    font-weight: bold;
+    color: #000;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.center {
+    text-align: center;
+}
+
+.k-widget > span.k-invalid,
+input.k-invalid {
+    /*border: 1px solid #FFCBCB !important;*/
+}
+
+.k-tooltip-validation {
+    /*display:none !important;*/
+}
+
+.field-validation-error {
+    display: none;
+}
+
+.k-invalid-msg {
+    /*display : inline !important;*/
+}
+
+td.waring {
+    width: 16px;
+}
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+/*.field-validation-error {
+    color: #ff0000;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+
+.display-label,
+.editor-label {
+    margin: 1em 0 0 0;
+}
+
+.display-field,
+.editor-field {
+    margin: 0.5em 0 0 0;
+}
+
+.text-box {
+    width: 30em;
+}
+
+.text-box.multi-line {
+    height: 6.5em;
+}
+
+.tri-state {
+    width: 6em;
+}
+
+*/
+.padding_default {
+    padding: 10px;
+}
+
+.control-hide {
+    display: none !important;
+}
+
+
+/*
+	Variable Grid System (Fluid Version).
+	Learn more ~ http://www.spry-soft.com/grids/
+	Based on 960 Grid System - http://960.gs/ & 960 Fluid - http://www.designinfluences.com/
+
+	Licensed under GPL and MIT.
+*/
+
+
+/* Containers
+----------------------------------------------------------------------------------------------------*/
+.container_12 {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* Grid >> Global
+----------------------------------------------------------------------------------------------------*/
+.grid_0 {
+    display: inline;
+    float: left;
+    position: relative;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.grid_1,
+.grid_2,
+.grid_3,
+.grid_4,
+.grid_4_1,
+.grid_5,
+.grid_6,
+.grid_6_1,
+.grid_7,
+.grid_8,
+.grid_9,
+.grid_10,
+.grid_11,
+.grid_12 {
+    display: inline;
+    float: left;
+    position: relative;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+/* Grid >> Children (Alpha ~ First, Omega ~ Last)
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .grid_6.line_left_with_grid:before {
+    border-left: 1px solid #b2b2b2;
+    content: "";
+    display: block;
+    margin: 1px;
+    position: absolute;
+    left: -16px;
+    top: 0;
+    bottom: 0;
+}
+
+.container_12.asf-form-popup .line_left:before {
+    left: -11px !important;
+}
+
+.container_12 .grid_6.line_left:before {
+    border-left: 1px solid #b2b2b2;
+    content: "";
+    display: block;
+    margin: 1px;
+    position: absolute;
+    left: -11px !important;
+    top: 0;
+    bottom: 0;
+}
+
+.container_12.asf-form-popup .line_right:after {
+    right: -11px !important;
+}
+
+.container_12 .grid_6.line_right:after {
+    border-left: 1px solid #b2b2b2;
+    content: "";
+    display: block;
+    margin: 1px;
+    position: absolute;
+    right: -11px !important;
+    top: 0;
+    bottom: 0;
+}
+
+.container_12 .grid_6_1.line_left:before,
+.container_12 .grid_4.line_left:before,
+.container_12 .grid_4_1.line_left:before {
+    border-left: 1px solid #b2b2b2;
+    content: "";
+    display: block;
+    margin: 1px;
+    position: absolute;
+    left: -16px;
+    top: 0;
+    bottom: 0;
+}
+
+.container_12 .grid_6_1.line_right:after,
+.container_12 .grid_4.line_right:after,
+.container_12 .grid_4_1.line_right:after {
+    border-left: 1px solid #b2b2b2;
+    content: "";
+    display: block;
+    margin: 1px;
+    position: absolute;
+    right: -16px;
+    top: 0;
+    bottom: 0;
+}
+
+.alpha {
+    margin-left: 0;
+}
+
+.omega {
+    margin-right: 0;
+}
+
+.container_12 .float_left {
+    float: left;
+}
+
+.container_12 .float_right {
+    float: right;
+}
+
+.container_12 ul.vertical {
+    list-style: none;
+}
+
+.container_12 ul.vertical li {
+    float: left;
+    margin-left: 10px;
+}
+/* Grid >> 12 Columns
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .grid_0 {
+    width: 1%;
+}
+
+.container_12 .grid_1 {
+    width: 6.333%;
+}
+
+.container_12 .grid_2 {
+    width: 14.667%;
+}
+
+.container_12 .grid_3 {
+    width: 23.0%;
+}
+
+.container_12 .grid_4 {
+    width: 31.333%;
+}
+
+.container_12 .grid_4_1 {
+    width: 33.333%;
+}
+
+
+.container_12 .grid_5 {
+    width: 39.667%;
+}
+
+.container_12 .grid_6 {
+    width: 48.0%;
+}
+
+.container_12 .grid_6_1 {
+    width: 49.0%;
+}
+
+.container_12 .grid_7 {
+    width: 56.333%;
+}
+
+.container_12 .grid_8 {
+    width: 64.667%;
+}
+
+.container_12 .grid_9 {
+    width: 73.0%;
+}
+
+.container_12 .grid_10 {
+    width: 81.333%;
+}
+
+.container_12 .grid_11 {
+    width: 89.667%;
+}
+
+.container_12 .grid_12 {
+    width: 98.0%;
+}
+
+
+
+/* Prefix Extra Space >> 12 Columns
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .prefix_0 {
+    padding-left: 1% !important;
+}
+
+.container_12 .prefix_1 {
+    padding-left: 8.333%;
+}
+
+.container_12 .prefix_2 {
+    padding-left: 16.667%;
+}
+
+.container_12 .prefix_3 {
+    padding-left: 25.0%;
+}
+
+.container_12 .prefix_4 {
+    padding-left: 33.333%;
+}
+
+.container_12 .prefix_5 {
+    padding-left: 41.667%;
+}
+
+.container_12 .prefix_6 {
+    padding-left: 50.0%;
+}
+
+.container_12 .prefix_7 {
+    padding-left: 58.333%;
+}
+
+.container_12 .prefix_8 {
+    padding-left: 66.667%;
+}
+
+.container_12 .prefix_9 {
+    padding-left: 75.0%;
+}
+
+.container_12 .prefix_10 {
+    padding-left: 83.333%;
+}
+
+.container_12 .prefix_11 {
+    padding-left: 91.667%;
+}
+
+
+
+/* Suffix Extra Space >> 12 Columns
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .suffix_0 {
+    padding-right: 1% !important;
+}
+
+.container_12 .suffix_1 {
+    padding-right: 8.333%;
+}
+
+.container_12 .suffix_2 {
+    padding-right: 16.667%;
+}
+
+.container_12 .suffix_3 {
+    padding-right: 25.0%;
+}
+
+.container_12 .suffix_4 {
+    padding-right: 33.333%;
+}
+
+.container_12 .suffix_5 {
+    padding-right: 41.667%;
+}
+
+.container_12 .suffix_6 {
+    padding-right: 50.0%;
+}
+
+.container_12 .suffix_7 {
+    padding-right: 58.333%;
+}
+
+.container_12 .suffix_8 {
+    padding-right: 66.667%;
+}
+
+.container_12 .suffix_9 {
+    padding-right: 75.0%;
+}
+
+.container_12 .suffix_10 {
+    padding-right: 83.333%;
+}
+
+.container_12 .suffix_11 {
+    padding-right: 91.667%;
+}
+
+
+
+/* Push Space >> 12 Columns
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .push_1 {
+    left: 8.333%;
+}
+
+.container_12 .push_2 {
+    left: 16.667%;
+}
+
+.container_12 .push_3 {
+    left: 25.0%;
+}
+
+.container_12 .push_4 {
+    left: 33.333%;
+}
+
+.container_12 .push_5 {
+    left: 41.667%;
+}
+
+.container_12 .push_6 {
+    left: 50.0%;
+}
+
+.container_12 .push_7 {
+    left: 58.333%;
+}
+
+.container_12 .push_8 {
+    left: 66.667%;
+}
+
+.container_12 .push_9 {
+    left: 75.0%;
+}
+
+.container_12 .push_10 {
+    left: 83.333%;
+}
+
+.container_12 .push_11 {
+    left: 91.667%;
+}
+
+
+
+/* Pull Space >> 12 Columns
+----------------------------------------------------------------------------------------------------*/
+
+
+.container_12 .pull_1 {
+    left: -8.333%;
+}
+
+.container_12 .pull_2 {
+    left: -16.667%;
+}
+
+.container_12 .pull_3 {
+    left: -25.0%;
+}
+
+.container_12 .pull_4 {
+    left: -33.333%;
+}
+
+.container_12 .pull_5 {
+    left: -41.667%;
+}
+
+.container_12 .pull_6 {
+    left: -50.0%;
+}
+
+.container_12 .pull_7 {
+    left: -58.333%;
+}
+
+.container_12 .pull_8 {
+    left: -66.667%;
+}
+
+.container_12 .pull_9 {
+    left: -75.0%;
+}
+
+.container_12 .pull_10 {
+    left: -83.333%;
+}
+
+.container_12 .pull_11 {
+    left: -91.667%;
+}
+
+.container_12 .empty {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+
+.container_period_label {
+    vertical-align:bottom !important;
+    width: 17%;
+}
+
+.container_period_control {
+    width: 31%;
+}
+
+.container_period_space {
+    width: 2%;
+}
+
+
+.container_label {
+    width: 35%;
+}
+
+.container_control {
+    width: 65%;
+}
+
+.container_quarter {
+    width: 15%;
+}
+
+.container_half {
+    width: 25%;
+}
+
+.container_20 {
+    width: 20%;
+}
+
+.container_80 {
+    width: 80%;
+}
+
+.container_control_half {
+    width: 50%;
+}
+
+/* Clear Floated Elements
+----------------------------------------------------------------------------------------------------*/
+
+/* http://sonspring.com/journal/clearing-floats */
+
+.clear {
+    clear: both;
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+/* http://perishablepress.com/press/2008/02/05/lessons-learned-concerning-the-clearfix-css-hack */
+
+.clearfix:after {
+    clear: both;
+    content: ' ';
+    display: block;
+    font-size: 0;
+    line-height: 0;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+.clearfix {
+    display: inline-block;
+}
+
+* html .clearfix {
+    height: 1%;
+}
+
+.clearfix {
+    display: block;
+}
+
+.fullscreen-frame {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background: #ffffff;
+}
+
+@media print {
+    .page-break {
+        display: block;
+        page-break-after: always;
+    }
+
+    .pos_inner .container_12 {
+        width: 100%;
+    }
+
+    .pos_inner {
+        display: block !important;
+        width: 100%!important;
+        margin: 0;
+        float: none!important;
+        background-color: white;
+        height: 100%;
+        position: fixed;
+        top: 10px;
+        left: 0;
+        margin: 0px !important;
+        padding: 0px !important;
+        /*font-size: 10px;*/
+    }
+
+    .pos_inner1 {   
+        display: block !important;
+        width: 90%!important;
+        margin-left: -30px !important;
+        float: none!important;
+        background-color: white;
+        height: 100%;
+        /*position: fixed;*/
+        top: 10px;
+        left: 0;
+
+        /*font-size: 10px;*/
+    }
+
+        .pos_inner label, .pos_inner span {
+            /**/ line-height: 15px !important;
+        }
+            
+        .pos_inner1 label, .pos_inner span {
+            /**/ line-height: 15px !important;
+        }
+
+    .grid_3 img {
+        /*width: 20px !important;*/
+        height: auto;
+    }
+
+    @page {
+        margin: 2px!important;
+        padding: 0px!important;
+        font-size: 10px !important;
+    }
+}
+
+/*
+    Update by Thai Son
+    */
+#FilterArea {
+    width: 100%;
+    height: 100%;
+    float: left;
+}
+
+.container1,
+.container2,
+.container3 {
+    float: left;
+    width: 100%;
+    /*background:green;*/
+    position: relative;
+}
+
+.container2 {
+    position: relative;
+    right: 32.33%;
+}
+
+.container1 {
+    position: relative;
+    right: 35.33%;
+}
+
+.col1,
+.col2,
+.col3 {
+    left: 66.67%;
+    overflow: hidden;
+}
+
+.col1 {
+    left: 67.67%;
+}
+
+.col2 {
+    left: 67.67%;
+}
+
+.col3 {
+    left: 67.67%;
+}
+
+div#FilterArea div.container3 div.line_right,
+div#FilterArea div.container3 div.container2 div.line_right {
+    border-right: 1px solid #B2B2B2;
+}
+
+.datagrid-header {
+    padding: 0 4px;
+}
+
+.datagrid-header-inner .asf-combo-item {
+    float: left;
+    width: 10000px;
+}
+
+.datagrid-header-inner td {
+    border: 1px solid;
+}
+
+.asf-combo-item-header {
+    width: 100%;
+    overflow: hidden;
+}
+
+.asf-combo-item-header-text {
+    float: left;
+    display: block;
+    width: 10000px;
+}
+
+.asf-combo-item-col {
+    /*border-right: 1px solid #DDD;*/
+}
+
+.asf-combo-item-header-text .asf-combo-item {
+}
+/*.asf-combo-item-header .asf-combo-item-col-value {
+    width: 80px;
+}
+
+.asf-combo-item-header .asf-combo-item-col-text {
+    width: 100px;
+}
+
+.asf-combo-item > .asf-combo-item-col-value {
+    width: 80px;
+    padding-right: 10px;
+    float: left;
+}
+
+.asf-combo-item > .asf-combo-item-col-text {
+    width: 100px;
+    float: left;
+}
+.k-animation-container {
+    width: 400px;
+}*/
+
+/*.asf-btn-login {
+    font-size: 10pt;
+    font-weight: bold;
+    height: 32px;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    background-color: #4D90FE;
+    background-image: -moz-linear-gradient(center top , #4D90FE, #4787ED);
+    border: 1px solid #3079ED;
+    color: #FFFFFF;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.asf-btn-login:hover {
+    text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    background-color:#1ebeff;
+}
+
+.asf-btn-login:active {
+    background-color:#0ff;
+    color:#ffa6a6;
+}
+*/
+.asf-login-error-msg {
+    background-color: #FFCBCB;
+    color: #000000;
+    font-weight: bold;
+    margin: 10px 0;
+    padding: 1px 10px;
+}
+
+.asf-header-popupconfig a {
+    display: block;
+    line-height: 32px;
+}
+
+.denied .main {
+    table-layout: fixed;
+    /*background-image: url('/Content/Images/login.png');*/
+    /*background: #f0f0f0;*/
+    background-repeat: no-repeat;
+    left: 50%;
+    margin-left: -300px;
+    /*margin-top: -250px;*/
+    position: absolute;
+    top: 35%;
+    width: 600px;
+}
+
+.denied .asf-login-content {
+    /*float: left;*/
+    width: 100%;
+    text-align: center;
+}
+
+.errordenied {
+    font-family: arial;
+    color: black;
+    font-size: 20px;
+}
+
+.userdenied {
+    font-family: arial;
+    color: #CC0000;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.contactadmin {
+    font-family: arial;
+    font-size: 16px;
+}
+
+.asf-td-label-left {
+    height: auto;
+}
+
+.asf-disabled-selection {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.asf-btn-on-grid:hover {
+    background-color:aliceblue;
+}
+
+.asf-btn-on-grid:active {
+    background-color:cyan;
+}

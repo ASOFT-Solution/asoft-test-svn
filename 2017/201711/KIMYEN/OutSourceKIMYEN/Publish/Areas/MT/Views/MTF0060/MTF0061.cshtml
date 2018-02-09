@@ -1,0 +1,142 @@
+﻿@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.ViewModel.MT;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using System.Web.UI.WebControls;
+@model ASOFT.ERP.ViewModel.MT.MTF0060ViewModel
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "MTF0061" }))
+{
+    <div class="asf-form-container">
+        <div class="mtf0061-form-content">
+          <fieldset>
+                 <legend><b>@Html.ASOFTRaw(model => model.ReportTitle)</b></legend>
+                 <table style="width:100%">
+                    <tr>
+                        <td class="content-label" style="width:28%">@Html.ASOFTLabel(model => model.ReportTitle)</td>
+                        <td class="asf-td-field" style="width:30%">
+                             @(Html.ASOFTTextBox(model => model.ReportID, null, new { width = Unit.Percentage(100) }).ReadOnlyIf(true))
+                        </td>
+                        <td class="asf-td-field">
+                             @(Html.ASOFTTextBox(model => model.ReportName, null, new { width = Unit.Percentage(100) }).ReadOnlyIf(true))
+                        </td>
+                   </tr>
+                   <tr>
+                         <td class="content-label">@Html.ASOFTLabel(model => model.Title)</td>
+                         <td class="asf-td-field" colspan="2">@(Html.ASOFTTextBox(model => model.Title, null, new { width = Unit.Percentage(100) }))</td>
+                   </tr>
+                 </table>
+        </fieldset>
+        <fieldset>
+            <legend><b>@Html.ASOFTRaw(model => model.BranchName)</b></legend>
+            <table style="width:100%">
+                <tr>
+                    <td class="content-label"style="width:28%">@Html.ASOFTLabel(model => model.BranchID)</td>
+                    <td class="asf-td-field" style="width:30%">
+                         @(Html.ASOFTBussinessComboBox().ASOFTBranchID(model => model.BranchID, true, new ComboOption(){ SelectedFirst = true })
+                                   .Events(e => e.Change("MTF0060.onBrand_Changed").DataBound("MTF0060.onBrand_Bound")))
+                    </td>
+                    <td class="asf-td-field">@Html.ASOFTTextBox(model => model.BranchName, null, new { width = Unit.Percentage(100) }).ReadOnlyIf(true)</td>
+                </tr>
+            </table>
+        </fieldset>
+        <fieldset>
+            <legend><b>@Html.ASOFTRaw(model => model.TimeTitle)</b></legend>
+            <div class="asf-filter-main">
+                <div class="block-left" style="width:51%"> 
+                    <div class="asf-filter-label" style="width:55%">
+                            @Html.ASOFTRadioButton(model=>model.IsDate, 1, new { id = "rdoDate", }).CheckedIf(true)
+                            @Html.ASOFTLabel(model => model.FromDate)
+                    </div>
+                    <div class="asf-filter-input" style="width:45%">
+                        @(Html.ASOFTDateEdit(model => model.FromDate, htmlStyle: new { width = Unit.Percentage(100) })
+                                .Value(DateTime.Now)
+                                .Enable(true)
+                                )
+                    </div>
+                </div>
+                <div class="block-right" style="width:45%">
+                    <div class="asf-filter-label"style="width:50%">
+                        @Html.ASOFTLabel(model=>model.ToDate)
+                    </div>
+                    <div class="asf-filter-input" style="width:50%">
+                        @(Html.ASOFTDateEdit(model => model.ToDate, htmlStyle: new { width = Unit.Percentage(100) })
+                                .Value(DateTime.Now)
+                                .Enable(true)
+                                )
+                    </div>
+                </div>
+            </div>
+            <div class="asf-filter-main">
+                <div class="block-left" style="width:51%">
+                    <div class="asf-filter-label" style="width:55%">
+                        <span>
+                            @Html.ASOFTRadioButton(model => model.IsDate, 0, new { id = "rdoPeriod" })
+                        </span>
+                        @Html.ASOFTLabel(model=>model.FromPeriod)
+                    </div>
+                    <div class="asf-filter-input" style="width:45%">
+                        @(Html.ASOFTBussinessComboBox()
+                                .ASOFTPeriod(model => model.FromPeriod, htmlStyle: new { width = Unit.Percentage(100) }).Events(e => e.Change("MTF0060.fromPeriod_Changed").DataBound("MTF0060.fromPeriod_Bound")
+                                ).Enable(false))
+    </div>
+                </div>
+                <div class="block-right" style="width:45%">
+                    <div class="asf-filter-label" style="width:50%">
+                        @Html.ASOFTLabel(model=>model.ToPeriod)
+                    </div>
+                    <div class="asf-filter-input" style="width:50%">
+                        @(Html.ASOFTBussinessComboBox()
+                                .ASOFTPeriod(model => model.ToPeriod, htmlStyle: new { width = Unit.Percentage(100) }).Events(e => e.Change("MTF0060.toPeriod_Changed").DataBound("MTF0060.toPeriod_Bound")
+                                ).Enable(false))
+    </div>
+                </div>
+            </div>
+        </fieldset>
+        <div class="asf-form-button">
+             <table class="asf-table-view">
+                <tr>
+                    <td align="right">
+                        <div class="asf-popup-button-container">
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                                      .Name("btnMTF0061Close").Events(e => e.Click("MTF0060.btnMTF0061Close_Click")))
+                            </div>
+                            <div>
+                                @{
+                                    var btnPrint = Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnPrint"))
+                                        .Name("btnMTF0061Print")
+                                        .Events(e => e.Click("MTF0060.btnMTF0061Print_Click"))
+                                        .Enable(ASOFTEnvironment.CheckPermission("MTF0061", ASOFTConstants.MODULE_MT, ASOFTPermission.Print));
+
+                                    if (!Model.ExportAndPrint)
+                                    {
+                                        btnPrint.HideIf(Model.FormStatus != ASOFTFormActionType.Print);
+                                    }
+                                }
+                                
+                                @btnPrint
+                            </div>
+                            <div>
+                                @{
+                                    var btnExport = Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnExcel"))
+                                        .Name("btnMTF0061Export")
+                                        .Events(e => e.Click("MTF0060.btnMTF0061Export_Click"))
+                                        .Enable(ASOFTEnvironment.CheckPermission("MTF0061", ASOFTConstants.MODULE_MT, ASOFTPermission.Print));
+
+                                    if (!Model.ExportAndPrint)
+                                    {
+                                        btnPrint.HideIf(Model.FormStatus != ASOFTFormActionType.ExportExcel);
+                                    }
+                                }
+                                
+                                @btnExport
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+      </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,43 @@
+﻿@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Infrastructure;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel;
+@using System.Web.UI.WebControls;
+@using  ASOFT.ERP.ViewModel.CI;
+@using Kendo.Mvc;
+@model ASOFT.ERP.ViewModel.CI.CIF1060ViewModel
+
+@helper FilterCol1(){    
+    <tr>
+        <td  class="asf-td-align">@Html.ASOFTLabel(model => model.CityID)</td>
+        <td colspan="4">@Html.ASOFTTextBox(model => model.CityID)</td>
+    </tr>   
+}
+
+@helper FilterCol2(){
+    <tr>
+        <td class="asf-td-align">@Html.ASOFTLabel(model => model.CityName)</td>
+        <td colspan="4">@Html.ASOFTTextBox(model => model.CityName)</td>
+    </tr>
+     @*
+    <tr>
+        <td class="asf-td-align">@Html.ASOFTLabel(model => model.IsCommon)</td>
+        <td colspan="4">@Html.ASOFTBussinessComboBox().ASOFTCiCodeMasterIsCommon(model => model.IsCommon)</td>
+    </tr>*@
+}
+
+@helper FilterCol3(){
+   @*<tr>
+        <td class="asf-td-align">@Html.ASOFTLabel(model => model.Disabled)</td>
+        <td colspan="4">@Html.ASOFTBussinessComboBox().ASOFTCiCodeMasterDisabled(model => model.Disabled)</td>
+   </tr>*@
+}
+
+@{
+    Html.RenderSection("MainView", new Dictionary<string, object>() { 
+        { "FilterCol1", this.FilterCol1().ToHtmlString() },     
+        { "FilterCol2", this.FilterCol2().ToHtmlString() },     
+        { "FilterCol3", this.FilterCol3().ToHtmlString() }   
+    });
+}

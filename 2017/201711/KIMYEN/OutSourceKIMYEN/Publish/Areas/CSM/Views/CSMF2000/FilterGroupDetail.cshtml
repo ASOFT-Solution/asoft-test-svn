@@ -1,0 +1,38 @@
+﻿@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Entities.Infrastructure;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel;
+@using ASOFT.ERP.ViewModel.Helper;
+@model ASOFT.ERP.ViewModel.ASOFTSysFieldsViewModel
+
+    <div class="container_12 asf-form-button" style ="margin-top:10px">
+       <div class ="grid_6 alpha float_left">
+          <div style="width:45%; float:left">
+              <div class="asf-filter-label">
+                    <label for="GSXStatus">GSXStatus</label>
+           </div>
+           <div class="asf-filter-input">
+                    @(Html.ASOFTBussinessComboBox().ASOFTGSXStatus(model=> model.Data, option: null, htmlAttributes: new {id = "GSXStatus"}))
+           </div>
+          </div>   
+           
+           <div style="width:45%; float:left; margin-left:50px">
+              <div class="asf-filter-label">
+                    <label for="PSC">PSC</label>
+              </div>
+              <div class="asf-filter-input">
+                    @(Html.ASOFTBussinessComboBox().ASOFTPSC(model=> model.Data, option:null, htmlAttributes: new {id = "PSC"}))
+              </div>
+           </div>
+       </div>
+        
+        <div class="grid_6 omega float_right">
+            <ul class="vertical float_right" style="margin-right:20px">
+                <li>
+                    <a class="k-button k-button-icontext asf-button" id="BtnFilter" style="" data-role="button" role="button" aria-disabled="false" tabindex="0"><span class="k-sprite k-icon asf-i-search-24"></span><span class="asf-button-text">Lọc dữ liệu</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>

@@ -1,0 +1,98 @@
+﻿
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Entities.Database
+@using ASOFT.ERP.ViewModel.DRM
+@using ASOFT.ERP.DRM.Entities
+@model SF0005ViewModel
+@{
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "SF0005Grid",
+        //NameEventPost = "DRF1000.sendDataFilter",
+        Scrollable = true,
+        ActionName = "GetGridData",
+        ControllerName = "SF0005",
+        IsShowCheck = false,
+        IsAutoHeight = false,
+        HtmlAttribute = new {style = "height:400px;", @class = "asf-grid"},
+        ListGridColumn = new List<ASOFTGridColumnSetting>{
+                new ASOFTGridColumnSetting
+                {
+                    IDColumn = "RowNum",
+                    TitleColumn = ASOFTLanguage.FindWordA00("A00.Order"),
+                    Width = 50,
+                    VisibleColumn = true,
+                },
+                new ASOFTGridColumnSetting
+                {
+                    IDColumn = A00001.COL_ID,
+                    TitleColumn = Html.ASOFTRaw(model=>model.ID),
+                    Width = 170,
+                    VisibleColumn = true,
+                },    
+                new ASOFTGridColumnSetting
+                {
+                    IDColumn = A00001.COL_NAME,
+                    TitleColumn = Html.ASOFTRaw(model=>model.Name),
+                    Width = 200,
+                    VisibleColumn = true,
+                },  
+                //new ASOFTGridColumnSetting
+                //{
+                //    IDColumn = A00001.COL_CUSTOMNAME,
+                //    TitleColumn = Html.ASOFTRaw(model=>model.CustomName),
+                //    Width = 200,
+                //    VisibleColumn = true,
+                //},  
+                new ASOFTGridColumnSetting
+                {
+                    IDColumn = A00001.COL_LANGUAGEID,
+                    TitleColumn = Html.ASOFTRaw(model=>model.LanguageID),
+                    Width = 100,
+                    VisibleColumn = true,
+                },
+                new ASOFTGridColumnSetting
+                {
+                    IDColumn = A00001.COL_MODULE,
+                    TitleColumn = Html.ASOFTRaw(model=>model.Module),
+                    Width = 100,
+                    VisibleColumn = true,
+                },
+                //new ASOFTGridColumnSetting
+                //{
+                //    IDColumn = A00001.COL_FORMID,
+                //    TitleColumn = Html.ASOFTRaw(model=>model.FormID),
+                //    Width = 100,
+                //    VisibleColumn = true,       
+                //},
+        }
+    };
+}
+
+@{
+    var col1 = new ASOFTGridColumnSetting();
+    var col2 = new ASOFTGridColumnSetting();
+    if(Model.IsLanguage)
+    {
+        col1 = new ASOFTGridColumnSetting()
+        {
+            IDColumn = A00001.COL_CUSTOMNAME,
+            TitleColumn = Html.ASOFTRaw(model => model.CustomName),
+            Width = 200,
+            VisibleColumn = true,
+        };
+        col2 = new ASOFTGridColumnSetting()
+        {
+            IDColumn = A00001.COL_FORMID,
+            TitleColumn = Html.ASOFTRaw(model => model.FormID),
+            Width = 100,
+            VisibleColumn = true,  
+        };
+        gridsetting.ListGridColumn.Insert(4, col1);
+        gridsetting.ListGridColumn.Insert(6, col2);
+    }
+ 
+}
+
+@(Html.ASOFTCreateGrid<SF0005GridViewModel>(gridsetting,false))

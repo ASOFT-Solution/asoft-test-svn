@@ -1,0 +1,115 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     19/07/2013      Thai Son        Tạo mới
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core
+
+@model ASOFT.ERP.ViewModel.POS.POSF0054ViewModel
+@{
+    Layout = "~/Views/Shared/_ContentMaster.cshtml";
+    ViewBag.Title = @Html.ASOFTPageTitle(model => model.Title, "POSF0054").ToHtmlString();
+
+}
+
+
+@section Header {
+    @Html.ASOFTHeader(new ASOFT.ERP.A00.Entities.Common.HeaderModel
+    {
+        Title = Html.ASOFTPageTitle(model => model.Title, "POSF0054").ToHtmlString(),
+        Breakcrumb = true
+    })
+}
+
+@section FilterCol1 {
+    <tr>
+        <td>@Html.ASOFTLabel(model => model.DivisionIDFilter)</td>
+        <td>
+            @(Html.ASOFTBussinessComboBox().ASOFTDivisionIDList2(model => model.DivisionIDFilter))
+        </td>
+    </tr>
+    <tr>
+        <td>@Html.ASOFTLabel(model => model.TranYear)</td>
+        <td>
+            @(Html.ASOFTBussinessComboBox().ASOFTYear(model => model.TranYear, "Years1", "ComboBox", option: new ComboOption() { EventPostData = "ShopIDMultiCheckList_Load" }))
+        </td>
+    </tr>
+}
+
+@section FilterCol2 {
+    <tr>
+        <td>@Html.ASOFTLabel(model => model.ShopID)</td>
+        <td>
+            @(Html.ASOFTBussinessComboBox().ASOFTShopIDMultiCheckList(model => model.ShopID, "ShopIDList2", "ComboBox", option: new ComboOption() { EventPostData = "ShopIDMultiCheckList_Load" }))
+        </td>
+    </tr>
+    <tr>
+        <td>@Html.ASOFTLabel(model => model.VoucherNo)</td>
+        <td>
+            @(Html.ASOFTTextBox(model => model.VoucherNo))
+        </td>
+    </tr>
+}
+
+@section FilterCol3 {
+
+    <tr>
+        <td>@Html.ASOFTLabel(model => model.EmployeeID)</td>
+        <td>
+            @(Html.ASOFTTextBox(model => model.EmployeeID))
+        </td>
+    </tr>
+    <tr>
+        <td>@Html.ASOFTLabel(model => model.Description)</td>
+        <td>
+            @(Html.ASOFTTextBox(model => model.Description))
+        </td>
+    </tr>
+
+}
+
+@section Grid {
+    @Html.Partial("GridVoucher")
+
+}
+@section FilterButtons {
+    <li>
+        @(Html.ASOFTSearchButton()
+                          .Name("btnFilter_").Events(e => e.Click("btnFilter_Click")))
+
+    </li>
+       
+    <li>
+        @(Html.ASOFTSearchResetButton()
+                          .Name("btnClearFilter_").Events(e => e.Click("btnClearFilter_Click")))
+    </li>
+}
+
+@section GridToolBar {
+    @{
+        var toolbarModel = new ASOFTToolBarViewModel
+        {
+            DisplayAdd = true,
+            DisplayDelete = true,
+
+            EventAdd = "btnAdd_Click",
+            EventDelete = "btnDelete_Click"
+        };
+    }
+    @Html.Partial("~/Views/Shared/EditorTemplates/Toolbar.cshtml", toolbarModel)
+
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF0054.js")" type="text/javascript"></script>
+    
+
+}
+
+
+

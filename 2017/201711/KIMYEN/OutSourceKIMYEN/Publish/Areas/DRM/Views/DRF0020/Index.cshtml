@@ -1,0 +1,117 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     04/09/2014      Đức Quý         Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.ViewModel.DRM
+@model DRF0020ViewModel
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.Title, "DRF0020").ToHtmlString();
+    ViewBag.Width = 600;
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new {id = "DRF0020"}))
+{
+ <div class="asf-form-container">
+    <div class="form-content">
+            <table class="asf-table-view">
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.DivisionID)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTBussinessComboBox().ASOFTDivisionID(model => model.DivisionID)
+                            .Events(e=>e.Change("DRF0020.divisionIDChanged")))
+                    </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.Period)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTBussinessComboBox().ASOFTPeriod(model => model.Period, option: new ComboOption { EventPostData = "DRF0020.periodData" })
+                                                        .CascadeFrom("DivisionID"))
+                    </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.BranchAna)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTBussinessComboBox().ASOFTAnaTypeID(model => model.BranchAna))
+                    </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.XRTemplate)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTBussinessComboBox().ASOFTETemplate(model => model.XRTemplate))
+                    </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.VPLTemplate)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTBussinessComboBox().ASOFTETemplate(model => model.VPLTemplate))
+                    </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.CloseTemplate)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTBussinessComboBox().ASOFTETemplate(model => model.CloseTemplate))
+                    </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.XR1TemplateHTML)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTBussinessComboBox().ASOFTETemplate(model => model.XR1TemplateHTML,1))
+                    </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.XR2TemplateHTML)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTBussinessComboBox().ASOFTETemplate(model => model.XR2TemplateHTML,1))
+                    </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.VPLTemplateHTML)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTBussinessComboBox().ASOFTETemplate(model => model.VPLTemplateHTML,1))
+                    </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.CVCATemplateHTML)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTBussinessComboBox().ASOFTETemplate(model => model.CVCATemplateHTML,1))
+                    </td>
+                </tr>
+            </table>
+    </div>
+</div>
+<div class="asf-form-button">
+    <table class="asf-table-view">
+        <tr>
+            <td align="right">
+                <div class="asf-popup-button-container">
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                              .Name("BtnClose")
+                              .Events(e => e.Click("DRF0020.btnClose_Click")))
+                    </div>
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnConfig"))
+                                .Name("BtnConfig")
+                                .Events(e => e.Click("DRF0020.btnConfig_Click")))
+                    </div>                          
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+}
+
+@section styleFeature{
+@*    <link href="@Url.Content("~/Areas/DRM/Content/DRF2001.css")" rel="stylesheet" type="text/css" />*@
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF0020/DRF0020.js?v=" + ASOFTEnvironment.Version)"></script>
+   @* @Html.RenderScripts(files: new[] { "CRMF2061" })*@
+}

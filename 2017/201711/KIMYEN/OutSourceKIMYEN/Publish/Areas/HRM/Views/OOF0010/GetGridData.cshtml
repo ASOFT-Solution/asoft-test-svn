@@ -1,0 +1,65 @@
+﻿
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Entities
+@using ASOFT.ERP.A00.Entities.Database
+@using ASOFT.ERP.ViewModel.HRM
+@using ASOFT.ERP.HRM.Entities
+@model OOF0010GridViewModel
+@{
+        var gridsetting = new ASOFTGridSetting
+        {
+            NameGrid = "OOF0010Grid",
+            NameEventPost = "",
+            Scrollable = true,
+            ActionName = "GetGridData",
+            ControllerName = "OOF0010",
+            HtmlAttribute = new { @class = "asf-grid", style = "height:150px;" },
+            IsShowCheck = true,
+            IsAutoHeight = false,
+            ListGridColumn = new List<ASOFTGridColumnSetting>{
+                                   new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = OOP0010.COL_ROWNUMBER,
+                                                               TitleColumn = ASOFTLanguage.FindWordA00("A00.Order"),
+                                                               Width = 50,
+                                                               VisibleColumn=true,
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center" }
+                                                           },
+                                   new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = OOP0010.COL_DUTYID,
+                                                               TitleColumn = @Html.ASOFTRaw(model=>model.DutyID),
+                                                               Width = 150,
+                                                               VisibleColumn = false
+                                                           },
+                                   new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = OOP0010.COL_DUTYNAME,
+                                                               TitleColumn = @Html.ASOFTRaw(model=>model.DutyName),
+                                                               Width = 150,
+                                                               VisibleColumn = true
+                                                           },
+                                    new ASOFTGridColumnSetting
+                                                        {
+                                                            IDColumn = OOP0010.COL_ISPERMISION,
+                                                            TitleColumn = string.Format("<input id='{0}' name='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='OOF0010.checkBox_ChangedAll(this)' /> {1}",
+                                                                            OOP0010.COL_ISPERMISION,@Html.ASOFTRaw(model=>model.IsPermision)),
+                                                            Width = 150,
+                                                            VisibleColumn = true,
+                                                            ClientTemplate = string.Format("<input id='{0}' name='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='OOF0010.checkBox_Changed(this)' #={1}==1? disabled='disabled':''# />",
+                                                                            OOP0010.COL_ISPERMISION,OOP0010.COL_ISLOCK),
+                                                            HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+                                                        },
+                                   new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = OOP0010.COL_ISLOCK,
+                                                               TitleColumn = @Html.ASOFTRaw(model=>model.IsLock),
+                                                               Width = 150,
+                                                               VisibleColumn = false
+                                                           }
+                                    }
+        };
+    }
+
+@(Html.ASOFTCreateGridEdit<OOP0010>(gridsetting,false))

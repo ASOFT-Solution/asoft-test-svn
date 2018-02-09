@@ -1,0 +1,80 @@
+﻿@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Infrastructure;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel;
+@using System.Web.UI.WebControls;
+@using  ASOFT.ERP.ViewModel.CRM;
+@using Kendo.Mvc;
+@model ASOFT.ERP.ViewModel.DRM.DRF2080ViewModel
+
+@helper FilterCol1(){
+    <tr>
+        <td width="25%">
+            @Html.ASOFTLabel(model => model.FromDate)
+        </td>
+        <td >
+            @(Html.ASOFTDateEdit(model => model.FromDate).Value(Model.FromDate))
+        </td>
+        <td ></td>
+        <td >@Html.ASOFTLabel(model => model.ToDate)</td>
+        <td >
+            @(Html.ASOFTDateEdit(model => model.ToDate).Value(Model.ToDate))
+        </td>
+    </tr>
+    <tr>
+        <td  class="asf-td-align">@Html.ASOFTLabel(model => model.BranchID)</td>
+        <td colspan="4"> @(Html.ASOFTBussinessComboBox().ASOFTDRMBranchIDList(model => model.BranchID))</td>
+    </tr>
+    <tr>
+        <td  class="asf-td-align">@Html.ASOFTLabel(model => model.CustomerID)</td>
+        <td colspan="4"> @(Html.ASOFTBussinessComboBox().ASOFTDRMCustomerID(model => model.CustomerID, true).SelectedIndex(0))</td>
+    </tr>
+    <tr>
+        <td  class="asf-td-align">@Html.ASOFTLabel(model => model.UserID)</td>
+        <td colspan="4">@(Html.ASOFTBussinessComboBox().ASOFTUserList(model => model.UserID).DataValueField(AT1405.COL_USERID).DataTextField(AT1405.COL_USERID))</td>
+    </tr>
+}
+
+@helper FilterCol2(){
+    <tr>
+        <td class="asf-td-align">@Html.ASOFTLabel(model => model.UserName)</td>
+        <td>@Html.ASOFTTextBox(model => model.UserName)</td>
+    </tr>
+    <tr>
+        <td class="asf-td-align">@Html.ASOFTLabel(model => model.DebtorID)</td>
+        <td>@Html.ASOFTTextBox(model => model.DebtorID)</td>
+    </tr>
+    <tr>
+        <td class="asf-td-align">@Html.ASOFTLabel(model => model.DebtorName)</td>
+        <td>@Html.ASOFTTextBox(model => model.DebtorName)</td>
+    </tr>
+    <tr>
+        <td class="asf-td-align">@Html.ASOFTLabel(model => model.ContractNo)</td>
+        <td>@Html.ASOFTTextBox(model => model.ContractNo)</td>
+    </tr>
+}
+
+@helper FilterCol3(){
+    <tr>
+        <td class="asf-td-align">@Html.ASOFTLabel(model => model.DebtGroupID)</td>
+        <td colspan="4">@(Html.ASOFTBussinessComboBox().ASOFTDRMDebtType(model => model.DebtGroupID).SelectedIndex(0))</td>
+    </tr>
+    <tr>
+        <td  class="asf-td-align">@Html.ASOFTLabel(model => model.TeamID)</td>
+        <td colspan="4"> @(Html.ASOFTBussinessComboBox().ASOFTDRMTeamID(model => model.TeamID, true).SelectedIndex(0))</td>
+    </tr>
+     
+    <tr>
+        <td class="asf-td-align">@Html.ASOFTLabel(model => model.DispatchTypeID)</td>
+        <td>@(Html.ASOFTBussinessComboBox().ASOFTDRMDocType_1(model => model.DispatchTypeID,true).SelectedIndex(0))</td>
+    </tr>
+}
+
+@{
+    Html.RenderSection("MainView", new Dictionary<string, object>() { 
+        { "FilterCol1", this.FilterCol1().ToHtmlString() },     
+        { "FilterCol2", this.FilterCol2().ToHtmlString() },     
+        { "FilterCol3", this.FilterCol3().ToHtmlString() }   
+    });
+}

@@ -1,0 +1,10 @@
+﻿@model string
+@using System.Collections
+@using ASOFT.ERP.POS.Entities
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.POS.Business
+
+
+@(Html.ASOFTBussinessComboBox()
+    .POSIsDisplay(model=>model, "POS000015",  false, !string.IsNullOrEmpty(POSSettings.ShopInfo.DisplayWareHouseID), !string.IsNullOrEmpty(POSSettings.ShopInfo.BrokenWareHouseID), htmlAttributes: new { listWidth = 500 }).Events(e => e.Change("posIsDisplay_Change")))
+)

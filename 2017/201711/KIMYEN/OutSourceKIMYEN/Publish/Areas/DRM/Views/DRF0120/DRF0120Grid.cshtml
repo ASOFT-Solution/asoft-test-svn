@@ -1,0 +1,58 @@
+﻿
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Entities.Database
+@using ASOFT.ERP.ViewModel.DRM
+@using ASOFT.ERP.DRM.Entities
+@model DRF0120ViewModel
+@{
+    var gridsetting = new ASOFTGridSetting
+                          {
+                              NameGrid = "DRF0120Grid",
+                              NameEventPost = "",
+                              Scrollable = true,
+                              ActionName = "GetGridData",
+                              ControllerName = "DRF0120",
+                              HtmlAttribute = new { @class = "asf-grid", AddNewRowDisabled = "true" },
+                              IsShowCheck = true,
+                              IsAutoHeight = false,
+                              ListGridColumn = new List<ASOFTGridColumnSetting>{
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = "RowNum",
+                                                               TitleColumn = ASOFTLanguage.FindWordA00("A00.Order"),
+                                                               Width = 50,
+                                                               VisibleColumn = true,
+                                                               ClientTemplate="#= DRF0120.rowNumber() #"
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP0120.COL_INDICATORNAME,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.Indicator),
+                                                               Width = 200,
+                                                               VisibleColumn = true, 
+                                                           },    
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP0120.COL_NTDAMOUNT,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.NTDAmount),
+                                                               Width = 100,
+                                                               VisibleColumn = true,
+                                                               EditColumn = true,
+                                                               EditorTemplateName = "DRMSpinEdit"
+                                                           }, 
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP0120.COL_NTMAMOUNT,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.NTMAmount),
+                                                               Width = 100,
+                                                               VisibleColumn = true,
+                                                               EditColumn = true,
+                                                               EditorTemplateName = "DRMSpinEdit"
+                                                           },      
+                                
+                              }
+                          };
+}
+
+@(Html.ASOFTCreateGridEdit<ASOFT.ERP.DRM.Entities.DRP0120>(gridsetting,false))

@@ -1,0 +1,7 @@
+@model double?
+@(Html.Kendo().NumericTextBoxFor(m=>m)
+          .HtmlAttributes(new { style = "width:100%;align:right;"})
+          .Format(ASOFT.ERP.A00.Core.ASOFTEnvironment.NumberFormat.ConvertedDecimalsFormatString)
+          .Spinners(false)
+          .Decimals(ASOFT.ERP.A00.Core.ASOFTEnvironment.NumberFormat.ConvertedDecimals)
+)

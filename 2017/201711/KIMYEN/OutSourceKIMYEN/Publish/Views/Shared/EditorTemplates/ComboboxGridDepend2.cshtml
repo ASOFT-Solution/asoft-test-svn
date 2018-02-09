@@ -1,0 +1,26 @@
+﻿
+
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.ViewModel;
+@using Kendo.Mvc.UI
+
+@model string
+
+
+ @{  
+    ComboBoxDynamic DynamicComboModel = new ComboBoxDynamic();
+    List<string> cbdepend = new List<string>();
+    cbdepend = (List<string>)Session["cbdepend" + ASOFTEnvironment.UserID + ASOFTEnvironment.ModuleID];
+    DynamicComboModel.sysComboBoxID = cbdepend[0];
+    DynamicComboModel.ScreenID = Session["scr" + ASOFTEnvironment.UserID + ASOFTEnvironment.ModuleID].ToString();
+    DynamicComboModel.Module = Session["mdl" + ASOFTEnvironment.UserID + ASOFTEnvironment.ModuleID].ToString();
+    cbdepend.Remove(cbdepend[0]);
+    Session.Remove("cbdepend" + ASOFTEnvironment.UserID + ASOFTEnvironment.ModuleID);
+    if (cbdepend.Count > 0)
+    {
+        Session["cbdepend" + ASOFTEnvironment.UserID + ASOFTEnvironment.ModuleID] = cbdepend;
+    } 
+  }
+  @Html.ASOFTBussinessComboBox().ASOFTComboBoxMultiColumn(m => m, DynamicComboModel, true, htmlAttributes: new { @id = "cbb" + DynamicComboModel.sysComboBoxID, @Module = DynamicComboModel.Module, @ScreenID = DynamicComboModel.ScreenID, @sysComboBoxID = DynamicComboModel.sysComboBoxID}).Events(e => e.Open("OpenComboDynamic"))

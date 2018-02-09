@@ -1,0 +1,39 @@
+﻿
+@model ASOFT.ERP.ViewModel.S.SF1051ViewModel
+@using System.Web.UI.WebControls;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Database
+
+
+<div class="container_12">
+    <table class="asf-table-view">
+            <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.RoleID)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTTextBox(model => model.RoleID, htmlAttribute: new { initValue = Model.RoleID }, checkRegularExp: true)
+                                .ReadOnlyIf(Model.isUsing))
+                    </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.RoleName)</td>
+                    <td class="asf-td-field" colspan="2">@Html.ASOFTTextBox(model => model.RoleName, htmlStyle: new { width = Unit.Percentage(100) }) </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.ParentRoleID)</td>
+                    <td class="asf-td-field" colspan="2">
+
+                        @(Html.ASOFTBussinessComboBox().ASOFTParentRoleID(model => model.ParentRoleID,
+                                        htmlStyle: new
+                                        {
+                                            width = Unit.Percentage(100)
+                                        }))
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td colspan="2">
+                         @(Html.ASOFTCheckbox(model => model.IsDefaultRoleID))
+                    </td>
+                </tr>
+    </table>
+</div>

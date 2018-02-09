@@ -1,0 +1,115 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Created                Comment
+//#     23/12/2015      Quang Hoàng            Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.ViewModel.S 
+@using ASOFT.ERP.A00.Core
+@model ASOFT.ERP.CRM.Entities.CMNP9002
+@using ASOFT.ERP.ViewModel.Helper;
+
+@{
+    var gridsetting = new ASOFTGridSetting 
+    {
+        NameGrid = "GridPartialRoute",
+        Scrollable = true,
+        ControllerName = "Partial",
+        ActionName = "GridData",
+        NameEventPost = "sendData",
+        IsShowCheck = false, 
+        IsAutoHeight = false,
+        HtmlAttribute = new { style = "height:250px;", @class = "asf-grid"} ,  
+        ListGridColumn= new List<ASOFTGridColumnSetting>
+        {
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "StationOrder",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("A00.StationOrder","A00"),
+                Width = 50,
+                VisibleColumn = true,
+               
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "StationID",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("A00.StationID","A00"),
+                Width = 50,
+                VisibleColumn = true,
+                          
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "StationName",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("A00.StationName","A00"),
+                Width = 50,
+                VisibleColumn = true,
+                          
+            },
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "Address",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("A00.Address","A00"),
+                Width = 50,
+                VisibleColumn = true,
+                           
+            },
+              new ASOFTGridColumnSetting
+            {
+                IDColumn = "Street",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("A00.Street","A00"),
+                Width = 50,
+                VisibleColumn = true,
+                       
+            },        
+
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "Ward",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("A00.Ward","A00"),
+                Width = 50,
+                VisibleColumn = true,
+                       
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "District",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("A00.District","A00"),
+                Width = 50,
+                VisibleColumn = true,
+                      
+            },           
+              new ASOFTGridColumnSetting
+            {
+                IDColumn = "Notes",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("A00.Notes","A00"),
+                Width = 50,
+                VisibleColumn = true,
+                       
+            },   
+        
+         }   
+      };            
+   }
+@(Html.ASOFTCreateGrid<ASOFT.ERP.CRM.Entities.CMNP9002>(gridsetting,false)) 
+  
+ 
+       
+        
+        
+        
+        
+    
+    
+    
+    
+    
+   
+    
+    
+
+

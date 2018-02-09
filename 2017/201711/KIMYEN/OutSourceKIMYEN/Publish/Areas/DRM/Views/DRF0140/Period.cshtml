@@ -1,0 +1,420 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     22/12/2014      Đức Quý       Tạo mới
+//####################################################################
+*@
+@using System.Web.UI.WebControls
+@model DRF0140ViewModel
+
+@helper Period()
+{
+    <table style="width:100%">
+        <tr>
+            <td class="content-label" style="width:20%">@Html.ASOFTLabel(model => model.Period)</td>
+            <td class="asf-td-field">
+                    @(Html.ASOFTBussinessComboBox()
+                        .ASOFTPeriod(model => model.Period, htmlStyle: new { width = Unit.Percentage(25) })
+                        )
+            </td>
+        </tr>
+        <tr>
+            <td class="content-label"> @Html.ASOFTLabel(model => model.BranchID)</td>
+            <td class="asf-td-field">
+                    @(Html.ASOFTBussinessComboBox().ASOFTDRMBranchIDList(model => model.BranchID))
+            </td>
+        </tr>
+        <tr>
+            <td class="content-label">@Html.ASOFTLabel(model => model.CustomerID)</td>
+            <td class="asf-td-field">
+                @(Html.ASOFTBussinessComboBox()
+                        .ASOFTDRMCustomerID(model => model.CustomerID, true)
+                        .SelectedIndex(0))
+            </td>
+        </tr>
+    </table>
+}
+
+@helper FromToPeriod()
+{
+@*    <div class="asf-filter-main">
+        <div class="block-left" style="width:45%"> 
+            <div class="asf-filter-label" style="width:28%">
+                    @Html.ASOFTLabel(model => model.FromPeriod)
+            </div>
+            <div class="asf-filter-input" style="width:55%">
+                    @(Html.ASOFTBussinessComboBox()
+                        .ASOFTPeriod(model => model.FromPeriod, htmlStyle: new { width = Unit.Percentage(100) })
+                        )
+            </div>
+        </div>
+        <div class="block-right" style="width:50%">
+            <div class="asf-filter-label" style="width:28%">
+                    @Html.ASOFTLabel(model => model.ToPeriod)
+            </div>
+            <div class="asf-filter-input" style="width:55%">
+                    @(Html.ASOFTBussinessComboBox()
+                        .ASOFTPeriod(model => model.ToPeriod, htmlStyle: new { width = Unit.Percentage(100) })
+                        )
+            </div>
+        </div>
+    </div>*@
+    <div class="asf-filter-main">
+        <table style="width:100%">
+            <tr>
+            <td class="content-label" style="width:20%">@Html.ASOFTLabel(model => model.Period)</td>
+            <td class="asf-td-field">
+                    @(Html.ASOFTBussinessComboBox()
+                        .ASOFTPeriod(model => model.Period, htmlStyle: new { width = Unit.Percentage(25) })
+                        )
+            </td>
+        </tr>
+          @*  <tr>
+                    <td class="content-label" style="width:20%"> @Html.ASOFTLabel(model => model.BranchID)</td>
+                    <td class="asf-td-field">
+                            @(Html.ASOFTBussinessComboBox().ASOFTDRMBranchIDList(model => model.BranchID))</td>
+            </tr>*@
+            <tr>
+                    <td class="content-label" style="width:20%"> @Html.ASOFTLabel(model => model.CustomerID)</td>
+                    <td class="asf-td-field">
+                            @(Html.ASOFTBussinessComboBox().ASOFTDRMCustomerID(model => model.CustomerID, true).SelectedIndex(0))</td>
+            </tr>
+            <tr>
+                    <td class="content-label" style="width:20%"> @Html.ASOFTLabel(model => model.City)</td>
+                    <td class="asf-td-field">
+                            @(Html.ASOFTBussinessComboBox()
+                                .ASOFTCICityID(model => model.City, ASOFTLanguage.FindWordA00("A00.AT1002_CityID"), 
+                                    ASOFTLanguage.FindWordA00("A00.AT1002_CityName"),true,
+                                    option: new ComboOption() { EventRequestEnd = "DRF0140.comboBox_RequestEnd" })
+                                .Events(e=>{
+                                    e.Change("DRF0140.comboBox_Changed");
+                                    e.Open("DRF0140.comboBox_Opened1");
+                                }).SelectedIndex(0))
+
+                    </td>
+            </tr>
+            <tr>
+                    <td class="content-label" style="width:20%"> @Html.ASOFTLabel(model => model.District)</td>
+                    <td class="asf-td-field">
+                             @(Html.ASOFTBussinessComboBox()
+                                .ASOFTCIDistrictID(model => model.District, ASOFTLanguage.FindWordA00("A00.AT1013_DistrictID"), 
+                                    ASOFTLanguage.FindWordA00("A00.AT1013_DistrictName"),true,
+                                    option: new ComboOption() { EventRequestEnd = "DRF0140.comboBox_RequestEnd" })
+                                .Events(e=>{
+                                    e.Change("DRF0140.comboBox_Changed");
+                                    e.Open("DRF0140.comboBox_Opened");
+                                }
+                                ).SelectedIndex(0))
+
+                    </td>
+            </tr>
+
+        </table>
+    </div>
+}
+
+@helper FromToPeriod_4()
+{
+    <div class="asf-filter-main">
+        <div class="block-left" style="width:45%"> 
+            <div class="asf-filter-label" style="width:28%">
+                    @Html.ASOFTLabel(model => model.FromPeriod)
+            </div>
+            <div class="asf-filter-input" style="width:55%">
+                    @(Html.ASOFTBussinessComboBox()
+                        .ASOFTPeriod(model => model.FromPeriod, htmlStyle: new { width = Unit.Percentage(100) })
+                        )
+            </div>
+        </div>
+        <div class="block-right" style="width:50%">
+            <div class="asf-filter-label" style="width:28%">
+                    @Html.ASOFTLabel(model => model.ToPeriod)
+            </div>
+            <div class="asf-filter-input" style="width:55%">
+                    @(Html.ASOFTBussinessComboBox()
+                        .ASOFTPeriod(model => model.ToPeriod, htmlStyle: new { width = Unit.Percentage(100) })
+                        )
+            </div>
+        </div>
+    </div>
+    <div class="asf-filter-main">
+        <table style="width:100%">
+            
+            <tr>
+                    <td class="content-label" style="width:20%"> @Html.ASOFTLabel(model => model.CustomerID)</td>
+                    <td class="asf-td-field">
+                            @(Html.ASOFTBussinessComboBox().ASOFTDRMCustomerID(model => model.CustomerID, true).SelectedIndex(0))</td>
+            </tr>
+              <tr>
+                    <td class="content-label" style="width:20%"> @Html.ASOFTLabel(model => model.ContractGroupID)</td>
+                    <td class="asf-td-field">
+                           @(Html.ASOFTBussinessComboBox().ASOFTDRMInfoTypeID_0140(model => model.ContractGroupID, "Reason", 
+                                ASOFTLanguage.FindWordA00("A00.ContractGroupID"), ASOFTLanguage.FindWordA00("A00.ContractGroupName"),true,
+                                option: new ComboOption() { EventRequestEnd = "DRF0140.comboBox_RequestEnd" })
+                                    .Events(e=>e.Change("DRF0140.combo_Changed")).SelectedIndex(0))
+
+                    </td>
+            </tr>
+            <tr>
+                    <td class="content-label" style="width:20%"> @Html.ASOFTLabel(model => model.City)</td>
+                    <td class="asf-td-field">
+                            @(Html.ASOFTBussinessComboBox()
+                                .ASOFTCICityID(model => model.City, ASOFTLanguage.FindWordA00("A00.AT1002_CityID"), 
+                                    ASOFTLanguage.FindWordA00("A00.AT1002_CityName"),true,
+                                    option: new ComboOption() { EventRequestEnd = "DRF0140.comboBox_RequestEnd" })
+                                .Events(e=>{
+                                    e.Change("DRF0140.comboBox_Changed");
+                                    e.Open("DRF0140.comboBox_Opened1");
+                                }).SelectedIndex(0))
+
+                    </td>
+            </tr>
+            <tr>
+                    <td class="content-label" style="width:20%"> @Html.ASOFTLabel(model => model.District)</td>
+                    <td class="asf-td-field">
+                             @(Html.ASOFTBussinessComboBox()
+                                .ASOFTCIDistrictID(model => model.District, ASOFTLanguage.FindWordA00("A00.AT1013_DistrictID"), 
+                                    ASOFTLanguage.FindWordA00("A00.AT1013_DistrictName"),true,
+                                    option: new ComboOption() { EventRequestEnd = "DRF0140.comboBox_RequestEnd" })
+                                .Events(e=>{
+                                    e.Change("DRF0140.comboBox_Changed");
+                                    e.Open("DRF0140.comboBox_Opened");
+                                }
+                                ).SelectedIndex(0))
+
+                    </td>
+            </tr>
+        </table>
+    </div>
+}
+
+@helper FromToPeriod_5()
+{
+    <div class="asf-filter-main">
+        <div class="block-left" style="width:45%"> 
+            <div class="asf-filter-label" style="width:28%">
+                    @Html.ASOFTLabel(model => model.FromPeriod)
+            </div>
+            <div class="asf-filter-input" style="width:55%">
+                    @(Html.ASOFTBussinessComboBox()
+                        .ASOFTPeriod(model => model.FromPeriod, htmlStyle: new { width = Unit.Percentage(100) })
+                        )
+            </div>
+        </div>
+        <div class="block-right" style="width:50%">
+            <div class="asf-filter-label" style="width:28%">
+                    @Html.ASOFTLabel(model => model.ToPeriod)
+            </div>
+            <div class="asf-filter-input" style="width:55%">
+                    @(Html.ASOFTBussinessComboBox()
+                        .ASOFTPeriod(model => model.ToPeriod, htmlStyle: new { width = Unit.Percentage(100) })
+                        )
+            </div>
+        </div>
+    </div>
+    <div class="asf-filter-main">
+        <table style="width:100%">
+            
+            <tr>
+                    <td class="content-label" style="width:20%"> @Html.ASOFTLabel(model => model.CustomerID)</td>
+                    <td class="asf-td-field">
+                            @(Html.ASOFTBussinessComboBox().ASOFTDRMCustomerID(model => model.CustomerID, true).SelectedIndex(0))</td>
+            </tr>
+              <tr>
+                    <td class="content-label" style="width:20%"> @Html.ASOFTLabel(model => model.ContractGroupID)</td>
+                    <td class="asf-td-field">
+                           @(Html.ASOFTBussinessComboBox().ASOFTDRMInfoTypeID_0140(model => model.ContractGroupID, "Reason",
+                                ASOFTLanguage.FindWordA00("A00.ContractGroupID"), ASOFTLanguage.FindWordA00("A00.ContractGroupName"),true,
+                                option: new ComboOption() { EventRequestEnd = "DRF0140.comboBox_RequestEnd" })
+                                    .Events(e=>e.Change("DRF0140.combo_Changed")).SelectedIndex(0))
+
+                    </td>
+            </tr>            
+        </table>
+    </div>
+}
+
+
+@helper DatePeriod()
+{
+    <table style="width:100%">
+        <tr>
+            <td class="content-label" style="width:11%;vertical-align:bottom">@Html.ASOFTRadioButton(model => model.Mode, 1, new { id = "rdoMode" })</td>
+            <td class="content-label" style="width:10%; vertical-align:bottom">@Html.ASOFTLabel(model => model.FromDate)</td>
+            <td class="asf-td-field">
+                   @(Html.ASOFTDateEdit(model => model.FromDate, htmlStyle: new { width = Unit.Percentage(100) }).Value(Model.FromDate))
+            </td>
+            <td style="width:5%"></td>
+            <td class="content-label" style="width:10%; vertical-align:bottom">@Html.ASOFTLabel(model => model.ToDate)</td>
+            <td class="asf-td-field">
+                    @(Html.ASOFTDateEdit(model => model.ToDate, htmlStyle: new { width = Unit.Percentage(100) }).Value(Model.ToDate))
+            </td>
+        </tr>
+        <tr>
+            <td class="content-label" style="width:11%;vertical-align:bottom">@Html.ASOFTRadioButton(model => model.Mode, 2, new { id = "rdoMode" })</td>
+            <td class="content-label" style="width:10%; vertical-align:bottom">@Html.ASOFTLabel(model => model.FromStringMonth)</td>
+            <td class="asf-td-field">
+                    @(Html.ASOFTBussinessComboBox()
+                        .ASOFTPeriod(model => model.FromStringMonth)
+                        .Enable(false)
+                        )
+            </td>
+            <td style="width:5%"></td>
+            <td class="content-label" style="width:10%; vertical-align:bottom">@Html.ASOFTLabel(model => model.ToStringMonth)</td>
+            <td class="asf-td-field">
+                    @(Html.ASOFTBussinessComboBox()
+                        .ASOFTPeriod(model => model.ToStringMonth)
+                        .Enable(false)
+                        )
+            </td>
+        </tr>
+        <tr>
+            <td class="content-label" style="width:11%;vertical-align:bottom">@Html.ASOFTRadioButton(model => model.Mode, 3, new { id = "rdoMode" })</td>
+            <td class="content-label" style="width:10%; vertical-align:bottom">@Html.ASOFTLabel(model => model.FromQuater)</td>
+            <td class="asf-td-field">
+                    @(Html.ASOFTBussinessComboBox()
+                        .ASOFTQuater(model => model.FromQuater)
+                        .Enable(false)
+                        )
+            </td>
+            <td style="width:5%"></td>
+            <td class="content-label" style="width:10%; vertical-align:bottom">@Html.ASOFTLabel(model => model.ToQuater)</td>
+            <td class="asf-td-field">
+                    @(Html.ASOFTBussinessComboBox()
+                        .ASOFTQuater(model => model.ToQuater)
+                        .Enable(false)
+                        )
+            </td>
+        </tr>
+        <tr>
+            <td class="content-label" style="width:13%;vertical-align:bottom">@Html.ASOFTRadioButton(model => model.Mode, 4, new { id = "rdoMode" })</td>
+            <td class="content-label" style="width:10%; vertical-align:bottom">@Html.ASOFTLabel(model => model.FromYear)</td>
+            <td class="asf-td-field">
+                    @(Html.ASOFTBussinessComboBox()
+                        .ASOFTTranYear(model => model.FromYear)
+                        .Enable(false)
+                        )
+            </td>
+            <td style="width:5%"></td>
+            <td class="content-label" style="width:10%; vertical-align:bottom">@Html.ASOFTLabel(model => model.ToYear)</td>
+            <td class="asf-td-field">
+                    @(Html.ASOFTBussinessComboBox()
+                        .ASOFTTranYear(model => model.ToYear)
+                        .Enable(false)
+                        )
+            </td>
+        </tr>
+        <tr>
+            <td class="content-label" style="vertical-align:bottom">@Html.ASOFTLabel(model => model.CustomerID)</td>
+            <td class="asf-td-field" colspan="5">
+                @(Html.ASOFTBussinessComboBox()
+                        .ASOFTDRMCustomerID(model => model.CustomerID)
+                        .SelectedIndex(0))
+            </td>
+        </tr>
+        <tr>
+            <td class="content-label" style="vertical-align:bottom"> @Html.ASOFTLabel(model => model.BranchID)</td>
+            <td class="asf-td-field" colspan="5" >
+                    @(Html.ASOFTBussinessComboBox().ASOFTDRMBranchIDList(model => model.BranchID))
+            </td>
+        </tr>
+    </table>
+}
+
+@helper FromToDate()
+{
+    <fieldset>
+        <legend><b>@Html.ASOFTRaw(model => model.Group03Title)</b></legend>
+        <div class="asf-filter-main">
+            <div class="block-left" style="width:51%"> 
+                <div class="asf-filter-label" style="width:38%">
+                        @Html.ASOFTLabel(model => model.FromDate)
+                </div>
+                <div class="asf-filter-input" style="width:61%">
+                    @(Html.ASOFTDateEdit(model => model.FromDate, htmlStyle: new { width = Unit.Percentage(100) })
+                            .Value(Model.FromDate)
+                            .Enable(true)
+                            )
+                </div>
+            </div>
+            <div class="block-right" style="width:45%">
+                <div class="asf-filter-label"style="width:38%">
+                    @Html.ASOFTLabel(model=>model.ToDate)
+                </div>
+                <div class="asf-filter-input" style="width:61%">
+                    @(Html.ASOFTDateEdit(model => model.ToDate, htmlStyle: new { width = Unit.Percentage(100) })
+                            .Value(Model.ToDate)
+                            .Enable(true)
+                            )
+                </div>
+            </div>
+        </div>
+    </fieldset>   
+}
+
+@helper Customer()
+{
+    <table style="width:100%">
+        <tr>
+            <td class="content-label" style="width:20%">@Html.ASOFTLabel(model => model.Period)</td>
+            <td class="asf-td-field">
+                    @(Html.ASOFTBussinessComboBox()
+                        .ASOFTPeriod(model => model.Period, htmlStyle: new { width = Unit.Percentage(25) })
+                        )
+            </td>
+        </tr>
+         <tr>
+            <td class="content-label">@Html.ASOFTLabel(model => model.CustomerID)</td>
+            <td class="asf-td-field">
+                @(Html.ASOFTBussinessComboBox()
+                        .ASOFTDRMCustomerID(model => model.CustomerID)
+                        .SelectedIndex(0))
+            </td>
+        </tr>
+        <tr>
+            <td class="content-label"> @Html.ASOFTLabel(model => model.BranchID)</td>
+            <td class="asf-td-field">
+                    @(Html.ASOFTBussinessComboBox().ASOFTDRMBranchIDList(model => model.BranchID))
+            </td>
+        </tr>
+    </table>
+}
+
+<fieldset>
+    <legend><b>@Html.ASOFTRaw(model => model.Group02Title)</b></legend>
+    @if(Model.ReportUsingType.Equals(2)) //Display html
+    {
+        @DatePeriod()
+    }
+    else if(Model.ReportUsingType.Equals(3))
+    {
+        @Customer()   
+    }
+    else if(Model.ReportUsingType.Equals(4))
+    {
+        @FromToPeriod()
+    }
+    else if(Model.ReportUsingType.Equals(5))
+    {
+        @FromToPeriod_4()
+    }
+    else if(Model.ReportUsingType.Equals(6))
+    {
+        @FromToPeriod_5()
+    }
+    else if(Model.ReportUsingType.Equals(7))
+    {
+       @Period()
+    }
+    else
+    {
+        @Period()
+    }
+</fieldset>
+@if(Model.ReportUsingType.Equals(1))
+{
+    @FromToDate()
+}

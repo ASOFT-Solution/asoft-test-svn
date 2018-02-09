@@ -1,0 +1,42 @@
+﻿@model string
+@using System.Web.UI.WebControls;
+@using ASOFT.ERP.A00.Core;
+
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = "Tìm kiếm";
+    ViewBag.Width = 500;
+}
+
+<div class="asf-form-container">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "Search" }))
+    {
+         <div class="asf-form-container">
+             <div class="form-content">
+                  <table class="asf-table-view">      
+                  </table>
+             </div>
+         </div>
+        <div id="period1" hidden>@Html.Partial(string.Format(@"../Shared/Control/PeriodFilterMobile"))</div>
+        <div id="period2" hidden>@Html.Partial(string.Format(@"../Shared/Control/PeriodCheckListMobile"))</div>
+        <div class="asf-form-button">
+             <table class="asf-table-view">
+                 <tr>
+                    <td align="right">
+                        <div class="asf-popup-button-container">
+                          @(Html.ASOFTSearchButton()
+                                  .Name("BtnFilter")
+                                  .Events(e => e.Click("BtnFilter_Click")))
+                          @(Html.ASOFTSearchResetButton()
+                                  .Name("BtnClearFilter")
+                                  .Events(e => e.Click("BtnClearFilter_Click")))
+                        </div>
+                    </td>
+                 </tr>
+            </table>
+        </div>
+    }
+</div>
+
+
+<script src="@Url.Content("~/Scripts/popupsearch.js" +"?v="+ASOFTEnvironment.Version)" type="text/javascript"></script>

@@ -1,0 +1,848 @@
+﻿@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.ViewModel.Helper
+@using ASOFT.ERP.A00.Core.Attribute;
+
+@helper Permission()
+{
+var blockSettingsEnabled = "container-block-settings";
+var blockSettingsDisabled = "container-block-settings-disabled";
+var imgEnabled = "asf-i-set asf-i-set-default";
+var imgDisabled = "asf-i-set-disabled asf-i-set-default";
+
+//Phân quyền màn hình
+var idSF0001 = ASOFTEnvironment.CheckPermission("SF0001", ASOFTConstants.MODULE_S, ASOFTPermission.AddNew) ? "sf0001Popup" : "";
+var clsBlockSF0001 = ASOFTEnvironment.CheckPermission("SF0001", ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+var imgSF0001 = ASOFTEnvironment.CheckPermission("SF0001", ASOFTConstants.MODULE_S, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+var idSF1000 = ASOFTEnvironment.CheckPermission("SF1000", ASOFTConstants.MODULE_S, ASOFTPermission.AddNew) ? "sf1000Popup" : "";
+var clsBlockSF1000 = ASOFTEnvironment.CheckPermission("SF1000", ASOFTConstants.MODULE_S, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+var imgSF1000 = ASOFTEnvironment.CheckPermission("SF1000", ASOFTConstants.MODULE_S, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+var idSF1010 = ASOFTEnvironment.CheckPermission("SF1010", ASOFTConstants.MODULE_S, ASOFTPermission.AddNew) ? "sf1010Popup" : "";
+var clsBlockSF1010 = ASOFTEnvironment.CheckPermission("SF1010", ASOFTConstants.MODULE_S, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+var imgSF1010 = ASOFTEnvironment.CheckPermission("SF1010", ASOFTConstants.MODULE_S, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+// Danh mục vài trò
+var idSF1050 = ASOFTEnvironment.CheckPermission("SF1050", ASOFTConstants.MODULE_S, ASOFTPermission.AddNew) ? "sf1050Popup" : "";
+var clsBlockSF1050 = ASOFTEnvironment.CheckPermission("SF1050", ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+var imgSF1050 = ASOFTEnvironment.CheckPermission("SF1050", ASOFTConstants.MODULE_S, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+//Gán quyền người dùng
+var idSF1052 = ASOFTEnvironment.CheckPermission("SF1052", ASOFTConstants.MODULE_S, ASOFTPermission.AddNew) ? "sf1052Popup" : "";
+var clsBlockSF1052 = ASOFTEnvironment.CheckPermission("SF1052", ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+var imgSF1052 = ASOFTEnvironment.CheckPermission("SF1052", ASOFTConstants.MODULE_S, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+// Phân quyền báo cáo
+var idSF0006 = ASOFTEnvironment.CheckPermission("SF0006", ASOFTConstants.MODULE_S, ASOFTPermission.AddNew) ? "sf0006Popup" : "";
+var clsBlockSF0006 = ASOFTEnvironment.CheckPermission("SF0006", ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+var imgSF0006 = ASOFTEnvironment.CheckPermission("SF0006", ASOFTConstants.MODULE_S, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+
+        <!--Danh mục người dùng -->
+    <div class="@clsBlockSF1000">
+        <div class="@imgSF1000" style="background: url(/Content/Images/icon_user.png)"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a id="@idSF1000" href="#">@ASOFTLanguage.FindWordA00("A00.UserScreen")</a>
+            </div>
+            <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.UserScreen")</div>
+        </div>
+    </div>
+
+     <!--Danh mục nhóm người dùng -->
+    <div class="@clsBlockSF1010">
+        <div class="@imgSF1010" style="background: url(/Content/Images/user_group.png)"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a id="@idSF1010" href="#">@ASOFTLanguage.FindWordA00("A00.UserGroup")</a>
+            </div>
+            <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.UserGroup")</div>
+        </div>
+    </div>
+
+    <!--Danh mục màn hình -->
+    <div class="@clsBlockSF0001">
+        <div class="@imgSF0001" style="background: url(/Content/Images/phanquyenmh.png)"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a id="@idSF0001" href="#">@ASOFTLanguage.FindWordA00("A00.ScreenPermission")</a>
+            </div>
+            <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.ScreenPermission")</div>
+        </div>
+    </div>
+
+    <div class="@clsBlockSF1050">
+        <div class="@imgSF1050" style="background: url(/Content/Images/ROLE_R.png) no-repeat"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a id="@idSF1050" href="#">@ASOFTLanguage.FindWordA00("A00.Role")</a>
+            </div>
+            <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.Role")</div>
+        </div>
+    </div>
+    <div class="@clsBlockSF1052">
+        <div class="@imgSF1052" style="background: url(/Content/Images/Ganquyen_R.png)"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a id="@idSF1052" href="#">@ASOFTLanguage.FindWordA00("A00.RolePermission")</a>
+            </div>
+            <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.RolePermission")</div>
+        </div>
+    </div>
+
+if (ASOFTEnvironment.CustomerIndex.Equals(ASOFTConstants.CUSTOMERINDEX_XUONGRONG)
+    || ASOFTEnvironment.CustomerIndex.Equals(ASOFTConstants.CUSTOMERINDEX_MEIKO)
+    || ASOFTEnvironment.CustomerIndex.Equals(ASOFTConstants.CUSTOMERINDEX_ANBINH)
+    || ASOFTEnvironment.CustomerIndex.Equals(ASOFTConstants.CUSTOMERINDEX_ANGEL)
+    || ASOFTEnvironment.CustomerIndex.Equals(ASOFTConstants.CUSTOMERINDEX_EIMSKIP)
+    || ASOFTEnvironment.CustomerIndex.Equals(-1)
+    || ASOFTEnvironment.CustomerIndex.Equals(ASOFTConstants.CUSTOMERINDEX_NEWTOYO)
+    )
+{
+    <!-- Phân quyền báo cáo -->
+        <div class="@clsBlockSF0006">
+            <div class="@imgSF0006"></div>
+            <div class="display-block-content">
+                <div class="display-block-content-key">
+                    <a id="@idSF0006" href="#">@ASOFTLanguage.FindWordA00("A00.PermissionReport")</a>
+                </div>
+                <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.PermissionReport")</div>
+            </div>
+        </div>
+}
+}
+
+@helper CommonSettings()
+{
+var blockSettingsEnabled = "container-block-settings";
+var blockSettingsDisabled = "container-block-settings-disabled";
+var imgEnabled = "asf-i-set asf-i-set-default";
+var imgDisabled = "asf-i-set-disabled asf-i-set-default";
+
+//Phân quyền màn hình thông tin công ty
+var idCIF0010 = ASOFTEnvironment.CheckPermission("CIF0010", ASOFTConstants.MODULE_CI, ASOFTPermission.AddNew) ? "cif0020Popup" : "";
+var clsBlockCIF0010 = ASOFTEnvironment.CheckPermission("CIF0010", ASOFTConstants.MODULE_CI, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+var imgCIF0010 = ASOFTEnvironment.CheckPermission("CIF0010", ASOFTConstants.MODULE_CI, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+//Phân quyền màn hình thiết lập mail server
+var idCIF0020 = ASOFTEnvironment.CheckPermission("CIF0020", ASOFTConstants.MODULE_CI, ASOFTPermission.AddNew) ? "cif0010Popup" : "";
+var clsBlockCIF0020 = ASOFTEnvironment.CheckPermission("CIF0020", ASOFTConstants.MODULE_CI, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+var imgCIF0020 = ASOFTEnvironment.CheckPermission("CIF0020", ASOFTConstants.MODULE_CI, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+//Mã tự động đối tượng
+var idCIF1330 = ASOFTEnvironment.CheckPermission("CIF1330", ASOFTConstants.MODULE_CI, ASOFTPermission.AddNew) ? "cif1330Popup" : "";
+var clsBlockCIF1330 = ASOFTEnvironment.CheckPermission("CIF1330", ASOFTConstants.MODULE_CI, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+var imgCIF1330 = ASOFTEnvironment.CheckPermission("CIF1330", ASOFTConstants.MODULE_CI, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+//Mã tự động mặt hàng
+var idCIF1340 = ASOFTEnvironment.CheckPermission("CIF1340", ASOFTConstants.MODULE_CI, ASOFTPermission.AddNew) ? "cif1340Popup" : "";
+var clsBlockCIF1340 = ASOFTEnvironment.CheckPermission("CIF1340", ASOFTConstants.MODULE_CI, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+var imgCIF1340 = ASOFTEnvironment.CheckPermission("CIF1340", ASOFTConstants.MODULE_CI, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+//Thông tin phân quyền màn hình thiết lập CRM
+var idCRMF0001 = ASOFTEnvironment.CheckPermission("CRMF0001", ASOFTConstants.MODULE_CRM, ASOFTPermission.AddNew) ? "CRMF0001Popup" : "";
+var clsBlockCRMF0001 = ASOFTEnvironment.CheckPermission("CRMF0001", ASOFTConstants.MODULE_CRM, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+var imgCRMF0001 = ASOFTEnvironment.CheckPermission("CRMF0001", ASOFTConstants.MODULE_CRM, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+//Thông tin chung
+var idPOSF0007 = ASOFTEnvironment.CheckPermission("POSF0007", ASOFTConstants.MODULE_POS, ASOFTPermission.AddNew) ? "posf0007Popup" : "";
+var clsBlockPOSF0007 = ASOFTEnvironment.CheckPermission("POSF0007", ASOFTConstants.MODULE_POS, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+var imgPOSF0007 = ASOFTEnvironment.CheckPermission("POSF0007", ASOFTConstants.MODULE_POS, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+// Thiết lập hình thức thanh toán
+var idPOSF0006 = ASOFTEnvironment.CheckPermission("POSF0006", ASOFTConstants.MODULE_POS, ASOFTPermission.AddNew) ? "posf0006Popup" : "";
+var clsBlockPOSF0006 = ASOFTEnvironment.CheckPermission("POSF0006", ASOFTConstants.MODULE_POS, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+var imgPOSF0006 = ASOFTEnvironment.CheckPermission("POSF0006", ASOFTConstants.MODULE_POS, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+// Thiết lập cách tính điểm
+var idPOSF0003 = ASOFTEnvironment.CheckPermission("POSF0003", ASOFTConstants.MODULE_POS, ASOFTPermission.AddNew) ? "posf0003Popup" : "";
+var clsBlockPOSF0003 = ASOFTEnvironment.CheckPermission("POSF0003", ASOFTConstants.MODULE_POS, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+var imgPOSF0003 = ASOFTEnvironment.CheckPermission("POSF0003", ASOFTConstants.MODULE_POS, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+//Phân quyền màn hình thiết lập hệ thống
+var idCIF0001 = ASOFTEnvironment.CheckPermission("CIF0001", ASOFTConstants.MODULE_CI, ASOFTPermission.AddNew) ? "cif0001Popup" : "";
+var clsBlockCIF0001 = ASOFTEnvironment.CheckPermission("CIF0001", ASOFTConstants.MODULE_CI, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+var imgCIF0001 = ASOFTEnvironment.CheckPermission("CIF0001", ASOFTConstants.MODULE_CI, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled; 
+
+    @*if (ASOFTEnvironment.CustomerIndex.Equals(ASOFTConstants.CUSTOMERINDEX_PHUCLONG) || ASOFTEnvironment.CustomerIndex == -1)
+        {
+            <div class="@clsBlockPOSF0007">
+                <div class="@imgPOSF0007" style="background: url(/Content/Images/thietlapchung.png)"></div>
+                <div class="display-block-content">
+                    <div class="display-block-content-key">
+                        <a id="@idPOSF0007" href="#">@LocalizedHelper.GetLocalizedResourceString("POSF0000.Common", "POSF0000", "POS")</a>
+                    </div>
+                    <div class="display-block-content-info">@LocalizedHelper.GetLocalizedResourceString("POSF0000.Common", "POSF0000", "POS")</div>
+                </div>
+            </div>
+        }*@
+
+    <!-- Thông tin mặc định -->
+    <div class="@clsBlockCIF0010">
+        <div class="@imgCIF0010" style="background: url(/Content/Images/thongtincty.png)"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a id="@idCIF0010" href="#">@ASOFTLanguage.FindWordA00("A00.CompanyInfo")</a>
+            </div>
+            <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.CompanyInfo")</div>
+        </div>
+    </div>@*
+
+            if (ASOFTEnvironment.CustomerIndex.Equals(ASOFTConstants.CUSTOMERINDEX_PHUCLONG) || ASOFTEnvironment.CustomerIndex == -1)
+            {
+                <div class="@clsBlockPOSF0006">
+                    <div class="@imgPOSF0006" style="background: url(/Content/Images/thietlappttt.png)"></div>
+                    <div class="display-block-content">
+                        <div class="display-block-content-key">
+                            <a id="@idPOSF0006" href="#">@LocalizedHelper.GetLocalizedResourceString("POSF0000.Payment", "POSF0000", "POS")</a>
+                        </div>
+                        <div class="display-block-content-info">@LocalizedHelper.GetLocalizedResourceString("POSF0000.Payment", "POSF0000", "POS")</div>
+                    </div>
+                </div>
+        // Thiết lập cách tính điểm
+                <div class="@clsBlockPOSF0003">
+                    <div class="@imgPOSF0003" style="background: url(/Content/Images/tinhdiem.png)"></div>
+                    <div class="display-block-content">
+                        <div class="display-block-content-key">
+                            <a id="@idPOSF0003" href="#">@LocalizedHelper.GetLocalizedResourceString("POSF0000.PointNo", "POSF0000", "POS")</a>
+                        </div>
+                        <div class="display-block-content-info">@LocalizedHelper.GetLocalizedResourceString("POSF0000.PointNo", "POSF0000", "POS")</div>
+                    </div>
+                </div>
+            }
+
+    *@<!-- Thiết lập mail server -->
+if (ASOFTEnvironment.CustomerIndex == ASOFTConstants.CUSTOMERINDEX_DONGDUONG || ASOFTEnvironment.CustomerIndex == ASOFTConstants.CUSTOMERINDEX_NEWTOYO)
+{
+        <div class="@clsBlockCIF0020">
+            <div class="@imgCIF0020" style="background: url(/Content/Images/Emailserver_R.png)"></div>
+            <div class="display-block-content">
+                <div class="display-block-content-key">
+                    <a id="@idCIF0020" href="#">@ASOFTLanguage.FindWordA00("A00.ConfigMailServer")</a>
+                </div>
+                <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.ConfigMailServer")</div>
+            </div>
+        </div>
+}
+
+        <!-- Mã tự động đối tượng -->
+if (!ASOFTEnvironment.CustomerIndex.Equals(ASOFTConstants.CUSTOMERINDEX_KIMYEN))
+{
+        <div class="@clsBlockCIF1330">
+            <div class="@imgCIF1330" style="background: url(/Content/Images/matudongdoituong.png)"></div>
+            <div class="display-block-content">
+                <div class="display-block-content-key">
+                    <a id="@idCIF1330" href="#">@ASOFTLanguage.FindWordA00("A00.ConfigObject")</a>
+                </div>
+                <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.ConfigObject")</div>
+            </div>
+        </div>
+}
+
+if (ASOFTEnvironment.CustomerIndex.Equals(ASOFTConstants.CUSTOMERINDEX_PHUCLONG))
+{
+                <!-- Mã tự động mặt hàng -->
+        <div class="@clsBlockCIF1340">
+            <div class="@imgCIF1340" style="background: url(/Content/Images/matudongmathang.png)"></div>
+            <div class="display-block-content">
+                <div class="display-block-content-key">
+                    <a id="@idCIF1340" href="#">@ASOFTLanguage.FindWordA00("A00.ConfigObject")</a>
+                </div>
+                <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.ConfigObject")</div>
+            </div>
+        </div>
+}
+
+if (ASOFTEnvironment.CustomerIndex.Equals(ASOFTConstants.CUSTOMERINDEX_DONGDUONG))
+{
+          <!-- Màn hình thiết lập CRM -->
+        <div class="@clsBlockCRMF0001">
+            <div class="@imgCRMF0001" style="background: url(/Content/Images/parameter_R.png)"></div>
+            <div class="display-block-content">
+                <div class="display-block-content-key">
+                    <a id="@idCRMF0001" href="#">@ASOFTLanguage.FindWordA00("A00.CRMF0001")</a>
+                </div>
+                <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.CRMF0001")</div>
+            </div>
+        </div>
+}
+
+ <!-- Thiết lập hệ thống -->
+    <div class="@clsBlockCIF0001">
+        <div class="@imgCIF0001"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a id="@idCIF0001" href="#">@ASOFTLanguage.FindWordA00("A00.ConfigAnaTypeID")</a>
+            </div>
+            <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.ConfigAnaTypeID")</div>
+        </div>
+    </div>
+
+}
+
+@helper OOSettings()
+{
+var blockSettingsEnabled = "container-block-settings";
+var blockSettingsDisabled = "container-block-settings-disabled";
+var imgEnabled = "asf-i-set asf-i-set-default";
+var imgDisabled = "asf-i-set-disabled asf-i-set-default";
+
+//Phân quyền màn hình thiết lập xét duyệt
+var idOOF0010 = ASOFTEnvironment.CheckPermission("OOF0010", ASOFTConstants.MODULE_HRM, ASOFTPermission.AddNew) ? "oof0010Popup" : "";
+var clsBlockOOF0010 = ASOFTEnvironment.CheckPermission("OOF0010", ASOFTConstants.MODULE_HRM, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+var imgOOF0010 = ASOFTEnvironment.CheckPermission("OOF0010", ASOFTConstants.MODULE_HRM, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+//Phân quyền màn hình thiết lập OT
+var idOOF0020 = ASOFTEnvironment.CheckPermission("OOF0020", ASOFTConstants.MODULE_HRM, ASOFTPermission.AddNew) ? "oof0020Popup" : "";
+var clsBlockOOF0020 = ASOFTEnvironment.CheckPermission("OOF0020", ASOFTConstants.MODULE_HRM, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+var imgOOF0020 = ASOFTEnvironment.CheckPermission("OOF0020", ASOFTConstants.MODULE_HRM, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+//Phân quyền màn hình thiết lập quản lý phép
+var idHF0390 = ASOFTEnvironment.CheckPermission("HF0390", ASOFTConstants.MODULE_HRM, ASOFTPermission.AddNew) ? "hf0390Popup" : "";
+var clsBlockHF0390 = ASOFTEnvironment.CheckPermission("HF0390", ASOFTConstants.MODULE_HRM, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+var imgHF0390 = ASOFTEnvironment.CheckPermission("HF0390", ASOFTConstants.MODULE_HRM, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+//Phân quyền màn hình thiết lập số chứng từ
+var checkHRMF0001 = ASOFTEnvironment.CheckPermission("HRMF0001", ASOFTConstants.MODULE_HRM, ASOFTPermission.AddNew);
+var idHRMF0001 = checkHRMF0001 ? "hrmf0001" : "";
+var clsBlockHRMF0001 = checkHRMF0001 ? blockSettingsEnabled : blockSettingsDisabled;
+var imgHRMF0001 = checkHRMF0001 ? imgEnabled : imgDisabled;
+
+//Phân quyền màn hình thiết lập số chứng từ
+var checkHRMF0010 = ASOFTEnvironment.CheckPermission("HRMF0010", ASOFTConstants.MODULE_HRM, ASOFTPermission.AddNew);
+var idHRMF0010 = checkHRMF0010 ? "hrmf0010" : "";
+var clsBlockHRMF0010 = checkHRMF0010 ? blockSettingsEnabled : blockSettingsDisabled;
+var imgHRMF0010 = checkHRMF0010 ? imgEnabled : imgDisabled;
+
+    <!-- Thiết lập thời gian xét duyệt -->
+    <div class="@clsBlockOOF0010">
+        <div class="@imgOOF0010"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a id="@idOOF0010" href="#">@ASOFTLanguage.FindWordA00("A00.OOF0010")</a>
+            </div>
+            <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.OOF0010")</div>
+        </div>
+    </div>
+
+    <!-- Thiết lập thời gian OT -->
+    <div class="@clsBlockOOF0020">
+        <div class="@imgOOF0020"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a id="@idOOF0020" href="#">@ASOFTLanguage.FindWordA00("A00.OOF0020")</a>
+            </div>
+            <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.OOF0020")</div>
+        </div>
+    </div>
+
+    <!-- Thiết lập quản lý phép-->
+    <div class="@clsBlockHF0390">
+        <div class="@imgHF0390"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a id="@idHF0390" href="#">@ASOFTLanguage.FindWordA00("A00.HF0390")</a>
+            </div>
+            <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.HF0390")</div>
+        </div>
+    </div>
+
+     <!-- Thiết lập mã tăng tự động - Đào tạo -->
+    <div class="@clsBlockHRMF0001">
+        <div class="@imgHRMF0001"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a id="@idHRMF0001" href="#">@ASOFTLanguage.FindWordA00("A00.HRMF0001")</a>
+            </div>
+            <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.HRMF0001")</div>
+        </div>
+    </div>
+
+      <!-- Thiết lập mã tăng tự động : tuyển dụng -->
+    <div class="@clsBlockHRMF0010">
+        <div class="@imgHRMF0010"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a id="@idHRMF0010" href="#">@ASOFTLanguage.FindWordA00("A00.HRMF0010")</a>
+            </div>
+            <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.HRMF0010")</div>
+        </div>
+    </div>
+}
+
+@helper POSSettings(byte close)
+{
+var blockSettingsEnabled = "container-block-settings";
+var blockSettingsDisabled = "container-block-settings-disabled";
+var imgEnabled = "asf-i-set asf-i-set-default";
+var imgDisabled = "asf-i-set-disabled asf-i-set-default";
+
+var idPOSF0007 = ASOFTEnvironment.CheckPermission("POSF0007", ASOFTConstants.MODULE_POS, ASOFTPermission.AddNew) ? "posf0007Popup" : "";
+var clsBlockPOSF0007 = ASOFTEnvironment.CheckPermission("POSF0007", ASOFTConstants.MODULE_POS, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+var imgPOSF0007 = ASOFTEnvironment.CheckPermission("POSF0007", ASOFTConstants.MODULE_POS, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+    <div class="@clsBlockPOSF0007">
+        <div class="@imgPOSF0007" style="background: url(/Content/Images/pos-setting.png)"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a id="@idPOSF0007" href="#">@LocalizedHelper.GetLocalizedResourceString("POSF0000.Common", "POSF0000", "POS")</a>
+            </div>
+            <div class="display-block-content-info">@LocalizedHelper.GetLocalizedResourceString("POSF0000.Common", "POSF0000", "POS")</div>
+        </div>
+    </div>
+
+var idPOSF0001 = ASOFTEnvironment.CheckPermission("POSF0001", ASOFTConstants.MODULE_POS, ASOFTPermission.AddNew) ? "posf0001Popup" : "";
+var clsBlockPOSF0001 = ASOFTEnvironment.CheckPermission("POSF0001", ASOFTConstants.MODULE_POS, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+var imgPOSF0001 = ASOFTEnvironment.CheckPermission("POSF0001", ASOFTConstants.MODULE_POS, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+    <div class="@clsBlockPOSF0001">
+        <div class="@imgPOSF0001" style="background: url(/Content/Images/pos-setting.png)"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a id="@idPOSF0001" href="#">@LocalizedHelper.GetLocalizedResourceString("POSF0000.Shop1", "POSF0000", "POS")</a>
+            </div>
+            <div class="display-block-content-info">@LocalizedHelper.GetLocalizedResourceString("POSF0000.Shop1", "POSF0000", "POS")</div>
+        </div>
+    </div>
+
+var idPOSF0006 = ASOFTEnvironment.CheckPermission("POSF0006", ASOFTConstants.MODULE_POS, ASOFTPermission.AddNew) ? "posf0006Popup" : "";
+var clsBlockPOSF0006 = ASOFTEnvironment.CheckPermission("POSF0006", ASOFTConstants.MODULE_POS, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+var imgPOSF0006 = ASOFTEnvironment.CheckPermission("POSF0006", ASOFTConstants.MODULE_POS, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+    <div class="@clsBlockPOSF0006">
+        <div class="@imgPOSF0006" style="background: url(/Content/Images/pos-setting.png)"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a id="@idPOSF0006" href="#">@LocalizedHelper.GetLocalizedResourceString("POSF0000.Payment", "POSF0000", "POS")</a>
+            </div>
+            <div class="display-block-content-info">@LocalizedHelper.GetLocalizedResourceString("POSF0000.Payment", "POSF0000", "POS")</div>
+        </div>
+    </div>
+
+var idPOSF0003 = ASOFTEnvironment.CheckPermission("POSF0003", ASOFTConstants.MODULE_POS, ASOFTPermission.AddNew) ? "posf0003Popup" : "";
+var clsBlockPOSF0003 = ASOFTEnvironment.CheckPermission("POSF0003", ASOFTConstants.MODULE_POS, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+var imgPOSF0003 = ASOFTEnvironment.CheckPermission("POSF0003", ASOFTConstants.MODULE_POS, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+    <div class="@clsBlockPOSF0003">
+        <div class="@imgPOSF0003" style="background: url(/Content/Images/pos-setting.png)"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a id="@idPOSF0003" href="#">@LocalizedHelper.GetLocalizedResourceString("POSF0000.PointNo", "POSF0000", "POS")</a>
+            </div>
+            <div class="display-block-content-info">@LocalizedHelper.GetLocalizedResourceString("POSF0000.PointNo", "POSF0000", "POS")</div>
+        </div>
+    </div>
+
+// Khóa sổ kỳ kế toán
+var idPOSF0008 = ASOFTEnvironment.CheckPermission("POSF0008", ASOFTConstants.MODULE_POS, ASOFTPermission.AddNew) && close == 0 ? "periodClosePopup" : "";
+var clsBlockPOSF0008 = ASOFTEnvironment.CheckPermission("POSF0008", ASOFTConstants.MODULE_POS, ASOFTPermission.AddNew) && close == 0 ? blockSettingsEnabled : blockSettingsDisabled;
+var imgPOSF0008 = ASOFTEnvironment.CheckPermission("POSF0008", ASOFTConstants.MODULE_POS, ASOFTPermission.AddNew) && close == 0 ? imgEnabled : imgDisabled;
+// Mở sổ kỳ kế toán
+var idPOSFXXXX = ASOFTEnvironment.CheckPermission("POSFXXXX", ASOFTConstants.MODULE_POS, ASOFTPermission.AddNew) && close == 1 ? "periodOpenPopup" : "";
+var clsBlockPOSFXXXX = ASOFTEnvironment.CheckPermission("POSFXXXX", ASOFTConstants.MODULE_POS, ASOFTPermission.AddNew) && close == 1 ? blockSettingsEnabled : blockSettingsDisabled;
+var imgPOSFXXXX = ASOFTEnvironment.CheckPermission("POSFXXXX", ASOFTConstants.MODULE_POS, ASOFTPermission.AddNew) && close == 1 ? imgEnabled : imgDisabled;
+
+    <div class="@clsBlockPOSF0008">
+        <div class="@imgPOSF0008" style="background: url(/Content/Images/khoaso.png)"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a id="@idPOSF0008" href="#">@LocalizedHelper.GetLocalizedResourceString("POSF0000.ClosePeriod", "POSF0000", "POS")</a>
+            </div>
+            <div class="display-block-content-info">@LocalizedHelper.GetLocalizedResourceString("POSF0000.ClosePeriod", "POSF0000", "POS")</div>
+        </div>
+    </div>
+
+     <!-- Mở sổ kỳ kế toán  -->
+    <div class="@clsBlockPOSFXXXX">
+        <div class="@imgPOSFXXXX" style="background: url(/Content/Images/moso.png) no-repeat"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a id="@idPOSFXXXX" href="#">@LocalizedHelper.GetLocalizedResourceString("POSF0000.OpenPeriod", "POSF0000", "POS")</a>
+            </div>
+            <div class="display-block-content-info">@LocalizedHelper.GetLocalizedResourceString("POSF0000.OpenPeriod", "POSF0000", "POS")</div>
+        </div>
+    </div>
+}
+
+@helper CISettings()
+{
+//var blockSettingsEnabled = "container-block-settings";
+//var blockSettingsDisabled = "container-block-settings-disabled";
+//var imgEnabled = "asf-i-set asf-i-set-default";
+//var imgDisabled = "asf-i-set-disabled asf-i-set-default";
+
+//Phân quyền màn hình thông tin công ty
+
+////Phân quyền màn hình thiết lập mail server
+//var idCIF0020 = ASOFTEnvironment.CheckPermission("CIF0020", ASOFTConstants.MODULE_CI, ASOFTPermission.AddNew) ? "cif0010Popup" : "";
+//var clsBlockCIF0020 = ASOFTEnvironment.CheckPermission("CIF0020", ASOFTConstants.MODULE_CI, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+//var imgCIF0020 = ASOFTEnvironment.CheckPermission("CIF0020", ASOFTConstants.MODULE_CI, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+////Phân quyền màn hình định nghĩa mã phân tích
+//var idCIF0030 = ASOFTEnvironment.CheckPermission("CIF0030", ASOFTConstants.MODULE_CI, ASOFTPermission.AddNew) ? "cif0030Popup" : "";
+//var clsBlockCIF0030 = ASOFTEnvironment.CheckPermission("CIF0030", ASOFTConstants.MODULE_CI, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+//var imgCIF0030 = ASOFTEnvironment.CheckPermission("CIF0030", ASOFTConstants.MODULE_CI, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+//Phân quyền màn hình thiết lập tiện tích
+
+//Mã tự động đối tượng
+//var idCIF1330 = ASOFTEnvironment.CheckPermission("CIF1330", ASOFTConstants.MODULE_CI, ASOFTPermission.AddNew) ? "cif1330Popup" : "";
+//var clsBlockCIF1330 = ASOFTEnvironment.CheckPermission("CIF1330", ASOFTConstants.MODULE_CI, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+//var imgCIF1330 = ASOFTEnvironment.CheckPermission("CIF1330", ASOFTConstants.MODULE_CI, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+//Mã tự động mặt hàng
+//var idCIF1340 = ASOFTEnvironment.CheckPermission("CIF1340", ASOFTConstants.MODULE_CI, ASOFTPermission.AddNew) ? "cif1340Popup" : "";
+//var clsBlockCIF1340 = ASOFTEnvironment.CheckPermission("CIF1340", ASOFTConstants.MODULE_CI, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+//var imgCIF1340 = ASOFTEnvironment.CheckPermission("CIF1340", ASOFTConstants.MODULE_CI, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+    @*<!-- Thiết lập mail server -->
+        if (!ASOFTEnvironment.CustomerIndex.Equals(ASOFTConstants.CUSTOMERINDEX_TTTMQ3)) {
+        <div class="@clsBlockCIF0020">
+            <div class="@imgCIF0020"></div>
+            <div class="display-block-content">
+                <div class="display-block-content-key">
+                    <a id="@idCIF0020" href="#">@ASOFTLanguage.FindWordA00("A00.ConfigMailServer")</a>
+                </div>
+                <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.ConfigMailServer")</div>
+            </div>
+        </div>
+        }*@
+//if (!ASOFTEnvironment.CustomerIndex.Equals(ASOFTConstants.CUSTOMERINDEX_OO) && !ASOFTEnvironment.CustomerIndex.Equals(ASOFTConstants.CUSTOMERINDEX_TTTMQ3))
+//{
+    <!-- Thiết lập mã phân tích -->@*
+        <div class="@clsBlockCIF0030">
+            <div class="@imgCIF0030" style="background: url(/Content/Images/dnmpt.png)"></div>
+            <div class="display-block-content">
+                <div class="display-block-content-key">
+                    <a id="@idCIF0030" href="#">@ASOFTLanguage.FindWordA00("A00.ConfigAnaID")</a>
+                </div>
+                <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.ConfigAnaID")</div>
+            </div>
+        </div>*@
+//}
+
+    <!-- Thiết lập tiện ích -->
+
+    @*
+
+        <!-- Mã tự động đối tượng -->
+         <div class="@clsBlockCIF1330">
+            <div class="@imgCIF1330" style="background: url(/Content/Images/matudongdoituong.png)"></div>
+            <div class="display-block-content">
+                <div class="display-block-content-key">
+                    <a id="@idCIF1330" href="#">@ASOFTLanguage.FindWordA00("A00.ConfigObject")</a>
+                </div>
+                <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.ConfigObject")</div>
+            </div>
+        </div>
+
+        <!-- Mã tự động mặt hàng -->
+         <div class="@clsBlockCIF1340">
+            <div class="@imgCIF1340" style="background: url(/Content/Images/matudongmathang.png)"></div>
+            <div class="display-block-content">
+                <div class="display-block-content-key">
+                    <a id="@idCIF1340" href="#">@ASOFTLanguage.FindWordA00("A00.ConfigInventory")</a>
+                </div>
+                <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.ConfigInventory")</div>
+            </div>
+        </div>*@
+}
+
+@helper CRMSettings()
+{
+var blockSettingsEnabled = "container-block-settings";
+var blockSettingsDisabled = "container-block-settings-disabled";
+var imgEnabled = "asf-i-set asf-i-set-default";
+var imgDisabled = "asf-i-set-disabled asf-i-set-default";
+
+//Thông tin phân quyền màn hình thiết lập CRM
+var idCRMF0000 = ASOFTEnvironment.CheckPermission("CRMF0000", ASOFTConstants.MODULE_CRM, ASOFTPermission.AddNew) ? "CRMF0000Popup" : "";
+var clsBlockCRMF0000 = ASOFTEnvironment.CheckPermission("CRMF0000", ASOFTConstants.MODULE_CRM, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+var imgCRMF0000 = ASOFTEnvironment.CheckPermission("CRMF0000", ASOFTConstants.MODULE_CRM, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+    <!-- Màn hình thiết lập CRM -->
+    <div class="@clsBlockCRMF0000">
+        <div class="@imgCRMF0000"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a id="@idCRMF0000" href="#">@ASOFTLanguage.FindWordA00("A00.CRMF0000")</a>
+            </div>
+            <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.CRMF0000")</div>
+        </div>
+    </div>
+}
+
+@helper SOSettings()
+{
+var blockSettingsEnabled = "container-block-settings";
+var blockSettingsDisabled = "container-block-settings-disabled";
+var imgEnabled = "asf-i-set asf-i-set-default";
+var imgDisabled = "asf-i-set-disabled asf-i-set-default";
+
+//Thông tin phân quyền màn hình thiết lập SO
+var idSOF0000 = ASOFTEnvironment.CheckPermission("SOF0000", ASOFTConstants.MODULE_SO, ASOFTPermission.AddNew) ? "SOF0000Popup" : "";
+var clsBlockSOF0000 = ASOFTEnvironment.CheckPermission("SOF0000", ASOFTConstants.MODULE_SO, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+var imgSOF0000 = ASOFTEnvironment.CheckPermission("SOF0000", ASOFTConstants.MODULE_SO, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+    <!-- Màn hình thiết lập CRM -->
+    <div class="@clsBlockSOF0000">
+        <div class="@imgSOF0000"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a id="@idSOF0000" href="#">@ASOFTLanguage.FindWordA00("A00.SOF0000")</a>
+            </div>
+            <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.SOF0000")</div>
+        </div>
+    </div>
+}
+
+@helper LMSettings()
+{
+var blockSettingsEnabled = "container-block-settings";
+var blockSettingsDisabled = "container-block-settings-disabled";
+var imgEnabled = "asf-i-set asf-i-set-default";
+var imgDisabled = "asf-i-set-disabled asf-i-set-default";
+
+//Thông tin phân quyền màn hình thiết lập LM
+var idLMF0001 = ASOFTEnvironment.CheckPermission("LMF0001", ASOFTConstants.MODULE_LM, ASOFTPermission.AddNew) ? "LMF0001Popup" : "";
+var clsBlockLMF0001 = ASOFTEnvironment.CheckPermission("LMF0001", ASOFTConstants.MODULE_LM, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+var imgLMF0001 = ASOFTEnvironment.CheckPermission("LMF0001", ASOFTConstants.MODULE_LM, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+    <!-- Màn hình thiết lập LM -->
+    <div class="@clsBlockLMF0001">
+        <div class="@imgLMF0001"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a id="@idLMF0001" href="#">@ASOFTLanguage.FindWordA00("A00.LMF0001")</a>
+            </div>
+            <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.LMF0001")</div>
+        </div>
+    </div>
+    
+// Khoa so mo so
+ <!-- Kỳ kế toán -->
+var idOpen = string.Empty;
+var idClose = string.Empty;
+var clsBlockOpen = string.Empty;
+var imgBlockOpen = string.Empty;
+var clsBlockClose = string.Empty;
+var imgBlockClose = string.Empty;
+if (ASOFTEnvironment.GetSession<byte>(ASOFTConstants.MODULE_LM + ASOFTEnvironment.KEY_CLOSING) == 1)
+{
+    idOpen = "openBook_LM";
+    idClose = "";
+    clsBlockOpen = "container-block-settings";
+    imgBlockOpen = "asf-i-set asf-i-set-default";
+    clsBlockClose = "container-block-settings-disabled";
+    imgBlockClose = "asf-i-set-disabled asf-i-set-default";
+}
+else
+{
+    idOpen = "";
+    idClose = "closeBook_LM";
+    clsBlockOpen = "container-block-settings-disabled";
+    imgBlockOpen = "asf-i-set-disabled asf-i-set-default";
+    clsBlockClose = "container-block-settings";
+    imgBlockClose = "asf-i-set asf-i-set-default";
+}
+
+
+
+//Thông tin phân quyền màn hình thiết lập LM
+var idLMF0002 = ASOFTEnvironment.CheckPermission("LMF0002", ASOFTConstants.MODULE_LM, ASOFTPermission.AddNew) ? "LMF0002Popup" : "";
+var clsBlockLMF0002 = ASOFTEnvironment.CheckPermission("LMF0002", ASOFTConstants.MODULE_LM, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+var imgLMF0002 = ASOFTEnvironment.CheckPermission("LMF0002", ASOFTConstants.MODULE_LM, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+    <!-- Màn hình thiết lập LM -->
+    <div class="@clsBlockLMF0002">
+        <div class="@imgLMF0002"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a id="@idLMF0002" href="#">@ASOFTLanguage.FindWordA00("A00.LMF0002")</a>
+            </div>
+            <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.LMF0002")</div>
+        </div>
+    </div>
+    
+    <div class="@clsBlockClose">
+        <div class="@imgBlockClose"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a
+                    href="#"
+                    id = '@idClose'>
+                    @ASOFTLanguage.FindWordA00("A00.CloseBook")
+                </a>
+            </div>
+            <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.CloseBook")</div>
+        </div>
+    </div>
+    
+    <!-- Mở sổ kỳ kế toán -->
+    <div class="@clsBlockOpen">
+        <div class="@imgBlockOpen"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a
+                    href="#"
+                    id='@idOpen'>
+                    @ASOFTLanguage.FindWordA00("A00.OpenBook")
+                </a>
+            </div>
+            <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.OpenBook")</div>
+        </div>
+    </div>
+}
+
+@helper CSMSettings()
+{
+var blockSettingsEnabled = "container-block-settings";
+var blockSettingsDisabled = "container-block-settings-disabled";
+var imgEnabled = "asf-i-set asf-i-set-default";
+var imgDisabled = "asf-i-set-disabled asf-i-set-default";
+
+//Thiết lập hệ thống CSM
+var idCSMF0001 = ASOFTEnvironment.CheckPermission("CSMF0001", ASOFTConstants.MODULE_LM, ASOFTPermission.AddNew) ? "CSMF0001Popup" : "";
+var clsBlockCSMF0001 = ASOFTEnvironment.CheckPermission("CSMF0001", ASOFTConstants.MODULE_LM, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+var imgCSMF0001 = ASOFTEnvironment.CheckPermission("CSMF0001", ASOFTConstants.MODULE_LM, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+    <!-- Màn hình thiết lập CSM -->
+    <div class="@clsBlockCSMF0001">
+        <div class="@imgCSMF0001"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a id="@idCSMF0001" href="#">@ASOFTLanguage.FindWordA00("A00.CSMF0001")</a>
+            </div>
+            <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.CSMF0001")</div>
+        </div>
+    </div>
+
+//Thiết lập tài khoản API cho người dùng theo hãng
+var idCSMF0002 = ASOFTEnvironment.CheckPermission("CSMF0002", ASOFTConstants.MODULE_LM, ASOFTPermission.AddNew) ? "CSMF0002Popup" : "";
+var clsBlockCSMF0002 = ASOFTEnvironment.CheckPermission("CSMF0002", ASOFTConstants.MODULE_LM, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+var imgCSMF0002 = ASOFTEnvironment.CheckPermission("CSMF0002", ASOFTConstants.MODULE_LM, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+
+    <!-- Màn hình thiết lập tài khoản API cho người dùng theo hãng -->
+    <div class="@clsBlockCSMF0002">
+        <div class="@imgCSMF0002"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a id="@idCSMF0002" href="#">@ASOFTLanguage.FindWordA00("A00.CSMF0002")</a>
+            </div>
+            <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.CSMF0002")</div>
+        </div>
+    </div>
+}
+
+@helper POSettings(byte close)
+{   
+    var blockSettingsEnabled = "container-block-settings";
+    var blockSettingsDisabled = "container-block-settings-disabled";
+    var imgEnabled = "asf-i-set asf-i-set-default";
+    var imgDisabled = "asf-i-set-disabled asf-i-set-default";
+
+     //Khóa sổ kỳ kế toán   
+    var idPOClose = close == 0 ? "periodClosePopupPO" : "";
+    var clsBlockPOClose = close == 0 ? blockSettingsEnabled : blockSettingsDisabled;
+    var imgPOClose = close == 0 ? imgEnabled : imgDisabled;
+    // Mở sổ kỳ kế toán   
+    var idPOOpen = close == 1 ? "periodOpenPopupPO" : "";
+    var clsBlockPOOpen = close == 1 ? blockSettingsEnabled : blockSettingsDisabled;
+    var imgPOOpen = close == 1 ? imgEnabled : imgDisabled;
+
+    var idPOF0001 = ASOFTEnvironment.CheckPermission("POF0001", ASOFTConstants.MODULE_PO, ASOFTPermission.AddNew) ? "pof0001Popup" : "";
+    var clsBlockPOF0001 = ASOFTEnvironment.CheckPermission("POF0001", ASOFTConstants.MODULE_PO, ASOFTPermission.AddNew) ? blockSettingsEnabled : blockSettingsDisabled;
+    var imgPOF0001 = ASOFTEnvironment.CheckPermission("POF0001", ASOFTConstants.MODULE_PO, ASOFTPermission.AddNew) ? imgEnabled : imgDisabled;
+    
+     <!-- Khóa sổ kỳ kế toán  -->
+     <div class="@clsBlockPOClose">
+        <div class="@imgPOClose" style="background: url(/Content/Images/khoaso.png)"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a id="@idPOClose" href="#">@ASOFTLanguage.FindWordA00("A00.CloseBook")</a>
+            </div>
+            <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.CloseBook")</div>
+        </div>
+    </div>
+    
+     <!-- Mở sổ kỳ kế toán  -->
+     <div class="@clsBlockPOOpen">
+        <div class="@imgPOOpen" style="background: url(/Content/Images/moso.png) no-repeat"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a id="@idPOOpen" href="#">@ASOFTLanguage.FindWordA00("A00.OpenBook")</a>
+            </div>
+            <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.OpenBook")</div>
+        </div>
+    </div>
+    
+         <!-- Thiết lập đơn hàng mua -->    
+    <div class="@clsBlockPOF0001">
+        <div class="@imgPOF0001" style="background: url(/Content/Images/pos-setting.png)"></div>
+        <div class="display-block-content">
+            <div class="display-block-content-key">
+                <a id="@idPOF0001" href="#">@ASOFTLanguage.FindWordA00("A00.POrder")</a>
+            </div>
+            <div class="display-block-content-info">@ASOFTLanguage.FindWordA00("A00.POrder")</div>
+        </div>
+    </div> 
+}
+
+@(Html.ASOFTPanel()
+    .Name("panelbar")
+    .HtmlAttributes(new { @class = "block-panel-master" })
+    .Animation(animation => animation.Enable(true))
+    .Items(panelbar =>
+    {
+        panelbar.Add().Text(ASOFTLanguage.FindWordA00("A00.Permission")).HtmlAttributes(new { @class = "block-panel-master-header" })
+        .Expanded(true)
+        .Content(this.Permission().ToHtmlString());
+
+        panelbar.Add().Text(ASOFTLanguage.FindWordA00("A00.CommonConfig")).HtmlAttributes(new { @class = "block-panel-master-header" })
+        .Expanded(true)
+        .Content(this.CommonSettings().ToHtmlString());
+
+        panelbar.Add().Text(ASOFTLanguage.FindWordA00("A00.ModuleHRM")).HtmlAttributes(new { @class = "block-panel-master-header" })
+           .Visible((ASOFTEnvironment.CustomerIndex != ASOFTConstants.CUSTOMERINDEX_XUONGRONG && ASOFTEnvironment.CustomerIndex != ASOFTConstants.CUSTOMERINDEX_DONGDUONG && ASOFTEnvironment.CustomerIndex != ASOFTConstants.CUSTOMERINDEX_OKIA)
+                       )
+           .Content(this.OOSettings().ToHtmlString());
+
+        panelbar.Add().Text(ASOFTLanguage.FindWordA00("A00.ModulePOS")).HtmlAttributes(new { @class = "block-panel-master-header" })
+          .Visible(ASOFTEnvironment.CustomerIndex == ASOFTConstants.CUSTOMERINDEX_OKIA || ASOFTEnvironment.CustomerIndex == ASOFTConstants.CUSTOMERINDEX_KIMYEN
+          || ASOFTEnvironment.CustomerIndex == ASOFTConstants.CUSTOMERINDEX_TTTMQ3 || ASOFTEnvironment.CustomerIndex == ASOFTConstants.CUSTOMERINDEX_MINHSANG)
+          .Content(this.POSSettings((byte)ViewBag.Closing).ToHtmlString());
+
+        ////Panel bar CRM
+        //panelbar.Add().Text(ASOFTLanguage.FindWordA00("A00.ModuleCRM")).HtmlAttributes(new { @class = "block-panel-master-header" })
+        //    .Visible((ASOFTEnvironment.GetSession<int>(ASOFTConstants.MODULE_CRM + ASOFTEnvironment.KEY_CustomerIndex) == ASOFTConstants.CUSTOMERINDEX_HOANGTRAN)
+        //                ||( ASOFTEnvironment.CustomerIndex == -1))
+        //    .Content(this.CRMSettings().ToHtmlString());
+
+        ////Panel bar SO
+        //panelbar.Add().Text(ASOFTLanguage.FindWordA00("A00.ModuleSO")).HtmlAttributes(new { @class = "block-panel-master-header" })
+        //    .Visible((ASOFTEnvironment.GetSession<int>(ASOFTConstants.MODULE_SO + ASOFTEnvironment.KEY_CustomerIndex) == ASOFTConstants.CUSTOMERINDEX_ANGEL)
+        //                || (ASOFTEnvironment.CustomerIndex == -1))
+        //    .Content(this.SOSettings().ToHtmlString());
+
+        //Panel bar SO
+        //panelbar.Add().Text(ASOFTLanguage.FindWordA00("A00.ModulePOS")).HtmlAttributes(new { @class = "block-panel-master-header" })
+        //    .Visible(true).Content(this.POSSettings().ToHtmlString());
+
+        //Panel bar LM
+        panelbar.Add().Text(ASOFTLanguage.FindWordA00("A00.ModuleLM")).HtmlAttributes(new { @class = "block-panel-master-header" })
+            .Visible(true)
+            .Content(this.LMSettings().ToHtmlString());
+
+        // panelbar CSM
+        panelbar.Add().Text(ASOFTLanguage.FindWordA00("A00.ModuleCSM")).HtmlAttributes(new { @class = "block-panel-master-header" })
+       .Visible(
+             new int[] { ASOFTConstants.CUSTOMERINDEX_VIETFIRST, -1 }.Contains(ASOFTEnvironment.CustomerIndex)
+            )
+       .Content(this.CSMSettings().ToHtmlString());
+        
+         //Panel bar PO
+        panelbar.Add().Text(ASOFTLanguage.FindWordA00("A00.ModulePO")).HtmlAttributes(new { @class = "block-panel-master-header" })
+            .Expanded(true)
+            .Visible(true).Content(this.POSettings((byte)ViewBag.ClosingPO).ToHtmlString());
+    })
+)

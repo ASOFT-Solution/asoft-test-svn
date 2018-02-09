@@ -1,0 +1,132 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     18/03/2014      Minh Lâm        Tạo mới
+//#     02/04/2014      Đam Mơ          Update
+//#     05/05/2014      Thai Son        Update
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core;
+
+
+@model ASOFT.ERP.ViewModel.POS.POSF0001ViewModel
+    
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    bool isPhucLong = Model.IsPHUCLONG();
+    
+    if (Model.IsKINGCOM())
+    {
+        ViewBag.Title = Html.ASOFTPageTitle(model => model.Title, "POSF0001").ToHtmlString();
+    }
+    else if (isPhucLong)
+    {
+        ViewBag.Title = Html.ASOFTPageTitle(model => model.Title2, "POSF0001").ToHtmlString();
+    }
+    else
+    {
+        ViewBag.Title = Html.ASOFTPageTitle(model => model.Title, "POSF0001").ToHtmlString();
+    }
+    ViewBag.Width = 600;
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new
+
+{
+    id = "POSF0001"
+}))
+{
+    <span class="asf-disabled-visibility">
+        @Html.ASOFTTextBox(model => model.LastModifyDateTicks)
+    </span>   
+    <table class="asf-table-view">
+        <thead>
+            <tr class="tr-zero-height">
+                @*<td class ="width150px"></td>
+                <td class ="width350px"></td>*@
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.ShopTypeID)</td>
+                <td>
+                    @(Html.ASOFTBussinessComboBox().ASOFTObjectTypeID(model => model.ShopTypeID)
+                .DataTextField(ASOFT.ERP.A00.Entities.Database.AT0005.COL_TYPEID)
+                .DataValueField(ASOFT.ERP.A00.Entities.Database.AT0005.COL_TYPEID)
+                        )
+
+                </td>
+                <td>
+                    @(Html.ASOFTTextBox(model => model.ShopTypeName).ReadOnlyIf(true))
+                </td>
+            </tr>
+            @if (isPhucLong)
+            {
+                <tr>
+                    <td>
+                        @Html.ASOFTLabel(model => model.GroupInventoryID)
+                    </td>
+                    <td>
+                        @(Html.ASOFTBussinessComboBox().ASOFTGroupInventoryTypeID(model => model.GroupInventoryID)
+                .DataTextField(ASOFT.ERP.A00.Entities.Database.AT0005.COL_TYPEID)
+                .DataValueField(ASOFT.ERP.A00.Entities.Database.AT0005.COL_TYPEID)
+                        )
+                    </td>
+                    <td>
+                        @(Html.ASOFTTextBox(model => model.GroupInventoryName).ReadOnlyIf(true))
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    
+    <div class="clearfix"></div>
+    <div class="asf-form-button">
+        <table class="asf-table-view">
+            <tr>
+                <td>@*align="right"*@
+                    <div class="asf-popup-button-container">
+
+
+                        <div>
+                            @(Html
+                            .ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                            .Name("btnClose")
+                            .Events(e => e.Click("btnClose_Click")))
+                        </div>
+                        <div>
+                            @(Html
+                            .ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSaveSetting"))
+                            .Name("btnSave")
+                            .Events(e => e.Click("btnSave_Click")))
+
+                        </div>
+
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    
+    
+    @Html.ASOFTHidden(model => model.LastModifyDateValue)
+}
+
+@section styleFeature{
+    <link 
+        href="@Url.Content("~/Areas/POS/Content/POSF0001.css")" 
+        rel="stylesheet" type="text/css" />
+}
+@section jsFeature {
+    <script 
+        src="@Url.Content("~/Areas/POS/Scripts/ASOFTVIEW.js")" 
+        type="text/javascript"></script>
+    <script 
+        src="@Url.Content("~/Areas/POS/Scripts/POSF0001.js")" 
+        type="text/javascript"></script>
+}

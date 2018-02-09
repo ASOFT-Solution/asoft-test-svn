@@ -1,0 +1,250 @@
+﻿@using ASOFT.ERP.A00.Core
+@using Kendo.Mvc.UI.Fluent;
+
+@model List<ASOFT.ERP.A00.Core.Control.ASOFTMenuItem>
+@{
+    var mnuLevel0 = Model.Where(x => x.Level == 0).ToList();
+    var mnuLevel1 = Model.Where(x => x.Level == 1).ToList();
+    var mnuLevel2 = Model.Where(x => x.Level == 2).ToList();
+
+    var mnuLevel1Select = new List<ASOFT.ERP.A00.Core.Control.ASOFTMenuItem>();
+    var mnuLevel2Select = new List<ASOFT.ERP.A00.Core.Control.ASOFTMenuItem>();
+    var menu1Select = new ASOFT.ERP.A00.Core.Control.ASOFTMenuItem();
+    var menuSelect0 = mnuLevel0.Find(m => m.Selected) ?? new ASOFT.ERP.A00.Core.Control.ASOFTMenuItem();
+    var menuSelect1 = mnuLevel1.Find(m => m.Selected) ?? new ASOFT.ERP.A00.Core.Control.ASOFTMenuItem();
+    var levelmax = Model.Max(m => m.Level);
+}
+
+@Html.ASOFTHidden("MenuLevelMax", levelmax)
+@Html.ASOFTHidden("MenuSelectedStart", menuSelect1.Name)
+
+@(Html.Kendo().Window()
+    .Name("Config_win")
+    .Content(Html.Partial("~/Views/Shared/Menu/MenuConfig.cshtml").ToHtmlString())
+    .HtmlAttributes(new { style = "width:auto;overflow: hidden;", @class = "asf-windown" })
+    .Visible(false)
+    .Title(false)
+    .Animation(false)
+)
+
+<script type="text/javascript">
+    var listMenu = @Html.Raw(Json.Encode(Model)) ,
+     listMenuLevel0=@Html.Raw(Json.Encode(mnuLevel0)) ,
+     listMenuLevel1=@Html.Raw(Json.Encode(mnuLevel1)) ,
+     listMenuLevel2=@Html.Raw(Json.Encode(mnuLevel2)) ;
+</script>
+
+<div class="w3-main">
+
+  <!-- Header -->
+  <div class="w3-row-padding w3-margin-bottom" id="MenuNew">
+    @{
+        <div class="asf-menu-prev-new" id="imgPrev" onclick="DisplayItemPreNew()">
+            <img src="/Content/Images/navigate.previous.png" alt="prev" title="previous" style="height: 28px"/>
+        </div> 
+        foreach (var item in mnuLevel0)
+        {
+            string hidden = item.Selected ? "block" : "none";
+            string classCheck = item.Selected ? "asf-Click" : "";
+            string classColor = item.Selected ? "asf-color-module-select" : "asf-color-module";
+            <div class="w3-quarter" style="cursor: pointer" onclick="moduleList_Click(this,'@item.Name')" title="@ASOFTLanguage.FindWordA00("A00." + @item.Name)">
+                <div class="w3-container @classColor w3-padding-16 @classCheck">
+                    <div class="w3-left"><img src="/Content/Images/@{ @item.Name }.png"/></div>
+                    <div class="w3-right">
+                        <h4>@item.Text</h4>
+                    </div>
+                    <div class="w3-clear"></div>
+                    <div class="w3-text">@ASOFTLanguage.FindWordA00("A00." + @item.Name)</div>
+                </div>
+                <div class="asf-checked" style="display: @hidden">&nbsp;</div>
+            </div>
+        }
+        <div class="asf-menu-next-new" id="imgNext" onclick="DisplayItemNextNew()">
+            <img src="/Content/Images/navigate.next.png" alt="next" title="next" style="height: 28px"/>
+        </div>
+
+    }
+  </div>
+
+
+    <!-- Sidebar/menu -->
+<nav class="w3-sidebar" id="mySidebar"><br />
+    <img id="imageIconMenu" class="div-image-menu" src="~/Content/Images/icon_menu.png" onclick="iconMenu_Click()"/>
+    @if (mnuLevel1 != null && mnuLevel1.Count > 0)
+    {
+        foreach (var mnu1 in mnuLevel1)
+        {
+            string display = menuSelect0.Name != null && mnu1.Selected ? "block" : "none";
+            string classTilePanel = "Panel" + mnu1.Name;
+            var menulevel2Clone = Model.FindAll(m => m.ParentID == mnu1.Name);
+
+            if (menulevel2Clone != null && menulevel2Clone.Count > 0)
+            {
+              <div class="w3-bar-block @classTilePanel" style="margin-top: -15px; display: none"><h4>&nbsp;@mnu1.Text.ToUpper()</h4></div>
+              <div class="w3-bar-block">
+                   @(Html.Kendo().PanelBar()
+                        .Name("Panel" + mnu1.Name).HtmlAttributes(new { style = "height: 460px; overflow-x: hidden; overflow-y: auto; width: auto; display: none !important;  border-bottom:  2px solid #94c0d2; border-top:  2px solid #94c0d2; border-right: none; border-left: none" })
+                        .Items(items =>
+                        {
+                            int index = 0;
+                            foreach (var item in menulevel2Clone)
+                            {
+                                var builder = items.Add().Text(ASOFTEnvironment.MenuIndex[index++] + ". " + item.Text).HtmlAttributes(new { style = "height: auto; font-size: 10px; overflow: hidden", title = item.Text, @class = "asf-panelBar asf-menunew-level2"});
+                                addChildren(builder, item, Model, 3).ToHtmlString();
+                            }
+                        })
+                    )
+
+                  @(Html.Kendo().Menu()
+                       .Orientation(MenuOrientation.Vertical)
+                        .Name("PanelSmall" + mnu1.Name).HtmlAttributes(new { style = "height: 460px; width: auto; display: " + display + " !important; border-top:  2px solid #94c0d2; border-bottom: none;  border-right: none; border-left: none;" })
+                        .Items(items =>
+                        {
+                            foreach (var item in menulevel2Clone)
+                            {
+                                var builder = items.Add().Text("").HtmlAttributes(new { style = "height: auto; font-size: 10px; text-align: left", @class = "asf-panelBar classLeve1_Small", title = item.Text });
+                                addChildrenSmall(builder, item, Model).ToHtmlString();
+                            }
+                        })
+                    )
+               </div>
+            }
+        }
+    }
+    @if (mnuLevel0 != null && mnuLevel0.Count > 0)
+    {
+        foreach (var mnu0 in mnuLevel0)
+        {
+            var menulevel1Clone = mnuLevel1.FindAll(m => m.ParentID.Equals(mnu0.Name));
+
+            if (menulevel1Clone != null && menulevel1Clone.Count > 0)
+            {
+                string display = mnu0.Selected ? "block" : "none";
+                <div class="w3-bar-block level1Panel" style="position: absolute; bottom: 15px; width: 50px;">
+                    @(Html.Kendo().PanelBar()
+                    .Name("Panel" + mnu0.Name).HtmlAttributes(new { style = "height: auto;  width: auto; display: none !important; border: none;" })
+                    .Items(items =>
+                    {
+                        foreach (var item in menulevel1Clone)
+                        {
+                            var builder = items.Add().Text(item.Text).HtmlAttributes(new { style = "height: auto; font-size: 10px; overflow: hidden", title = item.Text, id = "ItemPanel_" + item.Name, @class = "asf-panelBar asf-menunew-level1", onclick = "menuPanel_Click('" + item.Name + "')" });
+                            addChildren(builder, item, menulevel1Clone, 1).ToHtmlString();
+                        }
+                    })
+                    )
+
+                    @(Html.Kendo().Menu()
+                    .Orientation(MenuOrientation.Vertical)
+                    .Name("PanelSmall" + mnu0.Name).HtmlAttributes(new { style = "height: auto; width: auto; display: " + display + " !important;  border: none; border-top:  2px solid #94c0d2" })
+                    .Items(items =>
+                    {
+                        foreach (var item in menulevel1Clone)
+                        {
+                            var builder = items.Add().Text("").HtmlAttributes(new { style = "height: auto; font-size: 10px; text-align: left;", id = "ItemPanelSmall_" + item.Name, @class = "asf-panelBar classLeve1_Small", onclick = "menuPanel_Click('" + item.Name + "')", title = item.Text });
+                            addChildrenSmall(builder, item, menulevel1Clone, true).ToHtmlString();
+                        }
+                    })
+                    )
+                </div>
+            }
+        }
+    }
+</nav>
+
+</div>
+      
+@helper addChildrenSmall(MenuItemBuilder builder, ASOFT.ERP.A00.Core.Control.ASOFTMenuItem item, List<ASOFT.ERP.A00.Core.Control.ASOFTMenuItem> items, bool isLevel1 = false)
+{
+    int index = 1;
+    var children = items.FindAll(m => m.ParentID == item.Name);
+    if (children != null)
+    {
+        string url = string.Empty;
+        if (!string.IsNullOrEmpty(item.Url) && !item.Url.Equals("#"))
+        {
+            if (item.Url.ToLower().Split('/').Contains("contentmaster") || item.Url.ToLower().Split('/').Contains("reportlayout") || item.Url.ToLower().Split('/').Contains("dashboard"))
+            {
+                if (item.Url.ToLower().Split('/').Contains("contentmaster"))
+                {
+                    url = this.Url.Action("Index", "Contentmaster", null, null) + "/Index/" + item.Url.Split('/')[3] + "/" + item.Controller;
+                }
+                else
+                {
+                    if (item.Url.ToLower().Split('/').Contains("reportlayout"))
+                    {
+                        url = this.Url.Action("Index", "ReportLayout", null, null) + "/Index/" + item.Url.Split('/')[3] + "/" + item.Controller;
+                    }
+                    else
+                    {
+                        url = this.Url.Action("Dashboard", item.Url.Split('/')[1], null, null);
+                    }
+                }
+            }
+            else
+            {
+                url = this.Url.Action("Index", item.Controller, new { Area = item.Url.Split('/')[1] }, null);
+            }
+        }
+
+        builder.Items(menuItemsMB =>
+        {
+            if (!isLevel1 && children.Count > 0)
+            {
+                menuItemsMB.Add().Text(item.Text).HtmlAttributes(new { style = "height: auto;", @class = "asf-panelBar-small-title" }).Enabled(false);
+            }
+            foreach (var child in children)
+            {
+                var menuItem = menuItemsMB.Add().Text((index++) + ". " + child.Text).HtmlAttributes(new { style = "height: auto; font-size: 10px;", @class = "asf-panelBar-small", title = child.Text });
+                addChildrenSmall(menuItem, child, items).ToHtmlString();
+            }
+        }).Url(url).Enabled(item.Enable).ImageUrl(!string.IsNullOrEmpty(item.ImageUrl) ? ("/Content/Images/" + item.ImageUrl) : (!string.IsNullOrEmpty(item.Url) ? "/Content/Images/link.png" : "/Content/Images/folder.png")).Selected(item.Selected);
+    }
+}
+  
+@helper addChildren(PanelBarItemBuilder builder, ASOFT.ERP.A00.Core.Control.ASOFTMenuItem item, List<ASOFT.ERP.A00.Core.Control.ASOFTMenuItem> items, int level)
+{
+    int index = 1;
+    var children = items.FindAll(m => m.ParentID == item.Name);
+    if (children != null)
+    {
+        string url = string.Empty;
+        if (!string.IsNullOrEmpty(item.Url) && !item.Url.Equals("#"))
+        {
+            if (item.Url.ToLower().Split('/').Contains("contentmaster") || item.Url.ToLower().Split('/').Contains("reportlayout") || item.Url.ToLower().Split('/').Contains("dashboard"))
+            {
+                if (item.Url.ToLower().Split('/').Contains("contentmaster"))
+                {
+                    url = this.Url.Action("Index", "Contentmaster", null, null) + "/Index/" + item.Url.Split('/')[3] + "/" + item.Controller;
+                }
+                else
+                {
+                    if (item.Url.ToLower().Split('/').Contains("reportlayout"))
+                    {
+                        url = this.Url.Action("Index", "ReportLayout", null, null) + "/Index/" + item.Url.Split('/')[3] + "/" + item.Controller;
+                    }
+                    else
+                    {
+                        url = this.Url.Action("Dashboard", item.Url.Split('/')[1], null, null);
+                    }
+                }
+            }
+            else
+            {
+                url = this.Url.Action("Index", item.Controller, new { Area = item.Url.Split('/')[1] }, null);
+            }
+        }
+
+        builder.Items(menuItemsMB =>
+        {
+            foreach (var child in children)
+            {
+                var menuItem = menuItemsMB.Add().Text((index++) + ". " + child.Text).HtmlAttributes(new { style = "height: auto; font-size: 10px; overflow: hidden", title = child.Text, @class = "asf-panelBar asf-menunew-level" + level });
+                addChildren(menuItem, child, items, level + 1).ToHtmlString();
+            }
+        }).Url(url).Enabled(item.Enable).ImageUrl(!string.IsNullOrEmpty(item.ImageUrl) ? ("/Content/Images/" + item.ImageUrl) : (!string.IsNullOrEmpty(item.Url) ? "/Content/Images/link.png" : "/Content/Images/folder.png")).Selected(item.Selected).Expanded(item.Selected);
+    }
+}
+
+
+<link rel="stylesheet" href="/Content/Styles/asoftmenunew.css">
+<script src="@Url.Content("~/Scripts/asoftmenunew.js" + "?v="+ASOFTEnvironment.Version)" type="text/javascript"></script>

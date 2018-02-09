@@ -1,0 +1,81 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     11/10/2014      Trí Thiện       Tạo mới
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.ViewModel.DRM;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using System.Web.UI.WebControls;
+
+@model DRF0200ViewModel
+
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(model => model.DRF0200Title, "DRF0200").ToHtmlString();
+    ViewBag.Width = 600; 
+}
+
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/DRM/Content/Common.css")" rel="stylesheet" type="text/css" />
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF0200/DRF0200.js?v=" + ASOFTEnvironment.Version)"></script>
+}
+
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "DRF0200" }))
+{
+    <div class="asf-form-container">
+    <div class="form-content">
+        <table class="asf-table-view">
+            <tr>
+                <td class="drf-caption">@Html.ASOFTLabel(model => model.CustomerID)</td>
+                <td class="drf-td-comboBox">
+                    @(Html.ASOFTBussinessComboBox().ASOFTDRMCustomerID(model => model.CustomerID, false)
+                            .SelectedIndex(0)
+                            .DataTextField(DRT1010.COL_CUSTOMERID)
+                            .Events(e=>e.DataBound("DRF0200.customer_Bound")
+                            .Change("DRF0200.customer_Changed")))
+                </td>
+                <td class="drf-td-text">@Html.ASOFTTextBox(model => model.CustomerName)</td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    @Html.Partial("GridSetting")
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="asf-form-button">
+    <table class="asf-table-view">
+        <tr>
+            <td align="right">
+                <div class="asf-popup-button-container">
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                              .Name("BtnClose")
+                              .Events(e => e.Click("DRF0200.btnClose_Click")))
+                    </div>
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnConfig"))
+                                .Name("BtnConfig")
+                                .Events(e => e.Click("DRF0200.btnConfig_Click")))
+                    </div>                          
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+}
+
+@Html.ASOFTHidden("UrlUpdate", Url.Action("Update", "DRF0200"))

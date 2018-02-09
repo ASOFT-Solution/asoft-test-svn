@@ -1,0 +1,152 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Created           Comment
+//#     07/10/2014      Hồ Hoàng Tú       Tạo mới
+//####################################################################
+*@
+@using System.Web.UI.WebControls
+@using ASOFT.ERP.A00.Core
+@model ASOFT.ERP.ViewModel.S.SF1000ViewModel
+@using ASOFT.ERP.A00.Entities.Common
+@using ASOFT.ERP.A00.Entities.Database
+@using ASOFT.ERP.ViewModel
+@{ 
+   Layout="~/Views/Shared/_ContentMaster.cshtml";
+   ViewBag.Title = @Html.ASOFTRaw(m => m.Title);
+}
+@Html.ASOFTHidden("EnableRecord", Url.Action("SetEnabled"))
+@Html.ASOFTHidden("DisableRecord", Url.Action("SetDisabled"))
+@Html.ASOFTHidden("LockUser", Url.Action("SetLockUserID"))
+@Html.ASOFTHidden("UnLockUser", Url.Action("SetUnLockUserID"))
+@section Header
+{  
+    @Html.ASOFTHeader(new HeaderModel { Title = Html.ASOFTPageTitle(model => model.Title, "SF1000").ToHtmlString(), Breakcrumb = true })
+}
+@section FilterCol1
+{
+     <tr>
+            <td>@Html.ASOFTLabel(model => model.DivisionIDFilter)</td>
+            <td>
+                            @Html.ASOFTBussinessComboBox().ASOFTDivisionIDList(model => model.DivisionIDFilter, htmlStyle: new { width = Unit.Percentage(100) })
+            </td>
+        </tr>
+    <tr>
+        <td>@Html.ASOFTLabel(model => model.DepartmentID)</td>
+        <td>      
+                                                                                   
+                                          @(Html.ASOFTBussinessComboBox().ASOFTDepartmentID(model => model.DepartmentID,true)
+                                          .SelectedIndex(0))                                     
+                                                                    
+                                                             
+                      
+        </td>
+    </tr>
+    <tr>
+        <td>@Html.ASOFTLabel(model=>model.EmployeeID)</td>  
+        <td>@Html.ASOFTTextBox(model => model.EmployeeID, htmlStyle: new { width = Unit.Percentage(100) }) </td>
+        
+    </tr>
+    <tr>
+        <td>@Html.ASOFTLabel(model=>model.FullName)</td>
+        <td>@Html.ASOFTTextBox(model => model.FullName, htmlStyle: new { width = Unit.Percentage(100) })</td>
+    </tr>
+}
+@section FilterCol2
+{
+    <tr>
+        <td>@Html.ASOFTLabel(model=>model.Address)</td>
+        <td>@Html.ASOFTTextBox(model => model.Address, htmlStyle: new { width = Unit.Percentage(100) }) </td>
+    </tr>
+    <tr>
+        <td>@Html.ASOFTLabel(model=>model.Tel)</td>
+        <td>@Html.ASOFTTextBox(model => model.Tel, htmlStyle: new { width = Unit.Percentage(100) })</td>
+    </tr>
+    <tr>
+        <td>@Html.ASOFTLabel(model=>model.Fax)</td>
+        <td>@Html.ASOFTTextBox(model =>model.Fax, htmlStyle: new { width = Unit.Percentage(100) })  </td>
+                   
+    </tr>
+     <tr>
+        <td>@Html.ASOFTLabel(model=>model.Email)</td>
+        <td>@Html.ASOFTTextBox(model =>model.Email, htmlStyle: new { width = Unit.Percentage(100) })</td>                   
+    </tr>        
+}
+@section FilterCol3
+{      
+       <tr>
+           <td>@Html.ASOFTLabel(model => model.Disabled)</td>
+            <td>
+                @(Html.ASOFTBussinessComboBox().ASOFTSCodeMasterDisabled(model => model.Disabled, htmlStyle: new
+                       {
+                           width = Unit.Percentage(100)
+                       }))
+            </td>
+        </tr>
+     <tr>
+           <td>@Html.ASOFTLabel(model => model.IsCommon)</td>
+            <td>
+                @(Html.ASOFTBussinessComboBox().ASOFTSCodeMasterIsCommon(model => model.IsCommon, htmlStyle: new
+                       {
+                           width = Unit.Percentage(100)
+                       }
+                       ))
+            </td>
+        </tr>
+     <tr>
+           <td>@Html.ASOFTLabel(model => model.LockSearch)</td>
+            <td>
+                @(Html.ASOFTBussinessComboBox().ASOFTSLockCombo(model => model.LockSearch, htmlStyle: new
+                       {
+                           width = Unit.Percentage(100)
+                       }
+                       ))
+            </td>
+        </tr>
+    
+
+}
+@section GridToolBar{
+    @if (Model.Toolbar1 != null)
+            {              
+                Model.Toolbar1.EventAdd = "ShowEditorFrame";
+                Model.Toolbar1.EventDelete = "btnDelete_Click";           
+                Model.Toolbar1.EventShow = "btnEnable_Click";
+                Model.Toolbar1.EventHide = "btnDisable_Click";
+                Model.Toolbar1.EventLockUser = "btnLockUser_Click";
+                Model.Toolbar1.EventUnlockUser = "btnUnLockUser_Click";
+                Model.Toolbar1.DisplayShow = true;                  
+            }
+            @Html.Partial("~/Views/Shared/EditorTemplates/Toolbar.cshtml", Model.Toolbar1 ?? new ASOFTToolBarViewModel())
+
+}
+@section FilterButtons{
+                <li>
+                    @(Html.ASOFTSearchButton()
+                          .Name("SF1000BtnFilter")
+                         .Events(e => e.Click("SF1000BtnFilter_Click")))
+                </li>
+                <li>
+                    @(Html.ASOFTSearchResetButton()
+                          .Name("SF1000BtnClearFilter")
+                       .Events(e => e.Click("SF1000BtnClearFilter_Click")))
+                </li>
+}
+@section Grid {
+    @Html.Partial("GridEmployeeCategory")
+}
+@(Html.ASOFTPopup()
+    .Name("SF1001Popup")
+    .Width(800)
+    .Title(String.Format(Html.ASOFTRaw(model => model.Title), "thêm"))
+)
+@section jsFeature 
+{
+    <script src="@Url.Content("~/Areas/S/Scripts/SF1000.js?v=" + ASOFTEnvironment.Version)" type="text/javascript"></script>
+}  
+@section styleFeature
+ {
+    <link href="@Url.Content("~/Areas/S/Content/SF1000.css")" rel="stylesheet" type="text/css" />
+}

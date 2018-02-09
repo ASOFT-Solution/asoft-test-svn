@@ -1,0 +1,125 @@
+﻿.drf-td {
+    width: 50%;
+    vertical-align: bottom !important;
+}
+
+.fieldSet {
+    margin-top:10px;
+}
+
+.drf-caption {
+    width: 15%;
+    vertical-align: bottom !important;
+}
+
+.drf-td-comboBox {
+    width:35%;
+}
+
+.drf-td-text {
+    width:50%;
+}
+
+.drm-fieldset {
+    height:336px;
+}
+
+.padding-format{
+    padding: 0 20px 0 20px !important;
+}
+
+.padding-format .content-label{
+    width: 9% !important;
+}
+
+.padding-format .dot{
+    width: 1px !important;
+}
+
+.first-col{
+    vertical-align: bottom !important;
+}
+
+.right-report-fieldset{
+    width:49.8%;
+}
+
+/*************************************************************
+                STYLE TEXTBOX BUTTON FILTER
+**************************************************************/
+.asf-common-search.popup-input,
+.asf-common-search.popup-input > .k-textbox.k-space-right{
+    width: 100%;
+}
+.asf-common-search.popup-input span.k-textbox {
+    border-left: 1px solid #AAAAAA !important;
+}
+
+.asf-common-search.popup-input > span.k-textbox.k-space-right > .k-button,
+.asf-common-search.popup-input> span.k-textbox.k-space-right > .k-button:hover,
+.asf-common-search.popup-input > span.k-textbox.k-space-right > .k-button:focus {
+    border: none;
+    background: url("/Content/Images/search.png") no-repeat scroll 50% 50% rgba(0, 0, 0, 0);
+}
+
+/*************************************************************
+                STYLE TEXTBOX BUTTON CHOOSE
+**************************************************************/
+.asf-common-search.popup-input-text,
+.asf-common-search.popup-input-text > .k-textbox.k-space-right {
+    width: 100%;
+}
+.asf-common-search.popup-input-text > span.k-textbox.k-space-right > .k-button,
+.asf-common-search.popup-input-text > span.k-textbox.k-space-right > .k-button:hover,
+.asf-common-search.popup-input-text > span.k-textbox.k-space-right > .k-button:focus {
+    background-image: url("/Content/Images/icon-pdf-24x24.png");
+    border: none;
+    background-color: transparent; 
+}
+
+.asf-common-search.popup-input-text > span.k-textbox {
+    background-color: #ffffff !important;
+}
+
+.asf-common-search.popup-input-text span.k-textbox.k-space-right {
+    border-bottom: 1px solid #AAAAAA !important;
+    border-width: 0 0 1px 0 !important;
+}
+
+.detail-panel {
+    float:left !important;
+    width:100%;
+    overflow:hidden;
+}
+
+.asf-button-tranfer {
+    float:left;
+    padding-left:8px;
+    margin-top:70px;
+}
+.asf-button-tranfer li {
+    padding-top:10px;
+}
+.asf-button-tranfer .middle-buttons-bottom {
+    margin: 0;
+    padding: 20px 0 0 0;
+}
+
+/*************************************************************
+                STYLE Image Upload
+**************************************************************/
+.k-file.k-file-success.k-file-not-complete
+{
+	color: #FA5858 !important;
+	border-color: #FA5858 !important;
+}
+
+.k-file.k-file-success.k-file-not-complete .k-progress
+{
+	background-color: #ffcbcb !important;
+}
+
+.k-file.k-file-success .k-progress
+{
+	top:50px;
+}

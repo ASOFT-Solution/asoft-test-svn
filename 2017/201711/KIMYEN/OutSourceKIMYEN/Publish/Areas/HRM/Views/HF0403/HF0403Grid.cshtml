@@ -1,0 +1,103 @@
+﻿
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Entities.Database
+@using ASOFT.ERP.ViewModel.HRM
+@using ASOFT.ERP.HRM.Entities
+@model HF0403ViewModel
+@{
+    var gridsetting = new ASOFTGridSetting
+                          {
+                              NameGrid = "HF0403Grid",
+                              NameEventPost = "HF0403.HF0403Grid_EventPost",
+                              Scrollable = true,
+                              ActionName = "GetGridData",
+                              ControllerName = "HF0403",
+                              HtmlAttribute = new { @class = "asf-grid" },
+                              IsShowCheck = true,
+                              IsAutoHeight = false,
+                              ListGridColumn = new List<ASOFTGridColumnSetting>{
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = "RowNum",
+                                                               TitleColumn = ASOFTLanguage.FindWordA00("A00.Order"),
+                                                               Width = 50,
+                                                               VisibleColumn = true,
+                                                               ClientTemplate="#= HF0403.rowNumber() #"
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = HF0403.COL_DEPARTMENTNAME,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.DepartmentName),
+                                                               Width = 150,
+                                                               VisibleColumn = true, 
+                                                               EditColumn = Model.FormStatus==ASOFTFormActionType.AddNew,
+                                                               EditorTemplateName = "ComboBoxDepartmentID",
+                                                               ClientTemplate=" #=DepartmentName!=null?DepartmentName:''#"
+                                                           },  
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = HF0403.COL_DEPARTMENTID,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.DepartmentID),
+                                                               VisibleColumn = false
+                             
+                                                           },                   
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = HF0403.COL_TEAMNAME,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.TeamName),
+                                                               Width = 150,
+                                                               VisibleColumn = true,                                                                
+                                                               EditColumn = Model.FormStatus==ASOFTFormActionType.AddNew,
+                                                               EditorTemplateName = "ComboBoxTeamID",
+                                                               ClientTemplate=" #=TeamName!=null?TeamName:''#"
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = HF0403.COL_TEAMID,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.TeamID),
+                                                               VisibleColumn = false
+                             
+                                                           },                   
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = HF0403.COL_EMPLOYEEID,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.EmployeeID),
+                                                               Width = 100,
+                                                               VisibleColumn = true,                                                                                                                                  
+                                                               EditColumn = Model.FormStatus==ASOFTFormActionType.AddNew,
+                                                               EditorTemplateName = "AutoCompleteEmployeeID",
+                                                               ClientTemplate= Model.FormStatus==ASOFTFormActionType.AddNew?"<a class='asf-grid-link' onclick='ChooseEmployeeID_Click()'>#=data.EmployeeID?data.EmployeeID:'...'#</a>":"#=data.EmployeeID?data.EmployeeID:''#"
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = HF0403.COL_FULLNAME,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.FullName),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                               ClientTemplate=" #=FullName!=null?FullName:''#"
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = HF0403.COL_FIRSTLOADAYS,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.FirstLoaDays),
+                                                               Width = 150,
+                                                               VisibleColumn = true, 
+                                                               EditColumn = true,
+                                                                ClientTemplate="#= kendo.toString(parseFloat(data.FirstLoaDays), ASOFTEnvironment.NumberFormat.KendoHolidayDecimalsFormatString) || kendo.toString(parseFloat(0))#",
+                                                                EditorTemplateName="HolidayDecimal"
+                                                           },
+                                         new ASOFTGridColumnSetting
+                                                            {
+                                                                IDColumn = HF0403.COL_APK,
+                                                                Width = 50,
+                                                                VisibleColumn = true,
+                                                                ClientTemplate = string.Format("<a href='\\#' onclick='return {0}' class='asf-i-delete-24 asf-icon-24'><span>Del</span></a>",
+                                                                        "HF0403.deleteAddress(this)"), 
+                                                                HtmlAttrCoulmns = new { @class = "asf-cols-align-center" }
+                                                            }                                  
+                              }
+                          };
+}
+
+@(Html.ASOFTCreateGridEdit<HF0403>(gridsetting,false))

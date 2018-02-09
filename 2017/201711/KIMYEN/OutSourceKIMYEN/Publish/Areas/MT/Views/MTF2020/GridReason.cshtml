@@ -1,0 +1,73 @@
+﻿
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.MT.Entities
+@using ASOFT.ERP.ViewModel.MT
+@model ASOFT.ERP.ViewModel.MT.MTF2020ViewModel
+@{
+    var gridsetting = new ASOFTGridSetting
+                          {
+                              NameGrid = "MTF2020GridMaster",
+                              keyColumnID = "APK",
+                              NameEventPost = "MTF2020Param.sentFilter",
+                              Scrollable = true,
+                              ActionName = "GridMaster",
+                              ControllerName = "MTF2020",
+                              HtmlAttribute = new {@class = "asf-grid"},
+                              IsShowCheck = true,
+                              ListGridColumn = new List<ASOFTGridColumnSetting>
+                                                   {
+                                                       new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = "RowNum",
+                                                               TitleColumn = ASOFTLanguage.FindWordA00("A00.Order"),
+                                                               Width = 70,
+                                                               VisibleColumn = true,
+                                                           },
+                                                       new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = MTP2020.COL_STOPVOUCHERNO,
+                                                               TitleColumn = Html.ASOFTRaw(m => m.StopVoucherNo),
+                                                               VisibleColumn = true,
+                                                               Width=200,
+                                                               ClientTemplate = "<a href='" + @Url.Content("~/MT/MTF2020/MTF2022/?apk=#=APK#") + "'>#:" + MTP2020.COL_STOPVOUCHERNO + "#</a>",
+                                                           },
+                                                       new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = MTP2020.COL_DIVISIONID,
+                                                               TitleColumn = Html.ASOFTRaw(m => m.DivisionID),
+                                                               VisibleColumn = true,
+                                                               Width = 100,
+                                                               HtmlAttrCoulmns = new {@class = "asf-cols-align-center"},
+                                                           },
+                                                       new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = MTP2020.COL_STUDENTID,
+                                                               TitleColumn = Html.ASOFTRaw(m => m.StudentID),
+                                                               VisibleColumn = true,
+                                                               Width = 200,
+                                                           },
+                                                       new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = MTP2020.COL_STUDENTNAME,
+                                                               TitleColumn = Html.ASOFTRaw(m => m.StudentName),
+                                                               VisibleColumn = true,
+                                                           },
+                                                       new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = MTP2020.COL_STOPDATE,
+                                                               Format = "{0:dd/MM/yyyy}",
+                                                               TitleColumn = Html.ASOFTRaw(m => m.StopDate),
+                                                               VisibleColumn = true,
+                                                               Width = 100,
+                                                           },
+                                                       new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = MTP2020.COL_STOPREASONNAME,
+                                                               TitleColumn = Html.ASOFTRaw(m => m.StopReasonName),
+                                                               VisibleColumn = true,
+                                                           },
+                                                   }
+                          };
+}
+
+@(Html.ASOFTCreateGrid<MTF2020GridViewModel>(gridsetting))

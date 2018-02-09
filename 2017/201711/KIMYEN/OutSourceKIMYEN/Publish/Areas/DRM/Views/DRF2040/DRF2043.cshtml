@@ -1,0 +1,90 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     14/11/2014      Trí Thiện       Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.ViewModel.DRM
+@using System.Web.UI.WebControls;
+
+@model DRF2043ViewModel
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.DRF2043Title, "DRF2043").ToHtmlString();
+    ViewBag.Width = 410;
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new {id = "DRF2043"}))
+{
+ <div class="asf-form-container">
+    <div class="form-content">
+        <table @*class="asf-table-view"*@>
+               <tr style="height:24px">
+                    <td valign="bottom" colspan="5">
+                            @(Html.ASOFTRadioButton(model => model.IsSalary, 0, 
+                                    htmlAttributes: new { id = "rdbEmp", @class = "asf-td-align" }))
+                            @Html.ASOFTLabel(model => model.FromEmployeeFile)
+                    </td>
+                        
+                </tr>
+                <tr style="height:24px">
+                    <td valign="bottom">
+                            @(Html.ASOFTRadioButton(model => model.IsSalary, 1, 
+                                    htmlAttributes: new { id = "rdbSal", @class = "asf-td-align" }))
+                            @Html.ASOFTLabel(model => model.FromSalaryFile)
+                    </td>
+                    <td class="td-space"></td>
+                    <td class="td-space"></td>
+                    <td valign="bottom" style="width:30px">@Html.ASOFTLabel(model => model.Period)</td>
+                    <td valign="bottom">
+                         @(Html.ASOFTBussinessComboBox()
+                                .ASOFTPeriod(model => model.Period, htmlStyle: new { width = Unit.Percentage(100) }).Enable(false)
+                                )
+                    </td>
+                </tr>   
+                @*<tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.Period)</td>
+                    <td class="asf-td-field">
+                         @(Html.ASOFTBussinessComboBox()
+                                .ASOFTPeriod(model => model.Period, htmlStyle: new { width = Unit.Percentage(100) })
+                                )
+                    </td>
+                </tr>   *@
+            </table>
+    </div>
+</div>
+<div class="asf-form-button">
+    <table class="asf-table-view">
+        <tr>
+            <td align="right">
+                <div class="asf-popup-button-container">
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                              .Name("BtnClose")
+                              .Events(e => e.Click("DRF2043.btnClose_Click")))
+                    </div>
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnInherit"))
+                                .Name("BtnSaveClose")
+                                .Events(e => e.Click("DRF2043.btnSave_Click")))
+                    </div>        
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+}
+
+@Html.ASOFTHidden("UrlInherit", Url.Action("Inherit", "DRF2040"))
+
+@section styleFeature{
+@*    <link href="@Url.Content("~/Areas/DRM/Content/DRF2001.css")" rel="stylesheet" type="text/css" />*@
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF2040/DRF2043.js?v=" + ASOFTEnvironment.Version)"></script>
+   @* @Html.RenderScripts(files: new[] { "CRMF2061" })*@
+}

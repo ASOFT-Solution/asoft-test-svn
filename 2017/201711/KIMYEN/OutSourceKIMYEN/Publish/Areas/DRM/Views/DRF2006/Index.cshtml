@@ -1,0 +1,60 @@
+﻿@using ASOFT.ERP.ViewModel.DRM
+@using Kendo.Mvc;
+@using Kendo.Mvc.UI
+@model DRF2006ViewModel
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.Title, "DRF2006").ToHtmlString();
+    ViewBag.Width = 800;
+    
+ }
+    <div class="asf-form-container">
+        <div class="form-content"> 
+            <div class="asf-filter-container">
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formFilter" }))
+                {
+                    <div class="asf-common-search popup-input">
+                        <span class="k-textbox k-space-right">
+                            @Html.ASOFTTextBox(model => model.KeyWord)
+                            @(Html.ASOFTButton("", htmlStyle: new { width = "24px", height = "24px" })
+                                  .Name("btnDRF2006")
+                                  .HtmlAttributes(new { Class = "k-icon asf-i-search-24" })
+                                  .Events(e => e.Click("DRF2006.btnFilter_Click")))
+                        </span>
+                    </div>
+                }
+            </div>
+            <div class="drop-fieldset">
+                @Html.Partial("GridResume", new DRF2006GridViewModel())
+            </div>
+        </div>
+        <div class="asf-form-button">
+            <table class="asf-table-view">
+                <tr>
+                    <td align="right">
+                        <div class="asf-popup-button-container">
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                                      .Name("BtnClose")
+                                      .Events(e => e.Click("DRF2006.btnClose_Click")))
+                            </div>
+                           <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSave"))
+                                        .Name("BtnSaveClose").Enable(true)
+                                        .Events(e => e.Click("DRF2006.btnSave_Click")))
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF2006/DRF2006.js?v=" + ASOFTEnvironment.Version)"></script>
+}
+
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/DRM/Content/Common.css")" rel="stylesheet" type="text/css" />
+}
+

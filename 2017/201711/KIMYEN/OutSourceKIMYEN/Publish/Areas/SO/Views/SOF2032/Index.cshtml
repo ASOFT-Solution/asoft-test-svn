@@ -1,0 +1,30 @@
+﻿@using ASOFT.ERP.A00.Core
+
+@using ASOFT.ERP.ViewModel.SO
+
+@model SOF2030ViewModel
+
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Width = 400;
+}
+<div id="SOF2032Message"></div>
+@Html.ASOFTTextBox(m=>m.TxtBarcode, htmlStyle: new
+       {
+           @padding = "5px",
+           @border = "1px solid gray",
+           @height = "25px",
+           @width = "95%",
+       },
+       htmlAttribute: new
+       {
+           @placeholder = "Nhập mã vạch"
+       })
+
+<style>
+    #TxtBarcode {
+        font-size: 22px !important;
+    }
+</style>
+
+<script src="@Url.Content("~/Areas/SO/Scripts/SOF2032/SOF2032.js")" type="text/javascript"></script>

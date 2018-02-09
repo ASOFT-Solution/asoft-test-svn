@@ -1,0 +1,50 @@
+﻿
+#Attach{
+    width: 0% !important;
+}
+
+.grid_6_1 {
+    width: 98% !important;
+}
+
+.grid_6 {
+    width: 98% !important;
+    margin-left: 0% !important;
+    border-left: 0px !important;
+    float: none !important;
+     display: block !important;
+}
+
+.file-templete{
+    padding: 5px;
+}
+
+#RecruitPeriodName, #DepartmentName, #InterviewLevel, #DutyName, #InterviewAddress{
+    width: 75% !important;
+    cursor: not-allowed !important;
+}
+
+.file-templete >label{
+    color: green;
+    padding-right: 5px;
+}
+
+#btnDeleteUpload {
+    position:relative;
+}
+
+.templeteAll{
+    overflow: auto;
+    margin-top: 5px;
+    background-color: whitesmoke;
+    max-height: 150px;
+}
+
+.x-close{
+    color: silver !important;
+    cursor: pointer;
+}
+
+.disabledButton:hover{
+    background-color: white !important;
+}

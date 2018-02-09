@@ -1,0 +1,93 @@
+﻿@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Infrastructure;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel;
+@using System.Web.UI.WebControls;
+@using Kendo.Mvc;
+@model IEnumerable<ASOFT.ERP.ViewModel.DRM.DRF2080ViewModel>
+
+
+@{
+    Layout = "";
+    
+    int count = ViewBag.Html.Count;
+    int num = 1;
+}
+<link rel="Stylesheet" href="~/Content/Styles/asoftRD.css" />
+<script src="~/Scripts/jquery-1.8.3.js"></script>
+<script src="~/Scripts/jquery-1.6.4.js"></script>
+
+<title>Công văn văn phòng luật</title>
+
+@Html.ASOFTHidden("count", @count.ToString())
+<div style="width: 674px; margin-left: auto;margin-right: auto;text-align:justify">
+
+@foreach (var item in ViewBag.Html)
+{        
+    <div id="@num.ToString()" style="@(@num<@count?"page-break-after: always;font-size: 12px;":"font-size: 12px;")"> 
+    
+    <div id="Header">
+    <div class="asf-icon-logo_vpl" ></div>    
+    <div style="text-align: right">           
+        Thành phố Hồ Chí Minh, ngày 07 tháng 05 năm 2015<br/>
+        Số CV:  @item.SendNo
+    </div>
+    </div>
+        <div id="Content">
+    <div style="margin-bottom: 10px; margin-left: 300px; margin-top: 20px; text-align: justify">
+        <p style="border-bottom: 1px solid black; display: inline; font-weight: bold">Kính gửi</p>
+        : Ông/Bà @item.DebtorName - CMND:  @item.IdentifyCardNo<br />
+        <p style="border-bottom: 1px solid black; display: inline; font-weight: bold">Địa chỉ</p>
+        : @item.Address.
+    </div>
+
+    <div style="margin-bottom: 10px">
+        Chúng tôi, Văn Phòng Luật Sư TriLaw, địa chỉ giao dịch tại: 105 Nguyễn Thị Thập, Phường Tân Hưng, Quận 7, Tp.HCM 
+        (sau đây gọi tắt là “VPLS TriLaw”) xin gửi đến Quý Ông/Bà lời chào trân trọng.
+    </div>
+    <div style="margin-bottom: 10px">
+        Theo chỉ định của @item.CustomerName và Công ty Cổ Phần Thu Hồi Nợ Xương Rồng, chúng tôi theo đây xin được thông báo đến Quý Ông/Bà  @item.DebtorName - Số HĐ @item.ContractNo nội dung như sau:
+    </div>
+    <div style="margin-bottom: 10px">
+        Cho việc giải quyết khoản công nợ còn tồn đọng của Quý Ông/Bà tại @item.CustomerName, vừa qua nhân viên phụ trách thu hồi nợ của Công ty Cổ Phần Thu Hồi Nợ Xương Rồng đã tìm mọi cách liên lạc với Ông/Bà theo (các) địa chỉ và số điện thoại của Ông/Bà nhưng không thể liên lạc được. 
+        Nay bằng thư này, chúng tôi xin được thông báo đến Ông/Bà rằng hạn chót đến ngày @item.ToDateVPL Ông/Bà phải chủ động liên lạc với nhân viên thu hồi nợ của Công ty Cổ Phần Thu Hồi Nợ Xương Rồng, người liên lạc:  @item.TeamLeaderName, số điện thoại: @item.PhoneLeader để giải quyết công việc.
+    </div>
+    <div style="margin-bottom: 10px">
+        Trường hợp quá thời hạn nêu trên mà nhân viên thu hồi nợ có tên như nêu trên không nhận được thông tin phản hồi của Ông/Bà thì chúng tôi được quyền xem  như Ông/Bà cố tình trốn tránh trách nhiệm giải quyết công nợ đối với @item.CustomerName. 
+        Khi đó, VPLS TriLaw sẽ tóm tắt toàn bộ vụ việc và gửi hồ sơ cho cơ quan Công an có thẩm quyền để tiến hành điều tra đối với hành vi có dấu hiệu “Lạm dụng tín nhiệm chiếm đoạt tài sản” của Quý Ông/Bà.
+    </div>
+    <div style="margin-bottom: 2px">
+        Nay VPLS TriLaw xin thông báo để Quý Ông/Bà được rõ.
+    </div>
+
+    <div style="margin-bottom: 10px">
+        Trân trọng.
+    </div>
+
+    <div style="margin-bottom: 70px">
+        <p style="font-weight: bold">
+		VĂN PHÒNG LUẬT SƯ TRILAW   
+	</p>		
+    </div>
+
+    <p style="display: inline; font-weight: bold"
+        >LS. Lê Hữu Trí<br />
+        Luật Sư Điều Hành
+        </p>  
+        </div>         
+        </div>
+    num++;
+}
+ </div>
+
+
+
+
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/DRM/Content/Common.css")" rel="stylesheet" type="text/css" />
+}
+
+@section jsFeature {
+   @* <script src="@Url.Content("~/Areas/DRM/Scripts/DRF2000/DRF2000.js")"></script>*@
+}

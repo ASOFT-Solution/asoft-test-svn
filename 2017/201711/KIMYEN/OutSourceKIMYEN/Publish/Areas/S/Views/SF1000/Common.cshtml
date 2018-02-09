@@ -1,0 +1,160 @@
+﻿
+@model ASOFT.ERP.ViewModel.S.SF1001ViewModel
+@using System.Web.UI.WebControls;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Database
+
+
+<div class="container_12">
+    <div class="grid_6">
+        <table class="asf-table-view">
+             <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.EmployeeID)</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTTextBox(model => model.EmployeeID, htmlAttribute: new { initValue = Model.EmployeeID }, checkRegularExp: true)
+                                    .ReadOnlyIf(Model.FormStatus != ASOFTFormActionType.AddNew))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.FullName)</td>
+                        <td class="asf-td-field" colspan="2">@Html.ASOFTTextBox(model => model.FullName, htmlStyle: new { width = Unit.Percentage(100) }) </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.DepartmentID)</td>
+                        <td class="asf-td-field" colspan="2">
+
+                            @(Html.ASOFTBussinessComboBox().ASOFTDepartmentID(model => model.DepartmentID,
+                                          htmlStyle: new
+                                          {
+                                              width = Unit.Percentage(100)
+                                          })
+                                          .Events(e => e.Change("comboDepartmentID_Changed")))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.TeamID)</td>
+                        <td class="asf-td-field" colspan="2">
+
+                            @(Html.ASOFTBussinessComboBox().ASOFTTeamID(model => model.TeamID,
+                                          htmlStyle: new
+                                          {
+                                              width = Unit.Percentage(100)
+                                          })
+                                          .DataSource(e => e.Read(rs => rs.Action("LoadTeamID", "SF1000", new { area = "S" }).Data("combo_TeamData"))))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.DutyID)</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTBussinessComboBox().ASOFTDRMDutyID(model => model.DutyID))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@Html.ASOFTLabel(model => model.GroupID)</td>
+                        <td colspan="2">
+                                        @Html.ASOFTBussinessComboBox().ASOFTGroupList(model => model.GroupID, @Model.GroupID, htmlStyle: new { width = Unit.Percentage(100) })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.Address)</td>
+                        <td class="asf-td-field" colspan="2">
+                            @Html.ASOFTTextBox(model => model.Address,
+                            htmlStyle: new { width = Unit.Percentage(100) })
+                        </td>
+                    </tr>
+        </table>
+    </div>
+    <div class="grid_6 line_left">
+        <table class="asf-table-view">
+             <tr>
+                <td class="asf-td-caption">@Html.ASOFTLabel(model => model.Tel)</td>
+                <td class="asf-td-field" colspan="2">
+                    @Html.ASOFTTextBox(model => model.Tel,
+                    htmlStyle: new { width = Unit.Percentage(100) })
+                </td>
+            </tr>
+            <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.Fax)</td>
+                        <td class="asf-td-field" colspan="2">
+                            @Html.ASOFTTextBox(model => model.Fax,
+                            htmlStyle: new { width = Unit.Percentage(100) })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.Email)</td>
+                        <td class="asf-td-field" colspan="2">
+                            @Html.ASOFTTextBox(model => model.Email,
+                            htmlStyle: new { width = Unit.Percentage(100) })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.PassWord)</td>
+                        <td class="asf-td-field" colspan="2">
+                            @if (Model.FormStatus == ASOFTFormActionType.AddNew)
+                            {
+
+                                @Html.ASOFTPassWord(model => model.PassWord,
+                               htmlStyle: new { width = Unit.Percentage(100), height = "25px" })
+
+                            }
+                            else
+                            {
+
+                                @(Html.ASOFTTextBox(model => model.PassWord,
+                                                htmlStyle: new
+                                                {
+                                                    width = Unit.Percentage(100),
+                                                    title = "..."
+                                                }).DisabledIf(true))
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.RePassWord)</td>
+                        <td class="asf-td-field" colspan="2">
+                            @if (Model.FormStatus == ASOFTFormActionType.AddNew)
+                            {
+
+                                @Html.ASOFTPassWord(model => model.RePassWord,
+                               htmlStyle: new { width = Unit.Percentage(100), height = "25px" })
+
+                            }
+                            else
+                            {
+
+                                @(Html.ASOFTTextBox(model => model.RePassWord,
+                                                htmlStyle: new
+                                                {
+                                                    width = Unit.Percentage(100),
+                                                    title = "..."
+                                                }).DisabledIf(true))
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption"></td>
+                        <td class="asf-td-field">@Html.ASOFTCheckbox(model => model.IsCommon)</td>
+                        <td class="asf-td-field">@Html.ASOFTCheckbox(model => model.Disabled).HideIf(Model.FormStatus == ASOFTFormActionType.AddNew)</td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.FunctionID)</td>
+                        <td class="asf-td-field" colspan="2">
+
+                            @(Html.ASOFTBussinessComboBox().ASOFTFunctionID_S(model => model.FunctionID,
+                                          htmlStyle: new
+                                          {
+                                              width = Unit.Percentage(100)
+                                          }))
+                        </td>
+                    </tr>
+                <tr>
+                <td class="asf-td-caption">@Html.ASOFTLabel(model => model.QuantityMax)</td>
+                <td class="asf-td-field" colspan="2">
+                    @Html.ASOFTTextBox(model => model.QuantityMax,
+                    htmlStyle: new { width = Unit.Percentage(100) })
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>

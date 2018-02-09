@@ -1,0 +1,344 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     28/03/2014      Chánh Thi       Tạo mới
+//####################################################################
+*@
+
+@model ASOFT.ERP.ViewModel.POS.POSF00101ViewModel
+
+@{
+    bool IsCAFE;
+    IsCAFE = Model.BusinessArea == ASOFTConstants.BUSSINESSAREA_CAFE;
+}
+
+<div class="asf-form-container container_12">
+    @Html.ASOFTHidden("IsCAFE", IsCAFE)
+    @Html.ASOFTHidden(model => model.WareHouseName)
+    @Html.ASOFTHidden(model => model.ComWarehouseName)
+    <div class="grid_12">
+        <table class="asf-table-view">
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.InventoryTypeName)</td>
+                <td colspan="2">
+                    @(Html.ASOFTBussinessComboBox().ASOFTInventoryTypeIDList(model => model.InventoryTypeID,
+                         @Model.InventoryTypeID,
+                          htmlAttributes: new Dictionary<string, object> {
+                              {"data-bind","value:InventoryTypeID"}},
+                          htmlStyle: new
+                          {
+                              width = Unit.Percentage(100)
+                    }))
+                </td>
+
+                    @*@(Html.ASOFTBussinessComboBox().ASOFTInventoryTypeID(model => model.InventoryTypeID,
+                          htmlAttributes: new Dictionary<string, object> {
+                              {"data-bind","value:InventoryTypeID"}},
+                          htmlStyle: new
+                          {
+                              width = Unit.Percentage(100)
+                          }).SelectedIndex(0).Events(e => e.Change("Combobox_Change")))*@
+                     
+                @*<td>@Html.ASOFTLabel(model => model.InventoryTypeName)</td>
+                <td>
+                    @(Html.ASOFTBussinessComboBox().ASOFTInventoryTypeID(model => model.InventoryTypeID,
+                          htmlAttributes: new Dictionary<string, object> {
+                              {"data-bind","value:InventoryTypeID"}},
+                          htmlStyle: new
+                          {
+                              width = Unit.Percentage(100)
+                          }))
+                </td>*@
+            </tr>
+            @if (IsCAFE)
+            {
+             <tr>
+                <td>@Html.ASOFTLabel(model => model.InventoryTypeID1)</td>
+                <td colspan="2">@(Html.ASOFTBussinessComboBox().ASOFTInventoryTypeID(model => model.InventoryTypeID1,
+                    htmlAttributes: new Dictionary<string, object> {
+                                                    {"data-bind","value:InventoryTypeID"}},
+                    htmlStyle: new
+                    {
+                        width = Unit.Percentage(100)
+                    }).SelectedIndex(0))</td>
+              @*  <td>
+                    @Html.ASOFTLabel(model => model.DefaultPrinter1)
+                </td>*@
+                 @*<td> @Html.ASOFTLabel(model => model.DefaultPrinter1)
+                     @(Html.ASOFTBussinessComboBox().ASOFTPrinterName(model => model.DefaultPrinter1).SelectedIndex(0).BindTo(Model.PrinterListName))
+                 </td>*@
+            </tr>
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.InventoryTypeID2)</td>
+                <td colspan="2">@(Html.ASOFTBussinessComboBox().ASOFTInventoryTypeID(model => model.InventoryTypeID2,
+                    htmlAttributes: new Dictionary<string, object> {
+                                                    {"data-bind","value:InventoryTypeID"}},
+                    htmlStyle: new
+                    {
+                        width = Unit.Percentage(100)
+                    }).SelectedIndex(0))</td>
+                </tr>
+            <tr>
+                <td>
+                    @Html.ASOFTLabel(model => model.IPPrinter)
+                </td>
+                <td colspan="2">
+                    @Html.ASOFTTextBox(model => model.IPPrinter)
+                </td>
+
+              @*  <td>@Html.ASOFTLabel(model => model.DefaultPrinter2)
+                    @(Html.ASOFTBussinessComboBox().ASOFTPrinterName(model => model.DefaultPrinter2).SelectedIndex(0).BindTo(Model.PrinterListName))
+                </td>*@
+            </tr>
+            <tr>
+               @*<td>
+                    @Html.ASOFTLabel(model => model.DefaultPrinter)
+                </td>*@
+               @* <td>&nbsp;</td>
+                <td>&nbsp;</td>*@
+                @*<td>
+                    @Html.ASOFTLabel(model => model.DefaultPrinter)
+                </td>*@
+                @*<td>@Html.ASOFTLabel(model => model.DefaultPrinter)
+                   @(Html.ASOFTBussinessComboBox().ASOFTPrinterName(model => model.DefaultPrinter).SelectedIndex(0).BindTo(Model.PrinterListName))
+                </td>*@
+
+            </tr>
+            }
+
+            <tr>
+                <td class="container_label">@Html.ASOFTLabel(model => model.Price)</td>
+                <td class="container_quarter">
+                    @Html.ASOFTCheckbox(model => model.IsColumn).DisabledIf(true).CheckedIf(true)
+                </td>
+                <td class="container_control_half">
+                    @(Html.ASOFTBussinessComboBox().ASOFTSalePricesID(model => model.PriceColumn,
+                    htmlAttributes: new Dictionary<string, object> {
+                                                    {"data-bind","value:ID"}},
+                    htmlStyle: new
+                    {
+                        width = Unit.Percentage(100)
+                    }).SelectedIndex(0))
+                </td>
+            </tr>
+
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.PriceTable)</td>
+                <td>
+                    @Html.ASOFTCheckbox(model => model.IsTable)
+                </td>
+                
+                   @if (!IsCAFE)
+                   {
+                     <td>
+                     @if (Model.FormStatus == ASOFTFormActionType.AddNew)
+                                        {
+                                            @(Html.ASOFTBussinessComboBox().ASOFTTablePricesID(model => model.PriceValue,
+                    htmlAttributes: new
+                    {
+                        listWidth = 700
+                    }, htmlStyle: new
+                    {
+                        width = Unit.Percentage(100)
+                    }).SelectedIndex(0))
+                                        }
+                                        @if (((Model.PriceValue == null) && (Model.FormStatus != ASOFTFormActionType.AddNew)) ||
+                      (Model.PriceValue != null))
+                                        {
+                                            @(Html.ASOFTBussinessComboBox().ASOFTTablePricesID(model => model.PriceValue,
+                    htmlAttributes: new
+                    {
+                        listWidth = 700
+                    }, htmlStyle: new
+                    {
+                        width = Unit.Percentage(100)
+                    }))
+                                        }
+                    </td>
+                   }
+                    
+
+                   @if (IsCAFE)
+                   {
+                       <td>
+                        <fieldset>
+                        <legend>@Html.ASOFTLabel(model => model.TableInfo)</legend>
+                        <table>
+                            <tr>
+                                <td>
+                                        @Html.ASOFTRadioButton(model => model.IsChooseTableType, 1, htmlAttributes: new { id = "rdbIsDate0",name ="IsChooseTableType" })  @Html.ASOFTLabel(model => model.IsTableAll)
+                                </td>
+                                <td>
+                                        @if (Model.FormStatus == ASOFTFormActionType.AddNew)
+                                        {
+                                            @(Html.ASOFTBussinessComboBox().ASOFTTablePricesID(model => model.PriceValue,
+                    htmlAttributes: new
+                    {
+                        listWidth = 700
+                    }, htmlStyle: new
+                    {
+                        width = Unit.Percentage(100)
+                    }).SelectedIndex(0))
+                                        }
+                                        @if (((Model.PriceValue == null) && (Model.FormStatus != ASOFTFormActionType.AddNew)) ||
+                      (Model.PriceValue != null))
+                                        {
+                                            @(Html.ASOFTBussinessComboBox().ASOFTTablePricesID(model => model.PriceValue,
+                    htmlAttributes: new
+                    {
+                        listWidth = 700
+                    }, htmlStyle: new
+                    {
+                        width = Unit.Percentage(100)
+                    }))
+                                        }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                         @Html.ASOFTRadioButton(model => model.IsChooseTableType, 0, htmlAttributes: new { id = "rdbIsDate0" ,name ="IsChooseTableType" }) @Html.ASOFTLabel(model => model.IsTableOfTime)
+                                </td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                  </td>
+                   }
+                   else // Standard version
+                   {
+                       <td>
+                         @if (Model.FormStatus == ASOFTFormActionType.AddNew)
+                                            {
+                                                @(Html.ASOFTBussinessComboBox().ASOFTTablePricesID(model => model.PriceValue,
+                        htmlAttributes: new
+                        {
+                            listWidth = 700
+                        }, htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        }).SelectedIndex(0))
+                                            }
+                                            @if (((Model.PriceValue == null) && (Model.FormStatus != ASOFTFormActionType.AddNew)) ||
+                          (Model.PriceValue != null))
+                                            {
+                                                @(Html.ASOFTBussinessComboBox().ASOFTTablePricesID(model => model.PriceValue,
+                        htmlAttributes: new
+                        {
+                            listWidth = 700
+                        }, htmlStyle: new
+                        {
+                            width = Unit.Percentage(100)
+                        }))
+                                            }
+                        </td>
+                   }
+                @*</td>*@
+            </tr>
+            <tr>
+                @if (!IsCAFE)
+                {
+                    <td>@Html.ASOFTLabel(model => model.IsDiscountKINGCOM)</td>
+                }
+                @if (IsCAFE)
+                {
+                    <td>@Html.ASOFTLabel(model => model.IsDiscount)</td>
+                }
+                else // Standard version
+                {
+                    <td>@Html.ASOFTLabel(model => model.IsDiscountKINGCOM)</td>
+                }
+                <td colspan="2">@Html.ASOFTCheckbox(model => model.IsPromote)
+                    @(Html.ASOFTBussinessComboBox().ASOFTPromoteID(model => model.PromoteID,
+                                          htmlStyle: new
+                                          {
+                                              width = "399px"
+                                          }
+                                          //htmlAttributes: new Dictionary<string, object> {
+                                          //    {"data-bind","value:PromoteID"}}
+                                          //
+                                          )
+                                          .Name("PromoteID")
+                                          .DataSource(source =>
+                                          {
+                                              source.Read(read =>
+                                              {
+                                                  read.Action("S1", "ComboBox", new
+                                                  {
+                                                      area = ""
+                                                  }).Data("filterPromoteID1");
+                                              })
+                                                  .ServerFiltering(true);
+                                          })
+                                          //.CascadeFrom("InventoryTypeID")
+                                          .Events(e => e.Change("Combobox_Change"))
+                                          )
+                </td>
+            </tr>
+            @if (IsCAFE)
+                 {
+                <tr>
+                         <td>@Html.ASOFTLabel(model => model.IsDiscount2)</td>
+                         <td colspan="2">@Html.ASOFTCheckbox(model => model.IsPromote1)
+                           @(Html.ASOFTBussinessComboBox().ASOFTPromoteID2(model => model.PromoteID1,
+                                          htmlStyle: new
+                                          {
+                                              width = "399px"
+                                          },
+                                          htmlAttributes: new Dictionary<string, object> {
+                                              {"data-bind","value:PromoteID1"}}
+                                          )
+                                          .Name("PromoteID1")
+                                          .DataSource(source =>
+                                          {
+                                              source.Read(read =>
+                                              {
+                                                  read.Action("PromoteID2", "ComboBox", new
+                                                  {
+                                                      area = ""
+                                                  }).Data("filterPromoteID1");
+                                              })
+                                                  .ServerFiltering(true);
+                                          })
+                                          .CascadeFrom("InventoryTypeID")
+                                          .Events(e => e.Change("Combobox_Change")).SelectedIndex(0)
+                                          )
+                         </td>
+                </tr>
+                     
+                 }
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.WareHouseID)</td>
+                <td colspan="2">
+                    @(Html.ASOFTBussinessComboBox().ASOFTWareHouseID(model => model.WareHouseID,
+                                          htmlStyle: new
+                                          {
+                                              width = Unit.Percentage(100)
+                                          },
+                                          htmlAttributes: new Dictionary<string, object> {
+                                              {"data-bind","value:WareHouseID"}}
+                                          )
+                                          .Name("WareHouseID").Events(e => e.Change("warehouseID_Change"))
+                                          )
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.ASOFTLabel(model => model.ComWarehouseID)</td>
+                <td colspan="2">
+                    @(Html.ASOFTBussinessComboBox().ASOFTWareHouseID(model => model.ComWarehouseID,
+                                          htmlStyle: new
+                                          {
+                                              width = Unit.Percentage(100)
+                                          },
+                                          htmlAttributes: new Dictionary<string, object> {
+                                              {"data-bind","value:ComWarehouseID"}}
+                                          )
+                                          .Name("ComWarehouseID").Events(e => e.Change("comWarehouseID_Change"))
+                                          )
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+

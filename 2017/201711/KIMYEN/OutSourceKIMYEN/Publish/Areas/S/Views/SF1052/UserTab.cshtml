@@ -1,0 +1,38 @@
+﻿
+@model ASOFT.ERP.ViewModel.S.SF1052ViewModel
+@using System.Web.UI.WebControls;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Database
+
+<div class="container_12">
+    <div class="clearfix"></div>
+    <table class="asf-table-view">
+        <tr>
+            <td class="asf-td-caption" style="width: 20%">@Html.ASOFTLabel(model => model.UserID)</td>
+            <td class="asf-td-field">
+                @(Html.ASOFTTextBox(model => model.UserID, htmlAttribute: new { initValue = Model.RoleID }))
+            </td>
+            <td class="asf-td-caption" style="width: 20%">@Html.ASOFTLabel(model => model.UserName)</td>
+            <td class="asf-td-field">@Html.ASOFTTextBox(model => model.UserName, htmlStyle: new { width = Unit.Percentage(100) })</td>
+        </tr>
+    </table>
+</div>
+<div class="container_12 asf-button-filter-container">
+    <div class="grid_6 omega float_right">
+        <ul class="vertical float_right"  style="border-bottom: none !important">
+            <li> 
+                @(Html.ASOFTSearchButton()
+                    .Name("SF1052GridUserFilter")
+                    .Events(e => e.Click("SF1052GridUser_Click")))
+            </li>
+            <li> 
+                @(Html.ASOFTSearchResetButton()
+                .Name("SF1052GridUserClearFilter")
+                .Events(e => e.Click("SF1052UserClearFilter_Click")))
+
+            </li>
+        </ul>
+    </div>
+</div> 
+<div class="clearfix"></div>
+@Html.Partial("GridUserID")  

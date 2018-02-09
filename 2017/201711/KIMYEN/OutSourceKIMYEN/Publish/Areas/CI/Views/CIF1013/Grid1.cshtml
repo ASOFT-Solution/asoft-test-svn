@@ -1,0 +1,47 @@
+﻿@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Core;
+@model CIF1013ViewModel
+
+@{
+   
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "CIF1013Grid1",
+        //NameEventPost = "CIF1041.gridSendData",
+        Scrollable = true,
+        IsShowCheck = false,
+        ActionName = "GridData1",
+        ControllerName = "CIF1013",
+        IsAutoHeight = false,
+        HtmlAttribute = new { @class = "asf-grid", style = "height: 300px" },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = CIF1013.COL_ROWNUM,
+                TitleColumn = ASOFTLanguage.FindWordA00("A00.Order"),
+                ClientTemplate = "#= CIF1013.renderNumber() #",
+                Width = 50,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = CIF1013.COL_EMPLOYEEID,
+                TitleColumn = Html.DisplayNameFor(model => model.EmployeeID).ToHtmlString(),
+                Width = 100,
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = CIF1013.COL_EMPLOYEENAME,
+                TitleColumn = Html.DisplayNameFor(model => model.EmployeeName).ToHtmlString(),
+                Width = 200,
+                VisibleColumn = true,
+            },
+
+        }
+    };
+}
+
+@(Html.ASOFTCreateGridNotPagging<CIF1013>(gridsetting))
+

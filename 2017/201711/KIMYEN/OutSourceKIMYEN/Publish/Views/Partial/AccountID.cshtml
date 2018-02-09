@@ -1,0 +1,71 @@
+﻿
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.ViewModel;
+@model ASOFT.ERP.ViewModel.ASOFTSysFieldsViewModel
+
+@{
+    string accountID = ViewBag.AccountID;
+    string ScreenID = ViewBag.ScreenID;
+    bool enable = accountID == null ? false : true;
+    bool disable = accountID == null ? true : false;
+    if (ScreenID.Equals("CRMF2006") || ScreenID.Equals("SOF2001"))
+    {
+        enable = true;
+        disable = true;
+    }
+}
+
+<tr class="AccountIDPartial">
+    
+    @Html.ASOFTHidden("AccountID", accountID).DisabledIf(disable);
+    @Html.ASOFTHidden("AccountID_Content_DataType", "7");
+    @Html.ASOFTHidden("AccountID_Type_Fields", "1");
+    <td class="asf-td-caption">@Html.Label(Model.language, htmlAttributes: new { @for = "AccountName" })<span class="asf-label-required">*</span>
+    </td>
+    <td>
+        @(Html.ASOFTTextBox(model => model.Data, htmlAttribute: new { Disabled = "Disabled", @id = "AccountName"}))
+                  
+        @(Html.ASOFTButton("...")
+        .Name("btnChooseAccount")
+        .HtmlAttributes(new { style = "width : 26px; height: 26px; background-repeat: no-repeat"})
+        .Enable(enable)
+        .Events(e => e.Click("btnChooseAccount_Click")))
+
+        @if (!ScreenID.Equals("CRMF2006") && !ScreenID.Equals("SOF2001"))
+        {
+            @(Html.ASOFTButton("")
+            .Name("btnAddAccount")
+            .HtmlAttributes(new { style = "width : 26px; height: 26px; background-image: url(/Content/Images/icon-add-24x24.png); background-repeat: no-repeat"  })
+            .Enable(enable)
+            .Events(e => e.Click("btnAddAccount_Click")))
+            
+            @(Html.ASOFTButton("")
+            .Name("btnDeleteAccount")
+            .HtmlAttributes(new { style = "width : 26px; height: 26px; background-image: url(/Content/Images/icon-delete-24x24.png); background-repeat: no-repeat" })
+            .Enable(enable)
+            .Events(e => e.Click("btnDeleteAccount_Click")))
+        }
+    </td>
+</tr>
+
+<script>
+    $("#AccountName").css("width", "150px");
+    $("#AccountName").attr("name", "AccountName");
+    $(document).ready(function () {     
+        if ($("#ObjectName").val() !== undefined) {
+            var textObjectID = $("label[for|='AccountName']").text();
+            $("#ObjectID").after("<label for = 'ObjectID' hidden>" + textObjectID + "</label>");
+            $("#AccountName").val($("#ObjectName").val());
+        }
+        if ($("#AccountName").val() !== undefined) {
+            var textAccountID = $("label[for|='AccountName']").text();
+            $("#AccountID").after("<label for = 'AccountID' hidden>" + textAccountID + "</label>");
+            $("#AccountID").attr("data-val-required", "The field is required.");
+        }
+        if (typeof parent.GetCheckConfirm === "function") {
+            if (parent.GetCheckConfirm() == 1) {
+                $("#btnChooseAccount").data("kendoButton").enable(false);
+            }
+        }
+    })
+</script>

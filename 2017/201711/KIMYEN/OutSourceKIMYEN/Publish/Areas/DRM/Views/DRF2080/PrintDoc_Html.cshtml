@@ -1,0 +1,22 @@
+﻿@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Infrastructure;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel;
+@using System.Web.UI.WebControls;
+@using Kendo.Mvc;
+@model DRF2080ViewModel
+@{
+    Layout = "";
+    int count = ViewBag.Html.Count;
+    int num = 1;
+}
+<div style="width: 674px; margin-left: auto;margin-right: auto;text-align:justify">
+ 
+   @foreach (var item in ViewBag.Html)
+   {
+       <div id="@num.ToString()" style="@(@num<@count?"page-break-after: always;font-size: 12px;":"font-size: 12px;")"> 
+       @Html.Raw(item)
+           </div>
+   }
+</div>

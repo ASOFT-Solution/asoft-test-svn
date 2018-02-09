@@ -1,0 +1,44 @@
+﻿@using ASOFT.ERP.A00.Core;
+@model ASOFT.ERP.ViewModel.ASOFTActionViewModel
+
+<div class="asf-panel-master-left">
+    <span>@ASOFTLanguage.FindWordA00("A00.Action")</span>
+    <span class="asf-i-action" onclick="actionClick(this)"></span>
+</div>
+
+@helper Action()
+{
+    <div  class="asf-action-panel">
+        <ul>
+            @{
+                bool permission = false;
+                foreach(var list in Model.ListAction)
+                {
+                    permission = string.IsNullOrEmpty(list.ModuleID) ? ASOFTEnvironment.CheckPermission(list.ScreenID, list.Permission) : ASOFTEnvironment.CheckPermission(list.ScreenID, list.ModuleID, list.Permission);
+                    if(!string.IsNullOrEmpty(list.ClickEvent))
+                    {
+                        <li @string.Format("onclick={0} class={1}", 
+                            permission ? list.ClickEvent : "return false;",
+                            permission ? "''" : "asf-disabled") >
+                            <a id="@list.Name" href="#">@list.Text</a>
+                        </li>
+                    }
+                    else
+                    {
+                            <li>
+                            <a id="@list.Name" href="@list.Url">@list.Text</a>
+                        </li>
+                    }
+                }
+            }
+        </ul>
+    </div>
+}
+
+@(Html.ASOFTPopup(false, new { @class = "asf-window"})
+        .Name("Action")
+        .Content(this.Action().ToHtmlString())
+        .Title(false)
+        .Modal(false)
+        .Animation(false)
+)

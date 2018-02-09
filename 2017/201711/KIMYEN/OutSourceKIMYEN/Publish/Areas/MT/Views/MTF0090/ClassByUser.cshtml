@@ -1,0 +1,65 @@
+﻿@using System.Web.UI.WebControls;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.ViewModel;
+@model ASOFT.ERP.ViewModel.MT.MTF0090ViewModel
+@{
+    Layout = "";
+}
+
+<div class="form-content-grid-left">
+    <table class="asf-table-view">
+        <tr>
+            <td class="asf-td-caption" colspan="4">@Html.ASOFTLabel(model => model.Grid1Title)</td>
+        </tr>
+        <tr>
+            <td class="asf-td-caption" colspan="4">
+                @Html.Partial("GridCurrentClass")
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="asf-btn-arrow">
+        <table class="asf-table-view">
+            <tr>
+                <td colspan="4">
+                <ul class="middle-buttons">
+                    <li>@(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnChangeSingle"))
+                            .Name("changeSingle")
+                            .Events(m => m.Click("MTF0090.addClass"))
+                        )
+                    </li>
+                    <li>@(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnChangeReturn"))
+                            .Name("returnSingle")
+                            .Events(e => e.Click("MTF0090.removeClass"))
+                        )
+                    </li>       
+                    <li class="third">@(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnChangeAll"))
+                            .Name("returnChangeAll")
+                            .Events(e => e.Click("MTF0090.addAllClass"))
+                            )
+                    </li>
+                    <li>@(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnReturnAll"))
+                            .Name("ReturnAll")
+                            .Events(e => e.Click("MTF0090.removeAllClass"))
+                        )
+                    </li>               
+                </ul>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="form-content-grid-right">
+    <table class="asf-table-view">
+        <tr>
+            <td class="asf-td-caption" colspan="4">@Html.ASOFTLabel(model => model.Grid2Title)</td>
+        </tr>
+        <tr>
+            <td class="asf-td-caption" colspan="4">
+                @Html.Partial("GridSelectedClass")
+            </td>
+        </tr>
+    </table>
+</div>
+

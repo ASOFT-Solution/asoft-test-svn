@@ -1,0 +1,42 @@
+﻿
+@model CRMF2000ViewModel
+@using ASOFT.ERP.ViewModel.Helper;
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new
+{
+    id = "ScreenExtend"
+})){
+
+<div class ="callExtend"> @LocalizedHelper.GetLocalizedResourceString("CRMF2000.Extend","CRMF2000","CRM").ToUpper()</div>
+<table class="tb-extend">
+        <tr>
+            <td>@LocalizedHelper.GetLocalizedResourceString("CRMF2000.Description02","CRMF2000","CRM")</td>
+            <td>:</td>
+            <td colspan="2">@Html.DisplayFor(model => model.Description02)</td>
+        </tr>
+        <tr>&nbsp</tr>
+        <tr>
+            <td>@LocalizedHelper.GetLocalizedResourceString("CRMF2000.Description03","CRMF2000","CRM")</td>
+            <td>:</td>
+            <td colspan="2">@Html.DisplayFor(model => model.Description03)</td>
+        </tr>
+        <tr>&nbsp</tr>
+        <tr>
+            <td>@LocalizedHelper.GetLocalizedResourceString("CRMF2000.Description04","CRMF2000","CRM")</td>
+            <td>:</td>
+            <td colspan="2">@Html.DisplayFor(model => model.Description04)</td>
+        </tr>
+        <tr>&nbsp</tr>
+        <tr>
+            <td>@LocalizedHelper.GetLocalizedResourceString("CRMF2000.Description05","CRMF2000","CRM")</td>
+            <td>:</td>
+            <td colspan="2">@Html.DisplayFor(model => model.Description05)</td>
+        </tr>
+        <tr>&nbsp</tr>
+        <tr>
+            <td>@LocalizedHelper.GetLocalizedResourceString("CRMF2000.O04ID","CRMF2000","CRM")</td>
+            <td>:</td>
+            <td colspan="2">@Html.DisplayFor(model => model.O01ID)</td>
+        </tr>
+</table>
+}

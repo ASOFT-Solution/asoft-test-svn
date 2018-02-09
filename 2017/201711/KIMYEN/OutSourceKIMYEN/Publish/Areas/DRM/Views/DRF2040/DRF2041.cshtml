@@ -1,0 +1,158 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     11/09/2014      Đức Quý         Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.ViewModel.DRM
+@model DRF2041ViewModel
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.DRF2041Title, "DRF2041").ToHtmlString();
+    ViewBag.Width = 900;
+
+    // Form Status
+    bool isInsert = Model.FormStatus.Equals(ASOFTFormActionType.AddNew);
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new {id = "DRF2041"}))
+{
+ <div class="asf-form-container">
+    <div class="form-content">
+        <div class="form-content-left">
+            <table class="asf-table-view">
+               <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.EmployeeID)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTBussinessComboBox().ASOFTDRMEmployeeID(model => model.EmployeeID, 
+                                ASOFTLanguage.FindWordA00("A00.EmployeeID"), ASOFTLanguage.FindWordA00("A00.EmployeeName"),
+                                option: new ComboOption() { EventRequestEnd = "DRF2041.comboBox_RequestEnd" })
+                            .Events(e=>e.Change("DRF2041.employeeID_Changed").DataBound("DRF2041.employeeID_DataBound"))
+                            .Enable(Model.FormStatus == ASOFTFormActionType.AddNew))
+                        @Html.ASOFTHidden(DRT2040.COL_LASTMODIFYDATE, Model.LastModifyDate != null ? Model.LastModifyDate.Value.ToString("dd/MM/yyyy HH:mm:ss.fff") : "")
+                        @Html.ASOFTHidden(model=>model.APK)
+                        @Html.ASOFTHidden(model=>model.TranMonth)
+                        @Html.ASOFTHidden(model=>model.TranYear)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.EmployeeName)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTTextBox(model=>model.EmployeeName).ReadOnlyIf(true))
+                    </td>
+                </tr>   
+                 <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.TeamID)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTTextBox(model=>model.TeamID).ReadOnlyIf(true))
+                    </td>
+                </tr>  
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.BaseSalary)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTSpinEdit(model=>model.BaseSalary))
+                    </td>
+                </tr>   
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.InsuranceSalary)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTSpinEdit(model=>model.InsuranceSalary))
+                    </td>
+                </tr>   
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.TradeUnion)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTSpinEdit(model=>model.TradeUnion))
+                    </td>
+                </tr>          
+            </table>
+        </div>
+        <div class="form-content-right">
+            <table class="asf-table-view">
+                 <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.RiceAllowance)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTSpinEdit(model=>model.RiceAllowance))
+                    </td>
+                </tr>    
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.GasAllowance)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTSpinEdit(model=>model.GasAllowance))
+                    </td>
+                </tr>
+                 <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.PhoneAllowance)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTSpinEdit(model=>model.PhoneAllowance))
+                    </td>
+                </tr>        
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.OnsiteFee)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTSpinEdit(model=>model.OnsiteFee))
+                    </td>
+                </tr>  
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.Remuneration)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTSpinEdit(model=>model.Remuneration))
+                    </td>
+                </tr>  
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.Other)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTSpinEdit(model=>model.Other))
+                    </td>
+                </tr>    
+            </table>
+        </div>
+    </div>
+</div>
+<div class="asf-form-button">
+    <table class="asf-table-view">
+        <tr>
+            <td align="right">
+                <div class="asf-popup-button-container">
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                              .Name("BtnClose")
+                              .Events(e => e.Click("DRF2041.btnClose_Click")))
+                    </div>
+                    <div >
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSaveCopy"))
+                                .Name("BtnSaveCopy")
+                                .Events(e => e.Click("DRF2041.btnSaveCopy_Click"))
+                                .HideIf(!isInsert))
+                    </div>
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSaveNew"))
+                                .Name("btnSaveDRF2041")
+                                .Events(e => e.Click("DRF2041.btnSaveNext_Click"))
+                                .HideIf(!isInsert))
+                    </div>
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSave"))
+                                .Name("BtnSaveClose")
+                                .Events(e => e.Click("DRF2041.btnSave_Click"))
+                                .Enable(false)
+                                .HideIf(isInsert))
+                    </div>        
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+}
+
+@section styleFeature{
+@*    <link href="@Url.Content("~/Areas/DRM/Content/DRF2001.css")" rel="stylesheet" type="text/css" />*@
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF2040/DRF2041.js?v=" + ASOFTEnvironment.Version)"></script>
+   @* @Html.RenderScripts(files: new[] { "CRMF2061" })*@
+}

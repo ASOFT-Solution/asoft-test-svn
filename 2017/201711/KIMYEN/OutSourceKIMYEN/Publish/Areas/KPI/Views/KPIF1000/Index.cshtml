@@ -1,0 +1,51 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Created           Comment
+//#     23/08/2017      Quang Hoàng      Tạo mới
+//####################################################################
+*@
+
+@using ASOFT.ERP.ViewModel.CI;
+@using ASOFT.ERP.ViewModel.Helper;
+@using ASOFT.ERP.A00.Core
+@using Kendo.Mvc.UI.Fluent;
+@using Kendo.Mvc.UI;
+
+@model List<CIF1123ViewModel>
+
+@{
+    Layout="~/Views/Shared/_Layout.cshtml";
+}
+
+@(Html.Kendo().TreeView().ExpandAll(true)
+    .Name("TreeView").HtmlAttributes(new { style = "height: 100%; width: 300px; overflow: hidden;" })
+    .Items(items => {
+        foreach (var item in Model.FindAll(m => string.IsNullOrEmpty(m.NodeParentID)))
+        {
+            var builder = items.Add().Text(item.NodeName).HtmlAttributes(new { style = "height: auto; font-size: 10px; text-align: left;", @class = "asf-treeview color" + item.NodeTypeID }).ImageUrl(Url.Content("~/Content/Images/icon" + item.NodeTypeID + ".png"));
+            addChildren(builder, item, Model).ToHtmlString();
+        }
+    })
+)
+
+    
+
+@helper addChildren(TreeViewItemBuilder builder, CIF1123ViewModel item, List<CIF1123ViewModel> items)
+{
+    var children = items.FindAll(m => m.NodeParentID == item.NodeID);
+    if (children != null)
+    {
+        string url = string.Empty;
+        builder.Items(nodeItemsMB =>
+        {
+            foreach (var child in children)
+            {
+                var nodeItem = nodeItemsMB.Add().Text(child.NodeName).HtmlAttributes(new { style = "height: auto; font-size: 10px; text-align: left", @class = "asf-treeview color" + child.NodeTypeID }).ImageUrl(Url.Content("~/Content/Images/icon" + child.NodeTypeID + ".png"));
+                addChildren(nodeItem, child, items).ToHtmlString();
+            }
+        });
+    }
+}

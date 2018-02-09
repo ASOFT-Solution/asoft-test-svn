@@ -1,0 +1,76 @@
+﻿
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.ViewModel.POS
+@model POSF0013ViewModel
+
+@{  
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "POSF0013Grid", 
+        Scrollable = true, 
+        ControllerName = "POSF0013",
+        ActionName = "GridData",
+        NameEventPost = "sendDataFilter",
+        IsShowCheck = false,
+        HtmlAttribute = new
+        {
+            style = "height:630px;", 
+            @class = "asf-grid"
+        },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "RowNum",
+                 TitleColumn = ASOFTLanguage.FindWordA00("A00.Number"),
+                Width = 30,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "DivisionID",
+                TitleColumn = Html.ASOFTRaw(model => model.DivisionIDFilter),
+                Width = 30,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:left", Class="asf-cols-align-left"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "PaymentID",
+                TitleColumn = Html.ASOFTRaw(model => model.PaymentIDFilter),
+                Width = 60,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:left", Class="asf-cols-align-left"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "PaymentName",
+                TitleColumn = Html.ASOFTRaw(model => model.PaymentNameFilter),
+                Width = 200,
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "Disabled",
+                TitleColumn = Html.ASOFTRaw(model => model.DisabledFilter),
+                Width = 60,
+                ClientTemplate = "<input type='checkbox' #= Disabled ? 'checked' : '' # onclick='return false;' disabled=disabled />",
+                HtmlAttrCoulmns = (new {style = "text-align:center"}),
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "IsCommon",
+                TitleColumn = Html.ASOFTRaw(model => model.IsCommonFilter),
+                Width = 60,
+                ClientTemplate = "<input type='checkbox' #= IsCommon ? 'checked' : '' # onclick='return false;' disabled=disabled />",
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            }
+        }
+    };
+}
+
+@(Html.ASOFTCreateGrid<POSF0013GridViewModel>(gridsetting))
+

@@ -1,0 +1,11 @@
+﻿
+
+.disabled-cursor{
+    width: 70% !important;
+    background-color: #d0c9c9;
+    cursor: not-allowed !important;
+}
+
+span.asf-icon{
+    height: 16px !important;
+}

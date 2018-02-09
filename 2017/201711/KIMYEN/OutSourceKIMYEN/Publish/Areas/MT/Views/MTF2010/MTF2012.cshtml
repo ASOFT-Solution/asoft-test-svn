@@ -1,0 +1,68 @@
+﻿
+
+@model ASOFT.ERP.ViewModel.MT.MTF2010ViewModel
+@{
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.MTF2012Title, "MTF2012").ToHtmlString();
+}
+
+
+@section jsFeature{
+    <script src="@Url.Content("~/Areas/MT/Scripts/MTF2010.js")"> </script>
+    <script src="@Url.Content("~/Areas/MT/Scripts/MTF0060.js")"> </script>
+    <script src="@Url.Content("~/Areas/MT/Scripts/MTF0080.js")"> </script>
+    <script src="@Url.Content("~/Areas/MT/Scripts/MTF2020.js")"> </script>
+}
+
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/MT/Content/MTF2010.css")" rel="stylesheet" type="text/css" />
+}
+
+
+<div id="contentMaster">
+    @Html.ASOFTHeader(new HeaderModel {Title = Html.ASOFTRaw(model => model.MTF2012Title), Breakcrumb = true})
+    <div id="ViewMaster" class="asf-panel-view-master" >
+        <div class="asf-panel-master-header">
+            @Html.Partial("~/Views/Shared/Action/Action.cshtml", Model.Action)
+            <div class="asfbtn asfbtn-right">
+                @Html.Partial("~/Views/Shared/EditorTemplates/Toolbar.cshtml", Model.Toolbar1 ?? new ASOFTToolBarViewModel())
+            </div>
+        </div>
+        <div id="viewPartial">
+            @Html.Partial("MTF2012M", Model)
+        </div>
+    </div>
+</div>
+
+@(Html.ASOFTPopup()
+      .Name("MTF2011Popup")
+      .Width(800)
+      .Title(Html.ASOFTPageTitle(m => m.MTF2011Title, "MTF2011").ToHtmlString())
+      )
+
+@(Html.ASOFTPopup()
+      .Name("MTF0060Popup")
+      .Width(400)
+      .Title(Html.ASOFTPageTitle(m => m.MTF0060ReportTitle, "MTF0060").ToHtmlString())
+      )
+
+@(Html.ASOFTPopup()
+      .Name("MTF2021Popup")
+      .Width(750)
+      .Title("Cập nhật lý do thôi học - MTF2021")
+ )
+
+@Html.ASOFTHidden("UrlMTF0060", Url.Action("Index", "MTF0060"))
+@Html.ASOFTHidden("UrlMTF2010", Url.Action("index"))
+@Html.ASOFTHidden("UrlMTF2011", Url.Action("MTF2011"))
+@Html.ASOFTHidden("UrlMTF2012", Url.Action("MTF2012"))
+@Html.ASOFTHidden("UrlMTF2012M", Url.Action("MTF2012M"))
+@Html.ASOFTHidden("UrlMTF2012ExportExcel", Url.Action("ExportExcel"))
+@Html.ASOFTHidden("UrlMTF2012ReportViewer", Url.Action("ReportViewer"))
+@Html.ASOFTHidden("UrlPrePrintOrExport", Url.Action("PrePrintOrExport"))
+@Html.ASOFTHidden("UrlMTF2011Update", Url.Action("DoUpdate"))
+@Html.ASOFTHidden("UrlMTF2010Delete", Url.Action("DoDelete"))
+@Html.ASOFTHidden("MTF2012APK", Model.APK.ToString())
+@Html.ASOFTHidden("MTF2012StudentID", Model.StudentID)
+@Html.ASOFTHidden("MTF2012StudentName", Model.StudentName)
+@Html.ASOFTHidden("MTF2012ClassID", Model.ClassID)
+@Html.ASOFTHidden("UrlCheckEdit", Url.Action("CheckEdit"))

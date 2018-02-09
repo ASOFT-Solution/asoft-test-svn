@@ -1,0 +1,96 @@
+﻿@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Entities.Database
+@using ASOFT.ERP.ViewModel.DRM
+@using ASOFT.ERP.DRM.Entities
+@model DRF2072ViewModel
+@{
+    var gridsetting = new ASOFTGridSetting
+                          {
+                              NameGrid = "DRF2072GridEveryDay",
+                              NameEventPost = "DRF2072.drf2072GridSendData",
+                              Scrollable = true,
+                              ActionName = "GetGridEveryDay",
+                              ControllerName = "DRF2070",
+                              HtmlAttribute = new { style = "margin-top:50px", @class = "asf-grid" },
+                              IsShowCheck = true,
+                              IsAutoHeight = false,
+                              ListGridColumn = new List<ASOFTGridColumnSetting>{
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = "RowNum",
+                                                               TitleColumn = ASOFTLanguage.FindWordA00("A00.Order"),
+                                                               Width = 50,
+                                                               VisibleColumn = true,
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2014.COL_PROCESSINGID,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.ProcessingID),
+                                                               Width = 150,
+                                                               VisibleColumn = true
+                                                           },   
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2014.COL_DEBTORNAME,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.DebtorName),
+                                                               Width = 200,
+                                                               VisibleColumn = true,
+                                                   
+                                                           },   
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2014.COL_ACTIONDATE,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.ActionDate),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                   
+                                                           },  
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2014.COL_ACTIONID,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.ActionID),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                           },
+                                         new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2014.COL_ACTIONOBJECTID,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.ActionIDObjectID),
+                                                               Width = 150,
+                                                               VisibleColumn = true,       
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2014.COL_RESULTID,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.ResultID),
+                                                               Width = 150,
+                                                               VisibleColumn = true,       
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2014.COL_REASONID,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.ReasonID),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                           },    
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2014.COL_NEXTACTIONDATE,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.NextActionDate),
+                                                               Width = 170,
+                                                               VisibleColumn = true,
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2014.COL_NEXTPAIDAMOUNT,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.NextPaidAmount),
+                                                               Width = 170,
+                                                               VisibleColumn = true,
+                                                           }
+                                
+                              }
+                          };
+}
+
+@(Html.ASOFTCreateGridNotPagging<ASOFT.ERP.DRM.Entities.DRP2014>(gridsetting))

@@ -1,0 +1,124 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     19/07/2014      Thai Son        Tạo Mới
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.ViewModel.POS
+@using ASOFT.ERP.A00.Entities.Database
+
+@model ASOFT.ERP.ViewModel.POS.POSF0056ViewModel
+
+@{
+    // Required ---------------------------------------------------------------
+    Layout = "~/Views/Shared/_MasterDetailLayout.cshtml";
+    Queue<string> PanelNameQueue;
+    Queue<string> TabNameQueue;
+    ViewBag.PanelNameQueue = PanelNameQueue = new Queue<string>();
+    ViewBag.TabNameQueue = TabNameQueue = new Queue<string>();
+    //-------------------------------------------------------------------------
+
+    //ViewBag.Title = Html.ASOFTPageTitle(m => m.Title, "POSF0025").ToHtmlString();
+    ViewBag.Title = Html.ASOFTPageTitle(model => model.Title, "POSF0056").ToHtmlString();
+    Model.Toolbar1 = new ASOFTToolBarViewModel
+    {
+        DisplayEdit=true,
+        DisplayDelete = true,
+        EventEdit = "btnEditMaster_Click",
+        EventDelete = "btnDeleteMaster_Click"
+    };
+
+    Model.Toolbar2 = new ASOFTToolBarViewModel
+    {
+        DisplayAdd = false,
+        DisplayDeleteDetail = false,
+        EventAdd = "btnAddDetail_Click",
+        EventDeleteDetail = "btnDeleteDetail_Click"
+    };
+}
+
+@* Hidden field (for specific screen)*@
+@Html.ASOFTHidden(m => m.APK)
+@Html.ASOFTHidden(m => m.VoucherNo)
+@*----------------------------------*@
+
+@* Define tab one by one, tab name format: "DetailTab" + index
+    Indices must be continuous *@
+@section DetailTab1
+{
+    @Html.AddDetailTabName(TabNameQueue, ASOFTLanguage.FindWordA00("A00.Details"))
+    @Html.Partial("GridVoucherDetail")
+}
+
+@* Define panel one by one, panel name format: "MasterPanel" + index
+    Indices must be continuous *@
+@section MasterPanel1
+{
+    @Html.AddMasterPanelName(
+        PanelNameQueue,
+        Html.ASOFTRaw(model => model.VoucherInfo))
+    <tr>
+        <td>@Html.ASOFTLabel(model => model.VoucherTypeID)</td>
+        <td>@Html.DisplayFor(model => model.VoucherTypeID)</td>
+    </tr>
+    <tr>
+        <td>@Html.ASOFTLabel(model => model.VoucherNo)</td>
+        <td>@Html.DisplayFor(model => model.VoucherNo)</td>
+    </tr>
+    <tr>
+        <td>@Html.ASOFTLabel(model => model.VoucherDate)</td>
+        <td>@Html.DisplayFor(model => model.VoucherDate)</td>
+    </tr>
+    <tr>
+        <td>@Html.ASOFTLabel(model => model.EmployeeID)</td>
+        <td>@Html.DisplayFor(model => model.EmployeeID)</td>
+    </tr>
+    <tr>
+        <td>@Html.ASOFTLabel(model => model.EmployeeName)</td>
+        <td>@Html.DisplayFor(model => model.EmployeeName)</td>
+    </tr>
+    <tr>
+        <td>@Html.ASOFTLabel(model => model.Description)</td>
+        <td>@Html.DisplayFor(model => model.Description)</td>
+    </tr>
+
+}
+
+@section MasterPanel2
+{
+    @Html.AddMasterPanelName(
+        PanelNameQueue,
+        ASOFTLanguage.FindWordA00("A00.SystemInfo"))
+    <tr>
+        <td>@Html.DisplayName(ASOFTLanguage.FindWordA00("A00.CreateUserID"))</td>
+        <td>@Html.DisplayFor(model => model.CreateUserID)</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayName(ASOFTLanguage.FindWordA00("A00.CreateDate"))</td>
+        <td>@Html.DisplayFor(model => model.CreateDate)</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayName(ASOFTLanguage.FindWordA00("A00.LastModifyUserID"))</td>
+        <td>@Html.DisplayFor(model => model.LastModifyUserID)</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayName(ASOFTLanguage.FindWordA00("A00.LastModifyDate"))</td>
+        <td>@Html.DisplayFor(model => model.LastModifyDate)</td>
+    </tr>
+
+}
+
+@* Javascript and css files are optional *@
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/POS/Content/POSF0056.css")" rel="stylesheet" type="text/css" />
+}
+
+@section jsFeature{
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF0056.js")"> </script>
+}
+

@@ -1,0 +1,31 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+}
+
+<script src="@Url.Content("~/Areas/CRM/Scripts/CRMF0000/CRMF0000.js")" type="text/javascript"></script>
+
+<div class="asf-form-button">
+    <table class="asf-table-view">
+        <tr>
+            <td align="right">
+                <div class="asf-popup-button-container">
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                              .Name("BtnClose")
+                              .Events(e => e.Click("CRMF0000_btnClose_Click"))
+                              )
+                    </div>
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnConfig"))
+                                .Name("BtnConfig")
+                                .Events(e => e.Click("CRMF0000_btnConfig_Click"))
+                                )
+                    </div>                          
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<link href="@Url.Content("~/Areas/CRM/Content/CRMF0000.css")" rel="stylesheet" type="text/css" />

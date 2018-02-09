@@ -1,0 +1,68 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     10/12/2015     Quang Chiến      Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.ViewModel
+@using ASOFT.ERP.ViewModel.HRM
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Entities.Database;
+@model HF0403ViewModel
+
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.HF0403Title, "HF0403").ToHtmlString();
+    if(Model.FormStatus== ASOFTFormActionType.AddNew){
+        ViewBag.Width = 1042;
+    }else{
+        ViewBag.Width = 800;
+    }
+}
+@Html.ASOFTHidden("UrlLoadDataEmployeeID", Url.Action("LoadDataEmployeeID"))
+@Html.ASOFTHidden("UrlCheckDataChanged", Url.Action("CheckDataChanged"))
+@Html.ASOFTHidden("UrlInsertOrUpdate", Url.Action("InsertOrUpdate"))
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "HF0403", onsubmit = "return false" }))
+{ 
+<div class="asf-form-container">
+    <div class="form-content">
+        @Html.ASOFTHidden(m => m.FormStatus)
+@Html.ASOFTHidden(m => m.LstEmployeeID)
+        @Html.Partial("HF0403Grid")
+    </div>
+</div>
+<div class="asf-form-button">
+    <table class="asf-table-view">
+        <tr>
+            <td align="right">
+                <div class="asf-popup-button-container">
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                              .Name("BtnClose")
+                              .Events(e => e.Click("HF0403.btnClose_Click")))
+                    </div>
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSave"))
+                                .Name("BtnSaveClose")
+                                .Events(e => e.Click("HF0403.btnSave_Click")))
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>   
+}
+
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/HRM/Content/Common.css")" rel="stylesheet" type="text/css" />
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/HRM/Scripts/HF0403/HF0403.js?v=" + ASOFTEnvironment.Version)"></script>
+}

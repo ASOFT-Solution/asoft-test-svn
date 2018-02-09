@@ -1,0 +1,39 @@
+﻿@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.ViewModel;
+@model ASOFT.ERP.ViewModel.ASOFTSysFieldsViewModel
+@using System.Web.UI.WebControls;
+@using ASOFT.ERP.ViewModel.Helper;
+
+
+<fieldset id='PersonalGroup'>
+    <legend>
+        <label>@LocalizedHelper.GetLocalizedResourceString("HRMF1031.Persional", "HRMF1031", "HRM")</label>
+    </legend>
+    <div class="asf-form-container container_12 pagging_bottom ">
+        <div class="grid_6_1 alpha float_left">
+            <table id="PersonalLeftTable" class="asf-table-view">
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <div class="grid_6 omega float_right line_left_with_grid">
+            <table id="PersonalRightTable" class="asf-table-view">
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</fieldset>
+<fieldset id='ContactGroup'>
+    <legend>
+        <label>@LocalizedHelper.GetLocalizedResourceString("HRMF1031.Contract", "HRMF1031", "HRM")</label>
+    </legend>
+    <div class="asf-form-container container_12 pagging_bottom ">
+        <div >
+            <table id="ContactTable" class="asf-table-view">
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</fieldset>

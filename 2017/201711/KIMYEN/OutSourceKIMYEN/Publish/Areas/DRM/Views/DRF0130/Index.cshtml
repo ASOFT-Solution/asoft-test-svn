@@ -1,0 +1,55 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     05/09/2014      Đức Quý         Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.ViewModel.DRM
+@model DRF0130ViewModel
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.DRF0130Title, "DRF0130").ToHtmlString();
+    ViewBag.Width = 900;
+}
+
+@Html.ASOFTHidden("UrlUpdate", Url.Action("Update"))
+@Html.ASOFTHidden("UrlDRF0131", Url.Action("Index","DRF0131"))
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "DRF0130" }))
+{
+ <div class="asf-form-container">
+    <div class="form-content">
+        @Html.Partial("DRF0130Grid")
+    </div>
+</div>
+<div class="asf-form-button">
+    <table class="asf-table-view">
+        <tr>
+            <td align="right">
+                <div class="asf-popup-button-container">
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                              .Name("BtnClose")
+                              .Events(e => e.Click("DRF0130.btnClose_Click")))
+                    </div>
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnConfig"))
+                                .Name("BtnConfig")
+                                .Events(e => e.Click("DRF0130.btnConfig_Click")))
+                    </div>                          
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+}
+
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/DRM/Content/Common.css")" rel="stylesheet" type="text/css" />
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF0130/DRF0130.js?v=" + ASOFTEnvironment.Version)"></script>
+}

@@ -1,0 +1,96 @@
+﻿
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.ViewModel.MT;
+
+@model MTF1040ViewModel
+
+@{
+    Layout = "";
+}
+<div class="asf-panel-master-header">
+    @*@Html.Partial("~/Views/Shared/Action/Action.cshtml")*@
+    <div class="asfbtn asfbtn-right">
+        @Html.Partial("~/Views/Shared/EditorTemplates/Toolbar.cshtml", Model.Toolbar1 ?? new ASOFTToolBarViewModel())
+    </div>
+</div>
+
+@helper Master()
+{
+    <table class="asf-table-view">
+        <tr>
+            <td class="asf-td-label-left">@Html.ASOFTLabel(model => model.ClassID)</td>
+            <td class="asf-td-label-right">@Html.DisplayFor(model => model.ClassID)</td>
+        </tr>
+        <tr>
+            <td class="asf-td-label-left">@Html.ASOFTLabel(model => model.ClassName)</td>
+            <td class="asf-td-label-right" title="@Model.ClassName">@Html.DisplayFor(model => model.ClassName)</td>
+        </tr>
+        <tr>
+            <td class="asf-td-label-left">@Html.ASOFTLabel(model => model.BranchID)</td>
+            <td class="asf-td-label-right" title="@Model.BranchID">@Html.DisplayFor(model => model.BranchID)</td>
+        </tr>
+        <tr>
+            <td class="asf-td-label-left">@Html.ASOFTLabel(model => model.LevelName)</td>
+            <td class="asf-td-label-right" title="@Model.LevelName">@Html.DisplayFor(model => model.LevelName)</td>
+        </tr>
+        <tr>
+            <td class="asf-td-label-left">@Html.ASOFTLabel(model => model.CourseName)</td>
+            <td class="asf-td-label-right" title="@Model.CourseName">@Html.DisplayFor(model => model.CourseName)</td>
+        </tr>
+        <tr>
+            <td class="asf-td-label-left">@Html.ASOFTLabel(model => model.SchoolTimeID)</td>
+            <td class="asf-td-label-right" title="@Model.SchoolTimeName">@Html.DisplayFor(model => model.SchoolTimeName)</td>
+        </tr>
+        <tr >
+            <td class="asf-td-label-left">@Html.ASOFTLabel(model => model.Disabled)</td>
+            <td class="asf-td-label-right">
+                @(Model.Disabled ? ASOFTLanguage.FindWordA00("A00.Yes") : ASOFTLanguage.FindWordA00("A00.No"))
+            </td>
+        </tr>
+        <tr >
+            <td class="asf-td-label-left">@Html.ASOFTLabel(model => model.Notes)</td>
+            <td class="asf-td-label-right" title="@Model.Notes">
+                <div class='content-ellipsis'>@Html.DisplayFor(model => model.Notes)</div>
+            </td>
+        </tr>
+         <tr >
+            <td class="asf-td-label-left">@Html.ASOFTLabel(model => model.DivisionID)</td>
+             <td class="asf-td-label-right">@Html.DisplayFor(model => model.DivisionID)</td>
+        </tr>
+    </table> 
+}
+
+@helper Info()
+{
+    <table class="asf-table-view">
+        <tr >
+            <td class="asf-td-label-left">@Html.DisplayName(ASOFTLanguage.FindWordA00("A00.CreateUserID"))</td>
+            <td class="asf-td-label-right">@Html.DisplayFor(model=>model.CreateUserID)</td>
+        </tr>
+        <tr >
+            <td class="asf-td-label-left">@Html.DisplayName(ASOFTLanguage.FindWordA00("A00.CreateDate"))</td>
+            <td class="asf-td-label-right">@Html.DisplayFor(model => model.CreateDate)</td>
+        </tr>
+        <tr >
+            <td class="asf-td-label-left">@Html.DisplayName(ASOFTLanguage.FindWordA00("A00.LastModifyUserID"))</td>
+            <td class="asf-td-label-right">@Html.DisplayFor(model=>model.LastModifyUserID)</td>
+        </tr>
+        <tr >
+            <td class="asf-td-label-left">@Html.DisplayName(ASOFTLanguage.FindWordA00("A00.LastModifyDate"))</td>
+            <td class="asf-td-label-right">@Html.DisplayFor(model => model.LastModifyDate)</td>
+        </tr>
+    </table>
+}
+
+<div class="asf-master-content">    
+    @(Html.ASOFTPanel()
+        .Name("panelbar")
+        .Items(panelbar =>
+        {
+            panelbar.Add().Text(Html.ASOFTRaw(model => model.MTF1042TimeInfo)).HtmlAttributes(new { @class = "block-panel-master-header" })
+                .Expanded(true).Content(this.Master().ToHtmlString());
+
+            panelbar.Add().Text(ASOFTLanguage.FindWordA00("A00.SystemInfo")).HtmlAttributes(new { @class = "block-panel-master-header" })
+                .Content(this.Info().ToHtmlString());
+        }))
+</div>

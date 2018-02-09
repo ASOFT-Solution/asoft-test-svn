@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Width = 800;
+}
+@model Dictionary<string, string>
+<h2>Index</h2>
+
+Daây là iew cua ku hoàng
+@{
+    foreach (var item in Model)
+    {
+        @Html.Raw(item.Key + " = " + item.Value) <br/> <br/>
+    }
+    }
+@Html.TextBox("DataCon")
+
+
+<button onclick="ClosePopup()"> đóng </button>
+
+<script>
+    function ClosePopup()
+    {
+        //parent.XuLyData($("#DataCon").val());
+        parent.$("#GiaSanPham").val($("#DataCon").val());
+        parent.popupPluginClose();
+    }
+</script>

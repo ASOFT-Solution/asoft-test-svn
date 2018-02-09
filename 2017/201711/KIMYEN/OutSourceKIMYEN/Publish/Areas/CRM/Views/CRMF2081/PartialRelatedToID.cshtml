@@ -1,0 +1,11 @@
+﻿
+@Html.ASOFTButton("...").Name("btnRelatedToID").HtmlAttributes(new
+{
+    @class = "k-button k-button-icontext asf-button",
+    @style = "min-width:35px"
+}).Events(e => e.Click("btnRelatedToID_click"))
+
+@Html.ASOFTDeleteButton("btnDeleteRelatedToID_click").Name("btnDeleteRelatedToID").HtmlAttributes(new
+{
+    @style = "height: 16px"
+})

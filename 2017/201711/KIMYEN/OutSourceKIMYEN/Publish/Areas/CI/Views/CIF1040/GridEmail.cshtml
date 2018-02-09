@@ -1,0 +1,81 @@
+﻿
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Entities.Database
+@using ASOFT.ERP.ViewModel.DRM
+@using ASOFT.ERP.CI.Entities
+@model CIF1040ViewModel
+@{
+    var gridsetting = new ASOFTGridSetting
+                          {
+                              NameGrid = "CIF1040Grid",
+                              NameEventPost = "CIF1040.sendDataFilter",
+                              Scrollable = true,
+                              ActionName = "GridData",
+                              ControllerName = "CIF1040",
+                              HtmlAttribute = new { @class = "asf-grid" },
+                              IsShowCheck = true,
+                              ListGridColumn = new List<ASOFTGridColumnSetting>{
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = "RowNum",
+                                                               TitleColumn = ASOFTLanguage.FindWordA00("A00.Order"),
+                                                               Width = 50,
+                                                               VisibleColumn = true,
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = AP0129.COL_TEMPLATEID,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.TemplateID),
+                                                               Width = 100,
+                                                               VisibleColumn = true,
+                                                                ClientTemplate = string.Format("<a href='{0}'>#:{1}#</a>", 
+                                                                        Url.Content(string.Format("~/CI/CIF1040/CIF1042/?{0}", 
+                                                                        HttpUtility.UrlEncode("TemplateID=#:TemplateID#"))),
+                                                                        AP0129.COL_TEMPLATEID),
+                                                           },    
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = AP0129.COL_TEMPLATENAME,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.TemplateName),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                           },  
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = AP0129.COL_EMAILTITLE,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.EmailTitle),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = AP0129.COL_EMAILGROUPNAME,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.EmailGroupID),
+                                                               Width = 100,
+                                                               VisibleColumn = true,
+                                                           },  
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = AP0129.COL_ISCOMMON,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.IsCommon),
+                                                               Width = 100,
+                                                               VisibleColumn = true,
+                                                               ClientTemplate = "<input type='checkbox' #= IsCommon ? 'checked' : '' # onclick='return false;' disabled=disabled />",
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center" }
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = AP0129.COL_DISABLED,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.Disabled),
+                                                               Width = 100,
+                                                               VisibleColumn = true,
+                                                               ClientTemplate = "<input type='checkbox' #= Disabled ? 'checked' : '' # onclick='return false;' disabled=disabled />",
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center" }
+                                                           }
+                                
+                              }
+                          };
+}
+
+@(Html.ASOFTCreateGrid<AP0129>(gridsetting,false))

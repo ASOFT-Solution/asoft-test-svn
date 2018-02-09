@@ -1,0 +1,112 @@
+﻿@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.ViewModel;
+@model ASOFT.ERP.ViewModel.ASOFTSysFieldsViewModel
+@using System.Web.UI.WebControls;
+@using ASOFT.ERP.ViewModel.Helper;
+@{
+    ASOFT.ERP.A00.Entities.Common.ComboBoxDynamic DynamicComboModel = null; 
+}
+
+<div class="container_12" style="height: 110px">
+    <div class="container3">
+        <div class="asf-filter-main">
+            <div class="block-left">
+                <div class="asf-filter-main" id="Filter1">
+                    <div class="block-left">
+                        <div class="asf-filter-label">
+                            @LocalizedHelper.GetLocalizedResourceString("A00.FromDate", "A00", "00")
+                        </div>
+                        <div class="asf-filter-input">
+                            @(Html.ASOFTDateEdit(model => model.TypeDateTimePicker, htmlAttributes: new { @id = "FromDate", @name = "FromDate" }).Value(ASOFTEnvironment.WorkingDate)
+                                    .Value(DateTime.Now)
+                                    .Enable(true)
+                                    )
+
+                            @Html.ASOFTHidden("FromDate_Content_DataType", '9')
+                            @Html.ASOFTHidden("FromDate_Type_Fields", "13")
+                        </div>
+                    </div>
+                    <div class="block-right">
+                        <div class="asf-filter-label">
+                            @LocalizedHelper.GetLocalizedResourceString("A00.ToDate", "A00", "00")
+                        </div>
+                        <div class="asf-filter-input">
+                            @(Html.ASOFTDateEdit(model => model.TypeDateTimePicker, htmlAttributes: new { @id = "ToDate", @name = "ToDate" }).Value(ASOFTEnvironment.WorkingDate)
+                                    .Value(DateTime.Now)
+                                    .Enable(true)
+                                    )
+                            @Html.ASOFTHidden("ToDate_Content_DataType", '9')
+                            @Html.ASOFTHidden("ToDate_Type_Fields", "13")
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="block-right">
+                <div class="asf-filter-label">
+                    @LocalizedHelper.GetLocalizedResourceString("HRMF2103.TrainingField", "HRMF2103", "HRM")
+                </div>
+                <div class="asf-filter-input">
+                    @{  
+                        DynamicComboModel = new ASOFT.ERP.A00.Entities.Common.ComboBoxDynamic();
+                        DynamicComboModel.sysComboBoxID = LocalizedHelper.GetLocalizedsysComboBox().Find(x => x.ComboBoxID.Equals("cboTrainingFieldID_All")).sysComboBoxID;
+                        DynamicComboModel.ScreenID = "HRMF2103";
+                        DynamicComboModel.Module = "HRM";                                                                          
+                        @Html.ASOFTBussinessComboBox().ASOFTComboBoxMultiColumn(model => model.Data, DynamicComboModel, false, htmlAttributes: new { @id = "TrainingFieldID", @Module = "HRM", @ScreenID = "FormFilter", @sysComboBoxID = LocalizedHelper.GetLocalizedsysComboBox().Find(x => x.ComboBoxID.Equals("cboTrainingFieldID_All")).sysComboBoxID })
+                    }
+                    @Html.ASOFTHidden("TrainingFieldID_Content_DataType", "7")
+                    @Html.ASOFTHidden("TrainingFieldID_Type_Fields", "3")
+                </div>
+            </div>
+        </div>
+        <div class="asf-filter-main">
+            <div class="block-left">
+                <div class="asf-filter-label">
+                    @LocalizedHelper.GetLocalizedResourceString("HRMF2103.IsAll", "HRMF2103", "HRM")
+                </div>
+                <div class="asf-filter-input" style ="margin-top:10px;">
+                    @{  
+                                                                                             
+                        @Html.ASOFTCheckbox(model => model.TypeCheckBox, htmlAttributes: new { @id = "IsAll" });
+                        
+                    }
+                    @Html.ASOFTHidden("IsAll_Content_DataType", "6")
+                    @Html.ASOFTHidden("IsAll_Type_Fields", "2")
+                    @Html.ASOFTHidden("IsAllValue_Filter_Content_DataType", "7")
+                    @Html.ASOFTHidden("IsAllValue_Filter_Type_Fields", "1")
+                    @Html.ASOFTHidden("IsAllValue", "0")
+                </div>
+            </div>
+            <div class="block-right">
+                <div class="asf-filter-label"> @LocalizedHelper.GetLocalizedResourceString("HRMF2103.Department", "HRMF2103", "HRM")</div>
+                <div class="asf-filter-input">
+
+                    @{  
+                        DynamicComboModel = new ASOFT.ERP.A00.Entities.Common.ComboBoxDynamic();
+                        DynamicComboModel.sysComboBoxID = LocalizedHelper.GetLocalizedsysComboBox().Find(x => x.ComboBoxID.Equals("cboDepartmentID_All")).sysComboBoxID;
+                        DynamicComboModel.ScreenID = "HRMF2103";
+                        DynamicComboModel.Module = "HRM";                                                                          
+                        @Html.ASOFTBussinessComboBox().ASOFTComboBoxMultiColumn(model => model.Data, DynamicComboModel, false, htmlAttributes: new { @id = "DeparmentID_Filter", @Module = "HRM", @ScreenID = "FormFilter", @sysComboBoxID = LocalizedHelper.GetLocalizedsysComboBox().Find(x => x.ComboBoxID.Equals("cboDepartmentID_All")).sysComboBoxID })
+                    }
+                    @Html.ASOFTHidden("DeparmentID_Filter_Content_DataType", "7")
+                    @Html.ASOFTHidden("DeparmentID_Filter_Type_Fields", "3")
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container_12 asf-form-button">
+        <ul>
+            <li>
+                @(Html.ASOFTSearchButton()
+                          .Name("BtnFilter")
+                          .Events(e => e.Click("BtnFilter_Click"))
+                          )
+            </li>
+            <li>
+                @(Html.ASOFTSearchResetButton()
+                          .Name("BtnClearFilter")
+                          .Events(e => e.Click("BtnClearFilter_Click"))
+                          )
+            </li>
+        </ul>
+    </div>
+</div>

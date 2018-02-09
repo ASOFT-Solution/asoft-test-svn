@@ -1,0 +1,92 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     27/10/2014      Trí Thiện       Tạo mới
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.ViewModel.DRM;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using System.Web.UI.WebControls;
+
+@model DRF0140ViewModel
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(model => model.DRF0140Title, "DRF0140").ToHtmlString();
+    ViewBag.Width = 600;
+}
+
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/DRM/Content/Common.css")" rel="stylesheet" type="text/css" />
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF0140/DRF0140.js?v=" + ASOFTEnvironment.Version)"></script>
+}
+
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "DRF0140" }))
+{
+    <div class="asf-form-container">
+        <div class="drf0140-form-content">
+            <fieldset>
+                 <legend><b>@Html.ASOFTRaw(model => model.Group01Title)</b></legend>
+                 <table style="width:100%">
+                    <tr>
+                        <td class="content-label" style="width:20%">@Html.ASOFTLabel(model => model.ReportID)</td>
+                        <td class="asf-td-field" style="width:20%">
+                             @(Html.ASOFTTextBox(model => model.ReportID, null, new { width = Unit.Percentage(100) }).ReadOnlyIf(true))
+                        </td>
+                        <td class="asf-td-field">
+                             @(Html.ASOFTTextBox(model => model.ReportName, null, new { width = Unit.Percentage(100) }).ReadOnlyIf(true))
+                        </td>
+                    </tr>
+                    <tr>
+                         <td class="content-label">@Html.ASOFTLabel(model => model.Title)</td>
+                         <td class="asf-td-field" colspan="2">@(Html.ASOFTTextBox(model => model.Title, null, new { width = Unit.Percentage(100) }))</td>
+                    </tr>
+                 </table>
+            </fieldset>
+            @Html.Partial("Period")
+            <div class="asf-form-button">
+                 <table class="asf-table-view">
+                    <tr>
+                        <td align="right">
+                            <div class="asf-popup-button-container">
+                                <div>
+                                    @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                                          .Name("btndrf0140Close").Events(e => e.Click("DRF0140.btnClose_Click"))
+                                     )
+                                </div>
+                                <div>
+                                    @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnPrint"))
+                                            .Name("btndrf0140Print")
+                                            .Events(e => e.Click("DRF0140.btnPrint_Click"))
+                                            .Enable(ASOFTEnvironment.CheckPermission("DRF0140", ASOFTConstants.MODULE_DRM, ASOFTPermission.Print))
+                                    )
+                                </div>
+                                <div>
+                                    @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnExcel"))
+                                            .Name("btndrf0140Export")
+                                            .Events(e => e.Click("DRF0140.btnExport_Click"))
+                                            .Enable(ASOFTEnvironment.CheckPermission("DRF0140", ASOFTConstants.MODULE_DRM, ASOFTPermission.IsExportExcel))
+                                    )
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                 </table>
+            </div>
+        </div>
+    </div>
+}
+
+@Html.ASOFTHidden("UrlDoPrintOrExport", Url.Action("DoPrintOrExport", "DRF0140"))
+@Html.ASOFTHidden("UrlGetReportFile", Url.Action("GetReportFile", "DRF0140"))
+@Html.ASOFTHidden("UrlReportViewer", Url.Action("ReportViewer", "DRF0140"))

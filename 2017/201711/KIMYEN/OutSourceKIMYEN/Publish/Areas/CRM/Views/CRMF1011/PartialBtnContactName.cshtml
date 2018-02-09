@@ -1,0 +1,21 @@
+﻿@{
+    var enable = ViewBag.Enable;
+    bool isDelete = ViewBag.IsDelete;
+}
+
+
+@Html.ASOFTButton("...").Name("btnChooseContactID").Events(e => e.Click("btnChooseContactID_Click")).HtmlAttributes(new { 
+    @class = "k-button k-button-icontext asf-button",
+    @style = "min-width:35px",
+}).Enable(enable)
+
+@Html.ASOFTAddButton("BtnAddNewContactID_Click").Name("BtnAddNewContactID").Enable(enable)
+
+@if(isDelete)
+{
+    @Html.ASOFTDeleteButton("btnDeleteContactID_Click").Name("btnDeleteContactID").HtmlAttributes(new { 
+        @class = "asfbtn-item-32 k-button k-button-icon",
+        @style = "margin-left:35px",
+    }).Enable(enable)
+}
+

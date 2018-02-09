@@ -1,0 +1,79 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     07/11/2014      Như Huyên       Tạo mới
+//####################################################################
+*@
+
+@using System.Web.UI.WebControls
+@using ASOFT.ERP.ViewModel
+@using ASOFT.ERP.ViewModel.CI;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Common;
+
+@model CIF1030ViewModel
+
+@{
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.CIF1030Title, "CIF1030").ToHtmlString();
+    Layout = "~/Views/Shared/_ContentMaster.cshtml";
+    ViewData.Add("MainView", this);
+}
+
+@section Header {
+    <!-- Header BreakCrumb -->
+    @Html.ASOFTHeader(new HeaderModel
+                          {
+                              Title = Html.ASOFTPageTitle(m => m.CIF1030Title, "CIF1030").ToHtmlString(),
+                              Breakcrumb = true
+                          })
+}
+
+@Html.Partial("FormFilter")
+
+<!-- Filter buttons -->
+@section FilterButtons {
+    <!-- Search button -->
+    <li>
+        @(Html.ASOFTSearchButton()
+              .Name("BtnFilterCIF1030")
+              .Events(e => e.Click("CIF1030.btnFilter_Click"))
+              )
+    </li>
+    
+    <!-- Reset button -->
+    <li>
+        @(Html.ASOFTSearchResetButton()
+            .Name("BtnResetFilterCIF1030")
+            .Events(e => e.Click("CIF1030.btnClearFilter_Click"))
+            )
+    </li>
+}
+
+@section GridToolBar {
+    <!-- Toolbar buttons -->
+    @Html.Partial("~/Views/Shared/EditorTemplates/Toolbar.cshtml", Model.Toolbar1 ?? new ASOFTToolBarViewModel())
+}
+
+@section Grid {
+    <!-- Grid master -->
+    @Html.Partial("GridAna")
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/CI/Scripts/CIF1030.js?v=" + ASOFTEnvironment.Version)"></script>
+    <script src="@Url.Content("~/Areas/CI/Scripts/CIF1031.js?v=" + ASOFTEnvironment.Version)"></script>
+}
+
+@section styleFeature {
+    @*<link href="@Url.Content("~/Areas/CI/Content/Common.css")" rel="stylesheet" type="text/css" />*@
+}
+
+
+@Html.ASOFTHidden("UrlDelete", Url.Action("Delete"))
+@Html.ASOFTHidden("UrlCIF1031", Url.Action("CIF1031"))
+@Html.ASOFTHidden("UpdateRecord", Url.Action("HideOrUnhide"))
+@Html.ASOFTHidden("UrlInsert", Url.Action("Insert"))
+

@@ -1,0 +1,73 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Created         Comment
+//#     11/12/2015      Quang Hoàng         Tạo mới
+//####################################################################
+*@
+
+
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.ViewModel.CRM
+@using ASOFT.ERP.ViewModel.Helper;
+@model CRMF2004ViewModel
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new
+    {
+        id = "CRMF2004"
+    }))
+    {
+        <div id="debts">
+            <div class="title-debts">
+                <div class="debts-bar">@LocalizedHelper.GetLocalizedResourceString("CRMF2004.CRMF2004Title", "CRMF2004","CRM")</div>
+                <div class="close_box"><img src="~/Areas/CRM/Content/images/close.png"/></div>
+            </div>
+            <div class="content-debts">
+                <table class="tb-content-debts">
+                    <tr style="height:20px">
+                        <td>@LocalizedHelper.GetLocalizedResourceString("CRMF2004.AccountID", "CRMF2004","CRM")</td>
+                        <td>@Html.DisplayFor(model => model.AccountID)</td>
+                    </tr>
+                    <tr style="height:20px">
+                        <td>@LocalizedHelper.GetLocalizedResourceString("CRMF2004.AccountName", "CRMF2004","CRM")</td>
+                        <td>@Html.DisplayFor(model => model.AccountName)</td>
+                    </tr>
+                    <tr style="height:20px">
+                        <td>@LocalizedHelper.GetLocalizedResourceString("CRMF2004.ReCreditLimit", "CRMF2004","CRM")</td>
+                        <td>@Model.ReCreditLimit.ToString(ASOFTEnvironment.NumberFormat.ConvertedDecimalsFormatString)</td>
+                    </tr>
+                    <tr style="height:20px">
+                        <td>@LocalizedHelper.GetLocalizedResourceString("CRMF2004.PaymentTermName", "CRMF2004","CRM")</td>
+                        <td>@Html.DisplayFor(model => model.PaymentTermName)</td>
+                    </tr>
+                    <tr style="height:20px">
+                        <td>@LocalizedHelper.GetLocalizedResourceString("CRMF2004.ReDueDays", "CRMF2004","CRM")</td>
+                        <td>@Model.ReDueDays.ToString(ASOFTEnvironment.NumberFormat.ConvertedDecimalsFormatString)</td>
+                    </tr>
+                    <tr style="height:20px">
+                        <td>@LocalizedHelper.GetLocalizedResourceString("CRMF2004.ReceivedAmount", "CRMF2004","CRM")</td>
+                        <td>@Model.ReceivedAmount.ToString(ASOFTEnvironment.NumberFormat.ConvertedDecimalsFormatString)</td>
+                    </tr>
+                    <tr style="height:20px">
+                        <td>@LocalizedHelper.GetLocalizedResourceString("CRMF2004.OverDueAmount", "CRMF2004","CRM")</td>
+                        <td>@Model.OverDueAmount.ToString(ASOFTEnvironment.NumberFormat.ConvertedDecimalsFormatString)</td>
+                    </tr>
+                    <tr style="height:20px">
+                        <td>@LocalizedHelper.GetLocalizedResourceString("CRMF2004.PaymentAmount", "CRMF2004","CRM")</td>
+                        <td>@Model.PaymentAmount.ToString(ASOFTEnvironment.NumberFormat.ConvertedDecimalsFormatString)</td>
+                    </tr>
+                    <tr style="height:20px">
+                        <td>@LocalizedHelper.GetLocalizedResourceString("CRMF2004.ReDays", "CRMF2004","CRM")</td>
+                        <td>@Html.DisplayFor(model => model.ReDays)</td>
+                    </tr>
+                    <tr style="height:20px">
+                        <td>@LocalizedHelper.GetLocalizedResourceString("CRMF2004.ReQuantity", "CRMF2004","CRM")</td>
+                        <td>@Model.ReQuantity.ToString(ASOFTEnvironment.NumberFormat.ConvertedDecimalsFormatString)</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+}

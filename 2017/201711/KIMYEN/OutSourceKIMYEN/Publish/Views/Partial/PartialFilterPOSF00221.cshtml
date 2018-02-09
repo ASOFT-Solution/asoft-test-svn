@@ -1,0 +1,73 @@
+﻿
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.ViewModel;
+@model ASOFT.ERP.ViewModel.ASOFTSysFieldsViewModel
+@using System.Web.UI.WebControls;
+@using ASOFT.ERP.ViewModel.Helper;
+
+@Html.ASOFTHidden("ShopID", ASOFT.ERP.POS.Business.POSSettings.GetShopID())
+@Html.ASOFTHidden("WareHouseID", ASOFT.ERP.POS.Business.POSSettings.GetWarehouseID())
+ <div class="container_12" style="height: 110px">
+     <div class="container3">
+           <div class="container2 line_right">
+                <div class="container1 line_right">
+                     <div class="grid_4 alpha col1" style="width: 40%">
+                           <div class="asf-filter-main">
+                                @{
+                                ViewDataDictionary ViewDT = new ViewDataDictionary();
+                                ViewDT["Module"] = ViewBag.Module;
+                                ViewDT["ScreenID"] = ViewBag.ScreenID;
+                                ViewDT["ScreenType"] = "Filter";
+                            }
+                                @Html.Partial(string.Format(@"../Shared/Control/PeriodCheckList"), Model, ViewDT)
+                           </div>
+                     </div>
+                    <div class="grid_4_1 col2"  style="width: 28%">
+                         <table class="asf-table-view">                                   
+                               <tbody>
+                                    <tr>
+                                        <td class="container_label">@LocalizedHelper.GetLocalizedResourceString("POSF00221.VoucherTypeID","POSF00221","POS")</td>
+                                        <td class="container_control">
+                                           @Html.ASOFTBussinessComboBox().ASOFTVoucherTypeID(m => m.Data, htmlStyle: new { width = Unit.Percentage(100) }, htmlAttributes: new { @id = "VoucherTypeID" })
+                                        </td>
+                                    </tr>
+                                   <tr>
+                                        <td class="container_label">@LocalizedHelper.GetLocalizedResourceString("POSF00221.VoucherNo","POSF00221","POS")</td>
+                                        <td class="container_control">
+                                           @Html.ASOFTTextBox(m => m.Data, htmlStyle: new { width = Unit.Percentage(100) }, htmlAttribute: new { @id = "VoucherNo" })
+                                        </td>
+                                    </tr>
+                               </tbody>
+                          </table>
+                    </div>      
+                    <div class="grid_4 omega float_right col3"  style="width: 28%">
+                        <table class="asf-table-view">
+                             <tbody>
+                                    <tr>
+                                        <td class="container_label">@LocalizedHelper.GetLocalizedResourceString("POSF00221.ObjectID","POSF00221","POS")</td>
+                                        <td class="container_control">
+                                            @Html.ASOFTTextBox(m => m.Data, htmlStyle: new { width = Unit.Percentage(100) }, htmlAttribute: new { @id = "ObjectID" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="container_label">@LocalizedHelper.GetLocalizedResourceString("POSF00221.ObjectName","POSF00221","POS")</td>
+                                        <td class="container_control">
+                                            @Html.ASOFTTextBox(m => m.Data, htmlStyle: new { width = Unit.Percentage(100) }, htmlAttribute: new { @id = "ObjectName" })
+                                        </td>
+                                    </tr>
+                             </tbody>
+                        </table>
+                    </div>           
+           </div>  
+    </div>
+     <div class="container_12 asf-form-button">
+            <ul>
+                 <li>
+                    @(Html.ASOFTSearchButton()
+                          .Name("BtnFilter")
+                          .Events(e => e.Click("BtnFilter_Click"))
+                          )
+                </li>
+            </ul>
+        </div> 
+     </div>

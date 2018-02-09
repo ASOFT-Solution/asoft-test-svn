@@ -1,0 +1,89 @@
+﻿
+@model ASOFT.ERP.ViewModel.MT.MTF1030ViewModel
+
+@{
+    bool isInsert = ASOFTFormActionType.AddNew == Model.FormStatus;
+}
+@using (Html.BeginForm(null, null, FormMethod.Post, new {id = "MTF1031"}))
+{
+    <div class="asf-form-container">
+        <div class="form-content">
+            <table class="asf-table-view" >
+                 
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.StopReasonID)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @Html.ASOFTTextBox(model => model.StopReasonID, null,
+                                           new {width = Unit.Percentage(100)}).ReadOnlyIf(!isInsert)
+                        @Html.ASOFTHidden("LastModifyDate", Model.LastModifyDate.HasValue ? Model.LastModifyDate.Value.ToString("dd/MM/yyyy HH:mm:ss.fff") : "")   
+                    </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.StopReasonName)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @Html.ASOFTTextBox(model => model.StopReasonName, null,
+                                           new {width = Unit.Percentage(100)})
+                    </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.Notes)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @Html.ASOFTTextArea(model => model.Notes, null,
+                                            new {width = Unit.Percentage(98)})
+                    </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption"></td>
+                    <td>
+                        @Html.ASOFTCheckbox(model => model.IsCommon)
+                    </td>
+                    <td >
+                        @Html.ASOFTCheckbox(model => model.Disabled).HideIf(isInsert)
+                    </td>
+                </tr>
+            </table>
+        </div>
+       
+        <div class="asf-form-button">
+            <table class="asf-table-view">
+                <tr>
+                    <td align="right">
+                        <div class="asf-popup-button-container">
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                                      .Name("BtnClose")
+                                      .Events(e => e.Click("MTF1030.btnClose_Click")))
+                            </div>
+                            @if (isInsert)
+                            {
+                                <div >
+                                    @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSaveCopy"))
+                                          .Name("BtnSaveCopy")
+                                          .Events(e => e.Click("MTF1030.btnSaveCopy_Click")))
+                                </div>
+                                <div>
+                                    @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSaveNew"))
+                                          .Name("btnSaveMTF1001")
+                                          .Events(e => e.Click("MTF1030.btnSaveNext_Click")))
+                                </div>
+                            }
+                            else
+                            {
+                                <div>
+                                    @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSave"))
+                                          .Name("BtnSaveClose")
+                                          .Events(e => e.Click("MTF1030.btnSave_Click")))
+                                </div>
+                            }
+                            
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+}
+
+@Html.ASOFTHidden("UrlMTF1031Update", Url.Action("DoUpdate"))
+@Html.ASOFTHidden("UrlMTF1031Insert", Url.Action("DoInsert"))
+@Html.ASOFTHidden("UrlMTF1031Delete", Url.Action("DoDelete"))

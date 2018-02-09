@@ -1,0 +1,189 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     25/08/2014      Đức Quý         Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.ViewModel.DRM
+@model DRF1011ViewModel
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.DRF1011Title, "DRF1011").ToHtmlString();
+    ViewBag.Width = 500;
+
+    // Form Status
+    bool isInsert = Model.FormStatus.Equals(ASOFTFormActionType.AddNew);
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "DRF1011"}))
+{
+
+    @(Html.ASOFTTab()
+          .Name("DRF1011Tab")
+          .Items(tabstrip =>
+          {
+              tabstrip.Add().Text(Html.ASOFTRaw(model => model.DRF1011Tab01Title))
+                  .Selected(true)
+                  .HtmlAttributes(new { @id = "TabMaster01" })
+                  .ContentHtmlAttributes(new { @class = "asf-tab-content" })
+                  .Content(Tab01().ToHtmlString());
+
+              tabstrip.Add().Text(Html.ASOFTRaw(model => model.DRF1011Tab02Title))
+                  .HtmlAttributes(new { @id = "TabMaster02" })
+                  .ContentHtmlAttributes(new { @class = "asf-tab-content" })
+                  .Content(Tab02().ToHtmlString());
+
+          })
+          )
+}
+<div class="asf-form-button">
+    <table class="asf-table-view">
+        <tr>
+            <td align="right">
+                <div class="asf-popup-button-container">
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                              .Name("BtnClose")
+                              .Events(e => e.Click("DRF1011.btnClose_Click")))
+                    </div>
+                    <div >
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSaveCopy"))
+                                .Name("BtnSaveCopy")
+                                .Events(e => e.Click("DRF1011.btnSaveCopy_Click"))
+                                .HideIf(!isInsert))
+                    </div>
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSaveNew"))
+                                .Name("btnSaveDRF1011")
+                                .Events(e => e.Click("DRF1011.btnSaveNext_Click"))
+                                .HideIf(!isInsert))
+                    </div>
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSave"))
+                                .Name("BtnSaveClose")
+                                .Events(e => e.Click("DRF1011.btnSave_Click"))
+                                .Enable(false)
+                                .HideIf(isInsert))
+                    </div>                    
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+@helper Tab01()
+{
+    <div class="asf-form-container">
+        <div class="form-content">
+             <table class="asf-table-view">
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.CustomerID)</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTTextBox(model => model.CustomerID, checkRegularExp: true)
+                                .ReadOnlyIf(Model.FormStatus != ASOFTFormActionType.AddNew))
+                            @(Html.ASOFTHidden(DRT1010.COL_LASTMODIFYDATE, 
+                                Model.LastModifyDate != null ? Model.LastModifyDate.Value.ToString("dd/MM/yyyy HH:mm:ss.fff") : ""))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.CustomerName)</td>
+                        <td class="asf-td-field" colspan="2">@Html.ASOFTTextBox(model => model.CustomerName)</td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.NTDFeeGroupID)</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTBussinessComboBox()
+                                .ASOFTDRMCodeMaster(model => model.NTDFeeGroupID, "NTDDebtRecoMethod",
+                                    option: new ComboOption() { EventRequestEnd = "DRF1011.comboBox_RequestEnd" })
+                                .Events(e=>e.Change("DRF1011.combo_Changed")))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.NTMFeeGroupID)</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTBussinessComboBox()
+                                .ASOFTDRMCodeMaster(model => model.NTMFeeGroupID, "NTMDebtRecoMethod",
+                                    option: new ComboOption() { EventRequestEnd = "DRF1011.comboBox_RequestEnd" })
+                                .Events(e=>e.Change("DRF1011.combo_Changed")))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.Address)</td>
+                        <td class="asf-td-field" colspan="2">@(Html.ASOFTTextBox(model => model.Address))</td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.Phone)</td>
+                        <td class="asf-td-field" colspan="2">@(Html.ASOFTTextBox(model => model.Phone))</td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.Fax)</td>
+                        <td class="asf-td-field" colspan="2">@Html.ASOFTTextBox(model => model.Fax)</td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.Note)</td>
+                        <td class="asf-td-field" colspan="2">@Html.ASOFTTextArea(model => model.Note)</td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption"></td>
+                        <td class="asf-td-field">@Html.ASOFTCheckbox(model=>model.IsCommon).HideIf(!ASOFTEnvironment.IsCommon)</td>
+                        <td class="asf-td-field">@Html.ASOFTCheckbox(model=>model.Disabled).HideIf(Model.FormStatus == ASOFTFormActionType.AddNew)</td>
+                    </tr>
+                </table>
+        </div>
+    </div>
+}
+
+
+@helper Tab02()
+{
+    <div class="asf-form-container">
+        <div class="form-content">
+           <table class="asf-table-view">
+                <tr>
+                    <td class="drf1011-first" align="center">@Html.ASOFTLabel(model => model.Contactor1)</td>
+                    <td class="drf1011-middle" align="center">@Html.ASOFTLabel(model => model.ContactorTel1)</td>
+                    <td class="drf1011-last" align="center">@Html.ASOFTLabel(model => model.ContactorEmail1)</td>
+                </tr>
+                <tr>
+                    <td>@Html.ASOFTTextBox(model => model.Contactor1)</td>
+                    <td>@Html.ASOFTTextBox(model => model.ContactorTel1)</td>
+                    <td>@Html.ASOFTTextBox(model => model.ContactorEmail1)</td>
+                </tr>
+                <tr>
+                    <td>@Html.ASOFTTextBox(model => model.Contactor2)</td>
+                    <td>@Html.ASOFTTextBox(model => model.ContactorTel2)</td>
+                    <td>@Html.ASOFTTextBox(model => model.ContactorEmail2)</td>
+                </tr>
+                <tr>
+                    <td>@Html.ASOFTTextBox(model => model.Contactor3)</td>
+                    <td>@Html.ASOFTTextBox(model => model.ContactorTel3)</td>
+                    <td>@Html.ASOFTTextBox(model => model.ContactorEmail3)</td>
+                </tr>
+                <tr>
+                    <td>@Html.ASOFTTextBox(model => model.Contactor4)</td>
+                    <td>@Html.ASOFTTextBox(model => model.ContactorTel4)</td>
+                    <td>@Html.ASOFTTextBox(model => model.ContactorEmail4)</td>
+                </tr>
+                <tr>
+                    <td>@Html.ASOFTTextBox(model => model.Contactor5)</td>
+                    <td>@Html.ASOFTTextBox(model => model.ContactorTel5)</td>
+                    <td>@Html.ASOFTTextBox(model => model.ContactorEmail5)</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+}
+
+
+    
+@section styleFeature{
+@*    <link href="@Url.Content("~/Areas/DRM/Content/DRF2001.css")" rel="stylesheet" type="text/css" />*@
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF1010/DRF1011.js?v=" + ASOFTEnvironment.Version)"></script>
+   @* @Html.RenderScripts(files: new[] { "CRMF2061" })*@
+}

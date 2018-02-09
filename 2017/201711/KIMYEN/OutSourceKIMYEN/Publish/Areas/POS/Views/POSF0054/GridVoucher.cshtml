@@ -1,0 +1,108 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     08/05/2014      Đam Mơ       Tạo Mới
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.ViewModel.POS
+@using ASOFT.ERP.POS.Entities
+@model POSF0054ViewModel
+
+@{  
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "GridVoucher", 
+        Scrollable = true,
+        ControllerName = "POSF0054",
+        ActionName = "GetGridData",
+        NameEventPost = "sendDataSearch",
+        IsAutoHeight = true,
+        IsShowCheck = true,
+        HtmlAttribute = new
+        {
+            style = "height:590px;", 
+            @class = "asf-grid"
+        },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "RowNum",
+                 TitleColumn = ASOFTLanguage.FindWordA00("A00.Number"),
+                Width = 30,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "DivisionID",
+                TitleColumn = Html.ASOFTRaw(model => model.DivisionIDFilter),
+                Width = 100,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "ShopID",
+                TitleColumn = Html.ASOFTRaw(model => model.ShopID),
+                Width = 100,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "TranYear",
+                TitleColumn = Html.ASOFTRaw(model => model.TranYear),
+                Width = 100,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "VoucherDate",
+                TitleColumn = Html.ASOFTRaw(model => model.VoucherDate),
+                Width = 100,
+                Format = "{0:dd/MM/yyyy}",
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "VoucherNo",
+                TitleColumn = Html.ASOFTRaw(model => model.VoucherNo),
+                ClientTemplate = "<a href='" + @Url.Content("~/POS/POSF0054/POSF0056/?apk=#=APK#") + "'>#:VoucherNo#</a>",
+                Width = 120,
+                VisibleColumn = true
+            },            
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "EmployeeID",
+                TitleColumn = Html.ASOFTRaw(model => model.EmployeeID),
+                Width = 120,
+                VisibleColumn = true
+            },
+            //new ASOFTGridColumnSetting
+            //{
+            //    IDColumn = "EmployeeName",
+            //    TitleColumn = Html.ASOFTRaw(model => model.EmployeeName),
+            //    Width = 200,
+            //    VisibleColumn = true
+            //},
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "Description",
+                TitleColumn = Html.ASOFTRaw(model => model.Description),
+                Width = 200,
+                VisibleColumn = true
+            }
+        }
+    };
+}
+
+@(Html.ASOFTCreateGrid<POSP0050>(gridsetting))
+

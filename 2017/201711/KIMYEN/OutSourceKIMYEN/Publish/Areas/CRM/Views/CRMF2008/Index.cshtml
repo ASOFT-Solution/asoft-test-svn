@@ -1,0 +1,41 @@
+﻿
+@using ASOFT.ERP.A00.Core
+@model CRMF2008ViewModel
+@using ASOFT.ERP.ViewModel.CRM
+
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Width = 800;
+    ViewBag.Title = Html.ASOFTPageTitle(@Html.PopupEditTitle(m => m.CRMF2008Title), "CRMF2008").ToHtmlString();
+    Model.ConvertedAmount = Model.ConvertedAmount ?? 0;
+    Model.DepositAmount = Model.DepositAmount ?? 0;
+}
+
+ @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "CRMF2008" }))
+ {
+        <div>
+            <table>
+                <tr>
+                    <td class="asf-td-caption" style="width: 150px">@Html.ASOFTLabel(m => m.O01ID): </td>
+                    <td class="asf-td-field">@Html.DisplayFor(m => m.O01ID) - @Html.DisplayFor(m => m.O01Name) </td>
+                </tr>
+                 <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(m => m.ConvertedAmount): </td>
+                    <td class="asf-td-field">@Model.ConvertedAmount.Value.ToString(ASOFTEnvironment.NumberFormat.ConvertedDecimalsFormatString)</td>
+                </tr>
+                 <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(m => m.DepositAmount): </td>
+                    <td class="asf-td-field">@Model.DepositAmount.Value.ToString(ASOFTEnvironment.NumberFormat.ConvertedDecimalsFormatString)</td>
+                </tr>
+            </table>
+        </div>
+
+        @Html.Partial("GridBottle", Model)
+
+        @Html.Partial("GridBorrow", Model)
+
+     @Html.ASOFTHidden(m => m.ObjectID)
+     @Html.ASOFTHidden(m => m.VoucherDate)
+     @Html.ASOFTHidden(m => m.DivisionID)
+ }
+<script src="@Url.Content("~/Areas/CRM/Scripts/CRMF2008/CRMF2008.js")" type="text/javascript"></script>

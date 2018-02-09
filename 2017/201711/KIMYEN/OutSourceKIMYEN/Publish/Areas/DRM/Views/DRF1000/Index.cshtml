@@ -1,0 +1,77 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     03/09/2014      Đức Quý         Tạo mới
+//####################################################################
+*@
+
+@using System.Web.UI.WebControls
+@using ASOFT.ERP.ViewModel
+@using ASOFT.ERP.ViewModel.DRM;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Common;
+
+@model DRF1000ViewModel
+
+@{
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.DRF1000Title, "DRF1000").ToHtmlString();
+    Layout = "~/Views/Shared/_ContentMaster.cshtml";
+    ViewData.Add("MainView", this);
+}
+
+@section Header {
+    <!-- Header BreakCrumb -->
+    @Html.ASOFTHeader(new HeaderModel
+                          {
+                              Title = Html.ASOFTPageTitle(m => m.DRF1000Title, "DRF1000").ToHtmlString(),
+                              Breakcrumb = true
+                          })
+}
+
+@Html.Partial("FormFilter")
+
+<!-- Filter buttons -->
+@section FilterButtons {
+    <!-- Search button -->
+    <li>
+        @(Html.ASOFTSearchButton()
+              .Name("BtnFilterDRF1000")
+              .Events(e => e.Click("DRF1000.btnFilter_Click"))
+              )
+    </li>
+    
+    <!-- Reset button -->
+    <li>
+        @(Html.ASOFTSearchResetButton()
+            .Name("BtnResetFilterDRF1000")
+            .Events(e => e.Click("DRF1000.btnClearFilter_Click"))
+            )
+    </li>
+}
+
+@section GridToolBar {
+    <!-- Toolbar buttons -->
+    @Html.Partial("~/Views/Shared/EditorTemplates/Toolbar.cshtml", Model.Toolbar1 ?? new ASOFTToolBarViewModel())
+}
+
+@section Grid {
+    <!-- Grid master -->
+    @Html.Partial("GridEmployee")
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF1000/DRF1000.js?v=" + ASOFTEnvironment.Version)"></script>
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF1000/DRF1001.js?v=" + ASOFTEnvironment.Version)"></script>
+}
+
+@section styleFeature {
+    @*<link href="@Url.Content("~/Areas/CRM/Content/CRMF2010.css")" rel="stylesheet" type="text/css" />*@
+}
+@Html.ASOFTHidden("ScreenID", "DRF1000")
+@Html.ASOFTHidden("UrlDelete", Url.Action("Delete"))
+@Html.ASOFTHidden("UrlDRF1001", Url.Action("DRF1001"))
+@Html.ASOFTHidden("urlInsert", Url.Action("Insert"))
+@Html.ASOFTHidden("UpdateRecord", Url.Action("UpdateRecord"))

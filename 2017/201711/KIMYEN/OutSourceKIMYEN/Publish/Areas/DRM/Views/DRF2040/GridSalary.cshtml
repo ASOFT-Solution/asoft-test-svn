@@ -1,0 +1,124 @@
+﻿
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Entities.Database
+@using ASOFT.ERP.ViewModel.DRM
+@using ASOFT.ERP.DRM.Entities
+@model DRF2040ViewModel
+@{
+    var gridsetting = new ASOFTGridSetting
+                          {
+                              NameGrid = "DRF2040Grid",
+                              NameEventPost = "DRF2040.sendDataFilter",
+                              Scrollable = true,
+                              ActionName = "GetDRF2040GridData",
+                              ControllerName = "DRF2040",
+                              HtmlAttribute = new {style = "height:590px;", @class = "asf-grid"},
+                              IsShowCheck = true,
+                              ListGridColumn = new List<ASOFTGridColumnSetting>{
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = "RowNum",
+                                                               TitleColumn = ASOFTLanguage.FindWordA00("A00.Order"),
+                                                               Width = 50,
+                                                               VisibleColumn = true,
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2040.COL_BRANCHID,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.BranchID),
+                                                               Width = 100,
+                                                               VisibleColumn = true,
+                                                           },  
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2040.COL_TEAMID,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.TeamID),
+                                                               Width = 100,
+                                                               VisibleColumn = true,
+                                                           },    
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2040.COL_EMPLOYEEID,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.EmployeeID),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                               ClientTemplate = string.Format("<a href='{0}'>#:{1}#</a>", 
+                                                                        Url.Content(string.Format("~/DRM/DRF2040/DRF2042/?APK=#:{0}#", DRP2040.COL_APK)),
+                                                                        DRP2040.COL_EMPLOYEEID),
+                                                           },  
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2040.COL_EMPLOYEENAME,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.EmployeeName),
+                                                               Width = 200,
+                                                               VisibleColumn = true,
+                                                           },
+                                         new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2040.COL_BASESALARY,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.BaseSalary),
+                                                               Width = 150,
+                                                               VisibleColumn = true,       
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2040.COL_INSURANCESALARY,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.InsuranceSalary),
+                                                               Width = 150,
+                                                               VisibleColumn = true,       
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2040.COL_TRADEUNION,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.TradeUnion),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                           },    
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2040.COL_RICEALLOWANCE,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.RiceAllowance),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2040.COL_GASALLOWANCE,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.GasAllowance),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2040.COL_PHONEALLOWANCE,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.PhoneAllowance),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2040.COL_ONSITEFEE,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.OnsiteFee),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2040.COL_REMUNERATION,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.Remuneration),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2040.COL_OTHER,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.Other),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                           }
+                              }
+                          };
+}
+
+@(Html.ASOFTCreateGrid<ASOFT.ERP.DRM.Entities.DRP2040>(gridsetting,false))

@@ -1,0 +1,426 @@
+﻿/*//
+//####################################################################
+//# Copyright (C) 2010-2011, ASOFT JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     19/07/2014      Thai Son        New
+//####################################################################
+/*/
+
+
+body {
+    margin: 0;
+}
+
+.row, .col {
+    overflow: hidden;
+    position: absolute;
+}
+
+.row {
+    left: 0;
+    right: 0;
+}
+
+.col {
+    bottom: 0;
+    top: 0;
+}
+
+.scroll-x {
+    overflow-x: auto;
+}
+
+.scroll-y {
+    overflow-y: auto;
+}
+
+.header.row {
+    height: 1em;
+    top: 0;
+}
+
+.body.row {
+    bottom: 3.5em;
+    top: 1em;
+}
+
+.footer.row {
+    bottom: 0;
+    height: 4em;
+    margin-right: 2.1em;
+    background-color: white;
+}
+
+#inner-div .left.col {
+    margin-left: 1%;
+    width: 20%;
+}
+
+#inner-div .right.col {
+    left: 21%;
+    margin-left: 10px;
+    right: 0;
+}
+
+#inner-div .header.row {
+    height: 3.5em;
+    line-height: 75px;
+}
+
+#inner-div .body.row {
+    bottom: 0;
+    top: 3.5em;
+}
+
+#inner-div .footer.row {
+    bottom: 0;
+    height: 50px;
+    line-height: 50px;
+}
+
+#inner-container {
+    margin: 20px;
+}
+
+@media only screen and (min-width: 1025px) {
+    #inner-container {
+        max-height: 1024px;
+        max-width: 1280px;
+    }
+}
+
+#popupInnerIframe {
+    color: #000;
+    overflow: hidden;
+    padding: 5px 20px 10px !important;
+}
+
+    #popupInnerIframe div {
+        color: #222;
+    }
+
+#popupInnerIframe {
+    border: 1px solid #ddd;
+}
+
+.categories-header {
+    float: left;
+    padding: 0;
+    width: 20.5%;
+}
+
+    .categories-header h2, .dishes-header h2 {
+        background: none repeat scroll 0 0 #eee;
+        font-size: 14pt;
+        font-weight: normal;
+        line-height: 1.5em;
+        margin: 0;
+        padding: 5px 10px;
+    }
+
+#categories {
+    float: left;
+    padding: 0;
+    width: 20.5%;
+}
+
+    #categories h2, #dishes h2 {
+        background: none repeat scroll 0 0 #eee;
+        font-size: 14pt;
+        font-weight: normal;
+        line-height: 1.5em;
+        margin: 0;
+        padding: 5px 10px;
+    }
+
+    #categories ul {
+        display: block;
+        float: left;
+        padding: 0 10px 0 0;
+        width: 96%;
+    }
+
+        #categories ul .selected {
+            background-color: #e6e6e6;
+            color: #000;
+        }
+
+        #categories ul li {
+            background: none repeat scroll 0 0 #f78e11;
+            color: #eee;
+            display: table-cell;
+            float: left;
+            font-size: 1.2em;
+            height: auto;
+            margin-bottom: 5px;
+            text-align: center;
+            vertical-align: middle;
+            width: 100%;
+            color: #000;
+        }
+
+            #categories ul li:hover {
+                background-color: #00b0e9;
+                cursor: pointer;
+            }
+
+            #categories ul li:active {
+                background-color: lightblue;
+                cursor: pointer;
+            }
+
+            #categories ul li:nth-child(2n+1) {
+                float: left;
+            }
+
+            #categories ul li:nth-child(2n) {
+                float: right;
+            }
+
+.dishes-header {
+    float: right;
+    padding: 0;
+    width: 79.4%;
+}
+
+#dishes {
+    float: right;
+    padding: 0;
+    width: 78.4%;
+}
+
+    #dishes ul {
+        display: block;
+        float: left;
+        padding-left: 0;
+        padding-right: 0;
+        width: 100%;
+    }
+
+        #dishes ul li {
+            color: #666;
+            display: table-cell;
+            float: left;
+            font-size: 13pt;
+            height: 7.5em;
+            margin-bottom: 45px;
+            margin-left: 5px;
+            position: relative;
+            text-align: center;
+            vertical-align: middle;
+            width: calc(100% / 4 - 4px);
+        }
+
+            #dishes ul li:nth-child(6n+1) {
+                margin-left: 0;
+            }
+
+            #dishes ul li:hover {
+                color: #0999e2;
+                cursor: pointer;
+            }
+
+            #dishes ul li:active {
+                color: darkblue;
+                cursor: pointer;
+            }
+
+    #dishes .dish-choose {
+        pointer-events: none;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
+
+    #dishes .dish-img {
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+
+    #dishes .dish-quantity {
+        background-color: green;
+        color: white;
+        display: none;
+        font-weight: bold;
+        height: 25%;
+        left: 0;
+        line-height: 1.4em;
+        padding: 4px;
+        position: absolute;
+        top: 0;
+        width: 25%;
+    }
+
+    #dishes .slider-container {
+        background-color: gray;
+        display: none;
+        height: auto;
+        left: 35%;
+        padding: 10px 10px 15px;
+        position: absolute;
+        top: 0;
+        width: auto;
+        z-index: 10000;
+    }
+
+        #dishes .slider-container .k-slider-selection {
+            width: 250px;
+            z-index: 10000;
+        }
+
+        #dishes .slider-container ul {
+            height: 100%;
+        }
+
+            #dishes .slider-container ul li ul li.k-tick {
+                height: 100%;
+                margin: 0;
+            }
+
+    #dishes .dish-quantity-input {
+        
+        border: medium none;
+        height: 20px;
+        margin-top: 3px;
+        text-align: center;
+        width: 23px;
+    }
+
+    #dishes .dish-minus, #dishes .dish-plus {
+        color: white;
+        font-size: 1.7em;
+        height: 20px;
+        width: 20px;
+    }
+
+        #dishes .dish-plus:hover, #dishes .dish-minus:hover {
+            background-color: #40d0ff;
+            color: lightblue;
+        }
+
+        #dishes .dish-plus:active, #dishes .dish-minus:active {
+            background-color: #ea2509;
+            color: blue;
+        }
+
+    #dishes .dish-minus {
+        float: left;
+    }
+
+    #dishes .dish-plus {
+        float: right;
+    }
+
+    #dishes .dish-name-background {
+        background-color: gray;
+        bottom: 0;
+        height: 2.6em;
+        left: 0;
+        line-height: 1.3em;
+        margin-bottom: 0;
+        opacity: 0.7;
+        position: absolute;
+        width: 100%;
+        display: none;
+    }
+
+    #dishes .dish-name {
+        bottom: 0;
+        color: #ddd;
+        display: table-cell;
+        /*height: 3.1em;*/
+        height: 0.5em;
+        left: 0;
+        line-height: 1em;
+        margin-bottom: 0;
+        position: absolute;
+        text-align: center;
+        vertical-align: top ;
+        width: 100%;
+    }
+
+        #dishes .dish-name p {
+            font-size: 0.78em;
+            line-height: 1em;
+            opacity: 1;
+            padding-left: 5px;
+            padding-top: 0;
+            /*text-shadow: 0 0 1px #666, 0 0 2px #666, 0 0 2px #333, 0 0 2px #333, 0 0 2px #666;*/
+            color: #333;
+        }
+
+input[type="checkbox"] {
+    display: none;
+}
+
+    input[type="checkbox"] + label:before {
+        background-color: white;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 3px -1px blue inset;
+        content: "";
+        display: inline-block;
+        font-size: 16px;
+        height: 20px;
+        line-height: 16px;
+        pointer-events: none;
+        position: absolute;
+        right: 5px;
+        text-align: center;
+        top: 5px;
+        vertical-align: middle;
+        width: 20px;
+    }
+
+    input[type="checkbox"]:checked + label:before {
+        color: black;
+        content: "✓";
+    }
+
+#slider-container {
+    background-color: gray;
+    display: none;
+    height: auto;
+    left: 0;
+    padding: 4px 10px;
+    position: fixed;
+    top: 0;
+    width: auto;
+    z-index: 10000;
+}
+
+@media only screen and (min-width: 801px) {
+    #dishes ul li {
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    #categories ul {
+        max-height: 800px;
+    }
+
+    #dishes ul {
+        max-height: 800px;
+    }
+
+        #dishes ul li {
+            width: calc(100% / 6 - 6px);
+            
+        }
+}
+
+span#slider-container.slider-container div.k-widget.k-slider.k-slider-horizontal.slider.k-state-default div.k-slider-wrap.k-slider-buttons ul.k-reset.k-slider-items li.k-tick {
+    height: 100%;
+    margin: 0;
+    color: white;
+}
+
+span#slider-container.slider-container div.k-widget.k-slider.k-slider-horizontal.slider.k-state-default div.k-slider-wrap.k-slider-buttons ul.k-reset.k-slider-items li.k-tick:hover {
+    height: 100%;
+    margin: 0;
+    color: blue;
+}

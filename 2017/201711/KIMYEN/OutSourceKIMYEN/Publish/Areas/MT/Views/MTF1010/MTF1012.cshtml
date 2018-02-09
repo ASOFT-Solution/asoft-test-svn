@@ -1,0 +1,30 @@
+﻿
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel.MT;
+
+@model MTF1010ViewModel
+@{
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.MTF1012Title, "MTF1010").ToHtmlString();
+}
+
+@section jsFeature{
+    <script src="@Url.Content("~/Areas/MT/Scripts/MTF1010.js")"></script>
+}
+@Html.ASOFTHidden("UrlMTF1010", Url.Action("Index"))
+@Html.ASOFTHidden("UrlMTF1011", Url.Action("MTF1011"))
+@Html.ASOFTHidden("UrlUpdate", Url.Action("Update"))
+@Html.ASOFTHidden("UrlDeleted", Url.Action("Delete"))
+@Html.ASOFTHidden("Level", Model.LevelID)
+<div id="contentMaster">
+    @Html.ASOFTHeader(new HeaderModel() { Title =  Html.ASOFTRaw(m => m.MTF1012Title), Breakcrumb = true })
+    <div id="ViewMaster" class="asf-panel-view-master">@Html.Partial("MTF1012M", Model)</div>
+</div>
+
+@(Html.ASOFTPopup()
+          .Name("MTF1011Popup")
+          .Width(500)
+          .Title(Html.ASOFTPageTitle(m => m.MTF1011Title, "MTF1011").ToHtmlString()))
+      
+   
+@Html.ASOFTHidden("UrlMTF1012MPartial", Url.Action("MTF1012MPartial"))  

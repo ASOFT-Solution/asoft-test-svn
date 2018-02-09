@@ -1,0 +1,43 @@
+﻿    
+@model CRMF2008ViewModel
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.ViewModel.CRM
+@using ASOFT.ERP.CRM.Entities
+
+@{  
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "GridBorrow", 
+        Scrollable = true,
+        ControllerName = "CRMF2008",
+        ActionName = "GetGridBorrow",
+        NameEventPost = "GetDataBorrow",
+        IsShowCheck = false,
+        IsAutoHeight = false,
+        HtmlAttribute = new
+        {
+            style = "height:300px;",
+            @class = "asf-grid"
+        },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "InventoryID",
+                TitleColumn = Html.ASOFTRaw(m=>m.InventoryName),
+                Width = 80,
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "BorrowQuantity",
+                TitleColumn = Html.ASOFTRaw(m=>m.BorrowQuantity),
+                Width = 80,
+                VisibleColumn = true
+            }
+        }
+    };
+}
+
+@(Html.ASOFTCreateGrid<CRMF2008>(gridsetting))

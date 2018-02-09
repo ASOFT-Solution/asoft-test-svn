@@ -1,0 +1,54 @@
+﻿.mtf2000-formFilter {
+    float:left;
+    width:100%
+}
+
+.mtf2000-formFilter .asf-filter-label {
+    width:19%;
+}
+
+.mtf2000-formFilter .asf-filter-input {
+    width:81%;
+}
+
+.mtf2000-formFilter-left
+{
+    width:55%;
+    float:left;
+}
+
+.mtf2000-formFilter-right
+{
+    width:45%;
+    float:left;
+}
+
+.mtf2000-formFilter-left .asf-filter-input {
+    width:60%;
+}
+
+#MTF2002Grid {
+    margin-top: 31px;
+}
+
+.mtf2001-form td {
+    height: 26px;
+}
+
+fieldset {
+    float:left; 
+    width:97%; 
+    margin-top:10px;
+}
+
+.fieldsetExams {
+    width: 95%;
+}
+
+#StudentName {
+    text-transform:uppercase;
+}
+
+.mtf2001-form .notes {
+    width:14%;
+}

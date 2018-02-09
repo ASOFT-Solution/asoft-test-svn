@@ -1,0 +1,824 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3765EFC7-6E01-495B-BBA9-586898BB3E32}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASOFT.ERP.DRM</RootNamespace>
+    <AssemblyName>ASOFT.ERP.DRM</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aspose.Cells">
+      <HintPath>..\..\..\packages\Aspose\Aspose.Cells.dll</HintPath>
+    </Reference>
+    <Reference Include="Kendo.Mvc, Version=2013.3.1127.440, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\KendoMVC\Kendo.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=5.0.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\EnterpriseLibrary.Data.5.0.505.0\lib\NET35\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.4\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\DRF0230Controller.cs" />
+    <Compile Include="Controllers\DRF1030Controller.cs" />
+    <Compile Include="Controllers\DRF0130Controller.cs" />
+    <Compile Include="Controllers\DRF0131Controller.cs" />
+    <Compile Include="Controllers\DRF0140Controller.cs" />
+    <Compile Include="Controllers\DRF0150Controller.cs" />
+    <Compile Include="Controllers\DRF0180Controller.cs" />
+    <Compile Include="Controllers\DRF0170Controller.cs" />
+    <Compile Include="Controllers\DRF0160Controller.cs" />
+    <Compile Include="Controllers\DRF0190Controller.cs" />
+    <Compile Include="Controllers\DRF0200Controller.cs" />
+    <Compile Include="Controllers\DRF0210Controller.cs" />
+    <Compile Include="Controllers\DRF0220Controller.cs" />
+    <Compile Include="Controllers\DRF2013Controller.cs" />
+    <Compile Include="Controllers\DRF2006Controller.cs" />
+    <Compile Include="Controllers\DRF2060Controller.cs" />
+    <Compile Include="Controllers\DRF2050Controller.cs" />
+    <Compile Include="Controllers\DRF2040Controller.cs" />
+    <Compile Include="Controllers\DRF2030Controller.cs" />
+    <Compile Include="Controllers\DRF2020Controller.cs" />
+    <Compile Include="Controllers\DRF0110Controller.cs" />
+    <Compile Include="Controllers\DRF0100Controller.cs" />
+    <Compile Include="Controllers\DRF0120Controller.cs" />
+    <Compile Include="Controllers\DRF0090Controller.cs" />
+    <Compile Include="Controllers\DRF0080Controller.cs" />
+    <Compile Include="Controllers\DRF0070Controller.cs" />
+    <Compile Include="Controllers\DRF0060Controller.cs" />
+    <Compile Include="Controllers\DRF0020Controller.cs" />
+    <Compile Include="Controllers\DRF1020Controller.cs" />
+    <Compile Include="Controllers\DRF1010Controller.cs" />
+    <Compile Include="Controllers\DRF1000Controller.cs" />
+    <Compile Include="Controllers\DRF2010Controller.cs" />
+    <Compile Include="Controllers\DRF2003Controller.cs" />
+    <Compile Include="Controllers\DRF2000Controller.cs" />
+    <Compile Include="Controllers\DRF0000Controller.cs" />
+    <Compile Include="Controllers\DRF2070Controller.cs" />
+    <Compile Include="Controllers\DRF2080Controller.cs" />
+    <Compile Include="Controllers\DRMF0010Controller.cs" />
+    <Compile Include="DRMAreaRegistration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Common.css" />
+    <Content Include="Content\DRF0000.css" />
+    <Content Include="Content\DRF1011.css" />
+    <Content Include="Content\DRF2001.css" />
+    <Content Include="Content\DRF2003.css" />
+    <Content Include="Content\DRF2070.css" />
+    <Content Include="Content\DRMF0010.css" />
+    <Content Include="Scripts\DRF0000\DRF0000.min.js">
+      <DependentUpon>DRF0000.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0020\DRF0020.min.js">
+      <DependentUpon>DRF0020.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0060\DRF0060.min.js">
+      <DependentUpon>DRF0060.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0070\DRF0070.min.js">
+      <DependentUpon>DRF0070.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0080\DRF0080.min.js">
+      <DependentUpon>DRF0080.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0090\DRF0090.min.js">
+      <DependentUpon>DRF0090.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0100\DRF0100.min.js">
+      <DependentUpon>DRF0100.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0110\DRF0110.min.js">
+      <DependentUpon>DRF0110.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0120\DRF0120.min.js">
+      <DependentUpon>DRF0120.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0130\DRF0130.js" />
+    <Content Include="Scripts\DRF0130\DRF0130.min.js">
+      <DependentUpon>DRF0130.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0131\DRF0131.js" />
+    <Content Include="Scripts\DRF0140\DRF0140.js" />
+    <Content Include="Scripts\DRF0140\DRF0140.min.js">
+      <DependentUpon>DRF0140.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0150\DRF0150.js" />
+    <Content Include="Scripts\DRF0160\DRF0160.min.js">
+      <DependentUpon>DRF0160.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0170\DRF0170.min.js">
+      <DependentUpon>DRF0170.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0180\DRF0180.js" />
+    <Content Include="Scripts\DRF0170\DRF0170.js" />
+    <Content Include="Scripts\DRF0160\DRF0160.js" />
+    <Content Include="Scripts\DRF0180\DRF0180.min.js">
+      <DependentUpon>DRF0180.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0190\DRF0190.js" />
+    <Content Include="Scripts\DRF0190\DRF0190.min.js">
+      <DependentUpon>DRF0190.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0200\DRF0200.js" />
+    <Content Include="Scripts\DRF0200\DRF0200.min.js">
+      <DependentUpon>DRF0200.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0220\DRF0220.js" />
+    <Content Include="Scripts\DRF0230\DRF0230.js" />
+    <Content Include="Scripts\DRF1010\DRF1010.min.js">
+      <DependentUpon>DRF1010.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF1010\DRF1011.min.js">
+      <DependentUpon>DRF1011.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF1020\DRF1020.min.js">
+      <DependentUpon>DRF1020.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF1020\DRF1021.min.js">
+      <DependentUpon>DRF1021.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF1030\DRF1031.js" />
+    <Content Include="Scripts\DRF1030\DRF1030.js" />
+    <Content Include="Scripts\DRF2000\DRF2004.js" />
+    <Content Include="Scripts\DRF2003\DRF2003.min.js">
+      <DependentUpon>DRF2003.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF2006\DRF2006.min.js">
+      <DependentUpon>DRF2006.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF2013\DRF2013.js" />
+    <Content Include="Scripts\DRF2006\DRF2006.js" />
+    <Content Include="Scripts\DRF0000\DRF0000.js" />
+    <Content Include="Scripts\DRF2013\DRF2013.min.js">
+      <DependentUpon>DRF2013.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF2020\DRF2020.min.js">
+      <DependentUpon>DRF2020.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF2020\DRF2021.min.js">
+      <DependentUpon>DRF2021.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF2030\DRF2030.min.js">
+      <DependentUpon>DRF2030.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF2030\DRF2031.min.js">
+      <DependentUpon>DRF2031.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF2040\DRF2040.min.js">
+      <DependentUpon>DRF2040.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF2040\DRF2041.min.js">
+      <DependentUpon>DRF2041.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF2040\DRF2043.js" />
+    <Content Include="Scripts\DRF2040\DRF2043.min.js">
+      <DependentUpon>DRF2043.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF2050\DRF2050.min.js">
+      <DependentUpon>DRF2050.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF2050\DRF2051.min.js">
+      <DependentUpon>DRF2051.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF2060\DRF2060.js" />
+    <Content Include="Scripts\DRF2060\DRF2061.js" />
+    <Content Include="Scripts\DRF2050\DRF2050.js" />
+    <Content Include="Scripts\DRF2050\DRF2051.js" />
+    <Content Include="Scripts\DRF2040\DRF2040.js" />
+    <Content Include="Scripts\DRF2040\DRF2041.js" />
+    <Content Include="Scripts\DRF2030\DRF2030.js" />
+    <Content Include="Scripts\DRF2030\DRF2031.js" />
+    <Content Include="Scripts\DRF2020\DRF2020.js" />
+    <Content Include="Scripts\DRF2020\DRF2021.js" />
+    <Content Include="Scripts\DRF0110\DRF0110.js" />
+    <Content Include="Scripts\DRF0100\DRF0100.js" />
+    <Content Include="Scripts\DRF0120\DRF0120.js" />
+    <Content Include="Scripts\DRF0090\DRF0090.js" />
+    <Content Include="Scripts\DRF0080\DRF0080.js" />
+    <Content Include="Scripts\DRF0070\DRF0070.js" />
+    <Content Include="Scripts\DRF0060\DRF0060.js" />
+    <Content Include="Scripts\DRF0020\DRF0020.js" />
+    <Content Include="Scripts\DRF1020\DRF1020.js" />
+    <Content Include="Scripts\DRF1020\DRF1021.js" />
+    <Content Include="Scripts\DRF1010\DRF1010.js" />
+    <Content Include="Scripts\DRF1010\DRF1011.js" />
+    <Content Include="Scripts\DRF1000\DRF1000.js" />
+    <Content Include="Scripts\DRF1000\DRF1001.js" />
+    <Content Include="Scripts\DRF2010\DRF2010.js" />
+    <Content Include="Scripts\DRF2010\DRF2011.js" />
+    <Content Include="Scripts\DRF2000\DRF2001.js" />
+    <Content Include="Scripts\DRF2003\DRF2003.js" />
+    <Content Include="Scripts\DRF2070\DRF2070.js" />
+    <Content Include="Scripts\DRF2070\DRF2070.min.js">
+      <DependentUpon>DRF2070.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF2070\DRF2072.js" />
+    <Content Include="Scripts\DRF2070\DRF2072.min.js">
+      <DependentUpon>DRF2072.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF2080\DRF2080.js" />
+    <Content Include="Scripts\DRMF0010.min.js">
+      <DependentUpon>DRMF0010.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRMSearchPeriod.js" />
+    <Content Include="Scripts\DRF2000\DRF2000.js" />
+    <Content Include="Scripts\DRMF0010.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ASOFT.ERP.A00.Business\ASOFT.ERP.A00.Business.csproj">
+      <Project>{5452ca4b-d935-413e-8a0c-2464d92ce073}</Project>
+      <Name>ASOFT.ERP.A00.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ASOFT.ERP.A00.Core\ASOFT.ERP.A00.Core.csproj">
+      <Project>{cd99f681-2234-4c9e-9456-c1e9d21824b8}</Project>
+      <Name>ASOFT.ERP.A00.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ASOFT.ERP.A00.DataAccess\ASOFT.ERP.A00.DataAccess.csproj">
+      <Project>{a730bd39-2fbd-4666-bd62-2dfd10d67804}</Project>
+      <Name>ASOFT.ERP.A00.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ASOFT.ERP.A00.Entities\ASOFT.ERP.A00.Entities.csproj">
+      <Project>{533ef2dc-bf5b-4235-a102-fb6e0e33d3a1}</Project>
+      <Name>ASOFT.ERP.A00.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ASOFT.ERP.DRM.Business\ASOFT.ERP.DRM.Business.csproj">
+      <Project>{f1dc1861-d103-4444-9658-dd07cca510aa}</Project>
+      <Name>ASOFT.ERP.DRM.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ASOFT.ERP.DRM.Entities\ASOFT.ERP.DRM.Entities.csproj">
+      <Project>{7975799b-d0bd-4ec4-be99-3dad518ef532}</Project>
+      <Name>ASOFT.ERP.DRM.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ASOFT.ERP.ViewModel\ASOFT.ERP.ViewModel.csproj">
+      <Project>{69e8be58-de62-4c8c-b70b-70c593576091}</Project>
+      <Name>ASOFT.ERP.ViewModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ASOFT.ERP.csproj">
+      <Project>{4c04f347-6df2-4eda-b9b2-a91e378997b0}</Project>
+      <Name>ASOFT.ERP</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\DRMSearchPeriod.min.js">
+      <DependentUpon>DRMSearchPeriod.js</DependentUpon>
+    </Content>
+    <Content Include="Views\DRF2080\HtmlPage.html" />
+    <Content Include="Views\DRMF0010\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRMF0010\GeneralSetting.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2000\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2000\FormFilter.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\DRMPeriodFilter.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2000\GridResume.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2000\DRF2001.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2000\DRF2002.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2000\DRF2002M.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2000\GridEveryDay.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2000\GridPayment.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2003\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2010\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2010\GridResume.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2010\DRF2011.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2010\FormFilter.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2010\DRF2012.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2010\GridPayment.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2010\GridEveryDay.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2010\DRF2012M.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF1000\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF1000\FormFilter.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF1000\GridEmployee.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF1000\DRF1001.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF1000\DRF1002.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF1000\DRF1002M.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF1010\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF1010\FormFilter.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF1010\GridCustomer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF1010\DRF1011.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF1010\DRF1012.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF1010\DRF1012M.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF1020\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF1020\FormFilter.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF1020\GridInfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF1020\DRF1021.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF1020\DRF1022.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF1020\DRF1022M.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF0000\Index.bku.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF0060\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF0070\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF0080\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF0130\DRF0090\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\DRF0000\Index.cshtml" />
+    <Content Include="Views\DRF0000\Block01.cshtml" />
+    <Content Include="Views\DRF0000\Block02.cshtml" />
+    <Content Include="Views\DRF0000\Block04.cshtml" />
+    <Content Include="Views\DRF0000\Block03.cshtml" />
+    <Content Include="Views\DRF0000\Block05.cshtml" />
+    <Content Include="Views\DRF0000\Block06.cshtml" />
+    <Content Include="Views\DRF2006\Index.cshtml" />
+    <Content Include="Views\DRF2006\GridResume.cshtml" />
+    <Content Include="Views\DRF2013\Index.cshtml" />
+    <Content Include="Views\DRF0160\Index.cshtml" />
+    <Content Include="Views\DRF0170\Index.cshtml" />
+    <Content Include="Views\DRF0180\Index.cshtml" />
+    <Content Include="Views\DRF0130\DRF0130Grid.cshtml" />
+    <Content Include="Views\DRF0130\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DRMCheckBox.cshtml" />
+    <Content Include="Views\DRF0140\Index.cshtml" />
+    <Content Include="Views\DRF0150\GridDebtBussiness.cshtml" />
+    <Content Include="Views\DRF0150\GridDebtPersonal.cshtml" />
+    <Content Include="Views\DRF0150\GridDebtRecoveryFee.cshtml" />
+    <Content Include="Views\DRF0150\Index.cshtml" />
+    <Content Include="Views\DRF0190\Index.cshtml" />
+    <Content Include="Views\DRF2070\DRF2072.cshtml" />
+    <Content Include="Views\DRF2070\DRF2072M.cshtml" />
+    <Content Include="Views\DRF2070\FormFilter.cshtml" />
+    <Content Include="Views\DRF2070\GridAddress.cshtml" />
+    <Content Include="Views\DRF2070\GridEveryDay.cshtml" />
+    <Content Include="Views\DRF2070\GridProfile.cshtml" />
+    <Content Include="Views\DRF2070\Index.cshtml" />
+    <Content Include="Views\DRF0020\Index.cshtml" />
+    <Content Include="Views\DRF0200\GridSetting.cshtml" />
+    <Content Include="Views\DRF0200\Index.cshtml" />
+    <Content Include="Views\DRF2000\GridEmployee.cshtml" />
+    <Content Include="Views\DRF2040\DRF2043.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ComboBoxBrandID.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ComboBoxEmployeeID.cshtml" />
+    <Content Include="Views\Shared\_CustomerContentDetail.cshtml" />
+    <Content Include="Views\Shared\_CustomerContentMaster.cshtml" />
+    <Content Include="Views\Shared\_CustomerLayout.cshtml" />
+    <Content Include="Views\DRF0000\ZoomMenu.cshtml" />
+    <Content Include="Scripts\DRF0000\DRF0000.min.js.map">
+      <DependentUpon>DRF0000.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRMF0010.min.js.map">
+      <DependentUpon>DRMF0010.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRMSearchPeriod.min.js.map">
+      <DependentUpon>DRMSearchPeriod.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0020\DRF0020.min.js.map">
+      <DependentUpon>DRF0020.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0060\DRF0060.min.js.map">
+      <DependentUpon>DRF0060.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0070\DRF0070.min.js.map">
+      <DependentUpon>DRF0070.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0080\DRF0080.min.js.map">
+      <DependentUpon>DRF0080.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0090\DRF0090.min.js.map">
+      <DependentUpon>DRF0090.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0100\DRF0100.min.js.map">
+      <DependentUpon>DRF0100.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0110\DRF0110.min.js.map">
+      <DependentUpon>DRF0110.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0120\DRF0120.min.js.map">
+      <DependentUpon>DRF0120.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0130\DRF0130.min.js.map">
+      <DependentUpon>DRF0130.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0140\DRF0140.min.js.map">
+      <DependentUpon>DRF0140.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0160\DRF0160.min.js.map">
+      <DependentUpon>DRF0160.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0170\DRF0170.min.js.map">
+      <DependentUpon>DRF0170.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0180\DRF0180.min.js.map">
+      <DependentUpon>DRF0180.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0190\DRF0190.min.js.map">
+      <DependentUpon>DRF0190.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF0200\DRF0200.min.js.map">
+      <DependentUpon>DRF0200.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF1010\DRF1010.min.js.map">
+      <DependentUpon>DRF1010.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF1010\DRF1011.min.js.map">
+      <DependentUpon>DRF1011.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF1020\DRF1020.min.js.map">
+      <DependentUpon>DRF1020.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF1020\DRF1021.min.js.map">
+      <DependentUpon>DRF1021.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF2003\DRF2003.min.js.map">
+      <DependentUpon>DRF2003.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF2006\DRF2006.min.js.map">
+      <DependentUpon>DRF2006.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF2013\DRF2013.min.js.map">
+      <DependentUpon>DRF2013.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF2020\DRF2020.min.js.map">
+      <DependentUpon>DRF2020.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF2020\DRF2021.min.js.map">
+      <DependentUpon>DRF2021.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF2030\DRF2030.min.js.map">
+      <DependentUpon>DRF2030.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF2030\DRF2031.min.js.map">
+      <DependentUpon>DRF2031.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF2040\DRF2040.min.js.map">
+      <DependentUpon>DRF2040.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF2040\DRF2041.min.js.map">
+      <DependentUpon>DRF2041.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF2050\DRF2050.min.js.map">
+      <DependentUpon>DRF2050.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF2050\DRF2051.min.js.map">
+      <DependentUpon>DRF2051.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF2070\DRF2070.min.js.map">
+      <DependentUpon>DRF2070.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF2070\DRF2072.min.js.map">
+      <DependentUpon>DRF2072.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\DRF2040\DRF2043.min.js.map">
+      <DependentUpon>DRF2043.js</DependentUpon>
+    </Content>
+    <Content Include="Views\DRF0140\Period.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ComboBoxEmployeeIDNTM.cshtml" />
+    <Content Include="Views\DRF2080\FormFilter.cshtml" />
+    <Content Include="Views\DRF2080\GetGridData.cshtml" />
+    <Content Include="Views\DRF2080\HtmlCVCA.cshtml" />
+    <Content Include="Views\DRF2080\HtmlCVVPL.cshtml" />
+    <Content Include="Views\DRF2080\HtmlCVXR1.cshtml" />
+    <Content Include="Views\DRF2080\HtmlCVXR2.cshtml" />
+    <Content Include="Views\DRF2080\Index.cshtml" />
+    <Content Include="Views\DRF0220\DRF0220Grid.cshtml" />
+    <Content Include="Views\DRF0220\Index.cshtml" />
+    <Content Include="Views\DRF0131\DRF0131Grid.cshtml" />
+    <Content Include="Views\DRF0131\Index.cshtml" />
+    <Content Include="Views\DRF2010\DRF2012Grid.cshtml" />
+    <Content Include="Views\DRF2000\DRF2002Grid.cshtml" />
+    <Content Include="Views\DRF2080\PrintDoc_Html.cshtml" />
+    <Content Include="Views\DRF2000\DRF2001EveryDay.cshtml" />
+    <Content Include="Views\DRF2010\DRF2011EveryDay.cshtml" />
+    <Content Include="Views\DRF2000\DRF2004.cshtml" />
+    <Content Include="packages.config" />
+    <Content Include="Views\DRF1030\Index.cshtml" />
+    <Content Include="Views\DRF1030\FormFilter.cshtml" />
+    <Content Include="Views\DRF1030\GridPort.cshtml" />
+    <Content Include="Views\DRF1030\DRF1031.cshtml" />
+    <Content Include="Views\DRF1030\DRF1032.cshtml" />
+    <Content Include="Views\DRF1030\DRF1032M.cshtml" />
+    <Content Include="Views\DRF0230\Index.cshtml" />
+    <Content Include="Views\DRF0230\DRF0230Grid.cshtml" />
+    <Content Include="Views\DRF0090\Index.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF0120\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\EditorTemplates\DRMSpinEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF0120\DRF0120Grid.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF0100\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF0110\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF0110\DRF0110Grid.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2020\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2020\FormFilter.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2020\GridHandle.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2020\DRF2021.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2020\DRF2022.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2020\DRF2022M.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2030\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2030\FormFilter.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2030\GridPayment.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2030\DRF2031.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2030\DRF2032.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2030\DRF2032M.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2040\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2040\FormFilter.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2040\GridSalary.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2040\DRF2041.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2040\DRF2042.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2040\DRF2042M.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2050\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2050\FormFilter.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2050\GridCloseResume.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2050\DRF2051.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2060\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2060\FormFilter.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2060\GridDocument.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2060\DRF2061.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2010\GridAddress.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DRF2000\GridAddress.cshtml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>20862</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:19380/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

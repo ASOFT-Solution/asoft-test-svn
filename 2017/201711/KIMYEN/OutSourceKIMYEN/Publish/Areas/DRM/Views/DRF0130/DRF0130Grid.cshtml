@@ -1,0 +1,230 @@
+﻿
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Entities.Database
+@using ASOFT.ERP.ViewModel.DRM
+@using ASOFT.ERP.DRM.Entities
+@model DRF0130ViewModel
+@{
+    var gridsetting = new ASOFTGridSetting
+                          {
+                              NameGrid = "DRF0130Grid",
+                              NameEventPost = "",
+                              Scrollable = true,
+                              ActionName = "GetGridData",
+                              ControllerName = "DRF0130",
+                              HtmlAttribute = new { @class = "asf-grid" },
+                              IsShowCheck = true,
+                              IsAutoHeight = false,
+                              ListGridColumn = new List<ASOFTGridColumnSetting>{
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = "RowNum",
+                                                               TitleColumn = ASOFTLanguage.FindWordA00("A00.Order"),
+                                                               Width = 50,
+                                                               VisibleColumn = true,
+                                                               ClientTemplate="#= DRF0130.rowNumber() #"
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRF0130.COL_GROUPID,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.GroupID),
+                                                               Width = 150,
+                                                               VisibleColumn = true, 
+                                                               EditColumn = true,
+                                                               EditorTemplateName = "ComboBoxGroupID"
+                                                           }, 
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRF0130.COL_LEADERSENDDISPATH,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.LeaderSendDispath),
+                                                               Width = 200,
+                                                               VisibleColumn = true,
+                                                               //EditColumn = true,
+                                                               //EditorTemplateName = "DRMCheckBox",
+                                                               ClientTemplate = string.Format("<input id='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='DRF0130.checkBox_Changed(this)' />",
+                                                                                DRF0130.COL_LEADERSENDDISPATH),
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+                                                           },      
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRF0130.COL_MANAGERSENDDISPATH,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.ManagerSendDispath),
+                                                               Width = 200,
+                                                               VisibleColumn = true,
+                                                               //EditColumn = true,
+                                                               //EditorTemplateName = "DRMCheckBox",
+                                                               ClientTemplate = string.Format("<input id='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='DRF0130.checkBox_Changed(this)' />",
+                                                                                DRF0130.COL_MANAGERSENDDISPATH),
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+                                                           },      
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRF0130.COL_INFOSENDDISPATH,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.InfoSendDispath),
+                                                               Width = 200,
+                                                               VisibleColumn = true,
+                                                               //EditColumn = true,
+                                                               //EditorTemplateName = "DRMCheckBox",
+                                                               ClientTemplate = string.Format("<input id='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='DRF0130.checkBox_Changed(this)' />",
+                                                                                DRF0130.COL_INFOSENDDISPATH),
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+                                                           }, 
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRF0130.COL_LEADERCLOSECONTRACT,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.LeaderCloseContract),
+                                                               Width = 200,
+                                                               VisibleColumn = true,
+                                                               //EditColumn = true,
+                                                               //EditorTemplateName = "DRMCheckBox",
+                                                               ClientTemplate = string.Format("<input id='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='DRF0130.checkBox_Changed(this)' />",
+                                                                                DRF0130.COL_LEADERCLOSECONTRACT),
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+                                                           }, 
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRF0130.COL_MANAGERCLOSECONTRACT,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.ManagerCloseContract),
+                                                               Width = 180,
+                                                               VisibleColumn = true,
+                                                               //EditColumn = true,
+                                                               //EditorTemplateName = "DRMCheckBox",
+                                                               ClientTemplate = string.Format("<input id='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='DRF0130.checkBox_Changed(this)' />",
+                                                                                DRF0130.COL_MANAGERCLOSECONTRACT),
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+                                                           }, 
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRF0130.COL_INFOCLOSECONTRACT,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.InfoCloseContract),
+                                                               Width = 200,
+                                                               VisibleColumn = true,
+                                                               //EditColumn = true,
+                                                               //EditorTemplateName = "DRMCheckBox",
+                                                               ClientTemplate = string.Format("<input id='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='DRF0130.checkBox_Changed(this)' />",
+                                                                                DRF0130.COL_INFOCLOSECONTRACT),
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+                                                           }, 
+                                       new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRF0130.COL_VIEWCLOSECONTRACT,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.ViewCloseContract),
+                                                               Width = 200,
+                                                               VisibleColumn = true,
+                                                               //EditColumn = true,
+                                                               //EditorTemplateName = "DRMCheckBox",
+                                                               ClientTemplate = string.Format("<input id='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='DRF0130.checkBox_Changed(this)' />",
+                                                                                DRF0130.COL_VIEWCLOSECONTRACT),
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+                                                           },  
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRF0130.COL_EDITCONTRACTINFO,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.EditContractInfo),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                               //EditColumn = true,
+                                                               //EditorTemplateName = "DRMCheckBox",
+                                                               ClientTemplate = string.Format("<input id='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='DRF0130.checkBox_Changed(this)' />",
+                                                                                DRF0130.COL_EDITCONTRACTINFO),
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+                                                           }, 
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRF0130.COL_EDITTABWORKHISTORY,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.EditTabWorkHistory),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                               //EditColumn = true,
+                                                               //EditorTemplateName = "DRMCheckBox",
+                                                               ClientTemplate = string.Format("<input id='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='DRF0130.checkBox_Changed(this)' />",
+                                                                                DRF0130.COL_EDITTABWORKHISTORY),
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRF0130.COL_EDITTABOTHERINFO,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.EditTabOtherInfo),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                               //EditColumn = true,
+                                                               //EditorTemplateName = "DRMCheckBox",
+                                                               ClientTemplate = string.Format("<input id='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='DRF0130.checkBox_Changed(this)' />",
+                                                                                DRF0130.COL_EDITTABOTHERINFO),
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+                                                           },  
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRF0130.COL_EDITTABDEBTORADDRESS,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.EditTabDebtorAddress),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                               //EditColumn = true,
+                                                               //EditorTemplateName = "DRMCheckBox",
+                                                               ClientTemplate = string.Format("<input id='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='DRF0130.checkBox_Changed(this)' />",
+                                                                                DRF0130.COL_EDITTABDEBTORADDRESS),
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+                                                           }, 
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRF0130.COL_EDITTABCONTACTINFO,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.EditTabContactInfo),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                               //EditColumn = true,
+                                                               //EditorTemplateName = "DRMCheckBox",
+                                                               ClientTemplate = string.Format("<input id='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='DRF0130.checkBox_Changed(this)' />",
+                                                                                DRF0130.COL_EDITTABCONTACTINFO),
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+                                                           }, 
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRF0130.COL_EDITCONTRACTINFO,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.EditTabAddInfo),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                               //EditColumn = true,
+                                                               //EditorTemplateName = "DRMCheckBox",
+                                                               ClientTemplate = string.Format("<input id='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='DRF0130.checkBox_Changed(this)' />",
+                                                                                DRF0130.COL_EDITTABADDINFO),
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRF0130.COL_EDITTABRATE,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.EditTabRate),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                               //EditColumn = true,
+                                                               //EditorTemplateName = "DRMCheckBox",
+                                                               ClientTemplate = string.Format("<input id='{0}' type='checkbox' #= {0} ? 'checked' : '' # onchange='DRF0130.checkBox_Changed(this)' />",
+                                                                                DRF0130.COL_EDITTABRATE),
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+                                                           },  
+                                        new ASOFTGridColumnSetting
+                                                            {
+                                                                IDColumn = DRF0130.COL_BTNDETAIL,
+                                                                TitleColumn = Html.ASOFTRaw(model=>model.BtnDetail),
+                                                                Width = 50,
+                                                                VisibleColumn = true,
+                                                                ClientTemplate = string.Format("<a href='\\#' onclick='return {2}' ><input type='button' id='{0}' value='{1}' '/></a> "
+                                                                                                ,DRF0130.COL_BTNDETAIL
+                                                                                                ,"..."
+                                                                                                ,"DRF0130.openDetails(this)"), 
+                                                                HtmlAttrCoulmns = new { @class = "asf-cols-align-center" }
+                                                            },                    
+                                        new ASOFTGridColumnSetting
+                                                            {
+                                                                IDColumn = DRF0130.COL_APK,
+                                                                Width = 50,
+                                                                VisibleColumn = true,
+                                                                ClientTemplate = string.Format("<a href='\\#' onclick='return {0}' class='asf-i-delete-24 asf-icon-24'><span>Del</span></a>",
+                                                                        "DRF0130.deleteAddress(this)"), 
+                                                                HtmlAttrCoulmns = new { @class = "asf-cols-align-center" }
+                                                            }                                  
+                              }
+                          };
+}
+
+@(Html.ASOFTCreateGridEdit<DRF0130>(gridsetting,false))

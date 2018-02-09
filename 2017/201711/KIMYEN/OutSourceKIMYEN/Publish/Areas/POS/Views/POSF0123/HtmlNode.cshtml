@@ -1,0 +1,47 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Created           Comment
+//#     23/08/2017      Quang Hoàng      Tạo mới
+//####################################################################
+*@
+
+@using ASOFT.ERP.ViewModel.POS;
+@using ASOFT.ERP.ViewModel.Helper;
+@using ASOFT.ERP.A00.Core
+@using Kendo.Mvc.UI.Fluent;
+
+@model POSF0123ViewModel
+
+@{
+
+         <ul id="organisation">
+            @foreach (var item in Model.ListNode.FindAll(m => string.IsNullOrEmpty(m.NodeParentID)))
+            {
+                <li class="colorDivisionID">
+                     @addChildren(item, item.NodeID)
+                    <div class="text-ORG">@item.NodeName</div>
+                </li>
+            }
+        </ul>       
+}
+
+@helper addChildren(POSF0123ViewModel item, string nodeID)
+{
+    var children = Model.ListNode.FindAll(m => m.NodeParentID == item.NodeID);
+    if (children != null)
+    {
+         <ul>
+            @foreach (var child in children)
+            {
+                <li class="colorTeamID">
+                    
+                     @addChildren(child, child.NodeID)
+                    <div class="text-ORG">@child.NodeName</div>
+                </li>
+            }
+        </ul>
+    }
+}

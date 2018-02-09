@@ -1,0 +1,83 @@
+﻿@using ASOFT.ERP.ViewModel.A00
+@using Kendo.Mvc;
+@using Kendo.Mvc.UI
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.ViewModel;
+@model ImportViewModel
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.TitleDynamic, "CRMF9009").ToHtmlString();
+    ViewBag.Width = 800;
+    
+ }
+    @Html.ASOFTHidden(m => m.ScreenID)
+    @Html.ASOFTHidden(m => m.Area)
+    @Html.ASOFTHidden(m => m.StartRow)
+    @Html.ASOFTHidden(m => m.Table)
+    @Html.ASOFTHidden("isDynamic", true)
+    <div class="asf-form-container">
+        <div id="import-message"></div>
+        <div class="form-content">
+            <div id="uploader">
+                @(Html.Kendo().Upload()
+                .Name("attachments")
+                .Multiple(false)
+                .ShowFileList(true)
+                .Async(x => x.Save("Uploader", "Import",new { template= ViewBag.Template}))
+                .Events(e => e.Upload("DRF2003.onUpload")
+                              .Success("DRF2003.onUploadSuccess"))
+                .Messages(m => m.Select(ASOFTLanguage.FindWordA00("A00.btnChooseAttachmentDynamic")))
+                )
+            </div>
+            <div id="progressBar" style="width:99.6%"></div>
+            <div id="imported-list">
+                <div id="imported-destination-table"></div>
+                <div id="imported-destination-table-total"></div>
+            </div>
+
+        </div>
+        <div class="asf-form-button">
+            <table class="asf-table-view">
+                <tr>
+                    <td align="right">
+                        <div class="asf-popup-button-container">
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                                      .Name("BtnClose")
+                                      .Events(e => e.Click("DRF2003.btnClose_Click")))
+                            </div>
+                           <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSave"))
+                                        .Name("BtnSaveClose").Enable(true)
+                                        .Events(e => e.Click("DRF2003.btnSave_ClickDynamic")))
+                            </div>
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnReadData"))
+                                        .Name("BtnReadData").Enable(true)
+                                        .Events(e => e.Click("DRF2003.btnReadDataDynamic_Click")))
+                            </div>
+                             <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnDownloadTPL"))
+                                        .Name("BtnDownload").Enable(true)
+                                        .Events(e => e.Click("DRF2003.btnDownloadDynamic_Click")))
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+@section jsFeature {
+    <script src="@Url.Content("~/Scripts/import.js")"></script>
+   @* @Html.RenderScripts(files: new[] { "CRMF2061" })*@
+}
+
+@section styleFeature {
+    <link href="@Url.Content("~/Content/Styles/Import.css")" rel="stylesheet" type="text/css" />
+}
+
+@Html.ASOFTHidden("UrlGetImportHeader", Url.Action("GetImportHeader", "Import"))
+@Html.ASOFTHidden("UrlGetImportRow", Url.Action("GetImportRowMapped", "Import"))
+@Html.ASOFTHidden("UrlSaveData", Url.Action("Import", "Import"))
+@Html.ASOFTHidden("UrlSaveDataPaginate", Url.Action("ImportPaginate", "Import"))
+@Html.ASOFTHidden("UrlDownload", Url.Action("Download", "Import"))

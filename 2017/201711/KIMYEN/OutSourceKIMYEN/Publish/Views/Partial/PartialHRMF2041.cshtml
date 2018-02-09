@@ -1,0 +1,275 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Created           Comment
+//#     2017/10/04      Kim Vu            Tạo mới
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.ViewModel;
+@model List<ASOFT.ERP.HRM.Entities.HRMF2041>
+@{
+    var group1 = new List<ASOFT.ERP.HRM.Entities.HRMF2041>();
+    var group2 = new List<ASOFT.ERP.HRM.Entities.HRMF2041>();
+    var group3 = new List<ASOFT.ERP.HRM.Entities.HRMF2041>();
+    var group4 = new List<ASOFT.ERP.HRM.Entities.HRMF2041>();
+    var group5 = new List<ASOFT.ERP.HRM.Entities.HRMF2041>();
+    if (Model != null && Model.Count() > 0)
+    {
+        group1 = Model.Where(x => x.InterviewLevel == 1).ToList();
+        group2 = Model.Where(x => x.InterviewLevel == 2).ToList();
+        group3 = Model.Where(x => x.InterviewLevel == 3).ToList();
+        group4 = Model.Where(x => x.InterviewLevel == 4).ToList();
+        group5 = Model.Where(x => x.InterviewLevel == 5).ToList();
+    }
+}
+
+<style>
+    .block-interview {
+        width:70%;
+    }
+
+    .block-interview .asf-filter-input{
+        width:60%;
+    }
+
+    .block-interview .asf-filter-label{
+        width:35%;
+    }
+
+</style>
+
+<div style="display: none;">
+    <!--Group Tab1-->
+    <div id="divDetailTypeID01" style="margin-left: 40px;">
+        @{
+            int i = 1;
+            int dataType = 7;
+            int type = 1;
+            string name = "";
+            string onkeypress = "[0-9]";
+        }
+        @if (group1 != null && group1.Count() > 0)
+        {
+            foreach (var item in group1)
+            {
+                name = ("DetailTypeID1_" + item.DetailTypeID);
+            <div class="asf-filter-main">
+                <div class="block-interview">
+                    <div class="asf-filter-label">
+                        <label for="@item.DetailTypeID">@item.DetailTypeName</label>
+                    </div>
+                    <div class="asf-filter-input">
+                        @if (item.ResultFormat == 0 || item.ResultFormat == 1)
+                        {
+                            onkeypress = item.ResultFormat == 1 ? "" : "return event.charCode >= 48 && event.charCode <= 57";
+                            @(Html.ASOFTTextBox(model => item.InterviewResult, htmlAttribute: new { @id = name, @onkeypress = onkeypress }))
+                            {
+                                dataType = 7;
+                                type = 1;
+                            }
+                        }
+                        else if (item.ResultFormat == 2)
+                        {
+                            @(Html.ASOFTBussinessComboBox().ASOFTOOInterViewResult(model => item.InterviewResult, codeMaster: "Rate", htmlAttributes: new { @id = name, @name = name }))                        
+                            {
+                                dataType = 7;
+                                type = 3;
+                            }
+                        }
+                        @Html.ASOFTHidden(name + "_Content_DataType", dataType)
+                        @Html.ASOFTHidden(name + "_Type_Fields", type)
+                    </div>
+                </div>
+            </div>
+                        i++;
+            }
+        }
+    </div>
+
+    <!--Group Tab2-->
+    <div id="divDetailTypeID02" style="margin-left: 40px;">
+        @{
+            i = 1;
+            dataType = 7;
+            type = 1;
+        }
+        @if (group2 != null && group2.Count() > 0)
+        {
+            foreach (var item in group2)
+            {
+                name = "DetailTypeID2_" + item.DetailTypeID;
+            <div class="asf-filter-main">
+                <div class="block-interview">
+                    <div class="asf-filter-label">
+                        <label for="@item.DetailTypeID">@item.DetailTypeName</label>
+                    </div>
+                    <div class="asf-filter-input">
+                        @if (item.ResultFormat == 0 || item.ResultFormat == 1)
+                        {
+                            onkeypress = item.ResultFormat == 1 ? "" : "return event.charCode >= 48 && event.charCode <= 57";
+                            @(Html.ASOFTTextBox(model => item.InterviewResult, htmlAttribute: new { @id = name, @onkeypress = onkeypress }))
+                            {
+                                dataType = 7;
+                                type = 1;
+                            }
+                        }
+                        else if (item.ResultFormat == 2)
+                        {
+                            @(Html.ASOFTBussinessComboBox().ASOFTOOInterViewResult(model => item.InterviewResult, codeMaster: "Rate", htmlAttributes: new { @id = name, @name = name }))                        
+                            dataType = 7;
+                            type = 3;
+                        }
+                        @Html.ASOFTHidden(name + "_Content_DataType", dataType)
+                        @Html.ASOFTHidden(name + "_Type_Fields", type)
+                    </div>
+                </div>
+            </div>
+                        i++;
+            }
+        }
+    </div>
+
+    <!--Group Tab3-->
+    <div id="divDetailTypeID03" style="margin-left: 40px;">
+        @{
+            i = 1;
+            dataType = 7;
+            type = 1;
+        }
+        @if (group3 != null && group3.Count() > 0)
+        {
+            foreach (var item in group3)
+            {
+                name = "DetailTypeID3_" + item.DetailTypeID;
+            <div class="asf-filter-main">
+                <div class="block-interview">
+                    <div class="asf-filter-label">
+                        <label for="@item.DetailTypeID">@item.DetailTypeName</label>
+                    </div>
+                    <div class="asf-filter-input">
+                        @if (item.ResultFormat == 0 || item.ResultFormat == 1)
+                        {
+                            onkeypress = item.ResultFormat == 1 ? "" : "return event.charCode >= 48 && event.charCode <= 57";
+                            @(Html.ASOFTTextBox(model => item.InterviewResult, htmlAttribute: new { @id = name, @onkeypress = onkeypress }))
+                            {
+                                dataType = 7;
+                                type = 1;
+                            }
+                        }
+                        else if (item.ResultFormat == 2)
+                        {
+                            @(Html.ASOFTBussinessComboBox().ASOFTOOInterViewResult(model => item.InterviewResult, codeMaster: "Rate", htmlAttributes: new { @id = name, @name = name }))                        
+                            dataType = 7;
+                            type = 3;
+                        }
+                        @Html.ASOFTHidden(name + "_Content_DataType", dataType)
+                        @Html.ASOFTHidden(name + "_Type_Fields", type)
+                    </div>
+                </div>
+            </div>
+                        i++;
+            }
+        }
+    </div>
+
+    <!--Group Tab4-->
+    <div id="divDetailTypeID04" style="margin-left: 40px;">
+        @{
+            i = 1;
+            dataType = 7;
+            type = 1;
+        }
+        @if (group4 != null && group4.Count() > 0)
+        {
+            foreach (var item in group4)
+            {
+                name = "DetailTypeID4_" + item.DetailTypeID;
+            <div class="asf-filter-main">
+                <div class="block-interview">
+                    <div class="asf-filter-label">
+                        <label for="@item.DetailTypeID">@item.DetailTypeName</label>
+                    </div>
+                    <div class="asf-filter-input">
+                        @if (item.ResultFormat == 0 || item.ResultFormat == 1)
+                        {
+                            onkeypress = item.ResultFormat == 1 ? "" : "return event.charCode >= 48 && event.charCode <= 57";
+                            @(Html.ASOFTTextBox(model => item.InterviewResult, htmlAttribute: new { @id = name, @onkeypress = onkeypress }))
+                            {
+                                dataType = 7;
+                                type = 1;
+                            }
+                        }
+                        else if (item.ResultFormat == 2)
+                        {
+                            @(Html.ASOFTBussinessComboBox().ASOFTOOInterViewResult(model => item.InterviewResult, codeMaster: "Rate", htmlAttributes: new { @id = name, @name = name }))                        
+                            dataType = 7;
+                            type = 3;
+                        }
+                        @Html.ASOFTHidden(name + "_Content_DataType", dataType)
+                        @Html.ASOFTHidden(name + "_Type_Fields", type)
+                    </div>
+                </div>
+            </div>
+                        i++;
+            }
+        }
+    </div>
+
+    <!--Group Tab5-->
+    <div id="divDetailTypeID05" style="margin-left: 40px;">
+        @{
+            i = 1;
+            dataType = 7;
+            type = 1;
+        }
+        @if (group5 != null && group5.Count() > 0)
+        {
+            foreach (var item in group5)
+            {
+                name = "DetailTypeID5_" + item.DetailTypeID;
+            <div class="asf-filter-main">
+                <div class="block-interview">
+                    <div class="asf-filter-label">
+                        <label for="@item.DetailTypeID">@item.DetailTypeName</label>
+                    </div>
+                    <div class="asf-filter-input">
+                        @if (item.ResultFormat == 0 || item.ResultFormat == 1)
+                        {
+                            onkeypress = item.ResultFormat == 1 ? "" : "return event.charCode >= 48 && event.charCode <= 57";
+                            @(Html.ASOFTTextBox(model => item.InterviewResult, htmlAttribute: new { @id = name, @onkeypress = onkeypress }))
+                            {
+                                dataType = 7;
+                                type = 1;
+                            }
+                        }
+                        else if (item.ResultFormat == 2)
+                        {
+                            @(Html.ASOFTBussinessComboBox().ASOFTOOInterViewResult(model => item.InterviewResult, codeMaster: "Rate", htmlAttributes: new { @id = name, @name = name }))                        
+                            dataType = 7;
+                            type = 3;
+                        }
+                        @Html.ASOFTHidden(name + "_Content_DataType", dataType)
+                        @Html.ASOFTHidden(name + "_Type_Fields", type)
+                    </div>
+                </div>
+            </div>
+                        i++;
+            }
+        }
+    </div>
+
+    @Html.ASOFTHidden("TotalLevel_Content_DataType", 7)
+    @Html.ASOFTHidden("TotalLevel_Type_Fields", 1)
+    @if(group1.Count()>0){        
+        @Html.ASOFTHidden("TotalLevel", group1[0].TotalLevel)
+    }
+    else
+    {
+        @Html.ASOFTHidden("TotalLevel", 0)
+    }
+
+</div>

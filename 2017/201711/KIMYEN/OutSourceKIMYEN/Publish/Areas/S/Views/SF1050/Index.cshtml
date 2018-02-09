@@ -1,0 +1,72 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Created           Comment
+//#     07/10/2014      Hồ Hoàng Tú       Tạo mới
+//####################################################################
+*@
+@using System.Web.UI.WebControls
+@using ASOFT.ERP.A00.Core
+@model ASOFT.ERP.ViewModel.S.SF1050ViewModel
+@using ASOFT.ERP.A00.Entities.Common
+@using ASOFT.ERP.A00.Entities.Database
+@using ASOFT.ERP.ViewModel
+@{ 
+   Layout="~/Views/Shared/_ContentMaster.cshtml";
+   ViewBag.Title = @Html.ASOFTRaw(m => m.Title);
+}
+@Html.ASOFTHidden("EnableRecord", Url.Action("SetEnabled"))
+@Html.ASOFTHidden("DisableRecord", Url.Action("SetDisabled"))
+@Html.ASOFTHidden("LockUser", Url.Action("SetLockUserID"))
+@Html.ASOFTHidden("UnLockUser", Url.Action("SetUnLockUserID"))
+@section Header
+{  
+    @Html.ASOFTHeader(new HeaderModel { Title = Html.ASOFTPageTitle(model => model.Title, "SF1050").ToHtmlString(), Breakcrumb = true })
+}
+@section FilterCol1
+{
+    <tr>
+        <td>@Html.ASOFTLabel(model=>model.RoleID)</td>  
+        <td>@Html.ASOFTTextBox(model => model.RoleID, htmlStyle: new { width = Unit.Percentage(100) }) </td>
+        
+    </tr>
+}
+@section FilterCol2
+{
+    <tr>
+        <td>@Html.ASOFTLabel(model=>model.RoleName)</td>
+        <td>@Html.ASOFTTextBox(model => model.RoleName, htmlStyle: new { width = Unit.Percentage(100) }) </td>
+    </tr>       
+}
+
+@section GridToolBar{
+    @if (Model.Toolbar1 != null)
+            {              
+                Model.Toolbar1.EventAdd = "ShowEditorFrame";
+                Model.Toolbar1.EventDelete = "btnDelete_Click";                            
+            }
+            @Html.Partial("~/Views/Shared/EditorTemplates/Toolbar.cshtml", Model.Toolbar1 ?? new ASOFTToolBarViewModel())
+
+}
+@section FilterButtons{
+                <li>
+                    @(Html.ASOFTSearchButton()
+                          .Name("SF1050BtnFilter")
+                         .Events(e => e.Click("SF1050BtnFilter_Click")))
+                </li>
+                <li>
+                    @(Html.ASOFTSearchResetButton()
+                          .Name("SF1050BtnClearFilter")
+                       .Events(e => e.Click("SF1050BtnClearFilter_Click")))
+                </li>
+}
+@section Grid {
+    @Html.Partial("GridRole")
+}
+
+@section jsFeature 
+{
+    <script src="@Url.Content("~/Areas/S/Scripts/SF1050.js" +"?v="+ASOFTEnvironment.Version)" type="text/javascript"></script>
+}  

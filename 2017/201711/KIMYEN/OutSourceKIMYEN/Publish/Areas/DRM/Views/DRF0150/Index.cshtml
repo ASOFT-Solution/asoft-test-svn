@@ -1,0 +1,89 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     27/10/2014      Trí Thiện       Tạo mới
+//####################################################################
+*@
+
+@using ASOFT.ERP.ViewModel.DRM
+
+@model  DRF0150ViewModel
+@{
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.DRF0150Title, "DRF0150").ToHtmlString();
+}
+
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/DRM/Content/Common.css")" rel="stylesheet" type="text/css" />
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF0150/DRF0150.js?v=" + ASOFTEnvironment.Version)"></script>
+}
+
+
+@helper DebtRecoveryFee()
+{
+    <div class="asf-form-button">
+             <table class="asf-table-view">
+                <tr>
+                    <td>
+                        <div class="asf-popup-button-container">
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnPrintDebtRecoveryFee"))
+                                      .Name("btndrf0150PrintDebtRecoveryFee")
+                                      .Events(e => e.Click("DRF0150.btnPrintDebtRecoveryFee_Click"))
+                                      .Enable(ASOFTEnvironment.CheckPermission("DRF0190", ASOFTPermission.Print))
+                                 )
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+      </div>
+}
+
+<div id="contentMaster">
+    @Html.ASOFTHeader(new HeaderModel() { Title = Html.ASOFTRaw(m => m.DRF0150Title), Breakcrumb = true })
+    <div class="full-fieldset">
+    <div class="left-fieldset">
+        <div>
+             @(Html.ASOFTPanel()
+                .Name("panelbarGridDebtPersonal")
+                .HtmlAttributes(new { @class = "block-panel-master" })
+                .Animation(animation => animation.Enable(true))
+                .Items(panelbar => panelbar.Add().Text(Html.ASOFTRaw(model => model.ReportDebtPersonal)).HtmlAttributes(new { @class = "block-panel-master-header" })
+                                        .Expanded(true).Content(Html.Partial("GridDebtPersonal").ToHtmlString())
+                                        .Enabled(ASOFTEnvironment.CheckPermission("DRF0150_NTD", ASOFTPermission.Print))))
+            
+        </div>
+
+        <div>
+            @(Html.ASOFTPanel()
+                .Name("panelbarDebtRecoveryFee")
+                .HtmlAttributes(new { @class = "block-panel-master" })
+                .Animation(animation => animation.Enable(true))
+                .Items(panelbar => panelbar.Add().Text(Html.ASOFTRaw(model => model.ReportDebtRecoveryFee))
+                                        .HtmlAttributes(new { @class = "block-panel-master-header" })
+                                        .Expanded(true).Content(Html.Partial("GridDebtRecoveryFee").ToHtmlString())))
+        </div>
+    </div>
+    <div class="right-fieldset right-report-fieldset">
+        <div>
+           @(Html.ASOFTPanel()
+                .Name("panelbarGridDebtBussiness")
+                .HtmlAttributes(new { @class = "block-panel-master" })
+                .Animation(animation => animation.Enable(true))
+                .Items(panelbar => panelbar.Add().Text(Html.ASOFTRaw(model => model.ReportDebtBussiness))
+                                        .HtmlAttributes(new { @class = "block-panel-master-header" })
+                                        .Expanded(true).Content(Html.Partial("GridDebtBussiness").ToHtmlString())
+                                        .Enabled(ASOFTEnvironment.CheckPermission("DRF0150_NTM", ASOFTPermission.Print))))
+        </div>
+        <div class="block-right">
+            <!-- Others Grid -->
+        </div>
+    </div>
+    </div>
+</div>

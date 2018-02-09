@@ -1,0 +1,532 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DD6C0AC6-937F-45B7-882B-239E5586922C}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASOFT.ERP.CRM</RootNamespace>
+    <AssemblyName>ASOFT.ERP.CRM</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aspose.BarCode">
+      <HintPath>..\..\..\packages\Aspose.BarCode.7.8.0\lib\net4.5\Aspose.BarCode.dll</HintPath>
+    </Reference>
+    <Reference Include="Aspose.Cells, Version=8.0.2.1, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Aspose\Aspose.Cells.dll</HintPath>
+    </Reference>
+    <Reference Include="BarcodeLib">
+      <HintPath>..\..\..\packages\BarCode\BarcodeLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Kendo.Mvc, Version=2013.3.1127.440, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\KendoMVC\Kendo.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\..\..\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.2.0.20710.0\lib\net40\WebMatrix.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebPages.OAuth, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.OAuth.2.0.20710.0\lib\net40\Microsoft.Web.WebPages.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.2.0.20710.0\lib\net40\WebMatrix.WebData.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\CRMF0000Controller.cs" />
+    <Compile Include="Controllers\CRMF0001Controller.cs" />
+    <Compile Include="Controllers\CRMF1000Controller.cs" />
+    <Compile Include="Controllers\CRMF1001Controller.cs" />
+    <Compile Include="Controllers\CRMF1010Controller.cs" />
+    <Compile Include="Controllers\CRMF1011Controller.cs" />
+    <Compile Include="Controllers\CRMF1012Controller.cs" />
+    <Compile Include="Controllers\CRMF1020Controller.cs" />
+    <Compile Include="Controllers\CRMF1030Controller.cs" />
+    <Compile Include="Controllers\CRMF1050Controller.cs" />
+    <Compile Include="Controllers\CRMF1040Controller.cs" />
+    <Compile Include="Controllers\CRMF1060Controller.cs" />
+    <Compile Include="Controllers\CRMF1070Controller.cs" />
+    <Compile Include="Controllers\CRMF1080Controller.cs" />
+    <Compile Include="Controllers\CRMF2000Controller.cs" />
+    <Compile Include="Controllers\CRMF2007Controller.cs" />
+    <Compile Include="Controllers\CRMF2006Controller.cs" />
+    <Compile Include="Controllers\CRMF2008Controller.cs" />
+    <Compile Include="Controllers\CRMF2011Controller.cs" />
+    <Compile Include="Controllers\CRMF2020Controller.cs" />
+    <Compile Include="Controllers\CRMF2021Controller.cs" />
+    <Compile Include="Controllers\CRMF2022Controller.cs" />
+    <Compile Include="Controllers\CRMF2030Controller.cs" />
+    <Compile Include="Controllers\CRMF2040Controller.cs" />
+    <Compile Include="Controllers\CRMF2041Controller.cs" />
+    <Compile Include="Controllers\CRMF2050Controller.cs" />
+    <Compile Include="Controllers\CRMF2080Controller.cs" />
+    <Compile Include="Controllers\CRMF2081Controller.cs" />
+    <Compile Include="Controllers\CRMF9004Controller.cs" />
+    <Compile Include="Controllers\CRMF9005Controller.cs" />
+    <Compile Include="Controllers\CRMF9008Controller.cs" />
+    <Compile Include="Controllers\CRMF9010Controller.cs" />
+    <Compile Include="Controllers\CRMF9011Controller.cs" />
+    <Compile Include="Controllers\CRMF9013Controller.cs" />
+    <Compile Include="Controllers\CRMF9014Controller.cs" />
+    <Compile Include="Controllers\CRMF9015Controller.cs" />
+    <Compile Include="Controllers\CRMF9016Controller.cs" />
+    <Compile Include="Controllers\CRMF9017Controller.cs" />
+    <Compile Include="Controllers\CRMR3010Controller.cs" />
+    <Compile Include="Controllers\CRMRESTController.cs" />
+    <Compile Include="Controllers\CRMT00003Controller.cs" />
+    <Compile Include="Controllers\DashBoardController.cs" />
+    <Compile Include="CRMAreaRegistration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\CRMF0000.css" />
+    <Content Include="Content\CRMF1040.css" />
+    <Content Include="Content\CRMF2000.css" />
+    <Content Include="Content\CRMF2090.css" />
+    <Content Include="Content\CRMF1030.css" />
+    <Content Include="Content\CRMF2020.css" />
+    <Content Include="Content\CRMF1020.css" />
+    <Content Include="Content\CRMF2080.css" />
+    <Content Include="Content\CRMF2070.css" />
+    <Content Include="Content\CRMF2010.css" />
+    <Content Include="Content\CRMF2060.css" />
+    <Content Include="Content\CRMF1010.css" />
+    <Content Include="Content\CRMF5010.css" />
+    <Content Include="Content\CRMReport.css" />
+    <Content Include="Content\images\answer.png" />
+    <Content Include="Content\images\call.png" />
+    <Content Include="Content\images\close.png" />
+    <Content Include="Content\images\hide.png" />
+    <Content Include="Content\images\hold.png" />
+    <Content Include="Content\images\maximize.png" />
+    <Content Include="Content\images\minimize.png" />
+    <Content Include="Content\images\play.png" />
+    <Content Include="Content\images\show.png" />
+    <Content Include="Content\images\terminate.png" />
+    <Content Include="Content\images\transfer.png" />
+    <Content Include="Content\themes\base\images\close.png" />
+    <Content Include="Content\themes\base\images\minimize.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Scripts\CRMF0000\CRMF0000.js" />
+    <Content Include="Scripts\CRMF0001\CRMF0001.js" />
+    <Content Include="Scripts\CRMF1010\CRMF1013.js" />
+    <Content Include="Scripts\CRMF2000\CRMF2000.js" />
+    <Content Include="Scripts\CRMF2000\CRMF2003.js" />
+    <Content Include="Scripts\CRMF2008\CRMF2008.js" />
+    <Content Include="Scripts\CRMF2011\CRMF2011.js" />
+    <Content Include="Scripts\CRMF2011\CRMF2011Grid.js" />
+    <Content Include="Scripts\CRMFSearchPeriod.js" />
+    <Content Include="Scripts\CRMF2000\FormatJSSIP.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Content\Site.css" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Content\Barcode\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ASOFT.ERP.A00.Business\ASOFT.ERP.A00.Business.csproj">
+      <Project>{5452CA4B-D935-413E-8A0C-2464D92CE073}</Project>
+      <Name>ASOFT.ERP.A00.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ASOFT.ERP.A00.Core\ASOFT.ERP.A00.Core.csproj">
+      <Project>{CD99F681-2234-4C9E-9456-C1E9D21824B8}</Project>
+      <Name>ASOFT.ERP.A00.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ASOFT.ERP.A00.DataAccess\ASOFT.ERP.A00.DataAccess.csproj">
+      <Project>{a730bd39-2fbd-4666-bd62-2dfd10d67804}</Project>
+      <Name>ASOFT.ERP.A00.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ASOFT.ERP.A00.Entities\ASOFT.ERP.A00.Entities.csproj">
+      <Project>{533EF2DC-BF5B-4235-A102-FB6E0E33D3A1}</Project>
+      <Name>ASOFT.ERP.A00.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ASOFT.ERP.CRM.Business\ASOFT.ERP.CRM.Business.csproj">
+      <Project>{7c49f946-94f8-465c-82d1-5435b97c3074}</Project>
+      <Name>ASOFT.ERP.CRM.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ASOFT.ERP.CRM.DataAccess\ASOFT.ERP.CRM.DataAccess.csproj">
+      <Project>{1d4f4207-0f6d-47eb-ade0-8f8668015b5e}</Project>
+      <Name>ASOFT.ERP.CRM.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ASOFT.ERP.CRM.Entities\ASOFT.ERP.CRM.Entities.csproj">
+      <Project>{12453300-32c6-4347-99df-a52e8896f821}</Project>
+      <Name>ASOFT.ERP.CRM.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ASOFT.ERP.ViewModel\ASOFT.ERP.ViewModel.csproj">
+      <Project>{69E8BE58-DE62-4C8C-B70B-70C593576091}</Project>
+      <Name>ASOFT.ERP.ViewModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ASOFT.ERP.csproj">
+      <Project>{4c04f347-6df2-4eda-b9b2-a91e378997b0}</Project>
+      <Name>ASOFT.ERP</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\CRMPeriodFilter.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\SOPeriodFilter.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF2011\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF2011\CRMF2011GridProduct.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CallCenter\Call.cshtml" />
+    <Content Include="Views\CallCenter\History.cshtml" />
+    <Content Include="Views\CallCenter\IncomingCall.cshtml" />
+    <Content Include="Views\CallCenter\Keyboard.cshtml" />
+    <Content Include="Views\CallCenter\ScreenCall.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF2000\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF2000\Keyboard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF2000\ScreenCall.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF2000\CRMF2001.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF2000\CRMF2004.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF2000\GridCallHistory.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF2000\CRMF2003.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF2000\CRMF1001.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF2000\CRMF2002.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF1011\PartialBtnContactName.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF1011\PartialBtnAccountName.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF1011\PartialBtnRouteName.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF2021\CRMF2021_Route.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF2021\CRMF2021_DeliveryEmployee.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF0000\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF2007\GetButtonSave.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Report\CRMR30101Report.xlsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Report\CRMR30201Report.xlsx" />
+    <Content Include="Content\Report\CRMR30401Report.xlsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DashBoard\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF2020\ReportViewer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF2000\Extend.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF2008\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF2008\GridBottle.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF2008\GridBorrow.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Template\CRMT10001.xlsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF1020\ReportViewer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF1030\ReportViewer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF1040\ReportViewer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF2041\PartialChooseAssignedToUserID.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF2041\PartialInventoryID.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF2040\ReportViewer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF9007\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF1011\CRMF1013.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF0001\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF2080\ReportViewer.cshtml" />
+    <Content Include="Views\CRMF2081\PartialAssignedToUserID.cshtml" />
+    <Content Include="Views\CRMF2081\PartialRelatedToID.cshtml" />
+    <Content Include="Views\CRMF2081\PartialUpload.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF1012\ReportViewer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF1050\ReportViewer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF1080\ReportViewer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMF1060\ReportViewer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMR3010\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CRMR3010\CRMR30111.cshtml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51346</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

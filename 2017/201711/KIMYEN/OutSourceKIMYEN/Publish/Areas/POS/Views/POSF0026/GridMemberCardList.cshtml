@@ -1,0 +1,117 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     27/03/2013      Thai Son        Add heading
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.ViewModel.POS
+@model POSF0026ViewModel
+
+@{  
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "POSF0026Grid",
+        Scrollable = true,
+        ControllerName = "POSF0026",
+        ActionName = "GridData",
+        HtmlAttribute = new
+        {
+            style = "height:550px;",
+            @class = "asf-grid"
+        },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "RowNum",
+                 TitleColumn = ASOFTLanguage.FindWordA00("A00.Number"),
+                Width = 30,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "DivisionID",
+                TitleColumn = Html.ASOFTRaw(model => model.DivisionID),
+                Width = 70,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "MemberCardID",
+                TitleColumn = Html.ASOFTRaw(model => model.MemberCardID),
+                ClientTemplate = "<a class='asf-grid-link' onclick='ShowDetailsFrame(\"#:MemberCardID#\")'>#:MemberCardID#</a>",
+                Width = 140,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "MemberCardType",
+                TitleColumn = Html.ASOFTRaw(model => model.MemberCardType),
+                Width = 70,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:left"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "MemberID",
+                TitleColumn = Html.ASOFTRaw(model => model.MemberID),
+                Width = 140,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "MemberName",
+                TitleColumn = Html.ASOFTRaw(model => model.MemberName),
+                Width = 140,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:right"})
+            },
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "ReleaseDate",
+                TitleColumn = Html.ASOFTRaw(model => model.ReleaseDate),
+                Width = 120,
+                VisibleColumn = true,
+                Format = "{0:dd/MM/yyyy}",
+                HtmlAttrCoulmns = (new {style = "text-align:right"})   
+            },
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "ExpiryDate",
+                TitleColumn = Html.ASOFTRaw(model => model.ExpiryDate),
+                Width = 120,
+                VisibleColumn = true,
+                Format = "{0:dd/MM/yyyy}",
+                HtmlAttrCoulmns = (new {style = "text-align:left"})
+                
+            },
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "Active",
+                TitleColumn = Html.ASOFTRaw(model => model.Active),
+                Width = 100,
+                VisibleColumn = true,
+                ClientTemplate  = "<input type='checkbox' #= Active ? 'checked' : '' # onclick='return false;' disabled=disabled />", // Readonly checkbox
+                HtmlAttrCoulmns = (new {@class = "asf-cols-align-center"})
+            },
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "Locked",
+                TitleColumn = Html.ASOFTRaw(model => model.Locked),
+                Width = 100,
+                VisibleColumn = true,
+                ClientTemplate  = "<input type='checkbox' #= Locked ? 'checked' : '' # onclick='return false;' disabled=disabled />", // Readonly checkbox
+                HtmlAttrCoulmns = (new {@class = "asf-cols-align-center"})
+            }
+        }
+    };
+}
+
+@(Html.ASOFTCreateGrid<POSF0026GridViewModel>(gridsetting))

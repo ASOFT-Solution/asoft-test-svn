@@ -1,0 +1,52 @@
+﻿@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Entities.Infrastructure;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel;
+@model ASOFT.ERP.ViewModel.A00.PeriodFilterViewModel
+@{
+    string css = string.Empty;
+    if (Model.NumberOfColumns == 2)
+    {
+        css = "grid_6 alpha line_right";
+    }
+    else if(Model.NumberOfColumns == 3)
+    {
+        css = "grid_4 alpha line_right";
+    }
+}
+
+
+<tr>
+    <td class="asf-td-align">
+        @Html.ASOFTRadioButton(model => model.IsDate, 0, htmlAttributes: new { id = "rdbIsDate", @class = "asf-td-align" })
+        @Html.ASOFTLabel(model => model.FromDateFilter)
+    </td>
+    <td class="container_period_control">
+        @(Html.ASOFTDateEdit(model => model.FromDateFilter).Value(Model.FromDateFilter))
+    </td>
+    <td class="container_period_space"></td>
+    <td class="container_period_label asf-td-align">@Html.ASOFTLabel(model => model.ToDateFilter)</td>
+    <td class="container_period_control">
+        @(Html.ASOFTDateEdit(model => model.ToDateFilter).Value(Model.ToDateFilter))
+    </td>
+</tr>
+<tr>
+    <td class="asf-td-align">
+        @Html.ASOFTRadioButton(model => model.IsDate, 1, htmlAttributes: new { id = "rdbIsPeriod",  @class = "asf-td-align" })
+        @Html.ASOFTLabel(model => model.FromPeriodFilter)
+    </td>
+    <td class="container_period_control asf-td-align">
+        @(Html.ASOFTBussinessComboBox().ASOFTPeriod(model => model.FromPeriodFilter)
+                .Events(e=>e.Change("DRMPeriodFilter.fromPeriod_Changed").DataBound("DRMPeriodFilter.fromPeriod_DataBound")))
+    </td>
+    <td class="container_period_space"></td>
+    <td class="container_period_label asf-td-align">@Html.ASOFTLabel(model => model.ToPeriodFilter)</td>
+    <td class="container_period_control">
+        @(Html.ASOFTBussinessComboBox().ASOFTPeriod(model => model.ToPeriodFilter)
+                .Events(e=>e.Change("DRMPeriodFilter.fromPeriod_Changed").DataBound("DRMPeriodFilter.toPeriod_DataBound")))
+    </td>
+</tr>
+        
+

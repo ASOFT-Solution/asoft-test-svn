@@ -1,0 +1,73 @@
+﻿@using System.Web.Optimization
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.A00.Core.MapperHelper;
+@using ASOFT.ERP.ViewModel;
+@using XCaptcha.Web.Mvc;
+@using System.Web.UI.WebControls;
+@using ASOFT.ERP.ViewModel.Helper;
+
+@model IEnumerable<CRMF0001ViewModel>
+
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Width = 700;
+    ViewBag.Title = LocalizedHelper.GetLocalizedResourceString("CRMF0001.CRMF0001Title", "CRMF0001", "CRM") + " - CRMF0001";
+    List<ASOFT.ERP.A00.Entities.Database.CRMT00001> list = ViewBag.List;
+}
+
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "CRMF0001" }))
+{ 
+      <div class="asf-form-container">
+          <div class="form-content">
+                <table class="asf-table-view">
+                    <tr>
+                        <td style="width:15%; text-align:center">@LocalizedHelper.GetLocalizedResourceString("CRMF0001.IsUsed", "CRMF0001", "CRM")</td>
+                        <td style="width:25%; text-align:center">@LocalizedHelper.GetLocalizedResourceString("CRMF0001.TypeID", "CRMF0001", "CRM")</td>
+                        <td style="width:30%; text-align:center">@LocalizedHelper.GetLocalizedResourceString("CRMF0001.UserName", "CRMF0001", "CRM")</td>
+                        <td style="width:30%; text-align:center">@LocalizedHelper.GetLocalizedResourceString("CRMF0001.UserNameE", "CRMF0001", "CRM")</td>
+                   </tr>
+                    @{
+                        var stt = 0;
+                        foreach (var item in Model)
+                        { 
+                            <tr>
+                                <td>@Html.CheckBoxFor(itemModel => item.IsUsed, htmlAttributes: new { @id = "IsUsed" + stt })</td>
+                                <td  style="text-align:center">@item.TypeID - @item.SystemName</td>
+                                <td>@Html.ASOFTTextBox(itemModel => item.UserName, htmlAttribute: new { @id = "UserName" + stt }).DisabledIf(!item.IsUsed)</td>
+                                 <td>@Html.ASOFTTextBox(itemModel => item.UserNameE, htmlAttribute: new { @id = "UserNameE" + stt }).DisabledIf(!item.IsUsed)</td>
+                            </tr>
+                            @Html.ASOFTHidden("TypeID" + stt, item.TypeID)
+                            stt++;
+                        }
+                     }
+                </table>
+          </div>
+          <div class="asf-form-button">
+            <table class="asf-table-view">
+                <tr>
+                    <td align="right">
+                        <div class="asf-popup-button-container">
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                                .Name("BtnClose")
+                                .Events(e => e.Click("btnCancle_Click")))
+                            </div>
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSave"))
+                                .Name("btnSaveNew")
+                                .Events(e => e.Click("btnSaveVarchar_Click"))
+                                )
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+      </div>
+    @Html.ASOFTHidden("STT", stt)
+}
+
+<script src="@Url.Content("~/Areas/CRM/Scripts/CRMF0001/CRMF0001.js")" type="text/javascript"></script>

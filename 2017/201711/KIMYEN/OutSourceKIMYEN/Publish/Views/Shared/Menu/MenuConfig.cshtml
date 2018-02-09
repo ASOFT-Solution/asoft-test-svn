@@ -1,0 +1,39 @@
+﻿@using ASOFT.ERP.A00.Core
+
+<div class="asf-header-popupconfig">
+
+  <div style="width:100%">
+  <table>
+  <tr>
+        <td>
+            <div class="asf-icon-config">
+               <img src="/Content/Images/cogs.png" alt="" />
+            </div>
+        </td>
+        <td>
+            <a href="#" id="personInfo" onclick="openSF0010('@Url.Action("Index", "SF0010", new { area = "S" })')">@ASOFTLanguage.FindWordA00("A00.InfoPerson")</a>
+        </td>
+  </tr>
+  <tr>
+        <td>
+            <div class="asf-icon-config-1">
+               <img src="/Content/Images/changepass.png" alt="" />
+            </div>
+        </td>
+        <td>
+            <a href="#" id="changePass" onclick="openSF0010('@Url.Action("SF1016", "SF1010", new { area = "S" })')">@ASOFTLanguage.FindWordA00("A00.ChangePass")</a>
+        </td>
+  </tr>
+  <tr>
+        <td>
+            <div class="asf-icon-logout">
+               <img src="/Content/Images/door.leave.png" alt="" />
+            </div>
+        </td>
+        <td>
+            @Html.ActionLink(ASOFTLanguage.FindWordA00("A00.Logout"), "Index", "Login", new { area="", logout = 1,  returnUrl = Request.RawUrl }, null)
+        </td>
+  </tr>  
+    </table>
+</div>
+</div>

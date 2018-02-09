@@ -1,0 +1,39 @@
+﻿/*/
+//####################################################################
+//# Copyright (C) 2010-2011, ASOFT JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     10/04/2014      Thai Son        Tạo mới
+//####################################################################
+/*/
+
+.center-text {
+    text-align:center;
+}
+.asf-table-view td {
+    height: 30px;
+}
+.hide {
+    display:none;
+}
+
+#ExampleMoneyPlaceHolder, #ExamplePointPlaceHolder {
+    font-style:italic;
+}
+
+
+.col1 { width: 20%; }
+.col2 { width: 15%; }
+.col3 { width: 7%; }
+.col4 { width: 15%; }
+.col5 { width: 7%; }
+
+/*.col3_custom {
+    width:40%;
+}*/
+
+.asf-form-container {
+    float: left;
+    width: 100%;
+}

@@ -1,0 +1,15 @@
+@using ASOFT.ERP.A00.Core.Control
+@using Kendo.Mvc.UI
+@model decimal
+
+@{
+    ASOFTSpinEditSettings spinEditSettings = new ASOFTSpinEditSettings(null, null);
+}
+
+@*@Html.ASOFTSpinEdit(m=>m)*@
+
+@(Html.Kendo()
+        .NumericTextBoxFor(m => m)
+        .HtmlAttributes(spinEditSettings.Attributes)
+        .Spinners(false)
+)

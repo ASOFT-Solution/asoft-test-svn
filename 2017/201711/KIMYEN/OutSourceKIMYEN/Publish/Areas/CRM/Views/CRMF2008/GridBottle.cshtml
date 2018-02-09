@@ -1,0 +1,43 @@
+﻿    
+@model CRMF2008ViewModel
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.ViewModel.CRM
+@using ASOFT.ERP.CRM.Entities
+
+@{  
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "GridBottle", 
+        Scrollable = true,
+        ControllerName = "CRMF2008",
+        ActionName = "GetGridBottle",
+        NameEventPost = "GetDataBottle",
+        IsShowCheck = false,
+        IsAutoHeight = false,
+        HtmlAttribute = new
+        {
+            style = "height:300px;",
+            @class = "asf-grid"
+        },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "InventoryID",
+                TitleColumn = Html.ASOFTRaw(m=>m.InventoryID),
+                Width = 80,
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "BottleQuantity",
+                TitleColumn = Html.ASOFTRaw(m=>m.BottleQuantity),
+                Width = 80,
+                VisibleColumn = true
+            }
+        }
+    };
+}
+
+@(Html.ASOFTCreateGrid<CRMF2008>(gridsetting))

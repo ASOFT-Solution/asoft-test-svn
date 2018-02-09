@@ -1,0 +1,48 @@
+﻿    @using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Common;
+@using Kendo.Mvc.UI;
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.ViewModel.BI;
+
+@model List<BF0000ASMViewModel>
+@{  
+    Layout = "~/Views/Shared/_Layout.cshtml";    
+}
+
+@(Html.Kendo().Window()
+    .Name("ZoomConfig")
+    .Content(Html.Partial("ZoomMenu").ToHtmlString())
+    .HtmlAttributes(new { style = "width:auto;overflow: hidden;", @class = "asf-windown" })
+    .Visible(false)
+    .Title(false)
+    .Animation(false)
+)
+
+<div id='contentMaster'>
+    @Html.ASOFTHeader(new HeaderModel() { Title = "DashBoard", Breakcrumb = false })
+    <div id="message"></div>
+    <div class="drag-container">
+        <div id="multi-draggable-block">            
+            <!-- Chart ASM -->
+
+            @for (int i = 0; i < @Model.Count(); i++)
+            {
+                @MvcHtmlString.Create(string.Format(
+                                           "<div class='asf-block-wrapper {0}' id='ChartASM{1:00}' data-index='{2}'>",
+                                                    "s-block", i + 1, i + 5))
+
+                Html.RenderPartial(string.Format("BlockASM01"), @Model[i].setting);
+
+                @MvcHtmlString.Create("</div>")
+            }
+        </div>
+    </div>    
+</div>
+
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/BI/Content/BF0000.css")" rel="stylesheet" type="text/css" />
+}
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/BI/Scripts/BF0000/BF0000.js")"></script>
+}
+@Html.ASOFTHidden("UserID", ASOFTEnvironment.UserID)

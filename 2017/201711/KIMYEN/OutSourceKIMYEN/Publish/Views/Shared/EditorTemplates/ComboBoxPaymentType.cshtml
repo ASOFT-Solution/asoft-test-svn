@@ -1,0 +1,12 @@
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.ViewModel
+@using Kendo.Mvc.UI
+@model string
+@(Html.ASOFTBussinessComboBox()
+            .ASOFTGridPaymentType(m=>m,  
+                                ASOFTLanguage.FindWordA00("A00.LMT0099_OrderNo"), 
+                                  ASOFTLanguage.FindWordA00("A00.LMT0099_Name"),
+                            option: new ComboOption() { EventRequestEnd = "comboBox_RequestEnd"
+                                                            
+                                }).Events(e=>e.Change("cboPaymentType_Change")))

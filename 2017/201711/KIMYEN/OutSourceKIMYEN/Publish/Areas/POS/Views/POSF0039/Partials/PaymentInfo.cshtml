@@ -1,0 +1,255 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     07/07/2014      Thai Son        Tạo mới
+//####################################################################
+*@
+@model ASOFT.ERP.ViewModel.POS.POSF0040ViewModel
+
+
+<div id="payment_container">
+    <div class="clearfix"></div>
+    <div class="pos_header">
+        <img id="arrow-1" src="~/Content/images/arrowdown.png"/>
+        <img id="arrow-3" src="~/Content/images/arrowup.png"/>
+        <h3>@Html.ASOFTRaw(model => model.PaymentTitle)</h3>
+    </div>
+    <div class="pos_inner other-height">
+        <div class="grid_6 line_right">
+
+            <div class="grid_12">
+                <div class="grid_6">
+                    @Html.ASOFTLabel(model => model.TotalAmount)
+                </div>
+                <div class="grid_6 asf-cols-align-right">
+                    @Html.ASOFTWrapperTagFor(model => model.TotalAmount,
+                htmlAttributes: new RouteValueDictionary {
+                    {"data-bind","text: TotalAmount"}
+                })
+                </div>
+            </div>
+
+            <div class="grid_12">
+                <div class="grid_4">
+                    @Html.ASOFTLabel(model => model.TotalDiscountAmount)
+                </div>
+                <div class="grid_4 asf-cols-align-right">
+                    @(Html.ASOFTPercentDecimal(model => model.TotalDiscountRate,
+                    htmlStyle: new
+                    {
+                        width = "60%"
+                    },
+                    htmlAttribute: new Dictionary<string, object> {
+                        {"class" , "special numberic"},
+                        {"data-bind","value: TotalDiscountRate"}})
+                    )&nbsp;%
+                </div>
+                <div class="grid_4 asf-cols-align-right">
+                    @(Html.ASOFTConvertedDecimal(model => model.TotalDiscountAmount,
+                    htmlStyle: new
+                    {
+                        width = "calc(100% - 3px)",
+                        padding_right = "3px"
+                    },
+                    htmlAttribute: new Dictionary<string, object> {
+                        {"class" , "special numberic"},
+                        {"data-bind","value: TotalDiscountAmount"}})
+                    )
+                </div>
+            </div>
+
+            <div class="grid_12">
+                <div class="grid_4">
+                    @Html.ASOFTLabel(model => model.TotalRedureRate)
+                </div>
+                <div class="grid_4 asf-cols-align-right">
+                    @(Html.ASOFTPercentDecimal(model => model.TotalRedureRate,
+                    htmlStyle: new
+                    {
+                        width = "60%"
+                    },
+                    htmlAttribute: new Dictionary<string, object> {
+                        {"class" , "special numberic"},
+                        {"data-bind","value: TotalRedureRate"}})
+                    )&nbsp;%
+                </div>
+                <div class="grid_4 asf-cols-align-right">
+                    @(Html.ASOFTConvertedDecimal(model => model.TotalRedureAmount,
+                    htmlStyle: new
+                    {
+                        width = "calc(100% - 3px)",
+                        padding_right = "3px"
+                    },
+                    htmlAttribute: new Dictionary<string, object> {
+                        {"class" , "special numberic"},
+                        {"data-bind","value: TotalRedureAmount"}})
+                    )
+
+                </div>
+            </div>
+
+
+            <div class="grid_12">
+                <div class="grid_6">
+                    @Html.ASOFTLabel(model => model.TotalTaxAmount)
+                </div>
+                <div class="grid_6 asf-cols-align-right">
+                    @Html.ASOFTWrapperTagFor(model => model.TotalTaxAmount,
+                htmlAttributes: new RouteValueDictionary {
+                    {"data-bind","text: TotalTaxAmount"}
+                })
+                </div>
+            </div>
+
+            <div class="grid_12 line">&nbsp;</div>
+
+            <div class="grid_12">
+                <div class="grid_6">
+                    @Html.LabelFor(model => model.TotalInventoryAmount, htmlAttributes: new
+                    {
+                        @class = "bold special"
+                    })
+                </div>
+                <div class="grid_6 asf-cols-align-right">
+                    @Html.ASOFTWrapperTagFor(model => model.TotalInventoryAmount,
+                htmlAttributes: new RouteValueDictionary {
+                    {"data-bind","text: TotalInventoryAmount"},
+                    {"class","amount special"}
+                })
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="grid_6">
+            <div id="divPaymentID1" class="grid_12 hidden">
+                <div class="grid_6">
+                    @Html.LabelFor(model => model.PaymentObjectAmount01, htmlAttributes: new
+                    {
+                        @class = "special"
+                    })
+                </div>
+                <div class="grid_6">
+                    @(Html.ASOFTConvertedDecimal(model => model.PaymentObjectAmount01,
+                    htmlStyle: new
+                    {
+                        width = "calc(100% - 3px)",
+                        padding_right = "3px"
+                    },
+                    htmlAttribute: new Dictionary<string, object> {
+                        {"class" , "special numberic"},
+                        {"data-bind","value: PaymentObjectAmount01"}})
+                    )
+                </div>
+
+            </div>
+            <div id="divPaymentID2" class="grid_12 hidden">
+                <div class="grid_6">
+                    @Html.LabelFor(model => model.PaymentObjectAmount02, htmlAttributes: new
+                    {
+                        @class = "special"
+                    })
+                </div>
+                <div class="grid_6">
+                    @(Html.ASOFTConvertedDecimal(model => model.PaymentObjectAmount02,
+                    htmlStyle: new
+                    {
+                        width = "calc(100% - 3px)",
+                        padding_right = "3px"
+                    },
+                    htmlAttribute: new Dictionary<string, object> {
+                        {"class" , "special numberic"},
+                        {"data-bind","value: PaymentObjectAmount02"}})
+                    )
+                </div>
+
+            </div>
+
+            <div class="grid_12">
+                <div class="grid_6">
+                    @Html.LabelFor(model => model.Change, htmlAttributes: new
+                    {
+                        @class = "special"
+                    })
+                </div>
+                <div class="grid_6 asf-cols-align-right">
+                    @Html.ASOFTWrapperTagFor(model => model.Change,
+                htmlAttributes: new RouteValueDictionary {
+                    {"data-bind","text: Change"},
+                    {"class","amount special return-amount"}
+                })
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@*@{
+                    Model.GeneralDecimalProperty = 123456789.123456789M;
+                    Model.ConvertedDecimalProperty = 123456789.123456789M;
+                    Model.PercentDecimalProperty = 123456789.123456789M;
+                    Model.QuantityDecimalProperty = 123456789.123456789M;
+                    Model.UnitCostDecimalProperty = 123456789.123456789M;
+                }*@
+
+@*
+ <div class="grid_4 asf-cols-align-right">
+                    @(Html.ASOFTGeneralDecimal(model => model.GeneralDecimalProperty,
+                    htmlStyle: new
+                    {
+                        width = "calc(100% - 3px)",
+                        padding_right = "3px"
+                    },
+                    htmlAttribute: new Dictionary<string, object> {
+                        {"class" , "special numberic"}})
+                    )
+                </div>
+                <div class="grid_4 asf-cols-align-right">
+                    @(Html.ASOFTConvertedDecimal(model => model.ConvertedDecimalProperty,
+                    htmlStyle: new
+                    {
+                        width = "calc(100% - 3px)",
+                        padding_right = "3px"
+                    },
+                    htmlAttribute: new Dictionary<string, object> {
+                        {"class" , "special numberic"}})
+                    )
+                </div>
+                <div class="grid_4 asf-cols-align-right">
+                    @(Html.ASOFTPercentDecimal(model => model.PercentDecimalProperty,
+                    htmlStyle: new
+                    {
+                        width = "calc(100% - 3px)",
+                        padding_right = "3px"
+                    },
+                    htmlAttribute: new Dictionary<string, object> {
+                        {"class" , "special numberic"}})
+                    )
+                </div>
+                <div class="grid_4 asf-cols-align-right">
+                    @(Html.ASOFTQuantityDecimal(model => model.QuantityDecimalProperty,
+                    htmlStyle: new
+                    {
+                        width = "calc(100% - 3px)",
+                        padding_right = "3px"
+                    },
+                    htmlAttribute: new Dictionary<string, object> {
+                        {"class" , "special numberic"}})
+                    )
+                </div>
+                <div class="grid_4 asf-cols-align-right">
+                    @(Html.ASOFTUnitCostDecimal(model => model.UnitCostDecimalProperty,
+                    htmlStyle: new
+                    {
+                        width = "calc(100% - 3px)",
+                        padding_right = "3px"
+                    },
+                    htmlAttribute: new Dictionary<string, object> {
+                        {"class" , "special numberic"}})
+                    )
+                </div>*@

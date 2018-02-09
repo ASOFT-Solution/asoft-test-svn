@@ -1,0 +1,16 @@
+﻿
+@using ASOFT.ERP.A00.Core;
+@model ASOFT.ERP.ViewModel.MT.MTF2010ViewModel
+
+@{
+    Layout = null;
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.MTF2010ReportViewerTitle, "ReportViewer").ToHtmlString();
+    ViewBag.Action = Url.Action("ExportExcel", "MTF2010", new
+                                                              {
+                                                                  id = ViewBag.APK,
+                                                                  reportId = ViewBag.ReportID,
+                                                                  viewer = ViewBag.Viewer
+                                                              });
+}
+
+@Html.Partial("~/Views/Shared/_ReportLayout.cshtml")

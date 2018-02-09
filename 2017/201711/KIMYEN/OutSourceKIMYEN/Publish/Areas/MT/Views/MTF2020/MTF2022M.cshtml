@@ -1,0 +1,114 @@
+﻿
+@using ASOFT.ERP.A00.Core;
+@model ASOFT.ERP.ViewModel.MT.MTF2020ViewModel
+
+<script>
+    $(document).ready(function () {
+        ASOFT.form.setSameHeight("asf-filter-content-block");
+        ASOFT.form.setSameWidth("asf-filter-content-block");
+    });
+</script>
+
+@helper General()
+{
+    <div class="asf-master-content">
+        <div class="asf-content-block first">
+            <table class="asf-table-view">
+                <tr >
+                    <td class="content-label">@Html.DisplayNameFor(model => model.StopVoucherNo)</td>
+                    <td class="dot"></td>
+                    <td class="content-text"> @Html.DisplayFor(model => model.StopVoucherNo)</td>
+                </tr>
+                <tr >
+                    <td class="content-label">@Html.DisplayNameFor(model => model.StudentID)</td>
+                    <td class="dot"></td>
+                    <td class="content-text"> @Html.DisplayFor(model => model.StudentID)</td>
+                </tr>
+                <tr >
+                    <td class="content-label">@Html.DisplayNameFor(model => model.StudentName)</td>
+                    <td class="dot"></td>
+                    <td class="content-text" title="@Model.StudentName">@Html.DisplayFor(model => model.StudentName)</td>
+                </tr>
+                <tr >
+                    <td class="content-label">@Html.DisplayNameFor(model => model.ClassID)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.ClassID)</td>
+                </tr>
+            </table>
+        </div>
+        <div class="asf-content-block middle">
+            <table class="asf-table-view">
+                <tr >
+                    <td class="content-label">@Html.DisplayNameFor(model => model.DivisionID)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.DivisionID)</td>
+                </tr>
+                <tr >
+                    <td class="content-label">@Html.DisplayNameFor(model => model.StopDate)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.StopDate)</td>
+                </tr>
+                <tr >
+                    <td class="content-label">@Html.DisplayNameFor(model => model.StopReasonName)</td>
+                    <td class="dot"></td>
+                    <td class="content-text" title="@Model.StopReasonName">@Html.DisplayFor(model => model.StopReasonName)</td>
+                </tr>
+            </table>
+        </div>
+        <div class="asf-content-block last">
+            <table class="asf-table-view">
+                <tr >
+                    <td class="content-label">@Html.DisplayNameFor(model => model.StopPerson)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.StopPerson)</td>
+                </tr>
+                <tr >
+                    <td class="content-label">@Html.DisplayNameFor(model => model.Notes)</td>
+                    <td class="dot"></td>
+                    <td class="content-text" title="@Model.Notes">
+                        <div class='content-ellipsis'>@Html.DisplayFor(model => model.Notes)</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div> 
+}
+@helper History()
+{
+    <div class="asf-master-content">
+        @ASOFTLanguage.FindWordA00("A00.History")
+    </div>
+}
+
+@helper Attach()
+{
+    <div class="asf-master-content">
+        @ASOFTLanguage.FindWordA00("A00.Attach")
+    </div>
+}
+
+  
+    
+<div id="viewPartial"> 
+@(Html.Kendo().PanelBar()
+        .Name("panelbar")
+        .Events(m => m.Activate("ASOFT.panelFormat.fitColumnHeight"))
+        .HtmlAttributes(new { @class = "block-panel-master" })
+        .Animation(animation => animation.Enable(true))
+        .Items(panelbar =>
+        {
+            panelbar.Add().Text(Html.ASOFTRaw(model => model.MTF2022Group01Title)).HtmlAttributes(new { @class = "block-panel-master-header" })
+                .Expanded(true).Content(this.General().ToHtmlString());
+
+            panelbar.Add().Text(ASOFTLanguage.FindWordA00("A00.SystemInfo")).HtmlAttributes(new { @class = "block-panel-master-header" })
+                .Content(Html.Partial("~/Views/Shared/EditorTemplates/SystemInfo.cshtml", Model.SystemInfo).ToHtmlString());
+
+            panelbar.Add().Text(ASOFTLanguage.FindWordA00("A00.History")).HtmlAttributes(new { @class = "block-panel-master-header" })
+                .Content(this.History().ToHtmlString());
+
+            panelbar.Add().Text(ASOFTLanguage.FindWordA00("A00.Attach")).HtmlAttributes(new { @class = "block-panel-master-header" })
+                .Content(this.Attach().ToHtmlString());
+        })
+        )
+</div>
+

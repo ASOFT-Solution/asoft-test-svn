@@ -1,0 +1,497 @@
+﻿/*===================================================*
+            Màn hình chính
+\*===================================================*/
+.container-block-settings 
+{
+    font-family: "Segoe UI";
+    width: 29%;
+    height: 50px;
+    float: left;
+    padding: 20px;
+}
+
+.display-block-content 
+{
+    display: block;
+    width: 78%;
+    height: 100%;
+    float: right;
+    padding-left: 10px;
+}
+
+.display-block-content-key 
+{
+    display: block;
+    width: 100%;
+    font-weight: bolder;
+}
+
+.display-block-content-info {
+    flex-wrap: wrap;
+    width: 75%;
+    color: #bdbbae;
+    font-weight: normal;
+}
+
+/*===================================================*\
+            Màn hình thiết lập hệ thống
+\*===================================================*/
+.sub-content {
+    padding: 10px 0 40px 20px;
+    display: block;
+}
+.sub-content-key {
+    font-weight: bolder;
+}
+.asf-filter-radio-checkbox {
+    width: 33%;
+    float: left;
+    vertical-align: top;
+}
+.main-container-left-block 
+{
+    width: 45%;
+    height: 100%;
+    display: inline-block;
+    position: static;
+    float: left;
+    padding-right: 20px;
+}
+.horz-line {
+    width: 1px;
+    background: #b2b2b2;
+    float: left;
+    bottom: 0;
+    position: static;
+    display: inline-block;
+    height: 100%;
+}
+.main-container-right-block 
+{
+    width: 51%;
+    padding-left: 20px;
+    display: inline-block;
+    height: auto;
+    position: static;
+    float: left;
+}
+
+/*===================================================*\
+            Button block - Hiển thị trên page
+\*===================================================*/
+
+.asf-button-right-page {
+    float: right;
+    margin: 8px 0 0;
+}
+
+.asf-button-right-page > div {
+    float: left;
+    margin: 0 0 0 5px;
+}
+
+.label-align {
+    vertical-align:bottom;
+}
+
+/* ============== RWD ==========*/
+
+@media (max-width: 400px) {
+     .asf-common-search {
+        display: inherit;
+    }
+
+       .asf-headerpage-title {
+        height: 55px;
+    }
+
+    .asf-box-button-search {
+        display: none;
+    }
+
+       .asf-shopname {
+        display: none;
+    }
+
+
+    #Menu_Mobile {
+        display: inline;
+    }
+
+    .float_right {
+        display: none;
+    }
+
+    #TopMenu_div {
+        display: none;
+    }
+
+    #BlockMenu {
+        display: none !important;
+    }
+
+    body, .asf-header {
+        min-width: 100%;
+    }
+
+    .asf-breakcumb {
+        font-size: 8px;
+        padding-bottom: 3px;
+    }
+
+    #HeaderLabel {
+        font-size: 8px;
+        margin-top: 0px;
+        margin-bottom: 3px;
+    }
+
+    .asf-header-icon-logo {
+       width: 60px;
+        margin-right: 5px;
+    }
+
+    .asf-header {
+        padding-left: 10px;
+    }
+
+        .asf-header .right {
+            padding: 0 20px 0 0;
+            width: 71%;
+        }
+
+    .asf-header-user {
+        padding: 0px;
+    }
+
+    .asf-header-system-text {
+        display: none;
+    }
+
+    .asf-button-filter-container {
+        margin: 0;
+    }
+
+    #Menu_Mobile {
+       top: 75px;
+       z-index: 2000;
+       left: 5px;
+    }
+
+    .k-menu .k-animation-container, .k-popup .k-animation-container {
+        width: 100px !important;
+    }
+
+    .k-menu .k-group .k-item {
+         width: 100px !important;
+    }
+
+    .container-block-settings {
+        width: 37%;
+        zoom: 80%;
+            height: 100px;
+    }
+
+    .display-block-content {
+            width: 100%;
+    }
+
+    .display-block-content-info {
+        display: none;
+    }
+
+    .block-panel-master {
+        padding-top: 35px;
+    }
+
+    .k-header {
+        font-size : 11px;
+    }
+}
+
+@media (min-width: 401px) and (max-width: 600px) {
+    .asf-common-search {
+        display: inherit;
+    }
+
+       .asf-headerpage-title {
+        height: 65px;
+    }
+
+    .asf-box-button-search {
+        display: none;
+    }
+
+       .asf-shopname {
+        display: none;
+    }
+
+
+     #Menu_Mobile {
+        display: inline;
+    }
+
+        .float_right {
+        display: none;
+    }
+
+    #TopMenu_div {
+        display: none;
+    }
+
+    #BlockMenu {
+        display: none !important;
+    }
+
+    body, .asf-header {
+        min-width: 100%;
+    }
+
+    .asf-breakcumb {
+        font-size: 10px;
+        padding-bottom: 3px;
+    }
+
+    .asf-header-icon-logo {
+       width: 80px;
+        margin-right: 5px;
+    }
+
+    .asf-header {
+        padding-left: 10px;
+    }
+
+
+    .asf-header-user {
+        padding: 0px;
+    }
+
+    .asf-header-system-text {
+        display: none;
+    }
+
+    .asf-button-filter-container {
+        margin: 0;
+    }
+
+    #Menu_Mobile {
+       top: 75px;
+       z-index: 2000;
+       left: 5px;
+    }
+
+    .k-menu .k-animation-container, .k-popup .k-animation-container {
+        width: 150px !important;
+    }
+
+    .k-menu .k-group .k-item {
+         width: 150px !important;
+    }
+
+    .container-block-settings {
+        width: 35%;
+        zoom: 90%;
+            height: 100px;
+    }
+
+    .display-block-content {
+            width: 100%;
+    }
+
+    .display-block-content-info {
+        display: none;
+    }
+
+    .block-panel-master {
+        padding-top: 35px;
+    }
+
+    .k-header {
+        font-size : 12px;
+    }
+}
+
+
+@media (min-width: 601px) and (max-width: 768px) {
+    .asf-common-search {
+        display: inherit;
+    }
+
+       .asf-headerpage-title {
+        height: 65px;
+    }
+
+    .asf-box-button-search {
+        display: none;
+    }
+
+       .asf-shopname {
+        display: none;
+    }
+
+
+     #Menu_Mobile {
+        display: inline;
+    }
+
+        .float_right {
+        display: none;
+    }
+
+    #TopMenu_div {
+        display: none;
+    }
+
+    #BlockMenu {
+        display: none !important;
+    }
+
+    body, .asf-header {
+        min-width: 100%;
+    }
+
+    .asf-breakcumb {
+        font-size: 11px;
+        padding-bottom: 3px;
+    }
+
+    .asf-header-icon-logo {
+        margin-right: 5px;
+    }
+
+    .asf-header {
+        padding-left: 10px;
+    }
+
+
+    .asf-header-user {
+        padding: 0px;
+    }
+
+    .asf-header-system-text {
+        display: none;
+    }
+
+    .asf-button-filter-container {
+        margin: 0;
+    }
+
+    #Menu_Mobile {
+       top: 75px;
+       z-index: 2000;
+       left: 5px;
+    }
+
+    .container-block-settings {
+        width: 25%;
+        zoom: 90%;
+            height: 120px;
+    }
+
+    .display-block-content {
+            width: 100%;
+    }
+
+
+    .block-panel-master {
+        padding-top: 35px;
+    }
+
+    .k-header {
+        font-size : 13px;
+    }
+}
+
+@media (min-width: 770px) and (max-width: 1024px) {
+    .asf-common-search {
+        display: inherit;
+    }
+
+       .asf-headerpage-title {
+        height: 65px;
+    }
+
+    .asf-box-button-search {
+        display: none;
+    }
+
+       .asf-shopname {
+        display: none;
+    }
+
+     .float_right {
+        display: none;
+    }
+
+    #TopMenu_div {
+        display: none;
+    }
+
+    #BlockMenu {
+        display: none !important;
+    }
+
+    body, .asf-header {
+        min-width: 100%;
+    }
+
+    .asf-breakcumb {
+        font-size: 11px;
+        padding-bottom: 3px;
+    }
+
+    .asf-header-icon-logo {
+        margin-right: 5px;
+    }
+
+    .asf-header {
+        padding-left: 10px;
+    }
+
+
+    .asf-header-user {
+        padding: 0px;
+    }
+
+    .asf-header-system-text {
+        display: none;
+    }
+
+    .asf-button-filter-container {
+        margin: 0;
+    }
+
+ #Menu_Mobile {
+        display: inline;
+    }
+
+    #Menu_Mobile {
+       top: 75px;
+       z-index: 2000;
+       left: 5px;
+    }
+
+    .container-block-settings {
+        width: 28%;
+        zoom: 90%;
+            height: 100px;
+    }
+
+    .display-block-content {
+            width: 100%;
+    }
+
+
+    .block-panel-master {
+        padding-top: 35px;
+    }
+
+    .k-header {
+        font-size : 13px;
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1599px) {
+    .display-block-content {
+            width: 70%;
+    }
+}

@@ -1,0 +1,43 @@
+﻿@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Entities.Infrastructure;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel;
+@using ASOFT.ERP.ViewModel.Helper;
+@using ASOFT.ERP.A00.Business.Common;
+@model ASOFT.ERP.ViewModel.ASOFTSysFieldsViewModel
+
+@{
+    string sysComboBoxID = ASOFTSysAdminBL.GetsysIDByID(ASOFTTableSysAdmin.sysComboBox, "cboEmployeeID_HRM").ToString();
+
+    string headerTemplate = @"<ul class='k-list asf-combo-item-header'><li class='k-item asf-combo-item-header-text'><div class='asf-combo-item'>{0}</div></div></ul>";
+    string itemTemplate = @"<div class='asf-combo-item'>{0}</div>";
+}
+
+@(Html.Kendo().AutoCompleteFor(model => model.Data)
+                      .Animation(animation => animation.Enable(false))
+                      .HtmlAttributes(new Dictionary<string, Object> {
+                          {"class","post-add-autocomplete"}, 
+                          {"height","10px"},
+                          {"data-bind", "value: " + Model.ColumnName},
+                          { "Module" , ViewBag.Module },
+                          { "ScreenID", ViewBag.ScreenID },
+                          { "sysComboBoxID",  Model.sysComboBoxID },
+                          { "requaird", Model.AllowNull},
+                          {"listWidth", Model.GridWidth}
+                      })
+                      .DataTextField(Model.ColumnName)
+                      .Filter("contains")
+                      .Name(Model.ColumnName)
+                      .Events(e => e.Select("Auto_Change").DataBound("ASOFT.asoftComboBox.dataBound"))
+                      .HeaderTemplate(headerTemplate)
+                      .Template(itemTemplate)
+                      )
+<span class="asf-button-special"><a id='btnOpenSearch_@Model.ColumnName' class="btnOpenSearch k-button k-button-icontext asf-button asf-icon-24 asf-i-search-24" style="width: 25px; height: 25px" data-role="button" role="button" aria-disabled="false" onclick="OpenSearchClick('@Model.ColumnName')" tabindex="0">&nbsp;</a></span>
+
+<script>
+    $(document).ready(function () {
+
+    })
+</script>

@@ -1,0 +1,111 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     31/03/2013      Thai Son        Tạo mới
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.ViewModel.POS
+@using ASOFT.ERP.ViewModel.Helper;
+@model POSF00111ViewModel
+
+@{  
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "GridCardDetail",
+        Scrollable = true,
+        ControllerName = "POSF0011",
+        ActionName = "GetGridCardDetail",
+        NameEventPost = "sendCardDetailFilter",
+        IsShowCheck = false,
+        HtmlAttribute = new
+        {
+            style = "height:200px;",
+            @class = "asf-grid"
+        },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                ClientTemplate = "#= renderNumber(data) #",
+                TitleColumn = ASOFTLanguage.FindWordA00("A00.Number"),
+                Width = 30,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "MemberCardID",
+                TitleColumn = ASOFTEnvironment.CustomerIndex != ASOFTConstants.CUSTOMERINDEX_OKIA ? Html.ASOFTRaw(model => model.MemberCardID) : LocalizedHelper.GetLocalizedResourceString("POSF00111.MemberCardIDOKIA", "POSF00111"),
+                Width = 150,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "MemberCardName",
+                TitleColumn = ASOFTEnvironment.CustomerIndex != ASOFTConstants.CUSTOMERINDEX_OKIA ? Html.ASOFTRaw(model => model.MemberCardName) : LocalizedHelper.GetLocalizedResourceString("POSF00111.MemberCardNameOKIA", "POSF00111"),
+                Width = 150,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "ReleaseDate",
+                TitleColumn = Html.ASOFTRaw(model => model.ReleaseDate),
+                Width = 110,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "ExpireDate",
+                TitleColumn = Html.ASOFTRaw(model => model.ExpireDate),
+                Width = 100,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:left"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "TypeNo",
+                TitleColumn = Html.ASOFTRaw(model => model.TypeNo),
+                Width = 100,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "Disabled",
+                TitleColumn = Html.ASOFTRaw(model => model.Active),
+                Width = 100,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"}),
+                ClientTemplate  
+                    = @"<input type='checkbox' 
+                    #= (Disabled == 0) ? 'checked' : '' #
+                    onclick='return false;' 
+                    disabled=disabled />" 
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "LockedReason",
+                TitleColumn = Html.ASOFTRaw(model => model.Locked),
+                Width = 100,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"}),
+                ClientTemplate  
+                    = @"<input type='checkbox' 
+                    #= (Locked == 1) ? 'checked' : '' #
+                    onclick='return false;' 
+                    disabled=disabled />" 
+            }
+    }
+    };
+}
+<div class="asf-form-container container_12 pagging_bottom ">
+@(Html.ASOFTCreateGridEdit<ASOFT.ERP.A00.Entities.Database.POST0020>(gridsetting))
+
+</div>
+

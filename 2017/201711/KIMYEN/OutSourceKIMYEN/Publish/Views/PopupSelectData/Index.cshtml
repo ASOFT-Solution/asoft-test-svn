@@ -1,0 +1,108 @@
+﻿@using ASOFT.ERP.ViewModel;
+@using ASOFT.ERP.A00.Core
+@model IEnumerable<ASOFTSysFieldsViewModel>
+
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+
+    string title = ViewBag.Title;
+    string ScreenID = ViewBag.ScreenID;
+    string ScreenIDCurrent=ViewBag.ScreenIDCURRENT;
+    string child = ViewBag.ScreenPopup;
+    string module = ViewBag.Module;
+    string table = ViewBag.Table;
+    List<string> listjava = new List<string>();
+    List<string> listcss = new List<string>();
+    listjava = ViewBag.Java;
+    listcss = ViewBag.CSS;
+    HttpRequestBase Request = ViewBag.Request;
+    string TableDetailSelect = ViewBag.TableDetailSelect;
+ }
+@Html.ASOFTHidden("sysScreenID", ScreenID)
+@Html.ASOFTHidden("sysTable" + ScreenID, table)
+@Html.ASOFTHidden("Module" + ScreenID, module)
+@Html.ASOFTHidden("type" + ScreenID, (int)ViewBag.type)
+
+
+<div class="asf-form-container">
+@using (Html.BeginForm(null, null, FormMethod.Post, new
+{
+    id = "FormFilter"
+}))
+{
+     <div class="container_12 asf-quick-search-container">
+            @Html.ASOFTTextBox(itemModel => Model.ElementAt(0).Data, htmlStyle: new
+       {
+           @width = "calc(100% - 2px)",
+       },
+       htmlAttribute: new
+       {
+           @id = Model.ElementAt(0).ColumnName,
+           @placeholder = "Nhập điều kiện search"
+       })
+            <a id="btnSearchObject" class="k-button-icontext asf-button" style="" data-role="button" role="button" aria-disabled="false" tabindex="0"><span class="k-sprite asf-i-search-24"></span></a>
+        </div>
+    
+        for(int index = 0; index < Request.QueryString.AllKeys.Length; index++)
+        {
+            @Html.ASOFTHidden(Request.QueryString.AllKeys[index], Request[Request.QueryString.AllKeys[index]])
+        }
+    
+}
+    <div class="clearfix">
+       @Html.Action("CreateGrid", "PopupSelectData", new { area = "", id = ScreenID, module = module, table = table, type = ViewBag.type, screenID=ScreenIDCurrent, version = ViewBag.Version })
+   </div>
+
+    @if (!string.IsNullOrEmpty(TableDetailSelect))
+    {
+        @Html.Action("CreateGrid", "PopupSelectData", new { area = "", id = ScreenID, module = module, tableChild = TableDetailSelect, type = (int)ViewBag.typechild, version = ViewBag.Version})
+    }
+    <div class="container_12 asf-form-button">
+            <ul>
+                <li>@(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnChoose"))
+                      .Name("btnChoose").Events(e => e.Click("btnChoose_Click")))</li>
+                <li>
+                    @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnCancel"))
+                      .Name("btnCancel").Events(e => e.Click("btnCancle_Click")))
+
+                </li>
+            </ul>
+        </div> 
+</div>
+
+<style>
+.asf-quick-search-container {
+    position:relative;
+    height: 35px;
+}
+
+.asf-quick-search-container a {
+    line-height: 1.3em;
+    min-width: 30px;
+    _padding: 2px 2px 2px 7px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+</style>
+
+<script src="@Url.Content("~/Scripts/popupselectdata.js" +"?v="+ASOFTEnvironment.Version)" type="text/javascript"></script>
+
+@section jsFeature {
+    @if (listjava.Count > 0)
+    {
+        foreach (string jv in listjava)
+        {
+            <script src="@Url.Content("~/Scripts/JavaCustomize/" + module + "/" + jv +"?v="+ASOFTEnvironment.Version)" type="text/javascript"></script>
+        }
+    }
+}
+@section styleFeature {
+    @if (listcss.Count > 0)
+    {
+        foreach(string css in listcss)
+        {
+            <link  href="@Url.Content("~/Content/CSSCustomize/"+ module + "/" + css +"?v="+ASOFTEnvironment.Version)" rel="stylesheet" type="text/css" />
+        }
+    }
+}

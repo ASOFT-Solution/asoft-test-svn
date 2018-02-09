@@ -1,0 +1,69 @@
+﻿
+@using System.Web.UI.WebControls;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+
+@model ASOFT.ERP.ViewModel.MT.MTF0060ViewModel
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "MTF0060" }))
+{
+    <div>
+        <div>
+            <table class="asf-table-view">
+                <tr>
+                    <td>
+                        @Html.ASOFTLabel(model=>model.ReportID)
+                    </td>
+                    <td colspan="2">
+                       @Html.ASOFTBussinessComboBox().ASOFTReportID(model => model.ReportID, 
+                                                                      option: new ComboOption{ SelectedFirst = true, EventPostData = "MTF0060.mtf0060PostDataReport"},
+                                                                      htmlAttributes: new { listWidth = 400},
+                                                                      htmlStyle: new { width = Unit.Percentage(100) }).Events(m => m.DataBound("MTF0060.mtf0060ReportBound").Change("MTF0060.mtf0060ReportChanged"))
+                    </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model=>model.ReportName)</td>
+                    <td class="asf-td-field" colspan="2">
+                       @Html.ASOFTTextBox(model => model.ReportName)
+                            
+                    </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model=>model.Title)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @Html.ASOFTTextBox(model => model.Title)
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- Right button use for form-->
+         <div class="asf-form-button">
+             <table class="asf-table-view">
+                 <tr>
+                     <td align="right">
+                         <div class="asf-popup-button-container">
+                             <div>
+                                 @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                                       .Name("btnReportClose").Events(e => e.Click("MTF0060.btnReportClose_Click")))
+                             </div>
+                             <div>
+                                 @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnPrint"))
+                                       .Name("btnReportPrint").Events(e => e.Click("MTF0060.btnReportPrint_Click"))
+                                       .Enable(ASOFTEnvironment.CheckPermission("MTF0060", ASOFTConstants.MODULE_MT, ASOFTPermission.Print))
+                                       .HideIf(Model.FormStatus != ASOFTFormActionType.Print))
+                             </div>
+                             <div>
+                                 @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnExcel"))
+                                       .Name("btnReportExport").Events(e => e.Click("MTF0060.btnReportPrint_Click"))
+                                       .Enable(ASOFTEnvironment.CheckPermission("MTF0060", ASOFTConstants.MODULE_MT, ASOFTPermission.Print))
+                                       .HideIf(Model.FormStatus != ASOFTFormActionType.ExportExcel))
+                             </div>
+                         </div>
+                     </td>
+                 </tr>
+             </table>
+        </div>
+    </div>
+    
+}

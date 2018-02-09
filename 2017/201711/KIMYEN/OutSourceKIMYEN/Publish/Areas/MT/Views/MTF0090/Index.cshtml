@@ -1,0 +1,110 @@
+﻿@using System.Web.UI.WebControls;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.ViewModel;
+@model ASOFT.ERP.ViewModel.MT.MTF0090ViewModel
+@{
+    Layout = "";
+}
+@Html.ASOFTHidden("URLInsert", Url.Action("Insert"))
+@Html.ASOFTHidden("URLSaveMTT0100", Url.Action("SaveConfigClass"))
+@Html.ASOFTHidden("mtf0090Title", Html.ASOFTPageTitle(m => m.MTF0090Title, "MTF0090"))
+
+@helper Tab01(){
+    <div class="asf-form-container">
+        <div class="form-content">
+            @Html.Partial("GridGroupID")
+        </div>
+        <div class="asf-form-container">        
+            <div class="asf-form-button">
+                <table class="asf-table-view">
+                    <tr>
+                        <td style="width: auto;vertical-align: middle; color:red">@Html.ASOFTLabel(model=>model.Notification)</td>
+                        <td align="right">
+                            <div class="asf-popup-button-container">
+                                <div>
+                                    @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                                            .Name("BtnClose")
+                                            .Events(e => e.Click("MTF0090.btnClose_Click")))
+                                </div>
+                                <div>
+                                    @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSave"))
+                                            .Name("btnSave")
+                                            .Events(e => e.Click("MTF0090.btnSave_Click"))
+                                            .Enable(ASOFTEnvironment.CheckPermission("MTF0090", ASOFTConstants.MODULE_MT, ASOFTPermission.AddNew))
+                                            )
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+
+@helper Tab02(){
+    <div class="asf-form-container">
+        <div class="form-content">
+            <div class="form-content-left">
+                <table class="asf-table-view">
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model=>model.UserID)</td>
+                        <td class="asf-td-field">
+                            @(Html.ASOFTBussinessComboBox().ASOFTUserList(model=>model.UserID)
+                                .SelectedIndex(0)
+                                .Events(e=>e.Change("MTF0090.userID_Changed").DataBound("MTF0090.userID_DataBound"))
+                            )
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="form-content">
+            @Html.Partial("ClassByUser")
+        </div>
+        <div class="asf-form-button">
+            <table class="asf-table-view">
+                <tr>
+                    <td align="right" colspan="4">
+                        <div class="asf-popup-button-container">
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                                        .Name("BtnClose1")
+                                        .Events(e => e.Click("MTF0090.btnClose_Click")))
+                            </div>
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSave"))
+                                        .Name("btnSave1")
+                                        .Events(e => e.Click("MTF0090.btnSaveMTT0100_Click"))
+                                        .Enable(ASOFTEnvironment.CheckPermission("MTF0090", ASOFTConstants.MODULE_MT, ASOFTPermission.AddNew))
+                                        )
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>      
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new {id = "MTF0090"}))
+{
+    @(Html.ASOFTTab()
+            .Name("MTF0090Tab")
+            .Items(tabstrip =>
+                        {
+                            tabstrip.Add().Text(Html.ASOFTRaw(model => model.MTF0090Tab01))
+                                .Selected(true)
+                                .HtmlAttributes(new {@id = "TabstripMaster-1"})
+                                .ContentHtmlAttributes(new {@class = "asf-tab-content"})
+                                .Content(Tab01().ToHtmlString());
+
+                            tabstrip.Add().Text(Html.ASOFTRaw(model => model.MTF0090Tab02))
+                                .HtmlAttributes(new { @id = "TabstripMaster-2" })
+                                .ContentHtmlAttributes(new { @class = "asf-tab-content" })
+                                .Content(Tab02().ToHtmlString());
+                        })
+    )
+}

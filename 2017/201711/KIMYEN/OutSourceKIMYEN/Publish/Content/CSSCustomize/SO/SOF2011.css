@@ -1,0 +1,3 @@
+﻿div#totalFooterOrderQuantity, div#totalFooterOriginalAmount, div#totalFooterDiscountOriginalAmount, div#totalFooterTotalBeforeAmount, div#totalFooterTotalAfterAmount,div#totalFooterDiscountSaleAmountDetail  {
+   text-align: right;
+}

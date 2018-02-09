@@ -1,0 +1,139 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     29/04/2014      Chánh Thi        Tạo mới
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Entities.Database
+
+@model ASOFT.ERP.ViewModel.POS.POSF0021ViewModel
+
+@{
+    Layout = "~/Views/Shared/_ContentMaster.cshtml";
+    ViewBag.Title = @Html.ASOFTRaw(m => m.Title);
+}
+
+    @Html.ASOFTHidden(m => m.APK)
+    @Html.ASOFTHidden(m => m.LastModifyDateValue)
+
+@section Header {
+        @Html.ASOFTHeader(new HeaderModel { Title = Html.ASOFTPageTitle(model => model.Title, "POSF0021").ToHtmlString(), Breakcrumb = true })
+}
+@section FilterCol1 {
+                  @Html.Partial(@"../Shared/PeriodFilter",
+    new ASOFT.ERP.ViewModel.A00.PeriodFilterViewModel())
+
+    <tr>
+        <td colspan="1">@Html.ASOFTLabel(model => model.DivisionIDFilter)</td>
+        @*<td class="container_period_space"></td>*@
+        <td colspan="4">@(Html.ASOFTBussinessComboBox()
+                        .ASOFTDivisionIDList2(model
+                            => model.DivisionIDFilter,
+                            htmlAttributes: new Dictionary<string, object> 
+                            {
+                                {"data-bind","value:DivisionIDFilter"}
+                            }
+                                                ))</td>
+    </tr>
+}
+@section FilterCol2 {
+                    <tr>
+                        <td>@Html.ASOFTLabel(model => model.ShopIDFilter)</td>
+                        <td>
+                            @Html.ASOFTTextBox(model => model.ShopIDFilter,
+                            htmlAttribute: new Dictionary<string, object> {
+                                                    {"data-bind","value:ShopIDFilter"}},
+                            htmlStyle: new { width = Unit.Percentage(100) })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="container_label">@Html.ASOFTLabel(model => model.VoucherNoFilter)</td>
+                        <td class="container_control">
+                            @Html.ASOFTTextBox(model => model.VoucherNoFilter,
+                            htmlStyle: new { width = Unit.Percentage(100) },
+                            htmlAttribute: new Dictionary<string, object> {
+                                                    {"data-bind","value:VoucherNoFilter"}})
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@Html.ASOFTLabel(model => model.EmployeeIDFilter)</td>
+                        <td>
+                            @Html.ASOFTTextBox(model => model.EmployeeIDFilter,
+                            htmlStyle: new { width = Unit.Percentage(100) },
+                            htmlAttribute: new Dictionary<string, object> {
+                                                    {"data-bind","value:EmployeeIDFilter"}})
+                        </td>
+                    </tr>
+}
+@section FilterCol3 {
+                    <tr>
+                        <td>@Html.ASOFTLabel(model => model.EmployeeNameFilter)</td>
+                        <td>
+                            @Html.ASOFTTextBox(model => model.EmployeeNameFilter,
+                            htmlAttribute: new Dictionary<string, object> {
+                                                    {"data-bind","value:EmployeeNameFilter"}},
+                            htmlStyle: new { width = Unit.Percentage(100) })
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>@Html.ASOFTLabel(model => model.StatusFilter)</td>
+                        <td class="fixWidthPopup">
+                            @(Html.ASOFTBussinessComboBox()
+                              .ASOFTStatusID(model => model.StatusFilter)
+                              .DataTextField(POST0099.COL_DESCRIPTION))
+                        </td>
+                    </tr>                    
+                    <tr>
+                        <td>@Html.ASOFTLabel(model => model.IsRefundFilter)</td>
+                        <td class="fixWidthPopup">
+                            @(Html.ASOFTBussinessComboBox()
+                              .ASOFTRefund(model => model.IsRefundFilter)
+                              .DataTextField(POST0099.COL_DESCRIPTION))
+                        </td>
+                    </tr>
+}
+
+
+@section GridToolBar {
+                @if (Model.Toolbar1 != null)
+                {
+                    Model.Toolbar1.EventAdd = "addVoucher_Click";
+                    Model.Toolbar1.EventDelete = "btnDelete_Click";
+                }
+                @Html.Partial("~/Views/Shared/EditorTemplates/Toolbar.cshtml", Model.Toolbar1 ?? new ASOFTToolBarViewModel())
+}
+@section FilterButtons {
+                    <li>
+                        @(Html.ASOFTSearchButton()
+                                  .Name("POSF0021BtnFilter")
+                                  .HtmlAttributes(new Dictionary<string, Object> {
+                                      {"data-bind","click: search"},
+                                      {"class", "asf-button"}
+                                  }))
+
+
+                    </li>
+                    <li>
+                        @(Html.ASOFTSearchResetButton()
+                                  .Name("POSF0021BtnClearFilter")
+                                  .HtmlAttributes(new Dictionary<string, Object> {
+                                      {"data-bind","click: reset"},
+                                      {"class", "asf-button"}
+                                  }))
+                    </li>
+}
+
+@section Grid {
+        @Html.Partial("GridVoucher")
+    }
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSF0021.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Areas/POS/Scripts/POSFSearchPeriod.js")" type="text/javascript"></script>
+}

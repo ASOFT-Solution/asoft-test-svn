@@ -1,0 +1,210 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Created           Comment
+//#     23/08/2017      Quang Hoàng      Tạo mới
+//####################################################################
+*@
+
+@using ASOFT.ERP.ViewModel.CI;
+@using ASOFT.ERP.ViewModel.Helper;
+@using ASOFT.ERP.A00.Core
+@using Kendo.Mvc.UI.Fluent;
+
+@model List<CIF1123ViewModel>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = ASOFTLanguage.FindWordA00("A00.OrgChart") + " - CIF1123";
+}
+<div id="contentMaster">
+    <div class="asf-panel-filter container_12">
+        <div class="asf-headerpage">
+            @*<input type="hidden" id="Breakcrumb" value='@Model.Breakcrumb.ToString()' />*@
+            <div id="Breakcrumb_div" class="asf-breakcumb" style="display:none">
+            </div>
+            <div class="asf-headerpage-title">
+                <div id="HeaderLabel">
+                    <h3>@ViewBag.Title</h3>
+                </div>              
+            </div>
+        </div>
+    </div>
+
+ <script>
+        $(function() {
+            $("#organisation").orgChart({container: $("#main"), interactive: true, fade: true, speed: 'slow'});
+        });
+        var zoom = 100;
+        var zoomFireFox = 1;
+        $(document).ready(function () {
+            var btnPlus = '<a id="btnPlus" style="z-index:10001; position: absolute; right: 21px; height: 25px ; min-width: 27px;" data-role="button" class="k-button k-button-icontext" role="button" aria-disabled="false" tabindex="0" onclick="btnPlus_Click()">+</a>';
+            var btnMinus = '<a id="btnMinus" style="z-index:10001; position: absolute; right: 48px; height: 25px ; min-width: 27px;" data-role="button" class="k-button k-button-icontext" role="button" aria-disabled="false" tabindex="0" onclick="btnMinus_Click()">-</a>';
+
+            $("#main").prepend(btnMinus);
+            $("#main").prepend(btnPlus);
+
+            $('.orgChart').bind('wheel mousewheel', function (e) {
+                var delta;
+
+                if (e.originalEvent.wheelDelta !== undefined)
+                    delta = e.originalEvent.wheelDelta;
+                else
+                    delta = e.originalEvent.deltaY * -1;
+
+                if (delta > 0) {
+                    if (zoom < 200) {
+                        zoom += 2;
+                        $(".orgChart table").css("zoom", zoom + "%");
+                    }
+                    if (zoomFireFox < 1) {
+                        zoomFireFox += 0.01;
+                        $(".orgChart table").css("-moz-transform", "scale(" + zoomFireFox + ")");
+                    }
+                }
+                else {
+                    if (zoom > 0) {
+                        zoom -= 2;
+                        $(".orgChart table").css("zoom", zoom + "%");
+                    }
+
+                    if (zoomFireFox > 0.1) {
+                        zoomFireFox -= 0.01;
+                        $(".orgChart table").css("-moz-transform", "scale(" + zoomFireFox + ")");
+                    }
+                }
+            });
+        });
+        function btnPlus_Click() {
+            if (zoom < 200) {
+                zoom += 2;
+                $(".orgChart table").css("zoom", zoom + "%");
+            }
+
+            if (zoomFireFox < 1) {
+                zoomFireFox += 0.01;
+                $(".orgChart table").css("-moz-transform", "scale(" + zoomFireFox + ")");
+            }
+        }
+
+        function btnMinus_Click() {
+            if (zoom > 0) {
+                zoom -= 2;
+                $(".orgChart table").css("zoom", zoom + "%");
+            }
+
+            if (zoomFireFox > 0.1) {
+                zoomFireFox -= 0.01;
+                $(".orgChart table").css("-moz-transform", "scale(" + zoomFireFox + ")");
+            }
+        }
+ </script>
+
+@{
+     <div hidden>
+         <ul id="organisation">
+            @foreach (var item in Model.FindAll(m => string.IsNullOrEmpty(m.NodeParentID)))
+            {
+                string classNode = "color" + item.NodeTypeID;
+                Dictionary<string, int> list = new Dictionary<string, int>();
+                list.Add(item.OrderNo.ToString(), 0);
+                <li>
+                     @addChildren(item, list, item.OrderNo.ToString())
+                     <div class="title @classNode">
+                       <img class="image" src="@Url.Content("~/Content/Images/icon" + item.NodeTypeID + ".png")">
+                        <span>@ASOFTLanguage.FindWordA00("A00." + item.NodeTypeID + ".Org")  : @list[item.OrderNo.ToString()]</span>
+                    </div>
+                    <div>@item.NodeName</div>
+                </li>
+            }
+        </ul>       
+     </div>
+}
+
+@helper addChildren(CIF1123ViewModel item, Dictionary<string, int> list, string nodeID)
+{
+    var children = Model.FindAll(m => m.NodeParentID == item.NodeID);
+    if (children != null)
+    {
+         <ul>
+            @foreach (var child in children)
+            {
+                if (child.NodeTypeID.Equals("UserID"))
+                {
+                    list[nodeID] += 1;
+                }
+                list.Add(child.OrderNo.ToString() + item.NodeTypeID, 0);
+                string classNode = "color" + child.NodeTypeID;
+                <li>
+                    
+                     @addChildren(child, list, child.OrderNo.ToString() + item.NodeTypeID)
+                     @{
+                         list[nodeID] += list[child.OrderNo.ToString() + item.NodeTypeID];
+                     }
+
+                    <div class="title @classNode">
+                       <img class="image" src="@Url.Content("~/Content/Images/icon" + child.NodeTypeID + ".png")">
+                        @if (child.NodeTypeID.Equals("UserID"))
+                        {
+                             <span>@ASOFTLanguage.FindWordA00("A00." + child.NodeTypeID + ".Org")</span>
+                        }
+                        else
+                        {
+                            <span>@ASOFTLanguage.FindWordA00("A00." + child.NodeTypeID + ".Org") : @list[child.OrderNo.ToString() + item.NodeTypeID]</span>
+                        }
+                    </div>
+                    <div>@child.NodeName</div>
+                </li>
+            }
+        </ul>
+    }
+}
+
+        
+
+        <div>      
+            <div id="main">
+            </div>
+        </div>
+    </div>
+
+<link rel="stylesheet" href="@Url.Content("~/Content/Styles/demo.css")"/>
+<link rel="stylesheet" href="@Url.Content("~/Content/Styles/jquery.orgchart.css")"/>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.orgchart.js")"></script>
+
+
+
+@*    <div hidden>
+            <ul id="organisation">
+                <li>
+                    <div class="title colorDivisionID">
+                       <img class="image" src="@Url.Content("~/Content/Images/iconDivisionID.png")">
+                        <span>Đơn vị    </span>
+                    </div>
+                    <div> Công ty cổ phần xuất nhật khẩu thủy sản năm căn</div>
+                    <ul>
+                        <li class="colorDepartmentID">Batman Begins<br/>
+                            <ul>
+                                <li class="colorTeamID">Ra's Al Ghul</li>
+                                <li class="colorUserID">Carmine Falconi</li>
+                            </ul>
+                        </li>
+                        <li>The Dark Knight<br/>
+                            <ul>
+                                <li>Joker</li>
+                                <li>Harvey Dent</li>
+                            </ul>
+                        </li>
+                        <li>The Dark Knight Rises<br/>
+                            <ul>
+                                <li>Bane</li>
+                                <li>Talia Al Ghul</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        
+        </div>*@

@@ -1,0 +1,57 @@
+﻿@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Entities.Database
+@using ASOFT.ERP.ViewModel.DRM
+@using ASOFT.ERP.DRM.Entities
+@model DRF2002ViewModel
+@{
+    var gridsetting = new ASOFTGridSetting
+                          {
+                              NameGrid = "DRF2002Grid", // Tên của lưới tạo id, name dùng cho js
+                              NameEventPost = "DRF2001.drf2002GridSendData",//hàm lấy dữ liệu trước khi post lên server(FormFilter) , sendDataFilter tên hàm js
+                              Scrollable = true,// hiển thị thanh Scroll hay hok
+                              ActionName = "DRF2002Grid",// tên hàm controller để lấy dữ liệu cho lưới
+                              ControllerName = "DRF2000",//tên controller                         
+                              HtmlAttribute = new {@class = "asf-grid" },                           
+                              IsShowCheck = false,
+                              ListGridColumn = new List<ASOFTGridColumnSetting>{                                       
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn =DRP2076.COL_MONTHYEAR,
+                                                               TitleColumn = Html.DisplayNameFor(model=>model.MonthYear).ToHtmlString(),
+                                                               Width = 60,
+                                                               VisibleColumn = true,
+                                                           }, 
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2076.COL_UNPAIDAMOUNT,
+                                                               TitleColumn = Html.DisplayNameFor(model=>model.UnPaidAmount1).ToHtmlString(),
+                                                               Width = 100,
+                                                               VisibleColumn = true,                                                          
+                                                           },  
+                                       new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn =DRP2076.COL_UNPAIDELSE,
+                                                               TitleColumn = Html.DisplayNameFor(model=>model.UnPaidElse).ToHtmlString(),
+                                                               Width = 75,
+                                                               VisibleColumn = true,                                                    
+                                                           },     
+                                      new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn =DRP2076.COL_PUNISHFEE,
+                                                               TitleColumn = Html.DisplayNameFor(model=>model.PunishFee).ToHtmlString(),
+                                                               Width = 75,
+                                                               VisibleColumn = true,
+                                                           },  
+                                     new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn =DRP2076.COL_OVERDUEPROFIT,
+                                                               TitleColumn = Html.DisplayNameFor(model=>model.OverDueProfit).ToHtmlString(),
+                                                               Width = 80,
+                                                               VisibleColumn = true,
+                                                           }
+                                    
+                              }
+                          };
+}
+@(Html.ASOFTCreateGridNotPagging<ASOFT.ERP.DRM.Entities.DRP2076>(gridsetting))

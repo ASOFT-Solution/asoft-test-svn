@@ -1,0 +1,8 @@
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.ViewModel
+@using Kendo.Mvc.UI
+@model string
+
+@Html.ASOFTBussinessComboBox().ASOFTOOEmployeeID(m=>m,
+                            option: new ComboOption() { EventPostData = "cboEmployeeID_EventPostData" }).Events(e=>e.Change("Employee_Changed"))

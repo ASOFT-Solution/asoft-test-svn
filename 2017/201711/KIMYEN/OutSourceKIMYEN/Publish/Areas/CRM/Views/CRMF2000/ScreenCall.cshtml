@@ -1,0 +1,68 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Created         Comment
+//#     11/12/2015      Quang Hoàng         Tạo mới
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.ViewModel.CRM
+@using ASOFT.ERP.ViewModel.Helper;
+@model CRMF2000ViewModel
+
+
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new
+{
+    id = "ScreenCall"
+})){
+    if (Model.TempCall != null)
+    {
+        if (Model.TempCall == 1)
+        {
+            <div class ="callToGo"> @LocalizedHelper.GetLocalizedResourceString("CRMF2000.CallFrom","CRMF2000", "CRM")</div>
+        }
+        else
+        {
+            <div class ="callToGo"> @LocalizedHelper.GetLocalizedResourceString("CRMF2000.CallTo","CRMF2000","CRM")</div>
+        }
+     }
+    <table class="tb-callcenter">
+        @Html.ASOFTHidden(model => model.Tel)
+        @Html.ASOFTHidden(model => model.Address)
+        @Html.ASOFTHidden(model => model.Notes)
+        @Html.ASOFTHidden(model => model.ContactID)
+        @Html.ASOFTHidden("ContactNameSC", Model.ContactName)
+        @Html.ASOFTHidden("TempCall", Model.TempCall)
+        <tr>
+            <td>@LocalizedHelper.GetLocalizedResourceString("CRMF2000.Tel","CRMF2000","CRM")</td>
+            <td>:</td>
+            <td colspan="2" class="Tel">@Html.DisplayFor(model => model.Tel)</td>
+        </tr>       
+        <tr>
+            <td>@LocalizedHelper.GetLocalizedResourceString("CRMF2000.ContactName","CRMF2000","CRM")</td>
+            <td>:</td>
+            <td colspan="2" class="ContactName">@Html.DisplayFor(model => model.ContactName)</td>
+        </tr>       
+        <tr>
+            <td>@LocalizedHelper.GetLocalizedResourceString("CRMF2000.AccountID","CRMF2000","CRM")</td>
+            <td>:</td>
+            <td colspan="2">@(Html.ASOFTBussinessComboBox().ASOFTAccountName(model => model.AccountID, Model.Tel, htmlStyle: new { width = Unit.Percentage(100) }).Events(e => e.Change("AccountID_Change")))</td>
+        </tr>  
+        <tr>
+            <td style="background-color: #000000; color: #fff">@LocalizedHelper.GetLocalizedResourceString("CRMF2000.Address","CRMF2000","CRM")</td>
+            <td>:</td>
+            <td colspan="2" class="Address"><div>@Html.DisplayFor(model => model.Address)</div></td>
+        </tr>   
+        <tr>
+            <td>@LocalizedHelper.GetLocalizedResourceString("CRMF2000.Notes","CRMF2000","CRM")</td>
+            <td>:</td>
+            <td colspan="2" class="Notes">@Html.DisplayFor(model => model.Notes)</td>
+        </tr> 
+    </table>
+}
+

@@ -1,0 +1,53 @@
+﻿
+@model ASOFT.ERP.ViewModel.MT.MTF1040ViewModel
+@{
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.MTF1040Title, "MTF1040");
+}
+
+@section jsFeature{
+    <script src="@Url.Content("~/Areas/MT/Scripts/MTF1040.js")"> </script>
+
+}
+
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/MT/Content/MTF1040.css")" rel="stylesheet" type="text/css" />
+}
+
+<div id="contentMaster">
+    <div class="asf-panel-filter">
+        <!-- BreakCrumb -->
+        @Html.ASOFTHeader(new HeaderModel {Title = Html.ASOFTRaw(m => m.MTF1040Title), Breakcrumb = true})
+        @Html.Partial("FormFilter", Model)
+    </div>
+    <div class="asf-button-container">
+        <div class="asf-button-right-container">
+            <div class="asf-button-right">
+                @(Html.ASOFTSearchButton()
+                      .Name("btnFilterMaster")
+                      .Events(ev => ev.Click("MTF1040.filterData"))
+                      )
+                @(Html.ASOFTSearchResetButton()
+                      .Name("btnReset")
+                      .Events(ev => ev.Click("MTF1040.clearFilterData"))
+                      )
+            </div>
+        </div>
+    </div>
+    <div class="asfbtn-left">
+        @Html.Partial("~/Views/Shared/EditorTemplates/Toolbar.cshtml", Model.Toolbar1)  
+    </div>
+    <!-- Grid Master -->
+    @Html.Partial("GridClass")
+</div>
+
+@(Html.ASOFTPopup()
+      .Name("MTF1041Popup")
+      .Width(500)
+      .Title(Html.ASOFTPageTitle(m => m.MTF1041Title, "MTF1041").ToHtmlString()))
+
+@Html.ASOFTHidden("UrlMTF1041", Url.Action("MTF1041"))
+@Html.ASOFTHidden("UrlMTF1041Update", Url.Action("Update"))
+@Html.ASOFTHidden("UrlMTF1041Insert", Url.Action("Insert"))
+@Html.ASOFTHidden("UrlMTF1040Delete", Url.Action("Delete"))
+@Html.ASOFTHidden("UrlUpdateRecord", Url.Action("UpdateRecord"))
+@Html.ASOFTHidden("UrlMTF1042", Url.Action("MTF1042"))

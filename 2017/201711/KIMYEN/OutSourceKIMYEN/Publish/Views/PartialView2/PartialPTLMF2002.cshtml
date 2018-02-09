@@ -1,0 +1,55 @@
+﻿@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Infrastructure;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel;
+@using ASOFT.ERP.ViewModel.LM;
+@using System.Web.UI.WebControls;
+@using Kendo.Mvc;
+@using ASOFT.ERP.ViewModel.Helper;
+@model LMF2002ViewModel
+
+@Html.ASOFTHidden(model => model.IsCheck_PT)
+    <div class="asf-content-block first" style="width: 14.958%;">
+        <table class="asf-table-view">
+            <tr>
+                <td class="content-label" colspan="2">@LocalizedHelper.GetLocalizedResourceString("LMF2002.AdvanceDate", "LMF2002", "LM")</td>
+                <td class="dot"></td>
+                <td class="content-text" colspan="2"><a onclick="LMF2011PT_Click()">@Html.DisplayFor(model => model.AdvanceDate)</a></td>
+            </tr>
+            <tr>
+                <td class="content-label" colspan="2">@LocalizedHelper.GetLocalizedResourceString("LMF2002.Notes", "LMF2002", "LM")</td>
+                <td class="dot"></td>
+                <td class="content-text" colspan="2">@Html.DisplayFor(model => model.Notes)</td>
+            </tr>
+        </table>
+    </div>
+    <div class="asf-content-block middle" style="width: 14.958%;">
+         <table class="asf-table-view">
+            <tr>
+                <td class="content-label" colspan="2">@LocalizedHelper.GetLocalizedResourceString("LMF2002.AdvancePercent", "LMF2002", "LM")</td>
+                <td class="dot"></td>
+                <td class="content-text" colspan="2">@Html.ASOFTDisplayNumber(model => model.AdvancePercent)</td>
+            </tr>
+            <tr>
+                <td class="content-label" colspan="2">@LocalizedHelper.GetLocalizedResourceString("LMF2002.CostTypeName", "LMF2002", "LM")</td>
+                <td class="dot"></td>
+                <td class="content-text" colspan="2">@Html.DisplayFor(model => model.CostTypeName)</td>
+            </tr>
+        </table>
+    </div>
+    <div class="asf-content-block last" style="width: 14.958%;">
+         <table class="asf-table-view">
+            <tr>
+                <td class="content-label" colspan="2">@LocalizedHelper.GetLocalizedResourceString("LMF2002.OriginalAmount", "LMF2002", "LM")</td>
+                <td class="dot"></td>
+                <td class="content-text" colspan="2">@Html.ASOFTDisplayNumber(model => model.OriginalAmount)</td>
+            </tr>
+            <tr>
+                <td class="content-label" colspan="2">@LocalizedHelper.GetLocalizedResourceString("LMF2002.ConvertedAmount", "LMF2002", "LM")</td>
+                <td class="dot"></td>
+                <td class="content-text" colspan="2">@Html.ASOFTDisplayNumber(model => model.ConvertedAmount)</td>
+            </tr>
+        </table>
+     </div>

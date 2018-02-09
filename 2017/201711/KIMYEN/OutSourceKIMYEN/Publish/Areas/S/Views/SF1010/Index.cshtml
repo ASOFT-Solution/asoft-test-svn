@@ -1,0 +1,81 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     28/03/2014      Chánh Thi      Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.A00.Core
+@using System.Web.Mvc.Html;
+@using ASOFT.ERP.ViewModel.S;
+
+@model ASOFT.ERP.ViewModel.S.SF1010ViewModel
+
+@{
+    Layout = "~/Views/Shared/_ContentMaster.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(model => model.Title, "SF1010").ToHtmlString();
+}
+
+@Html.ASOFTHidden("UpdateRecord", Url.Action("UpdateRecord"))
+@section Header {
+        @Html.ASOFTHeader(new ASOFT.ERP.A00.Entities.Common.HeaderModel {  Title = Html.ASOFTPageTitle(model => model.Title, "SF1010").ToHtmlString(), 
+       Breakcrumb = true })
+}
+
+@section FilterCol1{
+                    <tr>
+                        <td>@Html.ASOFTLabel(model => model.DivisionIDFilter)</td>
+                        <td>
+                             @(Html.ASOFTBussinessComboBox().
+                            ASOFTDivisionIDList(model => model.DivisionIDFilter))
+                        </td>
+                         @*<td>
+                            @Html.ASOFTTextBox(model => model.DivisionIDFilter, 
+                            htmlStyle: new { width = System.Web.UI.WebControls.Unit.Percentage(100) })
+                        </td>*@
+                    </tr>
+                    
+}
+@section FilterCol2 {
+                     <tr>
+                        <td>@Html.ASOFTLabel(model => model.GroupIDFilter)</td>
+                        <td>
+                            @Html.ASOFTTextBox(model => model.GroupIDFilter, 
+                            htmlStyle: new { width = System.Web.UI.WebControls.Unit.Percentage(100) })
+                        </td>
+                    </tr>
+}
+@section FilterCol3 {
+                    <tr>
+                        <td>@Html.ASOFTLabel(model => model.GroupNameFilter)</td>
+                        <td>
+                            @Html.ASOFTTextBox(model => model.GroupNameFilter, 
+                            htmlStyle: new { width = System.Web.UI.WebControls.Unit.Percentage(100) })
+                        </td>
+                    </tr>
+}
+
+@section GridToolBar {
+            @Html.Partial("~/Views/Shared/EditorTemplates/Toolbar.cshtml", 
+            Model.Toolbar1 ?? new ASOFT.ERP.ViewModel.ASOFTToolBarViewModel())
+}
+@section FilterButtons {
+                <li>
+                    @(Html.ASOFTSearchButton()
+                          .Name("SF1010BtnFilter").Events(e => e.Click("filterData")))
+
+                </li>
+                <li>
+                    @(Html.ASOFTSearchResetButton()
+                          .Name("SF1010BtnClearFilter").Events(e => e.Click("clearData")))
+                </li>
+}
+@section Grid {
+    @Html.Partial("GridGroup")
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/S/Scripts/SF1010.js?v=" + ASOFTEnvironment.Version)" type="text/javascript"></script>
+}

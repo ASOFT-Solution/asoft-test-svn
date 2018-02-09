@@ -1,0 +1,94 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     11/09/2015     Quang Chiến     Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.ViewModel.CI
+@model CIF1061ViewModel
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.Title, "CIF1061").ToHtmlString();
+    ViewBag.Width = 500;
+
+    // Form Status
+    bool isInsert = Model.FormStatus.Equals(ASOFTFormActionType.AddNew);
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new {id = "CIF1061"}))
+{
+ <div class="asf-form-container">
+    <div class="form-content">
+            <table class="asf-table-view">                
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.CityID)</td>
+                    <td class="asf-td-field" colspan="2">
+                        @(Html.ASOFTTextBox(model => model.CityID, checkRegularExp: true).ReadOnlyIf(Model.FormStatus != ASOFTFormActionType.AddNew))                        
+                        @Html.ASOFTHidden(AT1002.COL_LASTMODIFYDATE, Model.LastModifyDate != null ? Model.LastModifyDate.Value.ToString("dd/MM/yyyy HH:mm:ss.fff") : "")
+                         </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.CityName)</td>
+                    <td class="asf-td-field" colspan="2">@(Html.ASOFTTextBox(model => model.CityName))</td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption"></td>
+                    <td class="asf-td-field">
+                        @Html.ASOFTCheckbox(model=>model.IsCommon)
+                       
+                    </td>
+                    <td class="asf-td-field">
+                        @Html.ASOFTCheckbox(model=>model.Disabled)
+                    </td>
+                </tr>
+            </table>
+    </div>
+</div>
+<div class="asf-form-button">
+    <table class="asf-table-view">
+        <tr>
+            <td align="right">
+                <div class="asf-popup-button-container">
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                              .Name("BtnClose")
+                              .Events(e => e.Click("CIF1061.btnClose_Click")))
+                    </div>
+                    <div >
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSaveCopy"))
+                                .Name("BtnSaveCopy")
+                                .Events(e => e.Click("CIF1061.btnSaveCopy_Click"))
+                                .HideIf(!isInsert))
+                    </div>
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSaveNew"))
+                                .Name("btnSaveCIF1061")
+                                .Events(e => e.Click("CIF1061.btnSaveNext_Click"))
+                                .HideIf(!isInsert))
+                    </div>
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSave"))
+                                .Name("BtnSaveClose")
+                                .Events(e => e.Click("CIF1061.btnSave_Click"))
+                                //.Enable(false)
+                                .HideIf(isInsert))
+                    </div>
+                            
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+}
+
+@section styleFeature{
+@*    <link href="@Url.Content("~/Areas/CI/Content/DRF2001.css")" rel="stylesheet" type="text/css" />*@
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/CI/Scripts/CIF1061.js")"></script>
+   @* @Html.RenderScripts(files: new[] { "CRMF2061" })*@
+}

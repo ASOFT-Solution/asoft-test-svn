@@ -1,0 +1,80 @@
+﻿@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Entities.Database
+@using ASOFT.ERP.ViewModel.POS
+@model POSF0050ViewModel
+@{  
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "POSF0050Grid", 
+        Scrollable = true, 
+        ControllerName = "POSF0050",
+        NameEventPost = "sendData",
+        ActionName = "GetGridData",
+        IsShowCheck = false,
+        HtmlAttribute = new
+        {
+            style = "height:370px;", 
+            @class = "asf-grid",
+            AddNewRowDisabled = "true"  
+        },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "RowNum",
+                ClientTemplate = "#= renderNumber() #",
+                TitleColumn = ASOFTLanguage.FindWordA00("A00.Number"),
+                Width = 30,
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = POST0037.COL_DIVISIONID,
+                TitleColumn = Html.ASOFTRaw(model => model.DivisionID),
+                Width = 80,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = POST0037.COL_SHOPID,
+                TitleColumn = Html.ASOFTRaw(model => model.ShopID),
+                Width = 100,
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = POST0037.COL_AREAID,
+                TitleColumn = Html.ASOFTRaw(model => model.AreaID),
+                Width = 100,
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = POST0037.COL_TIMEID,
+                TitleColumn = Html.ASOFTRaw(model => model.TimeID),
+                Width = 100,
+                VisibleColumn = true
+            },
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = POST0037.COL_PRICETABLEID,
+                TitleColumn = Html.ASOFTRaw(model => model.PriceTableID),
+                Width = 100,
+                EditColumn = true,
+                VisibleColumn = true,
+                EditorTemplateName = "POSPriceTable"
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = POST0037.COL_DESCRIPTION,
+                TitleColumn = Html.ASOFTRaw(model => model.Description),
+                Width = 200,
+                EditColumn = true,
+                VisibleColumn = true,
+            },
+           
+        }
+    };
+}
+
+@(Html.ASOFTCreateGridEdit<POST0037>(gridsetting))

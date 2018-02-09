@@ -1,0 +1,114 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Created                Comment
+//#     12/12/2017     Thanh Trong             Tạo mới    
+//####################################################################
+*@
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.ViewModel.S 
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.ViewModel.Helper;
+@model ASOFT.ERP.CI.Entities.CIF1142
+
+
+<div class="asf-form-container container_12 pagging_bottom">
+    
+    <div class="asf-form-container container_12 pagging_bottom">
+@{
+    var gridsetting = new ASOFTGridSetting 
+    {
+        NameGrid = "PartialCIF1142_Tab03", 
+        Scrollable = true,
+        ControllerName = "Partial",
+        ActionName = "GridPartialCIF1142_Tab03",
+        //NameEventPost = "sendDataLMP9002",
+        IsShowCheck = true, 
+        IsAutoHeight = false,
+        HtmlAttribute = new { style = "height:250px;", @class = "asf-grid"} ,  
+        ListGridColumn= new List<ASOFTGridColumnSetting>
+        {
+            //new ASOFTGridColumnSetting
+            //{
+            //    IDColumn = "RowNum",
+            //    ClientTemplate = "#= renderNumber(data) #",
+            //    TitleColumn = ASOFTLanguage.FindWordA00("A00.Number"),
+            //    Width = 30,
+            //    VisibleColumn = true,
+            //    HtmlAttrCoulmns = (new {@class = "asf-cols-align-center"}),
+            //},
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "APK",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("CIF1142.APK", "CIF1142", "CI"),
+                Width = 120,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "APKMaster",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("CIF1142.APKMaster", "CIF1142", "CI"),
+                Width = 120,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "LevelDetailID",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("CIF1142.LevelDetailID", "CIF1142", "CI"),
+                Width = 120,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "LevelDetailName",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("CIF1142.LevelDetailName", "CIF1142", "CI"),
+                Width = 120,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "IsUsed",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("CIF1142.IsUsed", "CIF1142", "CI"),
+                Width = 120,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "DivisionID",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("CIF1142.DivisionID", "CIF1142", "CI"),
+                Width = 120,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "Notes",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("CIF1142.Notes", "CIF1142", "CI"),
+                Width = 120,
+                VisibleColumn = true,
+            },            
+             
+         }   
+      };            
+   }
+    </div>
+    </div>
+@(Html.ASOFTCreateGridNotPagging<ASOFT.ERP.A00.Entities.Database.WMT1000>(gridsetting)) 
+  
+ 
+       
+        
+        
+        
+        
+    
+    
+    
+    
+    
+   
+    
+    
+
+

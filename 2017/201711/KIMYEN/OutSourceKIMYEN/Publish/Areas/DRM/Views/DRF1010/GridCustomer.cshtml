@@ -1,0 +1,85 @@
+﻿
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Entities.Database
+@using ASOFT.ERP.ViewModel.DRM
+@using ASOFT.ERP.DRM.Entities
+@model DRF1010ViewModel
+@{
+    var gridsetting = new ASOFTGridSetting
+                          {
+                              NameGrid = "DRF1010Grid",
+                              NameEventPost = "DRF1010.sendDataFilter",
+                              Scrollable = true,
+                              ActionName = "GetDRF1010GridData",
+                              ControllerName = "DRF1010",
+                              HtmlAttribute = new {style = "height:590px;", @class = "asf-grid"},
+                              IsShowCheck = true,
+                              ListGridColumn = new List<ASOFTGridColumnSetting>{
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = "RowNum",
+                                                               TitleColumn = ASOFTLanguage.FindWordA00("A00.Order"),
+                                                               Width = 50,
+                                                               VisibleColumn = true,
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP1010.COL_CUSTOMERID,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.CustomerID),
+                                                               Width = 100,
+                                                               VisibleColumn = true,
+                                                               ClientTemplate = string.Format("<a href='{0}'>#:{1}#</a>", 
+                                                                        Url.Content(string.Format("~/DRM/DRF1010/DRF1012/?CustomerID=#:{0}#", DRP1010.COL_CUSTOMERID)),
+                                                                        DRP1010.COL_CUSTOMERID),
+                                                           },    
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP1010.COL_CUSTOMERNAME,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.CustomerName),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                           },  
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP1010.COL_NTDFEEGROUPID,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.NTDFeeGroupID),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                           },
+                                         new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP1010.COL_NTMFEEGROUPID,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.NTMFeeGroupID),
+                                                               Width = 150,
+                                                               VisibleColumn = true,       
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP1010.COL_PHONE,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.Tel),
+                                                               Width = 150,
+                                                               VisibleColumn = true,       
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP1010.COL_FAX,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.Fax),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                           },  
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP1000.COL_DISABLED,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.Disabled),
+                                                               Width = 120,
+                                                               VisibleColumn = true,
+                                                               ClientTemplate = "<input type='checkbox' #= Disabled ? 'checked' : '' # onclick='return false;' disabled=disabled />",
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center" }
+                                                           }
+                                
+                              }
+                          };
+}
+
+@(Html.ASOFTCreateGrid<ASOFT.ERP.DRM.Entities.DRP1010>(gridsetting,false))

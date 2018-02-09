@@ -1,0 +1,106 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     21/08/2017       Quang Hoàng      Tạo mới
+//####################################################################
+*@
+
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Entities.Database
+@using ASOFT.ERP.ViewModel.POS
+@model POSF00101ViewModel
+
+@{  
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "GridManager", 
+        Scrollable = true, 
+        ControllerName = "POSF0010",
+        ActionName = "GetGridManager",
+        NameEventPost = "SendDataMaster",
+        IsShowCheck = false,
+        HtmlAttribute = new
+        {
+            style = "height:300px;", 
+            @class = "asf-grid"
+        },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "RowNum",
+                ClientTemplate = "#= renderNumberManager(data) #",
+                TitleColumn = ASOFTLanguage.FindWordA00("A00.Number"),
+                Width = 30,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {@class = "asf-cols-align-center"}),
+            },
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "IsUsed",
+                TitleColumn = Html.ASOFTRaw(model => model.IsUsed),
+                ClientTemplate = "<input type='radio' name='radio-check' onclick=radio_Click('#=data.uid#') #= IsUsed == 1? 'checked' : '' # #=setIsUsed(data)#/>",
+                HtmlAttrCoulmns = (new {@class = "asf-cols-align-center"}),
+                Width = 50,
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "FromDate",
+                TitleColumn = Html.ASOFTRaw(model => model.FromDate),
+                Width = 130,
+                VisibleColumn = true,
+                EditorTemplateName = "DateGrid",
+                EditColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "ToDate",
+                TitleColumn = Html.ASOFTRaw(model => model.ToDate),
+                Width = 140,
+                VisibleColumn = true,
+                EditorTemplateName = "DateGrid",
+                EditColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "EmployeeID",
+                TitleColumn = Html.ASOFTRaw(model => model.EmployeeID),
+                Width = 140,
+                VisibleColumn = true,
+                EditColumn = false
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "EmployeeName",
+                TitleColumn = Html.ASOFTRaw(model => model.EmployeeName),
+                Width = 140,
+                VisibleColumn = true,
+                EditColumn = false
+            },
+            
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "ShopID",
+                VisibleColumn = false,
+                EditColumn = false
+            },
+            
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "APK",
+                Width = 36,
+                ClientTemplate = @"#=genDeleteBtn(data)#",
+                VisibleColumn = true,
+                HtmlAttrCoulmns = (new {style = "text-align:center"})
+            },
+        }
+    };
+}
+
+@(Html.ASOFTCreateGridEdit<ASOFT.ERP.A00.Entities.Database.POST00101>(gridsetting))
+
+

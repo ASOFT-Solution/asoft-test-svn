@@ -1,0 +1,37 @@
+﻿@using System.Web.UI.WebControls;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@model ASOFT.ERP.ViewModel.MT.MTF2000ViewModel
+@{
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.MTF2002Title, "MTF2002").ToHtmlString();
+}
+
+
+@section jsFeature{
+    <script src="@Url.Content("~/Areas/MT/Scripts/MTF2000.js")"></script>
+}
+
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/MT/Content/MTF2000.css")" rel="stylesheet" type="text/css" />
+}
+
+@Html.ASOFTHidden("UrlMTF2000", Url.Action("index"))
+@Html.ASOFTHidden("UrlMTF2001", Url.Action("MTF2001"))
+@Html.ASOFTHidden("UrlMTF2002", Url.Action("MTF2002"))
+@Html.ASOFTHidden("UrlMTF2002MPartial", Url.Action("MTF2002MPartial"))
+@Html.ASOFTHidden("UrlUpdate", Url.Action("Update"))
+@Html.ASOFTHidden("UrlDelete", Url.Action("Delete"))
+@Html.ASOFTHidden("student", Model.StudentID)
+@Html.ASOFTHidden("UrlCheckEdit", Url.Action("CheckEdit"))
+<div id="contentMaster">
+    @Html.ASOFTHeader(new HeaderModel() { Title = Html.ASOFTRaw(model => model.MTF2002Title), Breakcrumb=true })
+    <div id="ViewMaster" class="asf-panel-view-master" >@Html.Partial("MTF2002M", Model)</div>
+</div>
+
+@(Html.ASOFTPopup()
+    .Name("MTF2001Popup")
+    .Width(800)
+    .Title(Html.ASOFTPageTitle(m => m.MTF2001Title, "MTF2001").ToHtmlString())
+)

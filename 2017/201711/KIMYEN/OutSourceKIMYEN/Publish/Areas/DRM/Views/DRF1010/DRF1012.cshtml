@@ -1,0 +1,54 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     03/09/2014      Đức Quý         Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Infrastructure;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel;
+@using System.Web.UI.WebControls;
+@using Kendo.Mvc;
+@model ASOFT.ERP.ViewModel.DRM.DRF1012ViewModel
+@{
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.DRF1012Title, "DRF1012").ToHtmlString();
+}
+
+@Html.ASOFTHidden("UrlDRF1011", Url.Action("DRF1011"))
+<div id="contentMaster">
+    @Html.ASOFTHeader(new HeaderModel {Title = Html.ASOFTPageTitle(m => m.DRF1012Title, "DRF1012").ToHtmlString(), Breakcrumb = true})
+    <div id="ViewMaster" class="asf-panel-view-master" >
+        <div class="asf-panel-master-header">
+            <div class="asfbtn asfbtn-right">
+                @Html.Partial("~/Views/Shared/EditorTemplates/Toolbar.cshtml", Model.Toolbar1 ?? new ASOFTToolBarViewModel())
+            </div>
+        </div>
+        <div id="viewPartial">
+            @Html.Partial("DRF1012M")
+        </div>
+    </div>
+</div>
+
+@section jsFeature{
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF1010/DRF1010.js?v=" + ASOFTEnvironment.Version)"></script>
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF1010/DRF1011.js?v=" + ASOFTEnvironment.Version)"></script>
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF1010/DRF1012.js?v=" + ASOFTEnvironment.Version)"></script>
+}
+
+@section styleFeature {
+    @*<link href="@Url.Content("~/Areas/DRM/Content/DRF2002.css")" rel="stylesheet" type="text/css" />*@
+}
+@Html.ASOFTHidden("ScreenID", "DRF1012")
+@Html.ASOFTHidden("UrlDRF1010", Url.Action("Index"))
+@Html.ASOFTHidden("UrlDRF1011", Url.Action("DRF1011"))
+@Html.ASOFTHidden("UrlDelete", Url.Action("Delete"))
+@Html.ASOFTHidden("UrlUpdate", Url.Action("Update"))
+@Html.ASOFTHidden("UrlDRF1012M", Url.Action("DRF1012M"))
+@Html.ASOFTHidden("UrlCheckEdit", Url.Action("CheckEdit"))
+@Html.ASOFTHidden("UrlHistory", Url.Action("Index", new { controller = "History", area = "", tableID = "DRT1010", IDSearch = "CustomerID", ValueSearch = Model.CustomerID }))

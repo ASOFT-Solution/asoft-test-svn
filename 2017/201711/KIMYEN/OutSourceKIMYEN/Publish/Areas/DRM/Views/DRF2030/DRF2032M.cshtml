@@ -1,0 +1,100 @@
+﻿@using ASOFT.ERP.ViewModel.DRM
+@model DRF2032ViewModel
+
+<script>
+    $(document).ready(function () {
+        //ASOFT.form.setSameHeight("asf-content-block");
+        ASOFT.form.setSameWidth("asf-content-block");
+    });
+</script>
+@helper Content()
+{
+    <div class="asf-master-content">
+        <div class="asf-content-block first">
+            <table class="asf-table-view">
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.PaidID)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.PaidID)</td>
+                </tr>
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.ContractNo)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.ContractNo)</td>
+                </tr>
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.DebtorName)</td>
+                    <td class="dot"></td>
+                    <td class="content-text" id="DebtorName">@Html.DisplayFor(model => model.DebtorName)</td>
+                </tr>            
+            </table>
+        </div>
+        <div class="asf-content-block middle">
+            <table class="asf-table-view">
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.PaidDate)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">@Html.DisplayFor(model => model.PaidDate)</td>
+                </tr>
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.PaidAmount)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">
+                        @(Html.ASOFTDisplayNumber(model => model.PaidAmount))
+                    </td>
+                </tr>
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.UnPaidAmount)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">
+                       @(Html.ASOFTDisplayNumber(model => model.UnPaidAmount))
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="asf-content-block last">
+            <table class="asf-table-view">
+                <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.TotalPaidAmount)</td>
+                    <td class="dot"></td>
+                    <td class="content-text">
+                       @(Html.ASOFTDisplayNumber(model => model.TotalPaidAmount))
+                    </td>
+                </tr>
+                 <tr>
+                    <td class="content-label">@Html.ASOFTLabel(model => model.PaidNote)</td>
+                    <td class="dot"></td>
+                    <td class="content-text" title="@Model.PaidNote">
+                        <div class='content-ellipsis'>@Html.DisplayFor(model => model.PaidNote)</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+}
+
+@(Html.ASOFTPanel()
+      .Name("panelbar")
+      .HtmlAttributes(new {@class = "block-panel-master"})
+      //.Events(m => m.Activate("ASOFT.panelFormat.fitColumnHeight"))
+      .HtmlAttributes(new { @class = "block-panel-master" })
+      .Animation(animation => animation.Enable(true))
+      .Events(events => events           
+            .Expand("DRF2031.expandPanel")
+        )
+      .Items(panelbar =>
+             {
+                 panelbar.Add().Text(Html.ASOFTRaw(m => m.DRF2032Title))
+                     .HtmlAttributes(new {@class = "block-panel-master-header"})
+                     .Expanded(true).Content(Content().ToHtmlString());
+                 
+                 panelbar.Add().Text(ASOFTLanguage.FindWordA00("A00.SystemInfo")).HtmlAttributes(new {@class = "block-panel-master-header"})
+                     .Content(Html.Partial("~/Views/Shared/EditorTemplates/SystemInfo.cshtml", Model.SystemInfo).ToHtmlString());
+
+                 panelbar.Add().Text(ASOFTLanguage.FindWordA00("A00.HistoryInfo")).HtmlAttributes(new { @class = "block-panel-master-header" })
+                     .Content(
+                     @Html.Action("Index", new { controller = "History", area = "", tableID = "DRT2030", ValueSearch = Model.PaidID }).ToString()
+                     );
+                 //Html.Partial("~/Views/Shared/EditorTemplates/AttachHistoryTabbar.cshtml", panelbar);
+             })
+      )

@@ -1,0 +1,141 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     25/08/2014      Đức Quý         Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.ViewModel
+@using ASOFT.ERP.ViewModel.HRM
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Entities.Database;
+@using Kendo.Mvc.UI
+@using ASOFT.ERP.ViewModel.DRM
+@model HF0405ViewModel
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.HF0405Title, "HF0405").ToHtmlString();
+    ViewBag.Width = 500;
+
+}
+
+@{
+    string headerTemplate = string.Format(@"
+    <ul class='k-list asf-combo-item-header'>
+    <li class='k-item asf-combo-item-header-text'>
+    <div class='asf-combo-item'>
+    
+        <div style='width:100px' class='k-state-default asf-combo-item-col-value'>{0}</div>
+        <div style='width:100px' class='k-state-default asf-combo-item-col-text'>{1}</div>
+    </div>
+    </li>
+    </ul>", Html.ASOFTLabel(model => model.EmployeeID), Html.ASOFTLabel(model => model.FullName));
+
+    string itemTemplate = @"
+    <div class='asf-combo-item k-item'>
+    
+        <div style='width:100px' class='k-state-default asf-combo-item-col-value  id-container'>${EmployeeID}</div>
+        <div style='width:100px' class='k-state-default asf-combo-item-col-text  name-container'>${FullName}</div>
+    </div>";
+}
+
+@Html.ASOFTHidden("UrlUpdate", Url.Action("Update"))
+@Html.ASOFTHidden("UrlLoadDataTeamID", Url.Action("LoadDataTeamID"))
+@Html.ASOFTHidden("UrlLoadDataEmployeeID", Url.Action("LoadDataEmployeeID"))
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "HF0405" }))
+{
+ <div class="asf-form-container">
+    <div class="form-content">
+            <table class="asf-table-view">              
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.DepartmentID)</td>
+                    <td>
+                    @(Html.ASOFTBussinessComboBox().ASOFTOODepartmentIDMuti(model => model.DepartmentID,showAll:true).Events(e=>e.Change("HF0405.comboDept_Changed"))
+                    )
+                    </td>
+                </tr>
+               <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.TeamID)</td>
+                    <td>
+                    @(Html.ASOFTBussinessComboBox().ASOFTOOTeamIDMuti(model => model.TeamID,screenID:"HF0405",showAll:true).Events(e =>
+                {
+                   e.Change("HF0405.comboTeam_Changed");
+                   e.Open("HF0405.TeamIDopen");
+                }))
+                    </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.EmployeeID)</td>
+                    <td>
+                   @* @(Html.ASOFTBussinessComboBox().ASOFTOOEmployeeIDHF0405(model => model.EmployeeID).Events(e =>
+                {
+                    //e.Change("HF0405.combo_Changed");
+                    e.Open("HF0405.EmployeeIDopen");
+                }))*@
+                         @(Html.Kendo().AutoCompleteFor(model => model.EmployeeID)
+                      .HighlightFirst(true)
+                      .Animation(animation => animation.Enable(false))
+                      .HtmlAttributes(new Dictionary<string, Object> {
+                          {"class","post-add-autocomplete"}, 
+                          {"height","32px"},
+                          {"data-bind", "value: EmployeeID"},
+                          {"style", "font-size: 14px"}
+                      })
+                      .MinLength(0)
+                      .DataTextField("EmployeeID")
+                      .Filter("contains")
+                      .HeaderTemplate(headerTemplate)
+                      .Template(itemTemplate)
+                      .Name("EmployeeID")
+                      .Events(e => e.Change("HF0405.Auto_Change").DataBound("ASOFT.asoftComboBox.dataBound")) 
+                      )
+
+                         @(Html.ASOFTButton(string.Empty, htmlStyle: new {width = "30px", height = "30px"})
+                                        .Name("btnChoose").HtmlAttributes(new {Class = "k-sprite asf-icon asf-icon-24 asf-i-search-24", Title = ASOFTLanguage.FindWordA00("A00.btnChoose")})
+                                        .Events(e => e.Click("HF0405.btnChoose_Click")))
+                    </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.VoucherDate)</td>
+                    <td>
+                    @(Html.ASOFTDateEdit(model => model.VoucherDate))
+                    </td>
+                </tr>
+            </table>
+    </div>
+</div>
+<div class="asf-form-button">
+    <table class="asf-table-view">
+        <tr>
+            <td align="right">
+                <div class="asf-popup-button-container">
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                              .Name("BtnClose")
+                              .Events(e => e.Click("HF0405.btnClose_Click")))
+                    </div>
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnActive"))
+                                .Name("BtnSaveClose")
+                                .Events(e => e.Click("HF0405.btnSave_Click")))
+                    </div>
+                            
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+}
+
+@section styleFeature{
+  <link href="@Url.Content("~/Areas/HRM/Content/Common.css")" rel="stylesheet" type="text/css" />
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/HRM/Scripts/HF0405/HF0405.js?v=" + ASOFTEnvironment.Version)"></script>
+   @* @Html.RenderScripts(files: new[] { "CRMF2061" })*@
+}

@@ -1,0 +1,20 @@
+﻿@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Entities.Infrastructure;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel;
+@using ASOFT.ERP.ViewModel.Helper;
+@model ASOFT.ERP.ViewModel.ASOFTSysFieldsViewModel
+
+    <div style="width:200px">
+         <div class="asf-filter-label">
+                <label for="Level">Level</label>
+        </div>
+          <div class="asf-filter-input">
+                @(Html.ASOFTBussinessComboBox()
+                .ASOFTLevelID_CI(model=> model.Data, Model.ColumnName, htmlAttributes: new {id = "LevelID"})
+                .Events(e => e.Change("CIF1142.ChangeComboLevelID")))
+          </div>
+    </div>
+    

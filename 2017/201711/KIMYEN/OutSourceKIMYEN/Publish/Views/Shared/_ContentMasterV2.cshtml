@@ -1,0 +1,164 @@
+﻿@using ASOFT.ERP.A00.Core;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool searchPeriodAvailable = IsSectionDefined("SearchPeriod");
+
+    string col4_css = string.Empty;
+}
+
+@helper Search() 
+{ 
+    string css_grid_num = string.Empty;
+    string col1_css = string.Empty;
+    string col2_css = string.Empty;
+    string col3_css = string.Empty;
+    
+    
+    if (IsSectionDefined("FilterCol3"))
+    {
+        col1_css = "grid_4 alpha col1";
+        col2_css = "grid_4_1 col2";
+        col3_css = "grid_4 omega float_right col3";
+        css_grid_num = "grid_4";
+    }
+    else
+    {
+        col1_css = "grid_6_1 alpha line_right";
+        col2_css = "grid_6_1 omega";
+        css_grid_num = "grid_6";
+    }
+    
+    if (!IsSectionDefined("FilterCol3"))
+            {
+<div class="@col1_css">
+                        <table class="asf-table-view">
+                            <thead>
+                                <tr class="tr-zero-height">
+                                    <td class="container_label col1_custom"></td>
+                                    <td class="container_control"></td>
+                                </tr>
+                            </thead>
+                            @RenderSection("FilterCol1")
+                </table>
+                    </div>
+                
+<div class="@col2_css">
+                        <table class="asf-table-view">
+                            <thead>
+                                <tr class="tr-zero-height">
+                                    <td class="container_label col2_custom"></td>
+                                    <td class="container_control"></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @RenderSection("FilterCol2")
+                </tbody>
+                        </table>
+                    </div>
+            }
+            else
+            {
+                <div id="FilterArea">
+                    <div class="container3">
+                        <div class="container2 line_right">
+                            <div class="container1 line_right">
+                                <div class="@col1_css">
+                                    <div class="asf-table-view">
+                                        @RenderSection("FilterCol1")
+                                    </div>
+                                </div>
+                                <div class="@col2_css">
+                                    <div class="asf-table-view">
+                                        @RenderSection("FilterCol2")
+                                    </div>
+                                </div>
+
+                                <div class="@col3_css">
+                                    <div class="asf-table-view">
+                                        @RenderSection("FilterCol3")
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+}
+
+            if (IsSectionDefined("DynamicSearch"))
+            {
+                    <div id="DynamicSearch" style="display: none">
+                        @RenderSection("DynamicSearch")
+                    </div>
+            }
+
+}
+
+@RenderBody()
+<div id="contentMaster">
+    <div class="asf-panel-filter container_12">
+        @if (IsSectionDefined("Header"))
+        {
+            @RenderSection("Header")
+        }
+    </div>
+    <div class="clearfix"></div>
+    <div class="asf-panel-filter container_12">
+        @using (Html.BeginForm(
+            null,
+            null,
+            FormMethod.Post,
+            new
+            {
+                id = "FormFilter"
+            })
+            )
+        {
+        @(Html.Kendo().PanelBar()
+              .Name("TabSearchCommon")
+              .HtmlAttributes(new { @class = "block-panel-master"})
+              .Events(m => m.Activate("ASOFT.panelFormat.fitColumnHeight"))
+              .Animation(animation => animation.Enable(true))
+              .Items(panelbar =>
+              {
+                  panelbar.Add().Text(ASOFTLanguage.FindWordA00("A00.SearchCondition"))
+                  .HtmlAttributes(new { @class = "block-panel-master-header-search", onclick = "tabSearchClick()"})
+                  .Expanded(true).Content(Search().ToHtmlString());
+              } )
+             )
+     
+            <div class="clearfix"></div>
+            <div class="container_12 asf-button-filter-container">
+                <div class="grid_6 alpha float_left">
+                    @if (IsSectionDefined("GridToolBar"))
+                    {
+                        @RenderSection("GridToolBar");
+                    }
+                </div>
+
+                <div class="grid_6 omega float_right">
+                    <ul class="vertical float_right">
+                        @if (IsSectionDefined("FilterButtons"))
+                        {
+                            @RenderSection("FilterButtons");
+                        }
+                    </ul>
+                </div>
+            </div>               
+        }
+    </div>
+    <div class="clearfix"></div>
+    @if (IsSectionDefined("Grid"))
+    {
+        @RenderSection("Grid");
+    }
+</div>
+
+
+@RenderSection("jsFeature", required: false)
+@RenderSection("styleFeature", required: false)
+<link id="RWDContent400" href="@Url.Content("~/Content/Styles/RWD/asoftRWD480px.css")" rel="stylesheet" type="text/css" />
+<link id="RWDContent600" href="@Url.Content("~/Content/Styles/RWD/asoftRWD600px.css")" rel="stylesheet" type="text/css" />

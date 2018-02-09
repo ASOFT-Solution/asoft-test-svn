@@ -1,0 +1,25 @@
+﻿.asf-width-20 {
+    float: left;
+    width: 18%;
+    margin-right: 15px;
+}
+
+.asf-width-20 .asf-filter-label {
+    width: 49% !important;
+}
+
+.asf-width-20 .asf-filter-input {
+    width: 49% !important;
+}
+
+.groupLocation {
+    margin-top:10px;
+}
+
+.asf-td-caption {
+    width: 40%;
+}
+
+.block-right {
+    padding-top: 10px;
+}

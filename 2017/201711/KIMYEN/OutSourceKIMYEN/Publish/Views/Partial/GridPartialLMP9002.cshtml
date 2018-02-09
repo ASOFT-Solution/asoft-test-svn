@@ -1,0 +1,186 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Created                Comment
+//#     28/07/2017      Kim Vũ                 Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.ViewModel.S 
+@using ASOFT.ERP.A00.Core
+@model ASOFT.ERP.LM.Entities.StoredProcedure.LMP9002
+@using ASOFT.ERP.ViewModel.Helper;
+
+@{
+    var gridsetting = new ASOFTGridSetting 
+    {
+        NameGrid = "GridPartialLMP9002", 
+        Scrollable = true,
+        ControllerName = "Partial",
+        ActionName = "GridDataLMP9002",
+        NameEventPost = "sendDataLMP9002",
+        IsShowCheck = true, 
+        IsAutoHeight = false,
+        HtmlAttribute = new { style = "height:250px;", @class = "asf-grid"} ,  
+        ListGridColumn= new List<ASOFTGridColumnSetting>
+        {
+            //new ASOFTGridColumnSetting
+            //{
+            //    IDColumn = "RowNum",
+            //    ClientTemplate = "#= renderNumber(data) #",
+            //    TitleColumn = ASOFTLanguage.FindWordA00("A00.Number"),
+            //    Width = 30,
+            //    VisibleColumn = true,
+            //    HtmlAttrCoulmns = (new {@class = "asf-cols-align-center"}),
+            //},
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "VoucherNo",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("LMF9000.VoucherNo", "LMF9000", "LM"),
+                Width = 120,
+                VisibleColumn = true,
+               
+            },
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "Serial",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("LMF9000.Serial", "LMF9000", "LM"),
+                Width = 70,
+                VisibleColumn = true,
+               
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "InvoiceNo",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("LMF9000.InvoiceNo","LMF9000", "LM"),
+                Width = 80,
+                VisibleColumn = true,
+                          
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "InvoiceDate",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("LMF9000.InvoiceDate","LMF9000", "LM"),                
+                Width = 80,
+                VisibleColumn = true,
+                          
+            },
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "ObjectID",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("LMF9000.ObjectID","LMF9000", "LM"),
+                Width = 80,
+                VisibleColumn = true,
+                           
+            },
+              new ASOFTGridColumnSetting
+            {
+                IDColumn = "ObjectName",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("LMF9000.ObjectName","LMF9000", "LM"),
+                Width = 150,
+                VisibleColumn = true,
+                       
+            },        
+
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "CurrencyID",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("LMF9000.CurrencyID","LMF9000", "LM"),                 
+                Width = 70,
+                VisibleColumn = true,
+                       
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "ExchangeRate",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("LMF9000.ExchangeRate","LMF9000", "LM"),
+                Width = 80,
+                FormatType = EnumFormatType.ExchangeRateDecimals,
+                VisibleColumn = true,
+                      
+            },           
+              new ASOFTGridColumnSetting
+            {
+                IDColumn = "OriginalAmount",
+                 FormatType = EnumFormatType.OriginalDecimals,
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("LMF9000.OriginalAmount","LMF9000", "LM"),
+                Width = 90,
+                VisibleColumn = true,
+                       
+            },   
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "ConvertedAmount",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("LMF9000.ConvertedAmount","LMF9000", "LM"),
+                Width = 90,
+                 FormatType = EnumFormatType.ConvertedDecimals,
+                VisibleColumn = true,
+                       
+            },   
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "DebitAccountID",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("LMF9000.DebitAccountID","LMF9000", "LM"),
+                Width = 70,
+                VisibleColumn = true,   
+            },              
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "CreditAccountID",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("LMF9000.CreditAccountID","LMF9000", "LM"),
+                Width = 70,
+                VisibleColumn = true,
+                       
+            },  
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "SalesTypeID",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("LMF9000.SalesTypeID","LMF9000", "LM"),
+                Width = 70,
+                VisibleColumn = true,
+                       
+            },  
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "CostTypeID",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("LMF9000.CostTypeID","LMF9000", "LM"),
+                Width = 70,
+                VisibleColumn = true,
+                       
+            },  
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "TDescription",
+                TitleColumn = LocalizedHelper.GetLocalizedResourceString("LMF9000.TDescription","LMF9000", "LM"),
+                Width = 150,
+                VisibleColumn = true,   
+            },
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = "TransactionID",
+                Width = 50,
+                VisibleColumn = false,   
+            },
+         }   
+      };            
+   }
+@(Html.ASOFTCreateGridNotPagging<ASOFT.ERP.LM.Entities.StoredProcedure.LMP9002>(gridsetting)) 
+  
+ 
+       
+        
+        
+        
+        
+    
+    
+    
+    
+    
+   
+    
+    
+
+

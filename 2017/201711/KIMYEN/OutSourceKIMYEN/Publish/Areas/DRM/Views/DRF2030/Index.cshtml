@@ -1,0 +1,81 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     25/08/2014      Đức Quý         Tạo mới
+//####################################################################
+*@
+
+@using System.Web.UI.WebControls
+@using ASOFT.ERP.ViewModel
+@using ASOFT.ERP.ViewModel.DRM;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Common;
+
+@model DRF2030ViewModel
+
+@{
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.DRF2030Title, "DRF2030").ToHtmlString();
+    Layout = "~/Views/Shared/_ContentMaster.cshtml";
+    ViewData.Add("MainView", this);
+}
+
+@section Header {
+    <!-- Header BreakCrumb -->
+    @Html.ASOFTHeader(new HeaderModel
+                          {
+                              Title = Html.ASOFTPageTitle(m => m.DRF2030Title, "DRF2030").ToHtmlString(),
+                              Breakcrumb = true
+                          })
+}
+
+@Html.Partial("FormFilter")
+
+<!-- Filter buttons -->
+@section FilterButtons {
+    <!-- Search button -->
+    <li>
+        @(Html.ASOFTSearchButton()
+              .Name("BtnFilterDRF2030")
+              .Events(e => e.Click("DRF2030.btnFilter_Click"))
+              )
+    </li>
+    
+    <!-- Reset button -->
+    <li>
+        @(Html.ASOFTSearchResetButton()
+            .Name("BtnResetFilterDRF2030")
+            .Events(e => e.Click("DRF2030.btnClearFilter_Click"))
+            )
+    </li>
+}
+
+@section GridToolBar {
+    <!-- Toolbar buttons -->
+    @Html.Partial("~/Views/Shared/EditorTemplates/Toolbar.cshtml", Model.Toolbar1 ?? new ASOFTToolBarViewModel())
+}
+
+@section Grid {
+    <!-- Grid master -->
+    @Html.Partial("GridPayment")
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRMSearchPeriod.js?v=" + ASOFTEnvironment.Version)"></script>
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF2030/DRF2030.js?v=" + ASOFTEnvironment.Version)"></script>
+@*    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF2030/DRF2031.js?v=" + ASOFTEnvironment.Version)"></script>*@
+    <script src="@Url.Content("~/Areas/DRM/Scripts/DRF2003/DRF2003.js?v=" + ASOFTEnvironment.Version)"></script>
+}
+
+@section styleFeature {
+   @* <link href="@Url.Content("~/Areas/DRM/Content/Common.css")" rel="stylesheet" type="text/css" />*@
+}
+@Html.ASOFTHidden("ScreenID", "DRF2030")
+@Html.ASOFTHidden("UrlDRF2031", Url.Action("DRF2031"))
+@Html.ASOFTHidden("UrlDRF2003", Url.Action("Index", "DRF2003", new { area = "DRM" }))
+@Html.ASOFTHidden("UrlDelete", Url.Action("Delete"))
+@Html.ASOFTHidden("UrlInsert", Url.Action("Insert"))
+@Html.ASOFTHidden("UrlCreatePaidID", Url.Action("CreateVoucherNo"))
+@Html.ASOFTHidden("UrlCheckContractNo", Url.Action("CheckContractNo"))

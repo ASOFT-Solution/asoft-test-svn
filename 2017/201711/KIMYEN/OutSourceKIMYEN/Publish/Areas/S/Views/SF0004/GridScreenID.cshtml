@@ -1,0 +1,58 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Created           Comment
+//#     26/11/2014      Hồ Hoàng Tú       Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.ViewModel.S 
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Entities
+@using ASOFT.ERP.S.Entities
+@model ASOFT.ERP.ViewModel.S.SF0004ViewModel
+@{  
+    var gridsetting = new ASOFTGridSetting
+    {
+        NameGrid = "SF0004Grid", 
+        Scrollable = true, 
+        ControllerName = "SF0004",
+        ActionName = "LoadGridData",
+        IsAutoHeight =  false,
+        NameEventPost = "SF0004.gridSendData",
+        IsShowCheck =false,      
+        HtmlAttribute = new {     style = "height:350px;",  @class = "asf-grid"   },
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = SF0004.COL_DATAID,
+                TitleColumn = Html.DisplayNameFor(model => model.DataID).ToHtmlString(),
+                Width = 50,
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = SF0004.COL_DATANAME,
+                TitleColumn = Html.DisplayNameFor(model => model.DataName).ToHtmlString(),
+                Width = 100,
+                VisibleColumn = true
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = SF0004.COL_PERMISSION,
+                TitleColumn = Html.DisplayNameFor(model => model.Permission).ToHtmlString(),
+                Width = 70,
+                VisibleColumn = true,
+                ClientTemplate = string.Format("<input id='{0}' type='checkbox' #= {0} == 1 ? 'checked' : '' # onchange='SF0004.checkBox_Changed(this)' style='width:100%' />",
+                                                                                SF0004.COL_PERMISSION),
+                HtmlAttrCoulmns = new { @class = "asf-cols-align-center", id = "notAllowedEnter" }
+            }
+        }
+        
+    };
+}
+@(Html.ASOFTCreateGridNotPagging<SF0004>(gridsetting))
+            

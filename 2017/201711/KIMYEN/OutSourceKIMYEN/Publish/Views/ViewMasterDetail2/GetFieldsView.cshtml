@@ -1,0 +1,86 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     13/03/2017      Quang Hoàng      Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.ViewModel;
+@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.ViewModel.Helper;
+@model IEnumerable<ASOFTSysFieldsViewModel>
+
+
+@{
+    string strContent = "<div class='asf-master-content' id='panelFields" + ViewBag.Table + "'>{0}</div>";
+    string strBlockFirst = "<div class='asf-content-block first' style='width: 29.916%;'>{0}</div>";
+    string strBlockMiddle = "<div class='asf-content-block middle' style='width: 29.916%;'>{0}</div>";
+    string strBlockLast = "<div class='asf-content-block last' style='width: 29.916%;'>{0}</div>";
+    string strTable = "<table class='asf-table-view'>{0}</table>";
+    string strTr = "<tr ><td class='content-label'>{0}</td><td class='dot'></td><td class='{2} content-text'>{1}</td></tr>";
+    string MainContent = string.Empty;
+    string Tr = string.Empty;
+    string Table = string.Empty;
+    string hide = string.Empty;
+    List<ASOFTSysFieldsViewModel> fieldHide = Model.ToList().FindAll(m => m.ViewVisible == 0) ?? new List<ASOFTSysFieldsViewModel>();
+
+    foreach (var itemHide in fieldHide)
+    {
+        hide = hide + "<div class='" + itemHide.ColumnName + "_" + itemHide.sysTable + "' hidden>" + itemHide.Data + "</div>";
+    }
+    IEnumerable<ASOFTSysFieldsViewModel> ListField = Model.Where(m => m.ViewVisible == 1);
+
+    int col3 = ListField.Count() != null ? ListField.Count() : 0;
+    int col1 = col3 / 3;
+    int col2 = 0;
+    if (col3 % 3 == 1)
+    {
+        col2 = (col1 * 2) + 1;
+        col1++;
+    }
+    else if (col3 % 3 == 2)
+    {
+        col1++;
+        col2 = col1 * 2;
+    }
+    else
+    {
+        col2 = col1 * 2;
+    }
+    int i = 0;
+
+    string BlockFirst = string.Empty;
+    string BlockMiddle = string.Empty;
+    string BlockLast = string.Empty;
+    for (; i < col1; i++)
+    {
+        ASOFTSysFieldsViewModel itemdata = ListField.ElementAt(i);
+        Tr += string.Format(strTr, itemdata.language, itemdata.Data, itemdata.ColumnName + "_" + itemdata.sysTable);
+    }
+    Table = string.Format(strTable, Tr);
+    Tr = string.Empty;
+    BlockFirst = string.Format(strBlockFirst, Table);
+    for (; i < col2; i++)
+    {
+        ASOFTSysFieldsViewModel itemdata = ListField.ElementAt(i);
+        Tr += string.Format(strTr, itemdata.language, itemdata.Data, itemdata.ColumnName + "_" + itemdata.sysTable);
+    }
+    Table = string.Format(strTable, Tr);
+    Tr = string.Empty;
+    BlockMiddle = string.Format(strBlockMiddle, Table);
+    for (; i < col3; i++)
+    {
+        ASOFTSysFieldsViewModel itemdata = ListField.ElementAt(i);
+        Tr += string.Format(strTr, itemdata.language, itemdata.Data, itemdata.ColumnName + "_" + itemdata.sysTable);
+    }
+    Table = string.Format(strTable, Tr);
+    Tr = string.Empty;
+    BlockLast = string.Format(strBlockLast, Table);
+    MainContent = string.Format(strContent, BlockFirst + BlockMiddle + BlockLast);
+}
+
+@Html.Raw(hide)
+@Html.Raw(MainContent)

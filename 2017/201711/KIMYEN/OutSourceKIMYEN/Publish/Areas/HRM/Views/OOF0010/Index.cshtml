@@ -1,0 +1,366 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     10/12/2015     Quang Chiến      Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.ViewModel
+@using ASOFT.ERP.ViewModel.HRM
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Entities.Database;
+@model OOF0010ViewModel
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.OOF0010Title, "OOF0010").ToHtmlString();
+    ViewBag.Width = 1024;
+
+   
+}
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "OOF0010" }))
+{        
+    @* @(Html.ASOFTButton().SpriteCssClass("asf-icon-logo_prev").HtmlAttributes(new { style =  "display:none;height: 30px;width: 35px; position: absolute;  z-index: 1;" })
+                              .Name("BtnPrev")
+                              .Events(e => e.Click("OOF0010.BtnPrev_Click"))
+                              )
+                 @(Html.ASOFTButton().SpriteCssClass("asf-icon-logo_next").HtmlAttributes(new { style =Model.DXP > 9 ? "display:none" :"height: 30px;width: 35px; position: absolute; left: 969px; z-index: 1;" })
+                              .Name("BtnNext")
+                              .Events(e => e.Click("OOF0010.BtnNext_Click"))
+                              )*@ 
+    @(Html.ASOFTTab()
+          .Name("OOF0010Tab")
+          .Items(tabstrip =>
+          {
+              tabstrip.Add().Text(Html.ASOFTRaw(model => model.OOF0010Tab01Title))
+                  .Selected(true)
+                  .HtmlAttributes(new { @id = "TabMaster01", @class = "k-tabstrip-items", style = "" })
+                  .ContentHtmlAttributes(new { @class = "asf-tab-content" })
+                  .Content(Tab01().ToHtmlString());              
+              
+              tabstrip.Add().Text(Html.ASOFTRaw(model => model.OOF0010Tab02Title))
+                .HtmlAttributes(new { @id = "TabMaster02", @class = "k-tabstrip-items", style = "" })
+                .ContentHtmlAttributes(new { @class = "asf-tab-content" })
+                .Content(Tab02().ToHtmlString());
+
+
+              tabstrip.Add().Text(Html.ASOFTRaw(model => model.OOF0010Tab03Title))
+                  .HtmlAttributes(new { @id = "TabMaster03", @class = "k-tabstrip-items", style = "" })
+                  .ContentHtmlAttributes(new { @class = "asf-tab-content" })
+                  .Content(Tab03().ToHtmlString());
+
+              tabstrip.Add().Text(Html.ASOFTRaw(model => model.OOF0010Tab04Title))
+                  .HtmlAttributes(new { @id = "TabMaster04", @class = "k-tabstrip-items", style = "" })
+                  .ContentHtmlAttributes(new { @class = "asf-tab-content" })
+                  .Content(Tab04().ToHtmlString());
+
+              tabstrip.Add().Text(Html.ASOFTRaw(model => model.OOF0010Tab05Title))
+                  .HtmlAttributes(new { @id = "TabMaster05", @class = "k-tabstrip-items", style = "" })
+                  .ContentHtmlAttributes(new { @class = "asf-tab-content" })
+                  .Content(Tab05().ToHtmlString());
+              tabstrip.Add().Text(Html.ASOFTRaw(model => model.OOF0010Tab06Title))
+                    .HtmlAttributes(new { @id = "TabMaster06", @class = "k-tabstrip-items", style = "" })
+                    .ContentHtmlAttributes(new { @class = "asf-tab-content" })
+                    .Content(Tab06().ToHtmlString());
+              
+          })
+    )
+}
+<div class="asf-form-button">
+    <table class="asf-table-view">
+        <tr>
+            <td align="right">
+                <div class="asf-popup-button-container">
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                              .Name("BtnClose")
+                              .Events(e => e.Click("OOF0010.btnClose_Click")))
+                    </div>
+                    <div>
+                        @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSave"))
+                                .Name("BtnSaveClose")
+                                .Events(e => e.Click("OOF0010.btnSave_Click")))                                
+                    </div>                            
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div id="ContentTab"></div>
+@helper Tab01()
+{
+  <div class="asf-form-container">
+        <div class="form-content">
+            <div class="form-content-left">
+                <table class="asf-table-view">
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.DXP)</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTSpinEdit(model => model.DXP)
+                            .Events(
+                                    e => e.Change("OOF0010.levelNumber_Change")
+                                )
+                            )
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.VoucherTypeID1)</td>
+                        <td class="asf-td-field" colspan="2">
+                           @(Html.ASOFTBussinessComboBox().ASOFTOOVoucherType(model => model.VoucherTypeID1)
+                                    .Events(e=>e.Change("OOF0010.combo_Changed")))
+                        </td>
+                    </tr>                   
+                </table>
+            </div>
+            <div class="form-content-right">
+                 @(Html.ASOFTButton().SpriteCssClass("asf-icon-logo_prev").HtmlAttributes(new { style = @*Model.DXP > 9 ? "display:none" :*@ "display:none;height: 30px;width: 35px; position: absolute;  z-index: 1;" })
+                              .Name("BtnPrevDXP")
+                              .Events(e => e.Click("OOF0010.BtnPrevDXP_Click"))
+                              )
+                 @(Html.ASOFTButton().SpriteCssClass("asf-icon-logo_next").HtmlAttributes(new { style = @*Model.DXP > 9 ? "display:none" :*@ "height: 30px;width: 35px; position: absolute; left: 969px; z-index: 1;" })
+                              .Name("BtnNextDXP")
+                              .Events(e => e.Click("OOF0010.BtnNextDXP_Click"))
+                              )
+                 <div id="tabstrip1"></div>
+            </div>
+        </div>
+    </div>
+}
+
+@helper Tab02()
+{
+  <div class="asf-form-container">
+        <div class="form-content">
+            <div class="form-content-left">
+                <table class="asf-table-view">
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.DXLTG)</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTSpinEdit(model => model.DXLTG)
+                                .Events(
+                                    e =>e.Change("OOF0010.levelNumber_Change")                                
+                                )
+                            )
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.VoucherTypeID2)</td>
+                        <td class="asf-td-field" colspan="2">
+                             @(Html.ASOFTBussinessComboBox().ASOFTOOVoucherType(model => model.VoucherTypeID2)
+                                    .Events(e=>e.Change("OOF0010.combo_Changed")))
+                        </td>
+                    </tr>                   
+                </table>
+            </div>
+            <div class="form-content-right">
+                @(Html.ASOFTButton().SpriteCssClass("asf-icon-logo_prev").HtmlAttributes(new { style = @*Model.DXLTG > 9 ? "display:none" : *@"display:none;height: 30px;width: 35px; position: absolute;  z-index: 1;" })
+                              .Name("BtnPrevDXLTG")
+                              .Events(e => e.Click("OOF0010.BtnPrevDXLTG_Click"))
+                              )
+                 @(Html.ASOFTButton().SpriteCssClass("asf-icon-logo_next").HtmlAttributes(new { style = @*Model.DXLTG > 9 ? "display:none" :*@"height: 30px;width: 35px; position: absolute; left: 969px; z-index: 1;" })
+                              .Name("BtnNextDXLTG")
+                              .Events(e => e.Click("OOF0010.BtnNextDXLTG_Click"))
+                              )
+                 <div id="tabstrip2"></div>
+            </div>
+        </div>
+    </div>
+}
+
+@helper Tab03()
+{
+  <div class="asf-form-container">
+        <div class="form-content">
+            <div class="form-content-left">
+                <table class="asf-table-view">
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.DXRN)</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTSpinEdit(model => model.DXRN)
+                                .Events(
+                                    e =>e.Change("OOF0010.levelNumber_Change")                                
+                                )
+                            )
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.VoucherTypeID3)</td>
+                        <td class="asf-td-field" colspan="2">
+                             @(Html.ASOFTBussinessComboBox().ASOFTOOVoucherType(model => model.VoucherTypeID3)
+                                    .Events(e=>e.Change("OOF0010.combo_Changed")))
+                        </td>
+                    </tr>    
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.AbsentTypeID)</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTBussinessComboBox().ASOFTAbsentTypeID(model => model.AbsentTypeID)
+                                    .Events(e => e.Change("OOF0010.combo_Changed")))
+                        </td>
+                    </tr>                   
+                </table>
+            </div>
+            <div class="form-content-right">
+                 @(Html.ASOFTButton().SpriteCssClass("asf-icon-logo_prev").HtmlAttributes(new { style = @*Model.DXRN > 9 ? "display:none" :*@ "display:none;height: 30px;width: 35px; position: absolute;  z-index: 1;" })
+                              .Name("BtnPrevDXRN")
+                              .Events(e => e.Click("OOF0010.BtnPrevDXRN_Click"))
+                              )
+                 @(Html.ASOFTButton().SpriteCssClass("asf-icon-logo_next").HtmlAttributes(new { style = @*Model.DXRN > 9 ? "display:none" :*@"height: 30px;width: 35px; position: absolute; left: 969px; z-index: 1;" })
+                              .Name("BtnNextDXRN")
+                              .Events(e => e.Click("OOF0010.BtnNextDXRN_Click"))
+                              )
+                 <div id="tabstrip3"></div>
+            </div>
+        </div>
+    </div>
+}
+
+@helper Tab04()
+{
+  <div class="asf-form-container">
+        <div class="form-content">
+            <div class="form-content-left">
+                <table class="asf-table-view">
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.DXBSQT)</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTSpinEdit(model => model.DXBSQT)
+                                .Events(
+                                    e =>e.Change("OOF0010.levelNumber_Change")                                
+                                )
+                            )
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.VoucherTypeID4)</td>
+                        <td class="asf-td-field" colspan="2">
+                             @(Html.ASOFTBussinessComboBox().ASOFTOOVoucherType(model => model.VoucherTypeID4)
+                                    .Events(e=>e.Change("OOF0010.combo_Changed")))
+                        </td>
+                    </tr>                   
+                </table>
+            </div>
+            <div class="form-content-right">
+                 @(Html.ASOFTButton().SpriteCssClass("asf-icon-logo_prev").HtmlAttributes(new { style = @*Model.DXBSQT > 9 ? "display:none" : *@"display:none;height: 30px;width: 35px; position: absolute;  z-index: 1;" })
+                              .Name("BtnPrevDXBSQT")
+                              .Events(e => e.Click("OOF0010.BtnPrevDXBSQT_Click"))
+                              )
+                 @(Html.ASOFTButton().SpriteCssClass("asf-icon-logo_next").HtmlAttributes(new { style = @*Model.DXBSQT > 9 ? "display:none" :*@"height: 30px;width: 35px; position: absolute; left: 969px; z-index: 1;" })
+                              .Name("BtnNextDXBSQT")
+                              .Events(e => e.Click("OOF0010.BtnNextDXBSQT_Click"))
+                              )
+                 <div id="tabstrip4"></div>
+            </div>
+        </div>
+    </div>
+}
+
+@helper Tab05()
+{
+  <div class="asf-form-container">
+        <div class="form-content">
+            <div class="form-content-left">
+                <table class="asf-table-view">
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.BPC)</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTSpinEdit(model => model.BPC)
+                                .Events(
+                                    e =>e.Change("OOF0010.levelNumber_Change")                                
+                                )
+                            )
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.VoucherTypeID5)</td>
+                        <td class="asf-td-field" colspan="2">
+                             @(Html.ASOFTBussinessComboBox().ASOFTOOVoucherType(model => model.VoucherTypeID5)
+                                    .Events(e=>e.Change("OOF0010.combo_Changed")))
+                        </td>
+                    </tr>                   
+                </table>
+            </div>
+            <div class="form-content-right">
+                @(Html.ASOFTButton().SpriteCssClass("asf-icon-logo_prev").HtmlAttributes(new { style =@* Model.BPC > 9 ? "display:none" :*@ "display:none;height: 30px;width: 35px; position: absolute;  z-index: 1;" })
+                              .Name("BtnPrevBPC")
+                              .Events(e => e.Click("OOF0010.BtnPrevBPC_Click"))
+                              )
+                 @(Html.ASOFTButton().SpriteCssClass("asf-icon-logo_next").HtmlAttributes(new { style =@* Model.BPC > 9 ? "display:none" :*@ "height: 30px;width: 35px; position: absolute; left: 969px; z-index: 1;" })
+                              .Name("BtnNextBPC")
+                              .Events(e => e.Click("OOF0010.BtnNextBPC_Click"))
+                              )
+                 <div id="tabstrip5"></div>
+            </div>
+        </div>
+    </div>
+}
+
+@helper Tab06()
+{
+  <div class="asf-form-container">
+        <div class="form-content">
+            <div class="form-content-left">
+                <table class="asf-table-view">
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.DXDC)</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTSpinEdit(model => model.DXDC)
+                                .Events(
+                                    e =>e.Change("OOF0010.levelNumber_Change")                                
+                                )
+                            )
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@Html.ASOFTLabel(model => model.VoucherTypeID6)</td>
+                        <td class="asf-td-field" colspan="2">
+                             @(Html.ASOFTBussinessComboBox().ASOFTOOVoucherType(model => model.VoucherTypeID6)
+                                    .Events(e=>e.Change("OOF0010.combo_Changed")))
+                        </td>
+                    </tr>                   
+                </table>
+            </div>
+            <div class="form-content-right">
+                @(Html.ASOFTButton().SpriteCssClass("asf-icon-logo_prev").HtmlAttributes(new { style =@* Model.BPC > 9 ? "display:none" :*@ "display:none;height: 30px;width: 35px; position: absolute;  z-index: 1;" })
+                              .Name("BtnPrevDXDC")
+                              .Events(e => e.Click("OOF0010.BtnPrevDXDC_Click"))
+                              )
+                 @(Html.ASOFTButton().SpriteCssClass("asf-icon-logo_next").HtmlAttributes(new { style =@* Model.BPC > 9 ? "display:none" :*@ "height: 30px;width: 35px; position: absolute; left: 969px; z-index: 1;" })
+                              .Name("BtnNextDXDC")
+                              .Events(e => e.Click("OOF0010.BtnNextDXDC_Click"))
+                              )
+                 <div id="tabstrip6"></div>
+            </div>
+        </div>
+    </div>
+}
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/HRM/Content/Common.css")" rel="stylesheet" type="text/css" />
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/HRM/Scripts/OOF0010/OOF0010.js?v=" + ASOFTEnvironment.Version)"></script>
+
+    }
+
+@Html.ASOFTHidden(model => model.SubLevel)
+@Html.ASOFTHidden(model => model.APKDXP)
+@Html.ASOFTHidden(model => model.APKDXLTG)
+@Html.ASOFTHidden(model => model.APKDXRN)
+@Html.ASOFTHidden(model => model.APKDXBSQT)
+@Html.ASOFTHidden(model => model.APKBPC)
+@Html.ASOFTHidden(model => model.APKDXDC)
+@Html.ASOFTHidden(model => model.IsLockDXP)
+@Html.ASOFTHidden(model => model.IsLockDXLTG)
+@Html.ASOFTHidden(model => model.IsLockDXRN)
+@Html.ASOFTHidden(model => model.IsLockDXBSQT)
+@Html.ASOFTHidden(model => model.IsLockBPC)
+@Html.ASOFTHidden(model => model.IsLockDXDC)
+@(Html.ASOFTHidden(OOT0010.COL_LASTMODIFYDATE,
+                                Model.LastModifyDate != null ? Model.LastModifyDate.Value.ToString("dd/MM/yyyy HH:mm:ss.fff") : ""))
+
+@Html.ASOFTHidden("UrlGetGridData", Url.Action("ParseGrid", "OOF0010"))
+@Html.ASOFTHidden("UrlUpdate", Url.Action("Update", "OOF0010"))

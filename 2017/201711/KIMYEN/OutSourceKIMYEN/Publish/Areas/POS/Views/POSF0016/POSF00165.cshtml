@@ -1,0 +1,49 @@
+﻿
+@using ASOFT.ERP.A00.Core
+@model POSF00165ViewModel
+@using System.Web.Optimization
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.A00.Core.MapperHelper;
+@using ASOFT.ERP.ViewModel.POS;
+@using XCaptcha.Web.Mvc;
+@using System.Web.UI.WebControls;
+@using ASOFT.ERP.ViewModel.Helper;
+
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = @Html.ASOFTPageTitle(@Html.PopupEditTitle(m => m.Title), "POSF00165").ToHtmlString();
+    ViewBag.Width = 800;
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "SOF2004" }))
+ {
+       <div class="asf-form-container container_12 pagging_bottom ">
+            <div class="grid_6_1 alpha float_left">
+                <table class="asf-table-view">
+                <tr>
+                    <td class="container_label">@Html.ASOFTLabel(model => model.InventoryID)</td>
+                    <td class="container_control" colspan="2">
+                        @Html.ASOFTTextBox(model => model.InventoryID,
+                            htmlStyle: new { width = Unit.Percentage(100) }).ReadOnlyIf(true)
+                    </td>
+                </tr>
+                </table>
+            </div>
+            <div class="grid_6 omega float_right line_left_with_grid">
+                <table class="asf-table-view">
+                <tr>
+                    <td class="container_label">@Html.ASOFTLabel(model => model.InventoryName)</td>
+                    <td class="container_control" colspan="2">
+                        @Html.ASOFTTextBox(model => model.InventoryName,
+                            htmlStyle: new { width = Unit.Percentage(100) }).ReadOnlyIf(true)
+                    </td>
+                </tr>
+                </table>
+            </div>
+       </div>
+        <div class="asf-form-container container_12 pagging_bottom ">
+           @Html.Partial("GridInventoryPOSF00165")
+        </div>
+}
+
+<script src="@Url.Content("~/Areas/POS/Scripts/POSF00165.js")" type="text/javascript"></script>

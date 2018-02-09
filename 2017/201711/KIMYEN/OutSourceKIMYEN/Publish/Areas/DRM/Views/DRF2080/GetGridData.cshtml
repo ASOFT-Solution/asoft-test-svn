@@ -1,0 +1,106 @@
+﻿@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Entities.Database
+@using ASOFT.ERP.ViewModel.DRM
+@using ASOFT.ERP.DRM.Entities
+@model DRF2080ViewModel
+@{
+    var hrefContractTM = Url.Content("~/DRM/DRF2000/DRF2002/?apk=#:APKD10#");
+    var hrefContractTD = Url.Content("~/DRM/DRF2010/DRF2012/?apk=#:APKD10#");
+    var gridsetting = new ASOFTGridSetting
+                          {
+                              NameGrid = "DRF2080Grid",
+                              NameEventPost = "DRF2080.sendDataFilter",
+                              Scrollable = true,
+                              ActionName = "GetGridData",
+                              ControllerName = "DRF2080",
+                              HtmlAttribute = new {style = "height:590px;", @class = "asf-grid"},
+                              IsShowCheck = true,
+                              ListGridColumn = new List<ASOFTGridColumnSetting>{
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2080.COL_ROWNUM,
+                                                               TitleColumn = ASOFTLanguage.FindWordA00("A00.Order"),
+                                                               Width = 50,
+                                                               VisibleColumn = true,
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2080.COL_BRANCHID,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.BranchID),
+                                                               Width = 50,
+                                                               VisibleColumn = true,
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2080.COL_VOUCHERNO,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.VoucherNo),
+                                                               Width = 100,
+                                                               VisibleColumn = true,
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2080.COL_SENDNO,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.SendNo),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                           },                                        
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2080.COL_CONTRACTNO,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.ContractNo),
+                                                               Width = 180,
+                                                               VisibleColumn = true,
+                                                               ClientTemplate = "<a href=# if(DebtGroupID == 'NTM'){ #" + hrefContractTM + " #}else{# " + hrefContractTD + " #}#>#:ContractNo !=null? ContractNo:''#</a>",
+                                                              },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2080.COL_DISPATHTYPENAME,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.DispathTypeName),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                           },
+                                         new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2080.COL_CUSTOMERNAME,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.CustomerName),
+                                                               Width = 250,
+                                                               VisibleColumn = true,       
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2080.COL_DEBTORID,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.DebtorID),
+                                                               Width = 100,
+                                                               VisibleColumn = true,       
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2080.COL_DEBTORNAME,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.DebtorName),
+                                                               Width = 200,
+                                                               VisibleColumn = true,
+                                                           },  
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2080.COL_TEAMID,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.TeamID),
+                                                               Width = 100,
+                                                               VisibleColumn = true,
+                                                           },    
+                                        
+                                       new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP2080.COL_SENDDATE,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.SendDate),
+                                                               Width = 100,
+                                                               VisibleColumn = true,
+                                                           }
+                                
+                              }
+                          };
+}
+
+
+
+@(Html.ASOFTCreateGrid<ASOFT.ERP.DRM.Entities.DRP2080>(gridsetting,false))

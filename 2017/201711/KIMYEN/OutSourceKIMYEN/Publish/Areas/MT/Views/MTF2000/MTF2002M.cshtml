@@ -1,0 +1,18 @@
+﻿@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Entities.Infrastructure;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.MT.Entities;
+@using Kendo.Mvc;
+@using ASOFT.ERP.ViewModel;
+@model ASOFT.ERP.ViewModel.MT.MTF2000ViewModel
+
+<div class="asf-panel-master-header">
+    @*@Html.Partial("~/Views/Shared/Action/Action.cshtml")*@
+    <div class="asfbtn asfbtn-right">
+            @Html.Partial("~/Views/Shared/EditorTemplates/Toolbar.cshtml", Model.Toolbar1 ?? new ASOFTToolBarViewModel())
+    </div>
+</div>
+<div id="viewPartial" >
+    @Html.Partial("MTF2002MPartial")
+</div>
+

@@ -1,0 +1,170 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     10/12/2015     Quang Chiến      Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.ViewModel
+@using ASOFT.ERP.ViewModel.HRM
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Entities.Database;
+@model HF0404ViewModel
+
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.HF0404Title, "HF0404").ToHtmlString();
+    ViewBag.Width = 1042;
+    
+}
+
+@Html.ASOFTHidden("UrlLoadDataTeamID", Url.Action("LoadDataTeamID"))
+@Html.ASOFTHidden("UrlSave", Url.Action("Save"))
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "HF0404" }))
+{ 
+    <div class="asf-form-container">
+        <!--Begin: asf-form-container -->
+        <div class="form-content">
+            <!--Begin:form-content -->
+            <table class="asf-table-view">
+                <tr>
+                    <td class="asf-td-grid-caption">@Html.ASOFTLabel(model => model.MethodVacationID)</td>
+                    <td class="asf-td-grid-field" colspan="2">
+                        @(Html.ASOFTBussinessComboBox().ASOFTOOMethodVacationID(model => model.MethodVacationID, option: new ComboOption() { EventRequestEnd = "HF0404.cboMethodVacationID_EventRequestEnd" })
+                              .Events(e => e.Change("HF0404.MethodVacationID_Change").DataBound("HF0404.MethodVacationID_Databound")))
+                    </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-grid-caption">@Html.ASOFTLabel(model => model.MethodVacationName)</td>
+                    <td class="asf-td-grid-field" colspan="7">
+                        @(Html.ASOFTTextBox(model => model.MethodVacationName))
+                    </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-grid-caption">@Html.ASOFTLabel(model => model.DepartmentID)</td>
+                    <td class="asf-td-grid-field" colspan="2">
+                        @(Html.ASOFTBussinessComboBox().ASOFTOODepartmentIDMuti(model => model.DepartmentID,showAll:true)
+                              .SelectedIndex(0)
+                              .Events(e => e.Change("HF0404.DepartmentID_Changed")))
+                    </td>
+                    <td class="asf-td-grid-space" colspan="3"></td>
+                    <td class="asf-td-grid-caption">@Html.ASOFTLabel(model => model.TeamID)</td>
+                    <td class="asf-td-grid-field" colspan="2">
+                        @(Html.ASOFTBussinessComboBox().ASOFTOOTeamIDMuti(model => model.TeamID, screenID: "HF0404",showAll:true)
+                              .SelectedIndex(0)
+                              .Events(e =>
+                              {
+                                  e.Change("HF0404.TeamID_Changed");
+                                  e.Open("HF0404.TeamIDopen");
+                              }))
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!--End:form-content -->
+
+        <div class="form-content">
+            <!--Begin:form-content -->
+            <div class="form-content-grid-left">
+                <table class="asf-table-view">
+                    <tr>
+                        <td class="asf-td-caption" colspan="3">@Html.ASOFTLabel(model => model.Grid1Title)</td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption" colspan="3">
+                            @Html.Partial("GetGridData1")
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="form-content-grid-right">
+                <table class="asf-table-view">
+                    <tr>
+                        <td class="asf-td-caption" colspan="3">@Html.ASOFTLabel(model => model.Grid2Title)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="asf-td-caption" colspan="3">
+                            @Html.Partial("GetGridData2")
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="asf-btn-arrow">
+                <!--Begin:asf-btn-arrow -->
+                <tr>
+                    <td>
+                        <ul class="middle-buttons">
+                            <li class="button1">@(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnChangeSingle"))
+                                      .Name("changeSingle")
+                                      .Events(m => m.Click("HF0404.btn_ChangeSingle")))
+                            </li>
+                            <li class="button2">@(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnChangeReturn"))
+                                                      .Name("returnSingle")
+                                                      .Events(e => e.Click("HF0404.btn_UnChangeSingle")))
+                            </li>
+                            <li class="button3">@(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnChangeAll"))
+                                                      .Name("returnChangeAll" )
+                                                      .Events(e => e.Click("HF0404.btn_ChangeAll"))
+                                                      )
+                            </li>
+                            <li class="button4">@(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnReturnAll"))
+                                                       .Name("ReturnAll")
+                                                       .Events(e => e.Click("HF0404.btn_ReturnAll"))
+                                                        )
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+            </div>
+            <!--End:asf-btn-arrow -->
+
+        </div>
+        <!--End:form-content -->
+
+    </div> <!--End:asf-form-container -->  
+    <div class="asf-form-button">
+        <!--Begin:asf-table-view-->
+        <table class="asf-table-view">
+            <tr>
+                <td align="right">
+                    <div class="asf-popup-button-container">
+                        <div>
+                            @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                              .Name("BtnClose")
+                              .Events(e => e.Click("HF0404.btnClose_Click")))
+                        </div>
+                        <div>
+                            @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSave"))
+                                .Name("BtnSaveCopy")
+                                .Events(e => e.Click("HF0404.btnSaveCopy_Click")))
+                        </div>
+                        @*<div>
+                            @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSaveNew"))
+                                .Name("btnSave")
+                                .Events(e => e.Click("HF0404.btnSaveNext_Click")))
+                        </div>*@
+
+                    </div>
+                </td>
+
+            </tr>
+        </table>
+    </div>
+    <!--End:asf-table-view-->
+}
+
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/HRM/Content/Common.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Areas/HRM/Content/HF0404.css")" rel="stylesheet" type="text/css" />
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/HRM/Scripts/HF0404/HF0404.js?v=" + ASOFTEnvironment.Version)"></script>
+}

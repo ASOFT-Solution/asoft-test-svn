@@ -1,0 +1,70 @@
+﻿@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.ViewModel.MT;
+
+@model MTF1010ViewModel
+@{
+    var gridsetting = new ASOFT.ERP.A00.Core.Control.ASOFTGridSetting
+    {
+        NameGrid = "MTF1010Grid", 
+        NameEventPost = "MTF1010.sendDataFilter", 
+        IsShowCheck = true,
+        Scrollable = true, 
+        ActionName = "GetListLevel", 
+        ControllerName = "MTF1010", 
+        HtmlAttribute = new {style = "height:590px;", @class = "asf-grid"}, 
+        ListGridColumn = new List<ASOFTGridColumnSetting>
+        {
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = "RowNum",
+                TitleColumn = ASOFTLanguage.FindWordA00("A00.Order"),
+                Width = 50,
+                VisibleColumn = true,
+            },
+            
+             new ASOFTGridColumnSetting
+            {
+                IDColumn = MTT1010.COL_DIVISIONID,
+                TitleColumn = Html.DisplayNameFor(model => model.DivisionID).ToHtmlString(),
+                Width = 80,
+                HtmlAttrCoulmns = new { @class = "asf-cols-align-center" },
+                VisibleColumn = true
+            },
+            
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = MTT1010.COL_LEVELID,
+                TitleColumn = Html.ASOFTRaw(model => model.LevelID),
+                Width = 100,
+                VisibleColumn = true,
+                ClientTemplate = "<a href=" + Url.Content("~/MT/MTF1010/MTF1012?LevelID=#=LevelID#") + ">#:LevelID#</a>",
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = MTT1010.COL_LEVELNAME,
+                TitleColumn = Html.ASOFTRaw(model => model.LevelName),
+                Width = 200,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = MTT1010.COL_NOTES,
+                TitleColumn = Html.ASOFTRaw(model => model.Notes),
+                Width = 280,
+                VisibleColumn = true,
+            },
+            new ASOFTGridColumnSetting
+            {
+                IDColumn = MTF100001.COL_DISABLED,
+                TitleColumn = Html.ASOFTRaw(model => model.Disabled),
+                Width = 70,
+                VisibleColumn = true,
+                HtmlAttrCoulmns = new { @class = "asf-cols-align-center" },
+                ClientTemplate = "<input type='checkbox' #=( Disabled ? 'checked' : '')# onclick='return false;' disabled=disabled />"
+            },
+        }
+    };
+}
+
+@(Html.ASOFTCreateGrid<MTF1010GridViewModel>(gridsetting))

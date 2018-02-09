@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Width = 800;
+}
+
+<h2>Index</h2>
+dfjkhdjkghlks 
+View Home
+yeah yeah yeah yeah
+
+<button onclick="ClosePopup()"> đóng </button>
+
+<script>
+    function ClosePopup()
+    {
+        //parent.XuLyData($("#DataCon").val());
+        parent.$("#GiaSanPham").val($("#DataCon").val());
+        parent.popupPluginClose();
+    }
+</script>

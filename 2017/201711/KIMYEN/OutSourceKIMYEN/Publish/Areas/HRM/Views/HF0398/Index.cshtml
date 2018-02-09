@@ -1,0 +1,199 @@
+﻿@*//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Updater         Comment
+//#     17/12/2016      Văn Tài         Tạo mới
+//####################################################################*@
+
+@using ASOFT.ERP.ViewModel
+@using ASOFT.ERP.ViewModel.HRM
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.A00.Core.Control;
+@using ASOFT.ERP.A00.Entities.Database;
+
+@using ASOFT.ERP.ViewModel.DRM;
+@using Kendo.Mvc.UI.Html
+@using Kendo.Mvc
+@using System.Web.Mvc;
+@model HF0398ViewModel
+
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = Html.ASOFTPageTitle(m => m.HF0398Title, "HF0398").ToHtmlString();
+    ViewBag.Width = 800;
+
+    // Form Status
+    bool isInsert = Model.FormStatus.Equals(ASOFTFormActionType.AddNew);
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "HF0398" }))
+{
+    <div class="asf-form-container">
+        <div class="form-content">
+            <table class="asf-table-view">
+                <tr>
+                    <td class="asf-td-caption">@Html.ASOFTLabel(model => model.MethodVacationID)</td>
+                    <td class="asf-td-field">
+                        @Html.ASOFTTextBox(model => model.MethodVacationID).ReadOnlyIf(!isInsert)
+                    </td>
+                    <td class="asf-td-caption" style="padding-left: 20px;  width:150px !important;">
+                        @Html.ASOFTLabel(model => model.VacationDay)
+                    </td>
+
+                    <td class="asf-td-field">
+                        @Html.ASOFTHolidayDecimal(model => model.VacationDay)
+                    </td>
+                    <td class="asf-td-field" style="padding-left: 20px;">
+                        @Html.ASOFTCheckbox(model => model.Disabled)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="asf-td-caption">
+                        @Html.ASOFTLabel(model => model.MethodVacationName)
+                    </td>
+                    <td class="asf-td-field" colspan="7">
+                        @Html.ASOFTTextBox(model => model.MethodVacationName)
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <div class="asf-form-container" style="width: 49% !important;">
+
+        <table class="asf-table-view">
+            <tr>
+                <td class="asf-td-caption" colspan="1">@Html.ASOFTLabel(model => model.SeniorityID)</td>
+                <td class="asf-td-field" colspan="2">
+                    @Html.ASOFTBussinessComboBox().ASOFTOOSeniorityID(model => model.SeniorityID).Events(e => e.Change("HF0398.combo_Changed"))
+                </td>
+            </tr>
+        </table>
+
+        <table class="asf-table-view">
+            <tr>
+                <td class="asf-td-caption" colspan="3">@Html.ASOFTCheckbox(model => model.IsToMonthPlus)</td>
+                <td class="asf-td-field" colspan="1" style="width: 90px;">
+                    @*@Html.ASOFTTextBox(model => model.ToMonthPlus)*@
+                     @Html.ASOFTSpinEdit(model => model.ToMonthPlus).Min(1).Max(12)
+                </td>
+                <td class="asf-td-caption" colspan="1">@Html.ASOFTLabel(model => model.ToMonthPlus)</td>
+            </tr>
+            <tr>
+                <td class="asf-td-caption" colspan="5" style="padding-top: 10px; font-weight: bold;">@Html.ASOFTLabel(model => model.Title3)</td>
+            </tr>
+            <tr>
+                <td class="asf-td-field" colspan="1">
+                    @Html.ASOFTRadioButton(model => model.IsPrevVacationDay, 0, new { id = "rdoDateIsPrevVacationDay" }).CheckedIf(isInsert || Model.IsPrevVacationDay == 0)
+                </td>
+                <td class="asf-td-caption" colspan="2">@Html.ASOFTLabel(model => model.IsPrevVacationDay1)</td>
+                <td class="asf-td-caption" colspan="1">
+                    @Html.ASOFTHolidayDecimal(model => model.MaxPrevVacationDay)
+                </td>
+                <td class="asf-td-field" colspan="1">@Html.ASOFTLabel(model => model.MaxPrevVacationDay)</td>
+            </tr>
+            <tr>
+                <td class="asf-td-field" colspan="1">
+                    @Html.ASOFTRadioButton(model => model.IsPrevVacationDay, 1, new { id = "rdoFilterIsPrevVacationDay" }).CheckedIf(isInsert || Model.IsPrevVacationDay == 1)
+                </td>
+                <td class="asf-td-caption" colspan="4">@Html.ASOFTLabel(model => model.IsPrevVacationDay2)</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="asf-form-container" style="width: 49%; float: right;">
+        <table class="asf-table-view">
+            <tr>
+                <td class="asf-td-caption" colspan="2" style="font-weight: bold;">
+                    @Html.ASOFTLabel(model => model.Title1)
+                </td>
+                <td class="asf-td-field" colspan="1">
+                    @Html.ASOFTRadioButton(model => model.IsWorkDate, 0, new { id = "rdoFilterIsWorkDate" }).CheckedIf(isInsert || Model.IsWorkDate == 0)
+                </td>
+                <td class="asf-td-caption" colspan="1">
+                    @Html.ASOFTLabel(model => model.IsWorkDate1)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+                <td class="asf-td-field">
+                    @Html.ASOFTRadioButton(model => model.IsWorkDate, 1, new { id = "rdoFilterIsWorkDate" }).CheckedIf(isInsert || Model.IsWorkDate == 1)
+                </td>
+                <td class="asf-td-caption">
+                    @Html.ASOFTLabel(model => model.IsWorkDate2)
+                </td>
+            </tr>
+
+            <tr>
+                <td class="asf-td-caption" colspan="2" style="font-weight: bold;">
+                    @Html.ASOFTLabel(model => model.Title2)
+                </td>
+                <td class="asf-td-field" colspan="1">
+                    @Html.ASOFTRadioButton(model => model.IsManagaVacation, 0, new { id = "rdoFilterIsManagaVacation" }).CheckedIf(isInsert || Model.IsManagaVacation == 0)
+                </td>
+                <td class="asf-td-caption" colspan="1">
+                    @Html.ASOFTLabel(model => model.IsManagaVacation1)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+                <td class="asf-td-field">
+                    @Html.ASOFTRadioButton(model => model.IsManagaVacation, 1, new { id = "rdoFilterIsManagaVacation" }).CheckedIf(isInsert || Model.IsManagaVacation == 1)
+                </td>
+                <td class="asf-td-caption">
+                    @Html.ASOFTLabel(model => model.IsManagaVacation2)
+                </td>
+            </tr>
+        </table>
+    </div>
+    
+    <div class="asf-form-button">
+        <table class="asf-table-view">
+            <tr>
+                <td>
+                    <div class="asf-popup-button-container">
+                        <div>
+                            @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                              .Name("BtnClose")
+                              .Events(e => e.Click("HF0398.btnClose_Click")))
+                        </div>
+                        <div>
+                            @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSaveCopy"))
+                                .Name("BtnSaveCopy")
+                                .Events(e => e.Click("HF0398.btnSaveCopy_Click"))
+                                .HideIf(!isInsert))
+                        </div>
+                        <div>
+                            @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSaveNew"))
+                                .Name("btnSaveDRF2011")
+                                .Events(e => e.Click("HF0398.btnSaveNext_Click"))
+                                .HideIf(!isInsert))
+                        </div>
+                        <div>
+                            @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSave"))
+                                .Name("BtnSaveClose")
+                                .Events(e => e.Click("HF0398.btnSave_Click"))
+                                .HideIf(isInsert))
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+}
+
+@Html.ASOFTHidden("URLInsert", Url.Action("Insert"))
+@Html.ASOFTHidden("URLUpdate", Url.Action("Update"))
+
+
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/HRM/Content/Common.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Areas/HRM/Content/HF0398.css")" rel="stylesheet" type="text/css" />
+}
+
+@section jsFeature {
+    <script src="@Url.Content("~/Areas/HRM/Scripts/HF0398/HF0398.js?v=" + ASOFTEnvironment.Version)"></script>
+    @* @Html.RenderScripts(files: new[] { "CRMF2061" })*@
+}

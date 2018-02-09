@@ -1,0 +1,204 @@
+﻿@model SOF2003ViewModel
+@using System.Web.Optimization
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.A00.Core.MapperHelper;
+@using ASOFT.ERP.ViewModel.SO;
+@using XCaptcha.Web.Mvc;
+@using System.Web.UI.WebControls;
+@using ASOFT.ERP.ViewModel.Helper;
+@using ASOFT.ERP.A00.Core
+
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Width = 600;
+    ViewBag.Title = Html.ASOFTPageTitle(@Html.PopupEditTitle(m => m.SOF2003Title), "SOF2003").ToHtmlString();
+    List<ASOFT.ERP.A00.Entities.Database.OT0005> list = ViewBag.List;
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "SOF2003" }))
+{ 
+    <div class="asf-form-container">
+          <div class="form-content">
+              @if (list.Count > 0) {
+                <table class="asf-table-view">
+                    <tr>
+                        <td class="asf-td-caption">@list[0].UserName</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTTextBox(model => model.Varchar01, htmlAttribute: new { initValue = Model.Varchar01 })
+                                    .DisabledIf(list[0].IsUsed != 1))
+                        </td>
+                    </tr>
+                     <tr>
+                        <td class="asf-td-caption">@list[1].UserName</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTTextBox(model => model.Varchar02, htmlAttribute: new { initValue = Model.Varchar02 })
+                                    .DisabledIf(list[1].IsUsed != 1))
+                        </td>
+                    </tr>
+                     <tr>
+                        <td class="asf-td-caption">@list[2].UserName</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTTextBox(model => model.Varchar03, htmlAttribute: new { initValue = Model.Varchar03 })
+                                    .DisabledIf(list[2].IsUsed != 1))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@list[3].UserName</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTTextBox(model => model.Varchar04, htmlAttribute: new { initValue = Model.Varchar04 })
+                                    .DisabledIf(list[3].IsUsed != 1))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@list[4].UserName</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTTextBox(model => model.Varchar05, htmlAttribute: new { initValue = Model.Varchar05 })
+                                    .DisabledIf(list[4].IsUsed != 1))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@list[5].UserName</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTTextBox(model => model.Varchar06, htmlAttribute: new { initValue = Model.Varchar06 })
+                                    .DisabledIf(list[5].IsUsed != 1))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@list[6].UserName</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTTextBox(model => model.Varchar07, htmlAttribute: new { initValue = Model.Varchar07 })
+                                    .DisabledIf(list[6].IsUsed != 1))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@list[7].UserName</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTTextBox(model => model.Varchar08, htmlAttribute: new { initValue = Model.Varchar08 })
+                                    .DisabledIf(list[7].IsUsed != 1))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@list[8].UserName</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTTextBox(model => model.Varchar09, htmlAttribute: new { initValue = Model.Varchar09 })
+                                    .DisabledIf(list[8].IsUsed != 1))
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="asf-td-caption">@list[9].UserName</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTTextBox(model => model.Varchar10, htmlAttribute: new { initValue = Model.Varchar10 })
+                                    .DisabledIf(list[9].IsUsed != 1))
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="asf-td-caption">@list[10].UserName</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTTextBox(model => model.Varchar11, htmlAttribute: new { initValue = Model.Varchar11 })
+                                    .DisabledIf(list[10].IsUsed != 1))
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="asf-td-caption">@list[11].UserName</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTTextBox(model => model.Varchar12, htmlAttribute: new { initValue = Model.Varchar12 })
+                                    .DisabledIf(list[11].IsUsed != 1))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@list[12].UserName</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTTextBox(model => model.Varchar13, htmlAttribute: new { initValue = Model.Varchar13 })
+                                    .DisabledIf(list[12].IsUsed != 1))
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="asf-td-caption">@list[13].UserName</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTTextBox(model => model.Varchar14, htmlAttribute: new { initValue = Model.Varchar14 })
+                                    .DisabledIf(list[13].IsUsed != 1))
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="asf-td-caption">@list[14].UserName</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTTextBox(model => model.Varchar15, htmlAttribute: new { initValue = Model.Varchar15 })
+                                    .DisabledIf(list[14].IsUsed != 1))
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="asf-td-caption">@list[15].UserName</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTTextBox(model => model.Varchar16, htmlAttribute: new { initValue = Model.Varchar16 })
+                                    .DisabledIf(list[15].IsUsed != 1))
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="asf-td-caption">@list[16].UserName</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTTextBox(model => model.Varchar17, htmlAttribute: new { initValue = Model.Varchar17 })
+                                    .DisabledIf(list[16].IsUsed != 1))
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="asf-td-caption">@list[17].UserName</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTTextBox(model => model.Varchar18, htmlAttribute: new { initValue = Model.Varchar18 })
+                                    .DisabledIf(list[17].IsUsed != 1))
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="asf-td-caption">@list[18].UserName</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTTextBox(model => model.Varchar19, htmlAttribute: new { initValue = Model.Varchar19 })
+                                    .DisabledIf(list[18].IsUsed != 1))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="asf-td-caption">@list[19].UserName</td>
+                        <td class="asf-td-field" colspan="2">
+                            @(Html.ASOFTTextBox(model => model.Varchar20, htmlAttribute: new { initValue = Model.Varchar20 })
+                                    .DisabledIf(list[19].IsUsed != 1))
+                        </td>
+                    </tr>
+                </table>
+              }
+          </div>
+
+        <div class="asf-form-button">
+            <table class="asf-table-view">
+                <tr>
+                    <td align="right">
+                        <div class="asf-popup-button-container">
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnClose"))
+                                .Name("BtnClose")
+                                .Events(e => e.Click("btnCancle_Click")))
+                            </div>
+                            <div>
+                                @(Html.ASOFTButton(ASOFTLanguage.FindWordA00("A00.btnSave"))
+                                .Name("btnSaveNew")
+                                .Events(e => e.Click("btnSaveVarchar_Click"))
+                                )
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+}
+
+
+<script src="@Url.Content("~/Areas/SO/Scripts/SOF2003/SOF2003.js")" type="text/javascript"></script>
+

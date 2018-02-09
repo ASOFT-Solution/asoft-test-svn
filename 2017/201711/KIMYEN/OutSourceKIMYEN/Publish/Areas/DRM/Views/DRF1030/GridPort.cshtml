@@ -1,0 +1,64 @@
+﻿
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Entities.Database
+@using ASOFT.ERP.ViewModel.DRM
+@using ASOFT.ERP.DRM.Entities
+@model DRF1030ViewModel
+@{
+    var gridsetting = new ASOFTGridSetting
+                          {
+                              NameGrid = "DRF1030Grid",
+                              NameEventPost = "DRF1030.sendDataFilter",
+                              Scrollable = true,
+                              ActionName = "GetDRF1030GridData",
+                              ControllerName = "DRF1030",
+                              HtmlAttribute = new {style = "height:590px;", @class = "asf-grid"},
+                              IsShowCheck = true,
+                              ListGridColumn = new List<ASOFTGridColumnSetting>{
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = "RowNum",
+                                                               TitleColumn = ASOFTLanguage.FindWordA00("A00.Order"),
+                                                               Width = 50,
+                                                               VisibleColumn = true,
+                                                           },
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP1030.COL_PORTID,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.PortID),
+                                                               Width = 150,
+                                                               VisibleColumn = true,
+                                                                ClientTemplate = string.Format("<a href='{0}'>#:{1}#</a>", 
+                                                                        Url.Content(string.Format("~/DRM/DRF1030/DRF1032/?PortID=#:{0}#", DRP1030.COL_PORTID)),
+                                                                        DRP1030.COL_PORTID),
+                                                           },  
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP1030.COL_DESCRIPTION,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.Description),
+                                                               Width = 200,
+                                                               VisibleColumn = true,
+                                                           },
+                                         new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP1030.COL_NOTES,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.Notes),
+                                                               Width = 200,
+                                                               VisibleColumn = true,       
+                                                           },                                      
+                                        new ASOFTGridColumnSetting
+                                                           {
+                                                               IDColumn = DRP1030.COL_DISABLED,
+                                                               TitleColumn = Html.ASOFTRaw(model=>model.Disabled),
+                                                               Width = 120,
+                                                               VisibleColumn = true,
+                                                               ClientTemplate = "<input type='checkbox' #= Disabled ? 'checked' : '' # onclick='return false;' disabled=disabled />",
+                                                               HtmlAttrCoulmns = new { @class = "asf-cols-align-center" }
+                                                           }
+                                
+                              }
+                          };
+}
+
+@(Html.ASOFTCreateGrid<ASOFT.ERP.DRM.Entities.DRP1030>(gridsetting,false))

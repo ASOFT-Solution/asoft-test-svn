@@ -1,0 +1,266 @@
+﻿@*
+//####################################################################
+//# Copyright (C) 2010-2011, ASoft JSC.  All Rights Reserved. 
+//#
+//# History:
+//#     Date Time       Created                Comment
+//#     11/11/2015      Quang Hoàng            Tạo mới
+//####################################################################
+*@
+@using ASOFT.ERP.A00.Core.Control
+@using ASOFT.ERP.A00.Core
+@using ASOFT.ERP.A00.Entities.Common
+@model ASOFTSysGrid
+
+@{
+    List<ASOFTGridColumnSetting> list = new List<ASOFTGridColumnSetting>();
+    string Table = ViewBag.Grid;
+    var child = ViewBag.child;
+    int typescr = ViewBag.ScreenType;
+    int checktype = ViewBag.CheckType;
+    var count = Model.Bind.Count;
+
+    ASOFTGridColumnSetting rownum = new ASOFTGridColumnSetting
+    {
+        IDColumn = "RowNum",
+        TitleColumn = ASOFTLanguage.FindWordA00("A00.Number"),
+        Width = 40,
+        VisibleColumn = true,
+        TypeColumn = System.Type.GetType("System.Int32"),
+        HtmlAttrCoulmns = (new { style = "text-align:center" })
+    };
+    list.Add(rownum);
+}
+
+@Html.ASOFTHidden(Table + "type", typescr)
+@Html.ASOFTHidden("tableName", Table)
+@Html.ASOFTHidden("PK"+ Table, Model.PK)
+
+
+@for (int i = 0; i < count; i++)
+{  
+    ASOFTGridColumnSetting Grid;
+    string pk, linkpk;
+    string template = "";
+    bool enable = Model.visible.ElementAt(i) == 1 ? true : false;
+    
+    int tp = Model.Template.ElementAt(i);
+    if (Model.Bind.ElementAt(i).Key == Model.RefLink && (child != null || (typescr != ASOFTConstants.CONTENTMASTER && !string.IsNullOrEmpty(Model.RefUrl))))//Loại màn hình 2 popupmaster details
+    {
+        linkpk = Model.Bind.ElementAt(i).Key;
+        pk = Model.PK;
+        
+        string url = "";
+        string urladd = "";
+
+        if (typescr != ASOFTConstants.CONTENTMASTER)
+        {
+            if (Model.Bind.ElementAt(i).Value == typeof(decimal))
+            {
+                linkpk = string.Format("kendo.toString(parseFloat(data.{0}), ASOFTEnvironment.NumberFormat.KendoConvertedDecimalsFormatString)", linkpk);
+            }
+
+            if (string.IsNullOrEmpty(Model.RefUrl))
+            {
+                if (checktype != ASOFTConstants.TYPEINPUT_POPUPMASTERDETAIL)
+                {
+                    url = "/PopupLayout/Index/" + ASOFTEnvironment.ModuleID + "/" + child;
+                    urladd = "/PopupLayout/Index";
+                }
+                else
+                {
+                    url = "/PopupMasterDetail/Index/" + ASOFTEnvironment.ModuleID + "/" + child;
+                    urladd = "/PopupMasterDetail/Index";
+                }
+                
+                if (Model.Bind.ElementAt(i).Value == typeof(DateTime))
+                {
+                    template = string.Format("<a class='asf-grid-link' data-pk=#:{0}#>#:parseDate(data.{1}," + Model.DataType[i] + ")#</a>", pk, linkpk);
+                }
+                else
+                {
+                    template = string.Format("<a class='asf-grid-link' data-pk=#:{0}#>#:{1}#</a>", pk, linkpk);
+                }
+            }
+            else
+            {
+                url = Model.RefUrl;
+                urladd = Model.RefUrl.Split('?')[0];
+                if (Table != "CRMT00002") //Khác table lịch sử
+                {
+                    if (Model.Bind.ElementAt(i).Value == typeof(DateTime))
+                    {
+                        template = string.Format("<a data-url={2} class='asf-grid-link' data-pk=#:{0}#>#:parseDate(data.{1}," + Model.DataType[i] + ")#</a>", pk, linkpk, url);
+                    }
+                    else
+                    {
+                        template = string.Format("<a data-url={2} class='asf-grid-link' data-pk=#:{0}#>#:{1}#</a>", pk, linkpk, url);
+                    }
+                }
+                else
+                {
+                    template = string.Format("<a href={2}  data-pk=#:{0}#>#:{1}#</a>", pk, linkpk, url);
+                }
+            }
+            
+            @Html.ASOFTHidden(Table + "url", url);
+            @Html.ASOFTHidden(Table + "keyPK", pk);
+            @Html.ASOFTHidden(Table + "urladddetail", urladd);
+        }
+        if (typescr == ASOFTConstants.CONTENTMASTER)
+        {
+            
+            string urldivisionID = "";
+            if (Model.Bind.Keys.Where(m => m.Equals("DivisionID")).ToList().Count > 0)
+            {
+                urldivisionID = "&DivisionID=#:DivisionID == '' ? '@@@': DivisionID#";
+            }
+            if (checktype == ASOFTConstants.TYPEINPUT_VIEWMASTERDETAIL)
+            {
+                url = "~/ViewMasterDetail/Index/" + ASOFTEnvironment.ModuleID + "/" + child + "?PK=#=" + pk + "#&Table=" + Model.TableName + "&key=" + pk + urldivisionID;
+            }
+            else if (checktype == ASOFTConstants.TYPEINPUT_VIEWNODETAIL)
+            {
+                url = "~/ViewNoDetails/Index/" + ASOFTEnvironment.ModuleID + "/" + child + "?PK=#=" + pk + "#&Table=" + Model.TableName + "&key=" + pk + urldivisionID;
+            }
+            else if (checktype == ASOFTConstants.TYPEINPUT_VIEWMASTERDETAIL2)
+            {
+                url = "~/ViewMasterDetail2/Index/" + ASOFTEnvironment.ModuleID + "/" + child + "?PK=#=" + pk + "#&Table=" + Model.TableName + "&key=" + pk + urldivisionID;
+            }
+
+            if (Model.Bind.ElementAt(i).Value == typeof(DateTime))
+            {
+                template = string.Format("<a href='{0}'>#:parseDate(data.{1}," + Model.DataType[i] + ")#</a>", Url.Content(url), linkpk);
+            }
+            else
+            {
+                template = string.Format("<a href='{0}'>#:{1}#</a>", Url.Content(url), linkpk);
+            }
+        }
+          
+        Grid = new ASOFTGridColumnSetting
+        {
+            IDColumn = Model.Bind.ElementAt(i).Key,
+            TitleColumn = Model.Title.ElementAt(i),
+            TypeColumn = Model.Bind.ElementAt(i).Value,
+            Width = Model.GridWidth.ElementAt(i) == 0 ? 100 : Model.GridWidth.ElementAt(i),
+            ClientTemplate = Model.ClientTemplate == null || string.IsNullOrEmpty(Model.ClientTemplate.ElementAt(i)) ?  template : Model.ClientTemplate.ElementAt(i),
+            VisibleColumn = enable,
+            clientGroupOnGrid = Model.GroupOnGrid.ElementAt(i),
+            clientMaxOnGrid = Model.MaxOnGrid.ElementAt(i),
+            clientMinOnGrid = Model.MinOnGrid.ElementAt(i),
+            clientAverageOnGrid = Model.AverageOnGrid.ElementAt(i),
+            clientCountOnGrid = Model.CountOnGrid.ElementAt(i),
+            clientSumOnGrid = Model.SumOnGrid.ElementAt(i)
+            
+        };
+    }
+    else//Loại màn hình
+    {
+        if (tp == ASOFTConstants.CONTENTMASTER)
+        {
+            if (Model.Bind.ElementAt(i).Value == typeof(bool))
+            {
+                template = string.Format("<input type='checkbox' #= {0} == 'True'? 'checked' : '' # onclick='return false;' />", Model.Bind.ElementAt(i).Key);
+            }
+            else
+            {
+                template = string.Format("<input type='checkbox' #= {0} == 1? 'checked' : '' # onclick='return false;' />", Model.Bind.ElementAt(i).Key);
+            }
+            Grid = new ASOFTGridColumnSetting
+            {
+                IDColumn = Model.Bind.ElementAt(i).Key,
+                TitleColumn = Model.Title.ElementAt(i),
+                TypeColumn = Model.Bind.ElementAt(i).Value,
+                ClientTemplate = template,
+                Width = Model.GridWidth.ElementAt(i) == 0 ? 100 : Model.GridWidth.ElementAt(i),
+                HtmlAttrCoulmns = (new { style = "text-align:center", @class  = "asf-cols-align-center" }),
+                VisibleColumn = enable,
+                clientGroupOnGrid = Model.GroupOnGrid.ElementAt(i),
+                clientMaxOnGrid = Model.MaxOnGrid.ElementAt(i),
+                clientMinOnGrid = Model.MinOnGrid.ElementAt(i),
+                clientAverageOnGrid = Model.AverageOnGrid.ElementAt(i),
+                clientCountOnGrid = Model.CountOnGrid.ElementAt(i),
+                clientSumOnGrid = Model.SumOnGrid.ElementAt(i)
+            };
+        }
+        else
+        {
+            if (string.IsNullOrEmpty(Model.ClientTemplate[i]))
+            {
+                if (Model.Bind.ElementAt(i).Value == typeof(DateTime))
+                {
+                    Model.ClientTemplate[i] = string.Format("#= parseDate(data.{0},"+ Model.DataType[i] +") #", Model.Bind.ElementAt(i).Key);
+                }
+                if (Model.Bind.ElementAt(i).Key.Equals("DivisionID") && enable)
+                {
+                    Model.ClientTemplate[i] = "<span>#=DivisionID == '@@@' ? '' : DivisionID#</span>"; 
+                }
+            }
+            else {
+                Model.ClientTemplate[i] = Model.ClientTemplate[i].Replace("{0}", Model.Bind.ElementAt(i).Key);//string.Format(Model.ClientTemplate[i], Model.Bind.ElementAt(i).Key);
+            }
+            
+            Grid = new ASOFTGridColumnSetting
+            {
+                IDColumn = Model.Bind.ElementAt(i).Key,
+                TitleColumn = Model.Title.ElementAt(i),
+                TypeColumn = Model.Bind.ElementAt(i).Value,
+                Width = Model.GridWidth.ElementAt(i) == 0 ? 100 : Model.GridWidth.ElementAt(i),
+                VisibleColumn = enable,
+                ClientTemplate = Model.ClientTemplate == null || string.IsNullOrEmpty(Model.ClientTemplate.ElementAt(i)) ? string.Empty : Model.ClientTemplate.ElementAt(i),
+                clientGroupOnGrid = Model.GroupOnGrid.ElementAt(i),
+                clientMaxOnGrid = Model.MaxOnGrid.ElementAt(i),
+                clientMinOnGrid = Model.MinOnGrid.ElementAt(i),
+                clientAverageOnGrid = Model.AverageOnGrid.ElementAt(i),
+                clientCountOnGrid = Model.CountOnGrid.ElementAt(i),
+                clientSumOnGrid = Model.SumOnGrid.ElementAt(i)
+            };
+        }
+    }
+    list.Add(Grid);
+}
+
+@{
+    var gridsetting = new ASOFTGridSetting 
+    {
+        NameGrid = "Grid" + Table,
+        Scrollable = true,
+        ControllerName = "GridCommon",
+        NameEventPost = "ReadTK",
+        ActionName = "Read",
+        IsShowCheck = child != null,
+        HtmlAttribute = new { style = "height:530px;", @class = "asf-grid", AddNewRowDisabled = "true" },          
+        ListGridColumn = list,   
+        IsAutoHeight = true,
+        TableName = Table
+     };           
+ }
+@if ((ViewBag.ScreenID == "SOF2012" && ASOFTEnvironment.CustomerIndex == ASOFTConstants.CUSTOMERINDEX_ANGEL))
+{ 
+   @(Html.ASOFTCreateGridAngel<dynamic>(gridsetting, Model.PK))
+ 
+}
+else { 
+   @(Html.ASOFTCreateGrid<dynamic>(gridsetting, Model.PK))
+}
+
+
+
+ 
+            
+       
+        
+        
+        
+        
+    
+    
+    
+    
+    
+   
+    
+    
+
+

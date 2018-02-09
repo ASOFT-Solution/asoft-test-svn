@@ -1,0 +1,124 @@
+﻿@using ASOFT.ERP.A00.Core;
+@using ASOFT.ERP.A00.Entities.Infrastructure;
+@using ASOFT.ERP.A00.Entities.Database;
+@using ASOFT.ERP.A00.Entities.Common;
+@using ASOFT.ERP.ViewModel;
+@using System.Web.UI.WebControls;
+@using Kendo.Mvc;
+@model IEnumerable<ASOFT.ERP.ViewModel.DRM.DRF2080ViewModel>
+
+
+@{
+    Layout = "";
+    
+    int count = ViewBag.Html.Count;
+    int num = 1;
+}
+<link rel="Stylesheet" href="~/Content/Styles/asoftRD.css" />
+<script src="~/Scripts/jquery-1.8.3.js"></script>
+<script src="~/Scripts/jquery-1.6.4.js"></script>
+
+<title>Công văn Xương Rồng 1</title>
+
+@Html.ASOFTHidden("count", @count.ToString())
+<div style="width: 674px; margin-left: auto;margin-right: auto;text-align:justify">
+
+@foreach (var item in ViewBag.Html)
+{        
+    <div id="@num.ToString()" style="@(@num<@count?"page-break-after: always;font-size: 12px;":"font-size: 12px;")"> 
+    
+    <div id="Header">
+    <div class="asf-icon-logo_xr" ></div>    
+    <div style="text-align: right">           
+        Thành phố Hồ Chí Minh, ngày @item.DayPrintDate tháng @item.MonthPrintDate năm @item.YearPrintDate<br/>
+        Số CV: @item.SendNo
+    </div>
+    </div>
+        <div id="Content">
+    <div style="margin-bottom: 10px; margin-left: 300px; margin-top: 20px; text-align: justify">
+        <p style="border-bottom: 1px solid black; display: inline; font-weight: bold">Kính gửi</p>
+        : Ông/Bà  @item.DebtorName - CMND:  @item.IdentifyCardNo<br />
+        <p style="border-bottom: 1px solid black; display: inline; font-weight: bold">Địa chỉ</p>
+        : @item.Address.
+    </div>
+
+    <div style="margin-bottom: 10px">
+        Theo như thông tin từ   @item.CustomerName ("@item.CustomerID"),
+        Ông/Bà có ký những thỏa thuận tín dụng với  @item.CustomerID về việc vay tiêu dùng/thẻ tín dụng. 
+        Tính đến ngày @item.ToDate, @item.CustomerID có yêu cầu Ông/Bà hoàn trả ngay lập tức cho
+        @item.CustomerID tổng số tiền @item.FirstUnPaidAmount đồng (“Các Khoản Tiền Tới Hạn Thanh Toán”) để chấm dứt các thỏa thuận tín dụng nêu trên. 
+        Do Ông/Bà đã để trễ hạn trong một thời gian dài không chịu thanh toán cho @item.CustomerID theo đúng quy định về thỏa thuận tín dụng.
+    </div>
+    <div style="margin-bottom: 10px">
+        Các khoản tiền tới hạn thanh toán này có thể bao gồm các khoản cấp vốn và tiền lãi tháng đã tới hạn nhưng chưa được thanh toán, 
+    khoản cấp vốn và tiền lãi tháng của những tháng chưa tới hạn, tiền lãi phạt do chậm thanh toán từ một hoặc nhiều thỏa thuận tín dụng mà Ông/Bà đã ký với @item.CustomerID.
+    Các khoản tiền này được tính dựa trên các thỏa thuận được ghi nhận tại phần “Điều khoản và điều kiện” trong những thỏa thuận tín dụng mà Ông/Bà đã ký với @item.CustomerID.
+    </div>
+    <div style="margin-bottom: 10px">
+        Vào ngày @item.DayContractReceiveDate tháng @item.MonthContractReceiveDate năm @item.YearContractReceiveDate, @item.CustomerID đã ủy quyền cho chúng tôi, 
+    Công ty Cổ Phần Thu Hồi Nợ Xương Rồng để tiến hành các công việc cần thiết nhằm thu hồi Các khoản tiền tới hạn thanh toán và các khoản phát sinh (Nếu có). 
+    </div>
+    <div style="margin-bottom: 10px">
+        Với mong muốn giải quyết vụ việc trên tinh thần hợp tác giữa hai bên, 
+    chúng tôi đề nghị Ông/Bà liên hệ với chúng tôi nhằm giải quyết khoản nợ trước ngày  @item.EndDate
+    </div>
+    <div style="margin-bottom: 10px">
+        Thông tin liên hệ:<div style="margin-left: 50px; display: inline; font-weight: bold">CÔNG TY CP THU HỒI NỢ XƯƠNG RỒNG</div>
+        <div style="margin-left: 135px"> @item.TeamLeaderName, điện thoại  @item.PhoneLeader.</div>
+    </div>
+    <div style="margin-bottom: 5px">
+        Nếu đến hết ngày  @item.EndDate mà chúng tôi không có thông tin hợp tác của Ông/Bà, chúng tôi sẽ tiến hành một phần hoặc toàn bộ các việc sau:
+    
+    <ol class="d" >
+        <li style="list-style-type: lower-alpha;">Phải tường trình về các mối quan hệ cá nhân, các quan hệ công việc, các mối quan hệ kinh tế.</li>
+        <li style="list-style-type: lower-alpha;">Bị điều tra xác minh các thông tin mà Ông/Bà đã tường trình (điều này sẽ ảnh hưởng đến các mối quan hệ cá nhân và các mối quan hệ kinh tế, sẽ ảnh hưởng đến nơi Ông/Bà đang công tác, làm việc). </li>
+        <li style="list-style-type: lower-alpha;">Bị ngăn chặn chuyển dịch các tài sản, tài khoản mà Ông/Bà hiện đang có để ngăn chặn việc tẩu tán tài sản.</li>
+        <li style="list-style-type: lower-alpha;">Bị ngăn cấm xuất cảnh hoặc hạn chế phạm vi đi lại trong thời gian Cơ quan Công an làm việc.</li>
+        <li style="list-style-type: lower-alpha;">Bị khởi tố vụ án hình sự nếu xét thấy hình vi trốn tránh của Ông/Bà có đủ yếu tố vi phạm luật.</li>
+        <li style="list-style-type: lower-alpha;">Bị mất quyền công dân nếu vụ việc bị khởi tố.</li>
+    </ol>
+</div >
+    <div style="margin-bottom: 10px">
+        Chúng tôi hy vọng Ông/Bà hiểu rõ được các hệ quả pháp lý nói trên và hợp tác tích cực trong việc giải quyết công nợ với chúng tôi.
+    </div>
+
+    <div style="margin-bottom: 10px">
+        <p style="display: inline; font-weight: bold">VP TP. HCM: </p>
+        105 Nguyễn Thị Thập, P. Tân Hưng, Q. 7 – ĐT: (08) 62 978 642<br />
+        <p style="display: inline; font-weight: bold">VP Hà Nội: </p>
+        P. 901, Tầng 9, 2 Hoàng Quốc Việt, P. Nghĩa Đô, Q. Cầu Giấy, Hà Nội  - ĐT: (04) 37 918 478<br />
+        <p style="display: inline; font-weight: bold">VP Đà Nẵng: </p>
+        F3-V5, Tầng Lững, Tòa nhà Savico, 66 Võ Văn Tần, P. Chính Gián, Q. Thanh Khê, Đà Nẵng<br />
+        <p style="display: inline; font-weight: bold">VP Cần Thơ: </p>
+        VP3, Tầng 5, Tòa nhà Bảo Minh, số 8 Phan Văn Trị, P. An Phú, Q. Ninh Kiều, TP. Cần Thơ
+        <br />
+        <p style="display: inline; font-weight: bold">VP Bình Dương: </p>
+        815 Lê Hồng Phong, KP7, P. Phú Thọ, TP. Thủ Dầu Một, Bình Dương – ĐT: 0650.3 814 200<br />
+        <p style="display: inline; font-weight: bold">VP Khánh Hòa: </p>
+        Tầng 7, Tòa nhà VCN, đường A1, Khu đô thị Vinh Điềm Trung, TP. Nha Trang, Khánh Hòa – ĐT: (058) 3 890 868
+    </div>
+
+    <div style="margin-bottom: 30px">
+        Trân trọng kính chào.<br />
+        <p style="display: inline; font-weight: bold">CÔNG TY CP THU HỒI NỢ XƯƠNG RỒNG</p>
+        <br />
+        <p style="display: inline; font-weight: bold">KT. Giám Đốc Điều Hành</p>
+    </div>
+
+    <p style="display: inline; font-weight: bold">Phan Huy Toàn</p>  
+        </div>     
+        </div>
+    num++;
+}
+ </div>
+
+
+
+
+@section styleFeature{
+    <link href="@Url.Content("~/Areas/DRM/Content/Common.css")" rel="stylesheet" type="text/css" />
+}
+
+@section jsFeature {
+   @* <script src="@Url.Content("~/Areas/DRM/Scripts/DRF2000/DRF2000.js")"></script>*@
+}
