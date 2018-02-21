@@ -15,8 +15,10 @@ CREATE TABLE [dbo].[CRMT2061]
   [RealTime] DECIMAL(10,2) NOT NULL,
   [ReviewDescription] NVARCHAR(Max) NOT NULL,
   [FeedbackDescription] NVARCHAR(Max) NOT NULL,
-  [LevelAppreciate] INT NOT NULL,
-  [EmployeeID] VARCHAR(50) NOT NULL
+  [Status] INT NOT NULL,
+  [EmployeeID] VARCHAR(50) NOT NULL,
+  [RelatedToTypeID] INT NULL,
+  [RelatedToID] INT NULL
 CONSTRAINT [PK_CRMT2061] PRIMARY KEY CLUSTERED
 (
   [APK]
