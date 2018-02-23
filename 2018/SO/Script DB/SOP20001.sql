@@ -164,8 +164,8 @@ Select OT2001.APK, OT2001.DivisionID
 , OT2001.SalesManID, OT2001.ShipDate,  OT2001.IsConfirm, AT01.Description as IsConfirmName, OT2001.DescriptionConfirm
 , OT2001.ConfirmDate, OT2001.ConfirmUserID
 , OT2001.IsInvoice, Sum(A.ConvertedAmount) as TotalAmount
-FROM CRMT20001 OT2001 With (NOLOCK)
-Inner join CRMT20002 A  With (NOLOCK) ON A.DivisionID = OT2001.DivisionID and A.ContractID = OT2001.ContractID
+FROM CRMT2000 OT2001 With (NOLOCK)
+Inner join CRMT2001 A  With (NOLOCK) ON A.DivisionID = OT2001.DivisionID and A.ContractID = OT2001.ContractID
 			Left join AT0099 With (NOLOCK) on Convert(varchar, OT2001.OrderStatus) = AT0099.ID and AT0099.CodeMaster = ''AT00000003''
 			Left join AT1103 A03 With (NOLOCK) on OT2001.EmployeeID = A03.EmployeeID
 			Left join AT0099 AT01 With (NOLOCK) on Convert(varchar, OT2001.IsConfirm) = AT01.ID and AT01.CodeMaster = ''AT00000039''
