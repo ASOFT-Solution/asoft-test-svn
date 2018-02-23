@@ -26,7 +26,7 @@ GO
 -- <Example>
 /* 
 EXEC SOP20001 'CAN','','','','','','','','', '','' , '', 1, '2015-01-01', '2017-12-30', '01/2017'',''09/2017' 
-,'USER01',N'ASOFTADMIN'',''USER08',1,200, 0, N' where OrderDate between ''2016-11-07'' and ''2017-11-07'' '
+,'USER01',N'ASOFTADMIN'',''USER08',1,200, 0, N' where OrderDate between ''2016-11-07'' and ''2018-11-07'' '
 */
 ----
 CREATE PROCEDURE SOP20001 ( 
@@ -65,10 +65,13 @@ IF @CustomerName = 57 ------ ANGEL
 ELSE
 BEGIN 
 DECLARE @sSQL NVARCHAR (MAX),
+		@sSQL1 NVARCHAR (MAX),
 		@sWhere NVARCHAR(MAX),
+		@sWhere2 NVARCHAR(MAX),
 		@OrderBy NVARCHAR(500),
         @TotalRow NVARCHAR(50)
 SET @sWhere='1 = 1'     
+SET @sWhere2='1 = 1'     
 SET @OrderBy = ' M.CreateDate DESC, M.OrderDate, M.VoucherNo'   
 IF isnull(@SearchWhere,'') =''
 Begin
@@ -83,7 +86,7 @@ Begin
 	Else 
 		SET @sWhere = @sWhere + 'and OT2001.DivisionID IN ('''+@DivisionIDList+''')'
 	IF Isnull(@VoucherNo, '') != '' 
-		SET @sWhere = @sWhere + ' AND ISNULL(OT2001.VoucherNo, '''') LIKE N''%'+@VoucherNo+'%'' '
+		SET @sWhere = @sWhere + ' AND ISNULL(OT2001.VoucherNo, '''') LIKE N''%'+@VoucherNo+'%'' '	
 	IF Isnull(@AccountID, '') != ''
 		SET @sWhere = @sWhere + ' AND (ISNULL(OT2001.ObjectID, '''') LIKE N''%'+@AccountID+'%''  or ISNULL(OT2001.ObjectName, '''') LIKE N''%'+@AccountID+'%'')'
 	IF Isnull(@VoucherTypeID, '') != '' 
@@ -96,10 +99,37 @@ Begin
 		SET @sWhere = @sWhere + ' AND ISNULL(OT2001.IsConfirm, 0)='+@IsConfirmName
 	IF Isnull(@ConditionSOrderID, '') != ''
 		SET @sWhere = @sWhere + ' AND ISNULL(OT2001.EmployeeID, OT2001.CreateUserID) in ('''+@ConditionSOrderID+''')'
+--------------------------------------------
+	IF @IsDate = 0 
+	SET @sWhere2 = @sWhere2 + '  AND CONVERT(VARCHAR(10),OT2001.OrderDate,21) BETWEEN '''+ CONVERT(VARCHAR(10),@FromDate,21)+''' AND '''+CONVERT(VARCHAR(10),@ToDate,21)+''''
+	IF @IsDate = 1 
+	SET @sWhere2 = @sWhere2 + ' AND (CASE WHEN OT2001.TranMonth <10 THEN ''0''+rtrim(ltrim(str(OT2001.TranMonth)))+''/''+ltrim(Rtrim(str(OT2001.TranYear))) 
+				ELSE rtrim(ltrim(str(OT2001.TranMonth)))+''/''+ltrim(Rtrim(str(OT2001.TranYear))) END) in ('''+@Period +''')'
+	--Check Para DivisionIDList null then get DivisionID 
+	IF @DivisionIDList IS NULL or @DivisionIDList = ''
+		SET @sWhere2 = @sWhere2 + 'and OT2001.DivisionID = '''+ @DivisionID+''''
+	Else 
+		SET @sWhere2 = @sWhere2 + 'and OT2001.DivisionID IN ('''+@DivisionIDList+''')'
+	IF Isnull(@VoucherNo, '') != '' 
+		SET @sWhere2 = @sWhere2 + ' AND ISNULL(OT2001.ContractNO, '''') LIKE N''%'+@VoucherNo+'%'' '	
+	IF Isnull(@AccountID, '') != ''
+		SET @sWhere2 = @sWhere2 + ' AND (ISNULL(OT2001.ObjectID, '''') LIKE N''%'+@AccountID+'%''  or ISNULL(OT2001.ObjectName, '''') LIKE N''%'+@AccountID+'%'')'
+	IF Isnull(@VoucherTypeID, '') != '' 
+		SET @sWhere2 = @sWhere2 + ' AND ISNULL(OT2001.VoucherTypeID, '''') LIKE N''%'+@VoucherTypeID+'%'' '
+	IF Isnull(@EmployeeID, '') != '' 
+		SET @sWhere2 = @sWhere2 + ' AND (ISNULL(OT2001.EmployeeID, '''') LIKE N''%'+@EmployeeID+'%''  or ISNULL(A03.FullName, '''') LIKE N''%'+@EmployeeID+'%'')' 
+	IF Isnull(@OrderStatus, '') != ''
+		SET @sWhere2 = @sWhere2 + ' AND ISNULL(OT2001.OrderStatus, '''') LIKE N''%'+@OrderStatus+'%'' '
+	IF Isnull(@IsConfirmName, '') != ''
+		SET @sWhere2 = @sWhere2 + ' AND ISNULL(OT2001.IsConfirm, 0)='+@IsConfirmName
+	IF Isnull(@ConditionSOrderID, '') != ''
+		SET @sWhere2 = @sWhere2 + ' AND ISNULL(OT2001.EmployeeID, OT2001.CreateUserID) in ('''+@ConditionSOrderID+''')'
 End
+----------------
 IF isnull(@SearchWhere,'') !=''
 Begin
 	SET  @sWhere='1 = 1'
+	SET @sWhere2='1 = 1'   
 End
 SET @sSQL = '
 SELECT OT2001.APK, OT2001.DivisionID
@@ -122,7 +152,29 @@ Inner join OT2002 A  With (NOLOCK) ON A.DivisionID = OT2001.DivisionID and A.SOr
 	, OT2001.ObjectID, OT2001.ObjectName , OT2001.DeliveryAddress, OT2001.Notes, OT2001.Disabled, OT2001.OrderStatus, AT0099.Description
 	, OT2001.CreateDate, OT2001.CreateUserID, OT2001.LastModifyUserID, OT2001.LastModifyDate, OT2001.TranMonth, OT2001.TranYear, A03.FullName 
 	, OT2001.SalesManID, OT2001.ShipDate,  OT2001.IsConfirm, AT01.Description, OT2001.DescriptionConfirm
-	, OT2001.ConfirmDate, OT2001.ConfirmUserID, OT2001.IsInvoice 
+	, OT2001.ConfirmDate, OT2001.ConfirmUserID, OT2001.IsInvoice '
+
+SET @sSQL1 =N'UNION ALL
+
+Select OT2001.APK, OT2001.DivisionID
+, OT2001.ContractID as SOrderID, OT2001.VoucherTypeID, OT2001.ContractNO as VoucherNo
+, OT2001.OrderDate, OT2001.ObjectID, OT2001.ObjectName
+, OT2001.DeliveryAddress, OT2001.Notes, OT2001.Disabled, OT2001.OrderStatus, AT0099.Description as OrderStatusName
+, OT2001.CreateDate, OT2001.CreateUserID, OT2001.LastModifyUserID, OT2001.LastModifyDate, OT2001.TranMonth, OT2001.TranYear, A03.FullName EmployeeID
+, OT2001.SalesManID, OT2001.ShipDate,  OT2001.IsConfirm, AT01.Description as IsConfirmName, OT2001.DescriptionConfirm
+, OT2001.ConfirmDate, OT2001.ConfirmUserID
+, OT2001.IsInvoice, Sum(A.ConvertedAmount) as TotalAmount
+FROM CRMT20001 OT2001 With (NOLOCK)
+Inner join CRMT20002 A  With (NOLOCK) ON A.DivisionID = OT2001.DivisionID and A.ContractID = OT2001.ContractID
+			Left join AT0099 With (NOLOCK) on Convert(varchar, OT2001.OrderStatus) = AT0099.ID and AT0099.CodeMaster = ''AT00000003''
+			Left join AT1103 A03 With (NOLOCK) on OT2001.EmployeeID = A03.EmployeeID
+			Left join AT0099 AT01 With (NOLOCK) on Convert(varchar, OT2001.IsConfirm) = AT01.ID and AT01.CodeMaster = ''AT00000039''
+	WHERE '+@sWhere2+'
+	Group by OT2001.APK, OT2001.DivisionID, OT2001.ContractID, OT2001.VoucherTypeID, OT2001.ContractNO, OT2001.OrderDate
+	, OT2001.ObjectID, OT2001.ObjectName , OT2001.DeliveryAddress, OT2001.Notes, OT2001.Disabled, OT2001.OrderStatus, AT0099.Description
+	, OT2001.CreateDate, OT2001.CreateUserID, OT2001.LastModifyUserID, OT2001.LastModifyDate, OT2001.TranMonth, OT2001.TranYear, A03.FullName 
+	, OT2001.SalesManID, OT2001.ShipDate,  OT2001.IsConfirm, AT01.Description, OT2001.DescriptionConfirm
+	, OT2001.ConfirmDate, OT2001.ConfirmUserID, OT2001.IsInvoice
 
 	Declare @Count int
 	Select @Count = Count(OrderStatus) From  #TemOT2001
@@ -140,9 +192,10 @@ Inner join OT2002 A  With (NOLOCK) ON A.DivisionID = OT2001.DivisionID and A.SOr
 	OFFSET '+STR((@PageNumber-1) * @PageSize)+' ROWS
 	FETCH NEXT '+STR(@PageSize)+' ROWS ONLY '
 
-EXEC (@sSQL)
+EXEC (@sSQL + @sSQL1)
 end
 print (@sSQL)
+print (@sSQL1)
 GO
 SET QUOTED_IDENTIFIER OFF
 GO
