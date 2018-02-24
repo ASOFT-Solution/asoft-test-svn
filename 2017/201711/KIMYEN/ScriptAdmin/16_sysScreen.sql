@@ -548,44 +548,44 @@ If not exists(select top 1 1 from [dbo].[sysScreen] where  ModuleID = N'AsoftOO'
 insert into sysScreen(DivisionID,ModuleID,ScreenID,ScreenName,ScreenType,ScreenNameE,Parent,sysTable,Title,DisplayToolBar,TypeInput,DisplayToolBar2,ReportID,DeleteStoreName,sysCategoryBusinessID,SqlFilter,StoreFilter,StoreFilterParameter,Width,SQLPrint,StorePrint,StorePrintParameter,sysActionID)values(@DivisionID,@ModuleID,@ScreenID,@ScreenName,@ScreenType,@ScreenNameE,@Parent,@sysTable,@Title,@DisplayToolBar,@TypeInput,@DisplayToolBar2,@ReportID,@DeleteStoreName,@sysCategoryBusinessID,@SqlFilter,@StoreFilter,@StoreFilterParameter,@Width,@SQLPrint,@StorePrint,@StorePrintParameter,@sysActionID)
 End
 ------------------------ Màn hình chọn nhân viên
-set @DivisionID=N'APK'
-set @ModuleID=N'AsoftOO'
-set @ScreenID=N'CMNF9003'
-set @ScreenName=N'Chọn nhân viên'
-set @ScreenType=N'4'
-set @ScreenNameE=N'Chọn nhân viên'
-set @Parent=null
-set @sysTable=N'AT1103'
-set @Title=N'CMNF9003.Title'
-set @DisplayToolBar=null
-set @TypeInput=N'1'
-set @DisplayToolBar2=null 
-set @ReportID=null 
-set @DeleteStoreName=null
-set @sysCategoryBusinessID=N'1'
-set @SqlFilter=N'SELECT AT1103.DivisionID, AT1103.EmployeeID, AT1103.FullName as EmployeeName
-   , AT1103.DepartmentID, AT1102.DepartmentName, AT1103.Address
-   , AT1103.Tel, AT1103.Email, AT1103.IsCommon, AT1103.Disabled
-FROM AT1103 Left join AT1102 on AT1103.DivisionID = AT1102.DivisionID
-   And AT1103.DepartmentID = AT1102.DepartmentID and AT1102.Disabled = 0
-WHERE AT1103.Disabled = 0 and AT1103.DivisionID = ''@@DivisionID'' and  (AT1103.EmployeeID LIKE ''@TxtSearch''
- OR AT1103.FullName LIKE ''@TxtSearch''
- OR AT1103.Address LIKE ''@TxtSearch''
- OR AT1103.DepartmentID LIKE ''@TxtSearch''
- OR AT1102.DepartmentName LIKE ''@TxtSearch''
- OR AT1103.Tel LIKE ''@TxtSearch''
- OR AT1103.Email LIKE ''@TxtSearch'')
-Order by AT1103.EmployeeID, AT1103.FullName'
-set @StoreFilter=null 
-set @StoreFilterParameter=null 
-set @Width=N'900'
-set @SQLPrint=null
-set @StorePrint=null
-set @StorePrintParameter=null
-set @sysActionID =null
-If not exists(select top 1 1 from [dbo].[sysScreen] where  ModuleID = N'AsoftOO' and ScreenID = N'CMNF9003')Begin 
-insert into sysScreen(DivisionID,ModuleID,ScreenID,ScreenName,ScreenType,ScreenNameE,Parent,sysTable,Title,DisplayToolBar,TypeInput,DisplayToolBar2,ReportID,DeleteStoreName,sysCategoryBusinessID,SqlFilter,StoreFilter,StoreFilterParameter,Width,SQLPrint,StorePrint,StorePrintParameter,sysActionID)values(@DivisionID,@ModuleID,@ScreenID,@ScreenName,@ScreenType,@ScreenNameE,@Parent,@sysTable,@Title,@DisplayToolBar,@TypeInput,@DisplayToolBar2,@ReportID,@DeleteStoreName,@sysCategoryBusinessID,@SqlFilter,@StoreFilter,@StoreFilterParameter,@Width,@SQLPrint,@StorePrint,@StorePrintParameter,@sysActionID)
-End
+--set @DivisionID=N'APK'
+--set @ModuleID=N'AsoftOO'
+--set @ScreenID=N'CMNF9003'
+--set @ScreenName=N'Chọn nhân viên'
+--set @ScreenType=N'4'
+--set @ScreenNameE=N'Chọn nhân viên'
+--set @Parent=null
+--set @sysTable=N'AT1103'
+--set @Title=N'CMNF9003.Title'
+--set @DisplayToolBar=null
+--set @TypeInput=N'1'
+--set @DisplayToolBar2=null 
+--set @ReportID=null 
+--set @DeleteStoreName=null
+--set @sysCategoryBusinessID=N'1'
+--set @SqlFilter=N'SELECT AT1103.DivisionID, AT1103.EmployeeID, AT1103.FullName as EmployeeName
+--   , AT1103.DepartmentID, AT1102.DepartmentName, AT1103.Address
+--   , AT1103.Tel, AT1103.Email, AT1103.IsCommon, AT1103.Disabled
+--FROM AT1103 Left join AT1102 on AT1103.DivisionID = AT1102.DivisionID
+--   And AT1103.DepartmentID = AT1102.DepartmentID and AT1102.Disabled = 0
+--WHERE AT1103.Disabled = 0 and AT1103.DivisionID = ''@@DivisionID'' and  (AT1103.EmployeeID LIKE ''@TxtSearch''
+-- OR AT1103.FullName LIKE ''@TxtSearch''
+-- OR AT1103.Address LIKE ''@TxtSearch''
+-- OR AT1103.DepartmentID LIKE ''@TxtSearch''
+-- OR AT1102.DepartmentName LIKE ''@TxtSearch''
+-- OR AT1103.Tel LIKE ''@TxtSearch''
+-- OR AT1103.Email LIKE ''@TxtSearch'')
+--Order by AT1103.EmployeeID, AT1103.FullName'
+--set @StoreFilter=null 
+--set @StoreFilterParameter=null 
+--set @Width=N'900'
+--set @SQLPrint=null
+--set @StorePrint=null
+--set @StorePrintParameter=null
+--set @sysActionID =null
+--If not exists(select top 1 1 from [dbo].[sysScreen] where  ModuleID = N'AsoftOO' and ScreenID = N'CMNF9003')Begin 
+--insert into sysScreen(DivisionID,ModuleID,ScreenID,ScreenName,ScreenType,ScreenNameE,Parent,sysTable,Title,DisplayToolBar,TypeInput,DisplayToolBar2,ReportID,DeleteStoreName,sysCategoryBusinessID,SqlFilter,StoreFilter,StoreFilterParameter,Width,SQLPrint,StorePrint,StorePrintParameter,sysActionID)values(@DivisionID,@ModuleID,@ScreenID,@ScreenName,@ScreenType,@ScreenNameE,@Parent,@sysTable,@Title,@DisplayToolBar,@TypeInput,@DisplayToolBar2,@ReportID,@DeleteStoreName,@sysCategoryBusinessID,@SqlFilter,@StoreFilter,@StoreFilterParameter,@Width,@SQLPrint,@StorePrint,@StorePrintParameter,@sysActionID)
+--End
 
 ------------------ Màn hình chọn phòng ban OOF2103------
 --------------------------------------------------------

@@ -104,8 +104,9 @@ set @RefValueField=null
 set @RefViewTable=null 
 set @FieldID=N'DivisionID_OOT2100'
 set @GridWidth=N'100'
+set @GroupOnGrid=N'<input type=''checkbox'' onclick="GroupChoose_Click(this,''#=value #'')" /> #=value #'
 If not exists(select top 1 1 from [dbo].[sysFields] where  [FieldID] = N'DivisionID_OOT2100')Begin 
-insert into sysFields(sysTable,AllowNull,ReadOnly,sysComboBoxID,Type,TabIndex,TabIndexGrid,TabIndexPopup,TabIndexView,MinValue,MaxValue,DefaultValue,Visible,ColumnName,sysRegularID,sysDataTypeID,GridVisible,FieldVisible,PopupVisible,ViewVisible,UniqueField,RefTable,GroupID,sysEditorTemplateID,MaxLenght,SpecialControl,RefDisplayField,RefValueField,RefViewTable,sysClientTemplateID,FieldID,GridWidth)values(@sysTable,@AllowNull,@ReadOnly,@sysComboBoxID,@Type,@TabIndex,@TabIndexGrid,@TabIndexPopup,@TabIndexView,@MinValue,@MaxValue,@DefaultValue,@Visible,@ColumnName,@sysRegularID,@sysDataTypeID,@GridVisible,@FieldVisible,@PopupVisible,@ViewVisible,@UniqueField,@RefTable,@GroupID,@sysEditorTemplateID,@MaxLenght,@SpecialControl,@RefDisplayField,@RefValueField,@RefViewTable,@sysClientTemplateID,@FieldID,@GridWidth)
+insert into sysFields(sysTable,AllowNull,ReadOnly,sysComboBoxID,Type,TabIndex,TabIndexGrid,TabIndexPopup,TabIndexView,MinValue,MaxValue,DefaultValue,Visible,ColumnName,sysRegularID,sysDataTypeID,GridVisible,FieldVisible,PopupVisible,ViewVisible,UniqueField,RefTable,GroupID,sysEditorTemplateID,MaxLenght,SpecialControl,RefDisplayField,RefValueField,RefViewTable,sysClientTemplateID,FieldID,GridWidth,GroupOnGrid)values(@sysTable,@AllowNull,@ReadOnly,@sysComboBoxID,@Type,@TabIndex,@TabIndexGrid,@TabIndexPopup,@TabIndexView,@MinValue,@MaxValue,@DefaultValue,@Visible,@ColumnName,@sysRegularID,@sysDataTypeID,@GridVisible,@FieldVisible,@PopupVisible,@ViewVisible,@UniqueField,@RefTable,@GroupID,@sysEditorTemplateID,@MaxLenght,@SpecialControl,@RefDisplayField,@RefValueField,@RefViewTable,@sysClientTemplateID,@FieldID,@GridWidth,@GroupOnGrid)
 End
 
 set @sysComboBoxID=(select top 1 sysComboBoxID from sysComboBox where ComboBoxID = 'CB_DepartmentID_OOF2100')
@@ -580,7 +581,7 @@ If not exists(select top 1 1 from [dbo].[sysFields] where  [FieldID] = N'LeaderI
 insert into sysFields(sysTable,AllowNull,ReadOnly,sysComboBoxID,Type,TabIndex,TabIndexGrid,TabIndexPopup,TabIndexView,MinValue,MaxValue,DefaultValue,Visible,ColumnName,sysRegularID,sysDataTypeID,GridVisible,FieldVisible,PopupVisible,ViewVisible,UniqueField,RefTable,GroupID,sysEditorTemplateID,MaxLenght,SpecialControl,RefDisplayField,RefValueField,RefViewTable,sysClientTemplateID,FieldID,GridWidth)values(@sysTable,@AllowNull,@ReadOnly,@sysComboBoxID,@Type,@TabIndex,@TabIndexGrid,@TabIndexPopup,@TabIndexView,@MinValue,@MaxValue,@DefaultValue,@Visible,@ColumnName,@sysRegularID,@sysDataTypeID,@GridVisible,@FieldVisible,@PopupVisible,@ViewVisible,@UniqueField,@RefTable,@GroupID,@sysEditorTemplateID,@MaxLenght,@SpecialControl,@RefDisplayField,@RefValueField,@RefViewTable,@sysClientTemplateID,@FieldID,@GridWidth)
 End
 
-set @sysComboBoxID=(select top 1 sysComboBoxID from sysComboBox where ComboBoxID = 'CB_LeaderID')
+set @sysComboBoxID=(select top 1 sysComboBoxID from sysComboBox where ComboBoxID = 'CB_LeaderName')
 set @sysRegularID=null
 set @sysEditorTemplateID=null
 set @sysClientTemplateID=null
@@ -725,42 +726,42 @@ If not exists(select top 1 1 from [dbo].[sysFields] where  [FieldID] = N'Contrac
 insert into sysFields(sysTable,AllowNull,ReadOnly,sysComboBoxID,Type,TabIndex,TabIndexGrid,TabIndexPopup,TabIndexView,MinValue,MaxValue,DefaultValue,Visible,ColumnName,sysRegularID,sysDataTypeID,GridVisible,FieldVisible,PopupVisible,ViewVisible,UniqueField,RefTable,GroupID,sysEditorTemplateID,MaxLenght,SpecialControl,RefDisplayField,RefValueField,RefViewTable,sysClientTemplateID,FieldID,GridWidth)values(@sysTable,@AllowNull,@ReadOnly,@sysComboBoxID,@Type,@TabIndex,@TabIndexGrid,@TabIndexPopup,@TabIndexView,@MinValue,@MaxValue,@DefaultValue,@Visible,@ColumnName,@sysRegularID,@sysDataTypeID,@GridVisible,@FieldVisible,@PopupVisible,@ViewVisible,@UniqueField,@RefTable,@GroupID,@sysEditorTemplateID,@MaxLenght,@SpecialControl,@RefDisplayField,@RefValueField,@RefViewTable,@sysClientTemplateID,@FieldID,@GridWidth)
 End
 
-set @sysComboBoxID=(select top 1 sysComboBoxID from sysComboBox where ComboBoxID = 'CB_ContractID')
-set @sysRegularID=null
-set @sysEditorTemplateID=null
-set @sysClientTemplateID=null
-set @GroupID=(select top 1 sysGroupID from sysGroup where GroupID = 'OOF2102.ChiTietDuAn')
-set @sysTable=N'OOT2100'
-set @AllowNull=N'1'
-set @ReadOnly=N'0'
-set @Type=N'16'
-set @TabIndex=N'8'
-set @TabIndexGrid=null
-set @TabIndexPopup=N'4'
-set @TabIndexView=N'8'
-set @MinValue=null 
-set @MaxValue=null 
-set @DefaultValue=null 
-set @Visible=N'1'
-set @ColumnName=N'ContractNo'
-set @sysDataTypeID=N'7'
-set @GridVisible=N'1'
-set @FieldVisible=N'1'
-set @PopupVisible=N'0'
-set @ViewVisible=N'1'
-set @UniqueField=null
-set @RefTable=null 
-set @MaxLenght=null 
-set @SpecialControl=null 
-set @RefDisplayField=null 
-set @RefValueField=null 
-set @RefViewTable=null 
-set @FieldID=N'ContractNo_OOT2100'
-set @GridWidth=N'100'
-set @IsNoUpdate=N'1'
-If not exists(select top 1 1 from [dbo].[sysFields] where  [FieldID] = N'ContractNo_OOT2100')Begin 
-insert into sysFields(sysTable,AllowNull,ReadOnly,sysComboBoxID,Type,TabIndex,TabIndexGrid,TabIndexPopup,TabIndexView,MinValue,MaxValue,DefaultValue,Visible,ColumnName,sysRegularID,sysDataTypeID,GridVisible,FieldVisible,PopupVisible,ViewVisible,UniqueField,RefTable,GroupID,sysEditorTemplateID,MaxLenght,SpecialControl,RefDisplayField,RefValueField,RefViewTable,sysClientTemplateID,FieldID,GridWidth,IsNoUpdate)values(@sysTable,@AllowNull,@ReadOnly,@sysComboBoxID,@Type,@TabIndex,@TabIndexGrid,@TabIndexPopup,@TabIndexView,@MinValue,@MaxValue,@DefaultValue,@Visible,@ColumnName,@sysRegularID,@sysDataTypeID,@GridVisible,@FieldVisible,@PopupVisible,@ViewVisible,@UniqueField,@RefTable,@GroupID,@sysEditorTemplateID,@MaxLenght,@SpecialControl,@RefDisplayField,@RefValueField,@RefViewTable,@sysClientTemplateID,@FieldID,@GridWidth,@IsNoUpdate)
-End
+--set @sysComboBoxID=(select top 1 sysComboBoxID from sysComboBox where ComboBoxID = 'CB_ContractID')
+--set @sysRegularID=null
+--set @sysEditorTemplateID=null
+--set @sysClientTemplateID=null
+--set @GroupID=(select top 1 sysGroupID from sysGroup where GroupID = 'OOF2102.ChiTietDuAn')
+--set @sysTable=N'OOT2100'
+--set @AllowNull=N'1'
+--set @ReadOnly=N'0'
+--set @Type=N'16'
+--set @TabIndex=N'8'
+--set @TabIndexGrid=null
+--set @TabIndexPopup=N'4'
+--set @TabIndexView=N'8'
+--set @MinValue=null 
+--set @MaxValue=null 
+--set @DefaultValue=null 
+--set @Visible=N'1'
+--set @ColumnName=N'ContractNo'
+--set @sysDataTypeID=N'7'
+--set @GridVisible=N'1'
+--set @FieldVisible=N'1'
+--set @PopupVisible=N'0'
+--set @ViewVisible=N'1'
+--set @UniqueField=null
+--set @RefTable=null 
+--set @MaxLenght=null 
+--set @SpecialControl=null 
+--set @RefDisplayField=null 
+--set @RefValueField=null 
+--set @RefViewTable=null 
+--set @FieldID=N'ContractNo_OOT2100'
+--set @GridWidth=N'100'
+--set @IsNoUpdate=N'1'
+--If not exists(select top 1 1 from [dbo].[sysFields] where  [FieldID] = N'ContractNo_OOT2100')Begin 
+--insert into sysFields(sysTable,AllowNull,ReadOnly,sysComboBoxID,Type,TabIndex,TabIndexGrid,TabIndexPopup,TabIndexView,MinValue,MaxValue,DefaultValue,Visible,ColumnName,sysRegularID,sysDataTypeID,GridVisible,FieldVisible,PopupVisible,ViewVisible,UniqueField,RefTable,GroupID,sysEditorTemplateID,MaxLenght,SpecialControl,RefDisplayField,RefValueField,RefViewTable,sysClientTemplateID,FieldID,GridWidth,IsNoUpdate)values(@sysTable,@AllowNull,@ReadOnly,@sysComboBoxID,@Type,@TabIndex,@TabIndexGrid,@TabIndexPopup,@TabIndexView,@MinValue,@MaxValue,@DefaultValue,@Visible,@ColumnName,@sysRegularID,@sysDataTypeID,@GridVisible,@FieldVisible,@PopupVisible,@ViewVisible,@UniqueField,@RefTable,@GroupID,@sysEditorTemplateID,@MaxLenght,@SpecialControl,@RefDisplayField,@RefValueField,@RefViewTable,@sysClientTemplateID,@FieldID,@GridWidth,@IsNoUpdate)
+--End
 
 
 
