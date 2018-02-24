@@ -60,7 +60,7 @@ function Step_Click(e) {
 
     var checkParent = $(e).attr("checkParent"); // attr
     $("input[group='" + checkParent + "']").prop("checked", isCheck);
-    GridEditOOT2091.bind("databound")
+    GridEditOOT2091.bind("databound");
 }
 
 function getDetailCustom(tb) {

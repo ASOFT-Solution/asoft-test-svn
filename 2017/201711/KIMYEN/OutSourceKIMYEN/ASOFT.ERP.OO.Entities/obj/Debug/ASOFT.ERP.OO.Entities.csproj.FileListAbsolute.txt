@@ -196,3 +196,4 @@ D:\ASOFT\OutSourceKIMYEN\ASOFT.ERP.OO.Entities\bin\Debug\zh-CN\Kendo.Mvc.resourc
 D:\ASOFT\OutSourceKIMYEN\ASOFT.ERP.OO.Entities\obj\Debug\ASOFT.ERP.OO.Entities.dll
 D:\ASOFT\OutSourceKIMYEN\ASOFT.ERP.OO.Entities\obj\Debug\ASOFT.ERP.OO.Entities.pdb
 D:\ASOFT\OutSourceKIMYEN\ASOFT.ERP.OO.Entities\bin\Debug\ASOFT.ERP.BI.Entities.dll
+D:\ASOFT\OutSourceKIMYEN\ASOFT.ERP.OO.Entities\obj\Debug\ASOFT.ERP.OO.Entities.csprojResolveAssemblyReference.cache

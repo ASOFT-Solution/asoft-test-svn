@@ -62,7 +62,7 @@
     <Compile Include="GridCommon\SearchData\OOF1050MainExecute.cs" />
     <Compile Include="GridCommon\SearchData\OOF2100MainExecute.cs" />
     <Compile Include="PopupLayout\InsertData\OOF2101After.cs" />
-    <Compile Include="PopupLayout\UpdateData\BeforeCheckUpdate.cs" />
+    <Compile Include="PopupLayout\UpdateData\OOF2101After.cs" />
     <Compile Include="PopupMasterDetail\InsertBussinessDetail\AfterInsertBussiness.cs" />
     <Compile Include="PopupMasterDetail\InsertBussinessDetail\MainExecute.cs" />
     <Compile Include="PopupMasterDetail\InsertBussiness\BeforeCheckClosing.cs" />
