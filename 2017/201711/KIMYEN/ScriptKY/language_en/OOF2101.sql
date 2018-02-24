@@ -6,7 +6,7 @@ DECLARE
 @LanguageValue NVARCHAR(4000)
 --------------------------------------------------------
 
-SET @Language = 'en_US';
+SET @Language = 'en-US';
 SET @ModuleID = 'OO';
 SET @FormID = 'OOF2101'
 ---------------------------------------------------------------
@@ -52,3 +52,9 @@ EXEC ERP9AddLanguage @ModuleID, 'OOF2101.LeaderName',  @FormID, @LanguageValue, 
 
 SET @LanguageValue  = N'Status';
 EXEC ERP9AddLanguage @ModuleID, 'OOF2101.StatusID',  @FormID, @LanguageValue, @Language;
+
+SET @LanguageValue  = N'Project';
+EXEC ERP9AddLanguage @ModuleID, 'OOF2101.ProjectType1',  @FormID, @LanguageValue, @Language;
+
+SET @LanguageValue  = N'Work Group';
+EXEC ERP9AddLanguage @ModuleID, 'OOF2101.ProjectType2',  @FormID, @LanguageValue, @Language;
