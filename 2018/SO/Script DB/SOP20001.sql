@@ -23,10 +23,15 @@ GO
 --- Modify by Thị Phượng, Date 30/08/2017: Thay đổi cách sắp xếp order by theo CreateDate
 ----Editted by: Phan thanh hoàng Vũ, Date: 01/09/2017 Sắp xếp thứ tự giảm dần thao ngày (Record mới nhất sẽ load lên đầu tiên)
 --- Modify by Thị Phượng, Date 08/11/2017: Bổ sung thêm xử lý search nâng cao
+--- Modify by Tấn Đạt, Date 23/02/2018: Bổ sung thêm dữ liệu hợp đồng khi load. Thêm điều kiện Search SOrderType.
 -- <Example>
 /* 
-EXEC SOP20001 'CAN','','','','','','','','', '','' , '', 1, '2015-01-01', '2017-12-30', '01/2017'',''09/2017' 
-,'USER01',N'ASOFTADMIN'',''USER08',1,200, 0, N' where OrderDate between ''2016-11-07'' and ''2018-11-07'' '
+EXEC SOP20001 'CAN','','','','','','','','', '','' , '', 1, '2015-01-01', '2018-12-30', '01/2017'',''09/2017' 
+,'USER01',N''',''USER08',1,200, 0, N'','1'
+*/
+
+/* 
+
 */
 ----
 CREATE PROCEDURE SOP20001 ( 
@@ -52,7 +57,7 @@ CREATE PROCEDURE SOP20001 (
 		@PageSize INT,
 		@IsHistory Int = 0,
 		@SearchWhere NVARCHAR(Max) = null
-		
+		--,@SOrderType nvarchAR(50)
 ) 
 AS 
 DECLARE @CustomerName INT
@@ -99,6 +104,8 @@ Begin
 		SET @sWhere = @sWhere + ' AND ISNULL(OT2001.IsConfirm, 0)='+@IsConfirmName
 	IF Isnull(@ConditionSOrderID, '') != ''
 		SET @sWhere = @sWhere + ' AND ISNULL(OT2001.EmployeeID, OT2001.CreateUserID) in ('''+@ConditionSOrderID+''')'
+	--IF Isnull(@SOrderType, '') != ''
+	--	SET @sWhere = @sWhere + ' AND ISNULL(OT2001.SOrderType, '''') LIKE N''%'+@SOrderType+'%'' '
 --------------------------------------------
 	IF @IsDate = 0 
 	SET @sWhere2 = @sWhere2 + '  AND CONVERT(VARCHAR(10),OT2001.OrderDate,21) BETWEEN '''+ CONVERT(VARCHAR(10),@FromDate,21)+''' AND '''+CONVERT(VARCHAR(10),@ToDate,21)+''''
@@ -124,6 +131,8 @@ Begin
 		SET @sWhere2 = @sWhere2 + ' AND ISNULL(OT2001.IsConfirm, 0)='+@IsConfirmName
 	IF Isnull(@ConditionSOrderID, '') != ''
 		SET @sWhere2 = @sWhere2 + ' AND ISNULL(OT2001.EmployeeID, OT2001.CreateUserID) in ('''+@ConditionSOrderID+''')'
+	--IF Isnull(@SOrderType, '') != ''
+	--	SET @sWhere2 = @sWhere2 + ' AND ISNULL(OT2001.SOrderType, '''') LIKE N''%'+@SOrderType+'%'' '
 End
 ----------------
 IF isnull(@SearchWhere,'') !=''
@@ -140,7 +149,7 @@ SELECT OT2001.APK, OT2001.DivisionID
 , OT2001.CreateDate, OT2001.CreateUserID, OT2001.LastModifyUserID, OT2001.LastModifyDate, OT2001.TranMonth, OT2001.TranYear, A03.FullName EmployeeID
 , OT2001.SalesManID, OT2001.ShipDate,  OT2001.IsConfirm, AT01.Description as IsConfirmName, OT2001.DescriptionConfirm
 , OT2001.ConfirmDate, OT2001.ConfirmUserID
-, OT2001.IsInvoice, Sum(A.ConvertedAmount) as TotalAmount
+, OT2001.IsInvoice, Sum(A.ConvertedAmount) as TotalAmount, OT2001.SOrderType
 Into #TemOT2001
 FROM OT2001 With (NOLOCK) 
 Inner join OT2002 A  With (NOLOCK) ON A.DivisionID = OT2001.DivisionID and A.SOrderID =OT2001.SOrderID
@@ -152,7 +161,7 @@ Inner join OT2002 A  With (NOLOCK) ON A.DivisionID = OT2001.DivisionID and A.SOr
 	, OT2001.ObjectID, OT2001.ObjectName , OT2001.DeliveryAddress, OT2001.Notes, OT2001.Disabled, OT2001.OrderStatus, AT0099.Description
 	, OT2001.CreateDate, OT2001.CreateUserID, OT2001.LastModifyUserID, OT2001.LastModifyDate, OT2001.TranMonth, OT2001.TranYear, A03.FullName 
 	, OT2001.SalesManID, OT2001.ShipDate,  OT2001.IsConfirm, AT01.Description, OT2001.DescriptionConfirm
-	, OT2001.ConfirmDate, OT2001.ConfirmUserID, OT2001.IsInvoice '
+	, OT2001.ConfirmDate, OT2001.ConfirmUserID, OT2001.IsInvoice, OT2001.SOrderType '
 
 SET @sSQL1 =N'UNION ALL
 
@@ -163,8 +172,8 @@ Select OT2001.APK, OT2001.DivisionID
 , OT2001.CreateDate, OT2001.CreateUserID, OT2001.LastModifyUserID, OT2001.LastModifyDate, OT2001.TranMonth, OT2001.TranYear, A03.FullName EmployeeID
 , OT2001.SalesManID, OT2001.ShipDate,  OT2001.IsConfirm, AT01.Description as IsConfirmName, OT2001.DescriptionConfirm
 , OT2001.ConfirmDate, OT2001.ConfirmUserID
-, OT2001.IsInvoice, Sum(A.ConvertedAmount) as TotalAmount
-FROM CRMT2000 OT2001 With (NOLOCK)
+, OT2001.IsInvoice, Sum(A.ConvertedAmount) as TotalAmount, OT2001.SOrderType
+FROM OT2012 OT2001 With (NOLOCK)
 Inner join CRMT2001 A  With (NOLOCK) ON A.DivisionID = OT2001.DivisionID and A.ContractID = OT2001.ContractID
 			Left join AT0099 With (NOLOCK) on Convert(varchar, OT2001.OrderStatus) = AT0099.ID and AT0099.CodeMaster = ''AT00000003''
 			Left join AT1103 A03 With (NOLOCK) on OT2001.EmployeeID = A03.EmployeeID
@@ -174,7 +183,7 @@ Inner join CRMT2001 A  With (NOLOCK) ON A.DivisionID = OT2001.DivisionID and A.C
 	, OT2001.ObjectID, OT2001.ObjectName , OT2001.DeliveryAddress, OT2001.Notes, OT2001.Disabled, OT2001.OrderStatus, AT0099.Description
 	, OT2001.CreateDate, OT2001.CreateUserID, OT2001.LastModifyUserID, OT2001.LastModifyDate, OT2001.TranMonth, OT2001.TranYear, A03.FullName 
 	, OT2001.SalesManID, OT2001.ShipDate,  OT2001.IsConfirm, AT01.Description, OT2001.DescriptionConfirm
-	, OT2001.ConfirmDate, OT2001.ConfirmUserID, OT2001.IsInvoice
+	, OT2001.ConfirmDate, OT2001.ConfirmUserID, OT2001.IsInvoice, OT2001.SOrderType
 
 	Declare @Count int
 	Select @Count = Count(OrderStatus) From  #TemOT2001
@@ -185,7 +194,7 @@ Inner join CRMT2001 A  With (NOLOCK) ON A.DivisionID = OT2001.DivisionID and A.C
 	, convert(varchar(20), M.OrderDate, 103) as OrderDate, M.ObjectID, M.ObjectName, M.DeliveryAddress, M.Notes, M.Disabled, M.OrderStatus, M.OrderStatusName
 	, M.CreateDate, M.CreateUserID, M.LastModifyUserID, M.LastModifyDate, M.TranMonth, M.TranYear, M.EmployeeID
 	, M.SalesManID, M.ShipDate,  M.IsConfirm, M.IsConfirmName
-	, M.DescriptionConfirm, M.ConfirmUserID, M.ConfirmDate, M.IsInvoice, M.TotalAmount
+	, M.DescriptionConfirm, M.ConfirmUserID, M.ConfirmDate, M.IsInvoice, M.TotalAmount, M.SOrderType
 	From  #TemOT2001 M
 	'+Isnull(@SearchWhere,'')+'
 	ORDER BY '+@OrderBy+'

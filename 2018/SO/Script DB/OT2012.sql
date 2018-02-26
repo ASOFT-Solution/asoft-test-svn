@@ -1,15 +1,15 @@
-﻿---- Create by Đào Tấn Đạt on 2/22/2018 11:52:42 AM
+﻿---- Create by Đào Tấn Đạt on 2/26/2018 1:51:44 PM
 ---- Danh mục Hợp đồng
 
-IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE OBJECT_ID = OBJECT_ID(N'[dbo].[CRMT20001]') AND TYPE IN (N'U'))
+IF NOT EXISTS (SELECT TOP 1 1 FROM sys.objects WHERE OBJECT_ID = OBJECT_ID(N'[dbo].[OT2012]') AND TYPE IN (N'U'))
 BEGIN
-CREATE TABLE [dbo].[CRMT2000]
+CREATE TABLE [dbo].[OT2012]
 (
   [APK] UNIQUEIDENTIFIER DEFAULT newid() NULL,
   [ContractID] NVARCHAR(50) NOT NULL,
   [DivisionID] VARCHAR(50) NOT NULL,
   [ContractNO] NVARCHAR(50) NOT NULL,
-  [DeleteFlag] TINYINT DEFAULT (0) NOT NULL,
+  [DeleteFlag] TINYINT DEFAULT (0) NULL,
   [CreateUserID] VARCHAR(50) NULL,
   [CreateDate] DATETIME NULL,
   [LastModifyUserID] VARCHAR(50) NULL,
@@ -17,10 +17,10 @@ CREATE TABLE [dbo].[CRMT2000]
   [RelatedToTypeID] INT NULL,
   [RelatedToID] INT NULL,
   [VoucherTypeID] NVARCHAR(50) NULL,
-  [OrderDate] DATETIME NOT NULL,
+  [OrderDate] DATETIME NULL,
   [CurrencyID] VARCHAR(50) NULL,
   [ExchangeRate] DECIMAL(28,8) NULL,
-  [OrderStatus] TINYINT DEFAULT (0) NOT NULL,
+  [OrderStatus] TINYINT DEFAULT (0) NULL,
   [ImpactLevel] TINYINT NULL,
   [InventoryTypeID] NVARCHAR(50) NULL,
   [EmployeeID] VARCHAR(50) NULL,
@@ -50,7 +50,7 @@ CREATE TABLE [dbo].[CRMT2000]
   [ConfirmUserID] VARCHAR(50) NULL,
   [IsInvoice] TINYINT DEFAULT (0) NULL,
   [SOrderType] TINYINT DEFAULT (0) NULL
-CONSTRAINT [PK_CRMT2000] PRIMARY KEY CLUSTERED
+CONSTRAINT [PK_OT2012] PRIMARY KEY CLUSTERED
 (
   [ContractID],
   [DivisionID]
