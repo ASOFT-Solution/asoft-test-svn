@@ -1,9 +1,0 @@
-D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\CheckPhatSinh\obj\Debug\ResolveAssemblyReference.cache
-D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\CheckPhatSinh\bin\Debug\CDTDatabase.dll
-D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\CheckPhatSinh\bin\Debug\CDTLib.dll
-D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\CheckPhatSinh\bin\Debug\Plugins.dll
-D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\CheckPhatSinh\bin\Debug\ErrorManager.dll
-D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\CheckPhatSinh\bin\Debug\DMVT_Sg_ICD_CheckPhatSinh.dll
-D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\CheckPhatSinh\bin\Debug\DMVT_Sg_ICD_CheckPhatSinh.pdb
-D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\CheckPhatSinh\obj\Debug\DMVT_Sg_ICD_CheckPhatSinh.dll
-D:\Study\Thuc Tap\Plugin\ACC\302_Plugins\CheckPhatSinh\obj\Debug\DMVT_Sg_ICD_CheckPhatSinh.pdb
