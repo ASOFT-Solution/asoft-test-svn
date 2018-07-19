@@ -1,9 +1,0 @@
-@using ASOFT.ERP.A00.Core.Control
-@using ASOFT.ERP.A00.Core
-@using ASOFT.ERP.ViewModel
-@using Kendo.Mvc.UI
-@model string
-
-@(Html.ASOFTBussinessComboBox().ASOFTDRMDescriptionNew(m=>m,   option: new ComboOption() { 
-                                        EventPostData = "description_SendData"
-                                    }).Events(e=>e.Change("description_Changed")))

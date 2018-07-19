@@ -1,8 +1,0 @@
-@model DateTime?
-@(Html.Kendo().DatePicker().Name("DatePicker")
- .Start(CalendarView.Year)
-.Depth(CalendarView.Year)
-.Format("MMMM yyyy")
-.HtmlAttributes(new { style = "type: text" })
-//.Events(e => { e.Close("ChangePicker"); e.Change("ChangePicker"); })
-)
